@@ -418,8 +418,7 @@
             url: meta_url + encodeURIComponent(file_info.path),
             type: 'GET',
             onerror: function (r) {
-                file_info.errno = 514;
-                myGenerater(file_id + 1);
+                onRequestError(r, file_id);
             },
             onload: function (r) {
                 if (parseInt(r.status / 100) !== 2) {
@@ -443,21 +442,20 @@
                 } else if (r_json.list[0].block_list.length === 1) {
                     file_info.md5 = r_json.list[0].block_list[0].toLowerCase();
                 }
-                get_file_md5(file_id)
+                get_file_dlink(file_id)
             }
         };
         GM_xmlhttpRequest(get_dl_par);
     }
 
-    function get_file_md5(file_id) {
+    function get_file_dlink(file_id) {
         let file_info = file_info_list[file_id];
         let get_dl_par = {
             url: meta_url2 + JSON.stringify([file_info.fs_id]),
             dataType: 'json',
             type: 'GET',
             onerror: function (r) {
-                file_info.errno = 514;
-                myGenerater(file_id + 1);
+                onRequestError(r, file_id);
             },
             onload: function (r) {
                 let r_json = JSON.parse(r.response);
@@ -485,8 +483,7 @@
             responseType: 'arraybuffer',
             onprogress: show_prog,
             onerror: function (r) {
-                file_info.errno = 514;
-                myGenerater(file_id + 1);
+                onRequestError(r, file_id);
             },
             onload: function (r) {
                 parse_download_data(r, file_id);
@@ -816,7 +813,7 @@
             case 114:
                 return '接口调用失败(请重试)';
             case 514:
-                return '接口调用失败(请重试/弹出跨域访问窗口时,请选择"总是允许"或"总是允许全部域名")';
+                return '接口调用失败(弹窗请选择"总是允许"或"允许全部")';
             case 1919:
                 return '文件已被和谐';
             case 810:
@@ -1174,13 +1171,19 @@
         });
     }
 
+    function onRequestError(r, file_id) {
+        let file_info = file_info_list[file_id];
+        file_info.errno = 514;
+        myGenerater(file_id + 1);
+    }
+
     const update_info =
         `<div class="panel-body" style="height: 250px; overflow-y:scroll">
         <div style="border: 1px  #000000; width: 100%; margin: 0 auto;"><span>
 
         <p>若喜欢该脚本可前往 <a href="https://afdian.net/@mengzonefire" rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者</p>
 
-        <p>若出现任何问题请前往<a href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank"> greasyfork页 </a>反馈</p>
+        <p>若出现任何问题请前往<a href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank"> 脚本页 </a>反馈</p>
 
         <p><br></p>
         
