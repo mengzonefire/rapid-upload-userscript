@@ -1,8 +1,8 @@
-import { loader_aliyun } from "./aliyun/loader";
-import { loader_baidu } from "./baidu/loader";
+import { loaderAliyun } from "./aliyun/loader";
+import { loaderBaidu } from "./baidu/loader";
 
-export function load(app_name) {
-    if (!app_name) { return; }
-    else if (app_name === 'baidu') { loader_baidu(); }
-    else if (app_name === 'aliyun') { loader_aliyun(); }
+export function load(appName: string) {
+    if (!appName) { return; }
+    else if (appName === 'baidu') { loaderBaidu(); }
+    else if (appName === 'aliyun') { loaderAliyun(); }
 }
