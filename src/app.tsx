@@ -1,4 +1,4 @@
-import { load } from "./loader";
+import { loader } from "./loader";
 import { domain, baiduMatchList, aliyunMatchList } from "./common/const";
 
 // function check_backlist(loc: string, blacklist: Array<string>) {
@@ -22,4 +22,4 @@ function check_domain(domain: string): string {
   }
 }
 
-load(check_domain(domain));
+loader(check_domain(domain));
