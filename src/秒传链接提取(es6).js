@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name            秒传链接提取
 // @namespace       moe.cangku.mengzonefire
-// @version         1.8.8
+// @version         1.8.9
 // @description     用于提取和生成百度网盘秒传链接
 // @author          mengzonefire
 // @license         MIT
@@ -13,11 +13,12 @@
 // @match           *://pan.baidu.com/disk/main*
 // @match           *://pan.baidu.com/disk/home*
 // @match           *://yun.baidu.com/disk/home*
-// @resource jquery         https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js
 // @resource sweetalert2Css https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
-// @require         https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 // @require         https://cdn.jsdelivr.net/npm/js-base64
+// @require         https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
+// @require         https://cdn.jsdelivr.net/npm/jquery-migrate
 // @require         https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
+// @require         https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 // @grant           GM_setValue
 // @grant           GM_getValue
 // @grant           GM_deleteValue
@@ -33,15 +34,12 @@
   "use strict";
   const rapid_url = "/api/rapidupload";
   const bdstoken_url = "/api/gettemplatevariable";
-  const precreate_url = "/rest/2.0/xpan/file?method=precreate";
   const create_url = "/rest/2.0/xpan/file?method=create";
   const api_url =
     "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
+  const meta_url = "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
   const meta_url2 = "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
-  const meta_url =
-    "http://d.pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=meta&path=";
-  const pcs_url =
-    "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
+  const pcs_url = "/rest/2.0/xpan/file?app_id=778750&method=download";
   const css_url = {
     Minimal:
       "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
@@ -55,133 +53,7 @@
     "Bootstrap 4":
       "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
   };
-  const css_checkbox = `input[type='checkbox'],
-    input[type='radio'] {
-      --active: #275EFE;
-      --active-inner: #fff;
-      --focus: 2px rgba(39, 94, 254, .3);
-      --border: #BBC1E1;
-      --border-hover: #275EFE;
-      --background: #fff;
-      --disabled: #F6F8FF;
-      --disabled-inner: #E1E6F9;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      height: 21px;
-      outline: none;
-      display: inline-block;
-      vertical-align: top;
-      position: relative;
-      margin: 0;
-      cursor: pointer;
-      border: 1px solid var(--bc, var(--border));
-      background: var(--b, var(--background));
-      -webkit-transition: background .3s, border-color .3s, box-shadow .2s;
-      transition: background .3s, border-color .3s, box-shadow .2s;
-    }
-    input[type='checkbox']:after,
-    input[type='radio']:after {
-      content: '';
-      display: block;
-      left: 0;
-      top: 0;
-      position: absolute;
-      -webkit-transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-      transition: opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
-      transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s), -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);
-    }
-    input[type='checkbox']:checked,
-    input[type='radio']:checked {
-      --b: var(--active);
-      --bc: var(--active);
-      --d-o: .3s;
-      --d-t: .6s;
-      --d-t-e: cubic-bezier(.2, .85, .32, 1.2);
-    }
-    input[type='checkbox']:disabled,
-    input[type='radio']:disabled {
-      --b: var(--disabled);
-      cursor: not-allowed;
-      opacity: .9;
-    }
-    input[type='checkbox']:disabled:checked,
-    input[type='radio']:disabled:checked {
-      --b: var(--disabled-inner);
-      --bc: var(--border);
-    }
-    input[type='checkbox']:disabled + label,
-    input[type='radio']:disabled + label {
-      cursor: not-allowed;
-    }
-    input[type='checkbox']:hover:not(:checked):not(:disabled),
-    input[type='radio']:hover:not(:checked):not(:disabled) {
-      --bc: var(--border-hover);
-    }
-    input[type='checkbox']:focus,
-    input[type='radio']:focus {
-      box-shadow: 0 0 0 var(--focus);
-    }
-    input[type='checkbox']:not(.switch),
-    input[type='radio']:not(.switch) {
-      width: 21px;
-    }
-    input[type='checkbox']:not(.switch):after,
-    input[type='radio']:not(.switch):after {
-      opacity: var(--o, 0);
-    }
-    input[type='checkbox']:not(.switch):checked,
-    input[type='radio']:not(.switch):checked {
-      --o: 1;
-    }
-    input[type='checkbox'] + label,
-    input[type='radio'] + label {
-      font-size: 18px;
-      line-height: 21px;
-      display: inline-block;
-      vertical-align: top;
-      cursor: pointer;
-      margin-left: 4px;
-    }
-
-    input[type='checkbox']:not(.switch) {
-      border-radius: 7px;
-    }
-    input[type='checkbox']:not(.switch):after {
-      width: 5px;
-      height: 9px;
-      border: 2px solid var(--active-inner);
-      border-top: 0;
-      border-left: 0;
-      left: 7px;
-      top: 4px;
-      -webkit-transform: rotate(var(--r, 20deg));
-              transform: rotate(var(--r, 20deg));
-    }
-    input[type='checkbox']:not(.switch):checked {
-      --r: 43deg;
-    }
-    input[type='checkbox'].switch {
-      width: 38px;
-      border-radius: 11px;
-    }
-    input[type='checkbox'].switch:after {
-      left: 2px;
-      top: 2px;
-      border-radius: 50%;
-      width: 15px;
-      height: 15px;
-      background: var(--ab, var(--border));
-      -webkit-transform: translateX(var(--x, 0));
-              transform: translateX(var(--x, 0));
-    }
-    input[type='checkbox'].switch:checked {
-      --ab: var(--active-inner);
-      --x: 17px;
-    }
-    input[type='checkbox'].switch:disabled:not(:checked):after {
-      opacity: .6;
-    }`;
+  const css_checkbox = '';
   var check_mode = false,
     new_flag = false,
     file_info_list = [],
@@ -224,7 +96,7 @@
   };
 
   // 判断 Base64库加载是否成功
-  if (!window.Base64) {
+  if (!Base64) {
     alert(
       "秒传链接提取:\n外部资源加载失败, 脚本无法运行, 请检查网络或尝试更换DNS"
     );
@@ -591,6 +463,7 @@
           return;
         }
         let r_json = JSON.parse(r.response);
+        // debug
         console.log(r_json.list[0]);
         if (!file_info.size) {
           file_info.size = r_json.list[0].size;
@@ -602,13 +475,13 @@
         } else if (r_json.list[0].block_list.length === 1) {
           file_info.md5 = r_json.list[0].block_list[0].toLowerCase();
         }
-        get_file_md5(file_id);
+        get_file_dlink(file_id);
       },
     };
     GM_xmlhttpRequest(get_dl_par);
   }
 
-  function get_file_md5(file_id) {
+  function get_file_dlink(file_id) {
     let file_info = file_info_list[file_id];
     let get_dl_par = {
       url: meta_url2 + JSON.stringify([file_info.fs_id]),
@@ -620,6 +493,8 @@
       },
       onload: function (r) {
         let r_json = JSON.parse(r.response);
+        // debug
+        console.log(r_json.list[0]);
         if (r_json.errno) {
           file_info.errno = r_json.errno;
           myGenerater(file_id + 1);
@@ -661,6 +536,8 @@
     gen_prog.textContent = "100%";
     if (r.finalUrl.indexOf("issuecdn.baidupcs.com") !== -1) {
       file_info.errno = 1919;
+      myGenerater(file_id + 1);
+      return;
     } else if (parseInt(r.status / 100) === 2) {
       let responseHeaders = r.responseHeaders;
       console.log(responseHeaders);
@@ -1047,6 +924,10 @@
       title: "请输入秒传",
       input: "textarea",
       inputValue: str,
+      // add: 添加参数以防止新版界面下的body样式突变
+      heightAuto: false,
+      scrollbarPadding: false,
+      // add end
       showCancelButton: true,
       inputPlaceholder:
         "[支持PD/标准码/游侠/GO][支持批量(换行分隔)]\n[输入set进入设置页][输入gen进入生成页]",
@@ -1176,15 +1057,14 @@
     Swal.getHtmlContainer().appendChild(content);
   }
 
-  function saveFile_v2_create(i) {
+  function saveFile_v2(i) {
     let file_info = codeInfo[i];
     $.ajax({
-      url: create_url,
+      url: create_url+`&bdstoken=${bdstoken}`,
       type: "POST",
       dataType: "json",
       data: {
         block_list: JSON.stringify([file_info.md5]),
-        uploadid: file_info.uploadid,
         path: dir + file_info.path,
         size: file_info.size,
         isdir: 0,
@@ -1201,41 +1081,6 @@
         if (file_info.errno === 2) {
           file_info.errno = 404;
         }
-        saveFile(i + 1, 0);
-      });
-  }
-
-  function saveFile_v2(i) {
-    let file_info = codeInfo[i];
-    $.ajax({
-      url: precreate_url,
-      type: "POST",
-      dataType: "json",
-      data: {
-        block_list: JSON.stringify([file_info.md5]),
-        path: dir + file_info.path,
-        size: file_info.size,
-        isdir: 0,
-        autoinit: 1,
-      },
-    })
-      .success(function (r) {
-        if (!r.errno) {
-          // 若返回的block_list非空则表示不识别该md5(#404)
-          if (r.block_list.length) {
-            file_info.errno = 404;
-          } else if (r.uploadid) {
-            file_info.uploadid = r.uploadid;
-            saveFile_v2_create(i);
-            return;
-          }
-        } else {
-          file_info.errno = r.errno;
-        }
-        saveFile(i + 1, 0);
-      })
-      .fail(function (r) {
-        file_info.errno = 114;
         saveFile(i + 1, 0);
       });
   }
