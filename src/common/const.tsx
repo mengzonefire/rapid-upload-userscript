@@ -7,8 +7,6 @@ export const baiduNewPage = 'pan.baidu.com/disk/main#/';
 // 屏蔽wap移动版界面
 export const baiduWapPage = "pan.baidu.com/wap/";
 export const TAG = "[秒传链接提取 By mengzonefire]";
-// sweetAlert的主题(css), 默认为Minimal
-export const swalThemes = GM_getValue('swalThemes') || "Minimal";
 // 各主题包对应的url
 export const extCssUrl = {
   Minimal:

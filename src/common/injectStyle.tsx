@@ -1,7 +1,9 @@
-import { extCssUrl, swalThemes, dependAlert, csdAlert } from "./const";
+import { extCssUrl, dependAlert, csdAlert } from "./const";
 
 export function injectStyle() {
-  let Minimal = GM_getResourceText("swalCss");
+  // sweetAlert的主题(css), 默认为Minimal
+  let swalThemes:string = GM_getValue('swalThemes') || "Minimal";
+  let Minimal:string = GM_getResourceText("swalCss");
   if (swalThemes === "Minimal") {
     if (Minimal) {
       GM_addStyle(Minimal);
@@ -12,7 +14,7 @@ export function injectStyle() {
     return;
   }
   // 获取非默认主题包的CSS
-  let ThemesCss = GM_getValue(`1.7.4${swalThemes}`);
+  let ThemesCss:string = GM_getValue(`1.7.4${swalThemes}`);
   if (ThemesCss) {
     GM_addStyle(ThemesCss);
   } else {
@@ -23,7 +25,7 @@ export function injectStyle() {
 }
 
 function getThemesCss(swalThemes: string) {
-  $.get(
+  $.get({
     url: extCssUrl[swalThemes],
     dataType: "text",
     success: (data: string, textStatus: string) => {
@@ -38,5 +40,6 @@ function getThemesCss(swalThemes: string) {
         }else {
             alert(csdAlert);
         }  
-    });
+    }});
 }
+
