@@ -13,7 +13,7 @@
     "module": "esnext",
     "target": "es5", // 转化成的目标语言
     "baseUrl": "./",
-    "types": ["node"],
+    "types": ["node", "tampermonkey", "jquery"],
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "es2015"],
     "jsx": "react",

@@ -13,7 +13,7 @@ export function injectStyle() {
     }
     return;
   }
-  // 获取非默认主题包的CSS
+  // 获取非默认主题包的CSSet
   let ThemesCss:string = GM_getValue(`1.7.4${swalThemes}`);
   if (ThemesCss) {
     GM_addStyle(ThemesCss);

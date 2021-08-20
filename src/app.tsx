@@ -21,6 +21,9 @@ import { injectStyle } from "./common/injectStyle";
 
 // 检查外部依赖
 function checkDepend(): boolean {
+  let Base64 = require("js-base64");
+  let SparkMD5 = require("spark-md5");
+  let Swal = require("sweetalert2");
   if (Base64 && $ && SparkMD5 && Swal) {
     return true;
   }
@@ -38,6 +41,7 @@ function checkDomain(domain: string): string {
 }
 
 if (checkDepend()) {
+  console.log('秒传连接提取: 外部依赖加载成功')
   injectStyle();
   loader(checkDomain(domain));
 } else {
