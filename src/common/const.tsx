@@ -2,12 +2,8 @@ export const domain: string = document.domain;
 export const locUrl: string = location.href;
 export const aliyunMatchList: Array<string> = ["www.aliyundrive.com"];
 export const baiduMatchList: Array<string> = ["pan.baidu.com", "yun.baidu.com"];
-// 新版度盘界面
-export const baiduNewPage = 'pan.baidu.com/disk/main#/';
-// 屏蔽wap移动版界面
-export const baiduWapPage = "pan.baidu.com/wap/";
-export const TAG = "[秒传链接提取 By mengzonefire]";
-// 各主题包对应的url
+export const baiduNewPage = "pan.baidu.com/disk/main#/"; // 新版度盘界面
+export const TAG = "[秒传链接提取 by mengzonefire]";
 export const extCssUrl = {
   Minimal:
     "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
@@ -20,10 +16,10 @@ export const extCssUrl = {
     "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5/bulma.min.css",
   "Bootstrap 4":
     "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
-};
+}; // 各主题包对应的url
 
-export const dependAlert = "秒传链接提取:\n外部依赖加载失败, 脚本无法运行, 请检查网络或更换DNS";
-export const csdAlert = "秒传链接提取:\n外部依赖加载失败, 弹出跨域访问窗口请选择允许";
+export const dependAlert = `${TAG}:\n外部依赖加载失败, 脚本无法运行, 请检查网络或更换DNS`;
+export const csdAlert = `${TAG}:\n外部依赖加载失败, 弹出跨域访问窗口请选择允许`;
 
 export const styleText = `style='width: 100%;height: 34px;display: block;line-height: 34px;text-align: center;'`;
 export const styleLink = `style='color: #09AAFF;'`;

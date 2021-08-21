@@ -1,5 +1,6 @@
-import "./app.css";
-import { loader } from "./loader";
+import "./app.css"; // 加载自定义样式
+import { loaderAliyun } from "./aliyun/loader";
+import { loaderBaidu } from "./baidu/loader";
 import {
   domain,
   baiduMatchList,
@@ -8,42 +9,56 @@ import {
 } from "./common/const";
 import { injectStyle } from "./common/injectStyle";
 
-// function check_backlist(loc: string, blacklist: Array<string>) {
-//     for (let match_str of blacklist) {
-//         if (loc.match(new RegExp(match_str))) {
-//             // in black list
-//             return true;
-//         }
-//         // not in black list
-//         return false;
-//     }
-// }
-
-// 检查外部依赖
+/**
+ * @description: 检查外部依赖
+ * @return {boolean} t:依赖完整加载, f:缺少某些依赖
+ */
 function checkDepend(): boolean {
   let Base64 = require("js-base64");
   let SparkMD5 = require("spark-md5");
   let Swal = require("sweetalert2");
-  if (Base64 && $ && SparkMD5 && Swal) {
-    return true;
-  }
-  return false;
+  return Base64 && $ && SparkMD5 && Swal;
 }
 
+/**
+ * @description: 根据域名返回对应的模块名
+ * @param {string} domain 当前访问的域名
+ * @return {string} 模块名
+ */
 function checkDomain(domain: string): string {
+  let moduleName = "";
   if (baiduMatchList.includes(domain)) {
-    return "baidu";
+    moduleName = "baidu";
   } else if (aliyunMatchList.includes(domain)) {
-    return "aliyun";
+    moduleName = "aliyun";
+  }
+  return moduleName;
+}
+
+/**
+ * @description: 加载阿里/百度对应的Loader模块
+ * @param {string} moduleName
+ */
+function loader(moduleName: string): void {
+  let myLoader = (): void => {};
+  if (moduleName === "baidu") {
+    myLoader = loaderBaidu;
+  } else if (moduleName === "aliyun") {
+    myLoader = loaderAliyun;
+  }
+  window.addEventListener("DOMContentLoaded", myLoader);
+}
+
+/**
+ * @description: 主函数入口
+ */
+function app(): void {
+  if (checkDepend()) {
+    injectStyle();
+    loader(checkDomain(domain));
   } else {
-    return "";
+    alert(dependAlert); // 依赖加载不成功, 弹窗提示
   }
 }
 
-if (checkDepend()) {
-  console.log('秒传连接提取: 外部依赖加载成功')
-  injectStyle();
-  loader(checkDomain(domain));
-} else {
-  alert(dependAlert);
-}
+app();

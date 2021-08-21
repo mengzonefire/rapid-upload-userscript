@@ -95,13 +95,13 @@ module.exports = {
         parallel: true,
         extractComments: false,
         terserOptions: {
-          // 以下四项为禁用代码压缩 + 不压缩变量名
+          // 以下四项为禁用代码压缩 + 不压缩标识符
           mangle: false,
           compress: false,
           keep_fnames: true,
           keep_classnames: true,
           format: {
-            // 输出格式化
+            // 输出格式化, 防止在greasyfork上被举报为最小化代码
             beautify: true,
             // 删除注释
             comments: false,
