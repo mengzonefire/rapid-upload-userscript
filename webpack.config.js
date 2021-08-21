@@ -1,6 +1,7 @@
-const path = require("path");
 const WebpackUserscript = require("webpack-userscript");
+const TerserPlugin = require("terser-webpack-plugin");
 const dev = process.env.NODE_ENV === "development";
+const path = require("path");
 
 module.exports = {
   mode: dev ? "development" : "production",
@@ -88,6 +89,25 @@ module.exports = {
     }),
   ],
   optimization: {
-    minimize: false,
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        extractComments: false,
+        terserOptions: {
+          // 以下四项为禁用代码压缩 + 不压缩变量名
+          mangle: false,
+          compress: false,
+          keep_fnames: true,
+          keep_classnames: true,
+          format: {
+            // 输出格式化
+            beautify: true,
+            // 删除注释
+            comments: false,
+          },
+        },
+      }),
+    ],
   },
 };
