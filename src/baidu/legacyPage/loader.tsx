@@ -1,4 +1,4 @@
-import { TAG } from "../../common/const";
+import { TAG } from "src/common/const";
 
 let oRequire: any;
 

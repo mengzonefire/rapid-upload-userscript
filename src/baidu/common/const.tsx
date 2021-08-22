@@ -1,4 +1,4 @@
-import { styleText, styleBtn } from "../../common/const";
+import { styleText, styleBtn } from "src/common/const";
 
 export const csd_html = '<p>弹出跨域访问窗口时,请选择"<span style="color: red;">总是允许</span>"或"<span style="color: red;">总是允许全部</span>"</p><img style="max-width: 100%; height: auto" src="https://pic.rmb.bdstatic.com/bjh/763ff5014cca49237cb3ede92b5b7ac5.png">';
 export const html_btn_rapid = `<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;"">
