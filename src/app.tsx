@@ -1,13 +1,14 @@
 import "./app.css"; // 加载自定义样式
 import { loaderAliyun } from "./aliyun/loader";
 import { loaderBaidu } from "./baidu/loader";
+import { injectStyle } from "./common/injectStyle";
+import { showAlert } from "./common/utils";
 import {
   domain,
   baiduMatchList,
   aliyunMatchList,
-  dependAlert,
+  appError,
 } from "./common/const";
-import { injectStyle } from "./common/injectStyle";
 
 /**
  * @description: 检查外部依赖
@@ -57,7 +58,7 @@ function app(): void {
     injectStyle();
     loader(checkDomain(domain));
   } else {
-    alert(dependAlert); // 依赖加载不成功, 弹窗提示
+    showAlert(appError.missDepend); // 依赖加载不成功, 弹窗提示
   }
 }
 

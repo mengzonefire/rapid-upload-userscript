@@ -18,8 +18,11 @@ export const extCssUrl = {
     "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 
-export const dependAlert = `${TAG}:\n外部依赖加载失败, 脚本无法运行, 请检查网络或更换DNS`;
-export const csdAlert = `${TAG}:\n外部依赖加载失败, 弹出跨域访问窗口请选择允许`;
+export const enum appError {
+  missDepend = "外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS",
+  errorSwalCss = "样式包加载错误, 请前往脚本页反馈",
+  missSwalCss = "样式包加载失败, 弹出跨域访问窗口请选择允许",
+}
 
 export const styleText = `style='width: 100%;height: 34px;display: block;line-height: 34px;text-align: center;'`;
 export const styleLink = `style='color: #09AAFF;'`;

@@ -1,4 +1,5 @@
-import { extCssUrl, dependAlert, csdAlert } from "./const";
+import { showAlert } from "./utils";
+import { extCssUrl, appError } from "./const";
 
 /**
  * @description: 注入Swal样式
@@ -24,24 +25,25 @@ export function injectStyle(): void {
 }
 
 /**
- * @description: 下载并注入对应主题的css样式代码
- * @param {string} swalThemes 主题名
+ * @description: 下载并注入对应主题的css样式代码, 会将css代码缓存本地
+ * @param {string} swalThemes 主题包名
  */
 function getThemesCss(swalThemes: string): void {
+  let ThemesCssKey = `1.7.4${swalThemes}`;
   $.get({
     url: extCssUrl[swalThemes],
     dataType: "text",
-    success: (data: string, textStatus: string) => {
-      if (textStatus == "success") {
+    success: (data: string, statusTxt: string, xhr: JQuery.jqXHR) => {
+      if (statusTxt == "success") {
         let ThemesCss = data;
         if (ThemesCss.length < 100) {
-          alert(dependAlert);
-        } else {
-          GM_setValue(`1.7.4${swalThemes}`, ThemesCss);
-          GM_addStyle(ThemesCss);
+          showAlert(appError.errorSwalCss); // 返回data数据长度过小, 判定为无效代码
+          return;
         }
-      } else {
-        alert(csdAlert);
+        GM_setValue(ThemesCssKey, ThemesCss); // 缓存css代码
+        GM_addStyle(ThemesCss); // 注入css
+      } else if (statusTxt == "error") {
+        showAlert(appError.missSwalCss);
       }
     },
   });
