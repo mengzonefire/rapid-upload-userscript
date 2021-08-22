@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mengzonefire/du_rapid_upload.git"
+    "url": "git+https://github.com/mengzonefire/rapid-upload-userscript.git"
   },
   "author": "mengzonefire",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mengzonefire/du_rapid_upload/issues"
+    "url": "https://github.com/mengzonefire/rapid-upload-userscript/issues"
   },
-  "homepage": "https://github.com/mengzonefire/du_rapid_upload#readme",
+  "homepage": "https://github.com/mengzonefire/rapid-upload-userscript#readme",
   "dependencies": {
     "@types/jquery": "^3.5.6",
     "@types/tampermonkey": "^4.0.2",
