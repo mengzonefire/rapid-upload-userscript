@@ -12,8 +12,9 @@
     "moduleResolution": "node",
     "module": "esnext",
     "target": "es5", // 转化成的目标语言 设为es5以支持更多浏览器
-    "baseUrl": "./",
-    "types": ["tampermonkey", "jquery"], // 引入的全局类型声明
+    "baseUrl": ".",
+    "paths": { "@/*": ["src/*"] },
+    "types": ["node", "tampermonkey", "jquery"], // 引入的全局类型声明
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "es2015"],
     "jsx": "react",

@@ -6,4 +6,8 @@ declare global {
     manifest: any;
     require: any;
   }
+  interface IfakeRequire {
+    (module: string): any;
+    async: any;
+  }
 }

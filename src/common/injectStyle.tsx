@@ -33,7 +33,7 @@ function getThemesCss(swalThemes: string): void {
   $.get({
     url: extCssUrl[swalThemes],
     dataType: "text",
-    success: (data: string, statusTxt: string, xhr: JQuery.jqXHR) => {
+    success: (data: string, statusTxt: string, _xhr: JQuery.jqXHR) => {
       if (statusTxt == "success") {
         let ThemesCss = data;
         if (ThemesCss.length < 100) {

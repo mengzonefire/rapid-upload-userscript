@@ -3,12 +3,15 @@
 // @version 2.0.0
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
-// @homepage https://github.com/mengzonefire/du_rapid_upload#readme
-// @supportURL https://github.com/mengzonefire/du_rapid_upload/issues
+// @homepage https://greasyfork.org/zh-CN/scripts/424574
+// @supportURL https://github.com/mengzonefire/rapid-upload-userscript/issues
 // @match *://pan.baidu.com/disk/home*
 // @match *://pan.baidu.com/disk/main*
 // @match *://yun.baidu.com/disk/home*
-// @license [license]
+// @name:en rapidupload-userscript
+// @license MIT
+// @namespace moe.cangku.mengzonefire
+// @homepageURL https://greasyfork.org/zh-CN/scripts/424574
 // @contributionURL https://afdian.net/@mengzonefire
 // @compatible firefox Violentmonkey
 // @compatible firefox Tampermonkey

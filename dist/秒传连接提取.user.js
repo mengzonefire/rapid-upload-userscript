@@ -3,12 +3,15 @@
 // @version 2.0.0
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
-// @homepage https://github.com/mengzonefire/du_rapid_upload#readme
-// @supportURL https://github.com/mengzonefire/du_rapid_upload/issues
+// @homepage https://greasyfork.org/zh-CN/scripts/424574
+// @supportURL https://github.com/mengzonefire/rapid-upload-userscript/issues
 // @match *://pan.baidu.com/disk/home*
 // @match *://pan.baidu.com/disk/main*
 // @match *://yun.baidu.com/disk/home*
-// @license [license]
+// @name:en rapidupload-userscript
+// @license MIT
+// @namespace moe.cangku.mengzonefire
+// @homepageURL https://greasyfork.org/zh-CN/scripts/424574
 // @contributionURL https://afdian.net/@mengzonefire
 // @compatible firefox Violentmonkey
 // @compatible firefox Tampermonkey
@@ -38,7 +41,7 @@
             var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()((function(i) {
                 return i[1];
             }));
-            ___CSS_LOADER_EXPORT___.push([ module.id, '/*"不再显示"的样式*/\r\n.mzf_btn {\r\n  font-feature-settings: "lnum";\r\n  -webkit-font-smoothing: antialiased;\r\n  font-family: inherit;\r\n  font-weight: 400;\r\n  word-break: break-word;\r\n  -webkit-tap-highlight-color: transparent;\r\n  line-height: 34px;\r\n  text-align: center;\r\n  text-decoration: none;\r\n  outline: 0;\r\n  font-size: 15px;\r\n  color: #09aaff;\r\n  border: 2px solid #c3eaff;\r\n  border-radius: 4px;\r\n  padding: 10px;\r\n  margin: 0 5px;\r\n  padding-top: 5px;\r\n  padding-bottom: 5px;\r\n  cursor: pointer;\r\n}\r\n\r\n/*"查看支持格式"的样式*/\r\n.mzf_link {\r\n  font-feature-settings: "lnum";\r\n  -webkit-font-smoothing: antialiased;\r\n  line-height: 1.5;\r\n  font-family: inherit;\r\n  font-size: 1em;\r\n  font-weight: 300;\r\n  -webkit-tap-highlight-color: transparent;\r\n  color: #09aaff;\r\n  text-decoration: none;\r\n  outline: 0;\r\n}\r\n\r\n/*"赞助页" "脚本页"的样式*/\r\n.mzf_link2 {\r\n  font-feature-settings: "lnum";\r\n  -webkit-font-smoothing: antialiased;\r\n  font-family: inherit;\r\n  font-size: 1.125em;\r\n  font-weight: 400;\r\n  word-break: break-word;\r\n  -webkit-tap-highlight-color: transparent;\r\n  line-height: 34px;\r\n  text-align: center;\r\n  text-decoration: none;\r\n  outline: 0;\r\n  color: #09aaff;\r\n}\r\n\r\n/*若喜欢该脚本...的样式*/\r\n.mzf_text {\r\n  font-feature-settings: "lnum";\r\n  -webkit-font-smoothing: antialiased;\r\n  font-family: inherit;\r\n  color: #545454;\r\n  font-size: 1.125em;\r\n  font-weight: 400;\r\n  word-break: break-word;\r\n  -webkit-tap-highlight-color: transparent;\r\n  margin: 0;\r\n  padding: 0;\r\n  width: 100%;\r\n  height: 34px;\r\n  display: block;\r\n  line-height: 34px;\r\n  text-align: center;\r\n}\r\n', "" ]);
+            ___CSS_LOADER_EXPORT___.push([ module.id, "/*按钮样式*/\r\n.mzf_btn {\r\n  text-align: center;\r\n  font-size: 0.85em;\r\n  color: #09aaff;\r\n  border: 2px solid #c3eaff;\r\n  border-radius: 4px;\r\n  margin: 0 5px;\r\n  padding: 10px;\r\n  padding-top: 5px;\r\n  padding-bottom: 5px;\r\n}\r\n\r\n/*超链接样式*/\r\n.mzf_link {\r\n  font-family: inherit;\r\n  color: #09aaff;\r\n  text-decoration: none;\r\n}\r\n\r\n/*文本样式*/\r\n.mzf_text {\r\n  color: #545454;\r\n  font-size: 1.125em;\r\n  font-weight: 400;\r\n  word-break: break-word;\r\n  margin: 0;\r\n  padding: 0;\r\n  height: 34px;\r\n  display: block;\r\n  line-height: 34px;\r\n  text-align: center;\r\n}\r\n", "" ]);
             var __WEBPACK_DEFAULT_EXPORT__ = null && ___CSS_LOADER_EXPORT___;
         },
         645: module => {
@@ -135,23 +138,12 @@
     (() => {
         var app = __webpack_require__(780);
         function loaderAliyun() {}
-        function loaderBaidu() {}
-        function loader(appName) {
-            var myLoader = null;
-            if (appName === "baidu") {
-                myLoader = loaderBaidu;
-            } else if (appName === "aliyun") {
-                myLoader = loaderAliyun;
-            }
-            window.addEventListener("DOMContentLoaded", myLoader);
-        }
         var domain = document.domain;
         var locUrl = location.href;
         var aliyunMatchList = [ "www.aliyundrive.com" ];
         var baiduMatchList = [ "pan.baidu.com", "yun.baidu.com" ];
         var baiduNewPage = "pan.baidu.com/disk/main#/";
-        var baiduWapPage = "pan.baidu.com/wap/";
-        var TAG = "[秒传链接提取 By mengzonefire]";
+        var TAG = "[秒传链接提取 by mengzonefire]";
         var extCssUrl = {
             Minimal: "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
             Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
@@ -160,13 +152,113 @@
             Bulma: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5/bulma.min.css",
             "Bootstrap 4": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css"
         };
-        var dependAlert = "秒传链接提取:\n外部依赖加载失败, 脚本无法运行, 请检查网络或更换DNS";
-        var csdAlert = "秒传链接提取:\n外部依赖加载失败, 弹出跨域访问窗口请选择允许";
-        var styleText = "style='width: 100%;height: 34px;display: block;line-height: 34px;text-align: center;'";
-        var styleLink = "style='color: #09AAFF;'";
-        var styleBtn = "style='font-size: 15px;color: #09AAFF;border: 2px solid #C3EAFF;border-radius: 4px;padding: 10px;margin: 0 5px;padding-top: 5px;padding-bottom: 5px; cursor: pointer'";
-        var htmlDonate = '<p id="bdcode_donate" ' + styleText + ">若喜欢该脚本, 可前往 <a " + styleLink + ' href="https://afdian.net/@mengzonefire" rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者<a id="kill_donate" ' + styleBtn + '><span style="width: auto;">不再显示</span></a></p>';
-        var htmlFeedback = '<p id="bdcode_feedback" ' + styleText + ">若有任何疑问, 可前往 <a " + styleLink + ' href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank">脚本页</a> 反馈<a id="kill_feedback" ' + styleBtn + '><span class="text" style="width: auto;">不再显示</span></a></p>';
+        var htmlDonate = '<p id="bdcode_donate" class="mzf_text">若喜欢该脚本, 可前往 <a class="mzf_link" href="https://afdian.net/@mengzonefire" rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>';
+        var htmlFeedback = '<p id="bdcode_feedback" class="mzf_text">若有任何疑问, 可前往 <a class="mzf_link" href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank">脚本页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>';
+        function injectMenuLegacy() {}
+        function registerPlugin() {
+            window.define("function-widget:mengzonefire/rapidupload-userscript.js", (function(_require, _exports) {}));
+            window.manifest.push({
+                name: "秒传链接提取",
+                group: "moe.cangku.mengzonefire",
+                version: "1.0",
+                type: "1",
+                description: "用于转存百度网盘秒传链接",
+                buttons: [ {
+                    conditions: {
+                        pageModule: "list"
+                    },
+                    index: 5,
+                    disabled: "none",
+                    enable: true,
+                    color: "blue blue-upload",
+                    icon: "icon-disk",
+                    title: "秒传链接",
+                    name: "rapidupload"
+                }, {
+                    conditions: {
+                        excludeDirType: "sourceHolder,cardHolder,shareHolder"
+                    },
+                    index: 1,
+                    title: "生成秒传",
+                    icon: "icon-share",
+                    name: "generateBdlink"
+                } ],
+                contextMenu: [ {
+                    conditions: {
+                        excludeDirType: "sourceHolder,cardHolder,shareHolder",
+                        pageModule: "list,share,search,category,searchGlobal"
+                    },
+                    index: 7,
+                    title: "生成秒传",
+                    keyboard: "G",
+                    disabled: "disable",
+                    name: "generateBdlink"
+                } ],
+                preload: false,
+                entranceFile: "function-widget:mengzonefire/rapidupload-userscript.js",
+                pluginId: "moe.cangku.mengzonefire"
+            });
+        }
+        function initQueryLink() {}
+        var oRequire;
+        var hooks = new Map;
+        function fakeRequire(module) {
+            var result = oRequire.apply(this, arguments);
+            var moduleHook = hooks.get(module);
+            if (moduleHook) {
+                try {
+                    moduleHook();
+                } catch (e) {
+                    console.error(TAG + ": 执行 " + module + " hook 时发生错误: " + e.message);
+                    console.trace(e);
+                }
+                hooks.delete(module);
+            }
+            return result;
+        }
+        fakeRequire.async = null;
+        function load(module) {
+            return oRequire.call(window, module);
+        }
+        function loadAsync(module) {
+            return new Promise((function(resolve) {
+                fakeRequire.async(module, resolve);
+            }));
+        }
+        function hook(module, fn) {
+            hooks.set(module, fn);
+        }
+        function install() {
+            console.log(window);
+            if (window.require) {
+                console.warn("%s 覆盖方式安装，若无效请强制刷新。", TAG);
+                oRequire = window.require;
+                window.require = fakeRequire;
+                Object.assign(fakeRequire, oRequire);
+            } else {
+                console.info("%s 钩子方式安装，若失效请报告。", TAG);
+                Object.defineProperty(window, "require", {
+                    set: function(require) {
+                        oRequire = require;
+                    },
+                    get: function() {
+                        return fakeRequire;
+                    }
+                });
+            }
+        }
+        function loaderBaidu() {
+            if (locUrl.indexOf(baiduNewPage) !== -1) {} else {
+                install();
+                hook("disk-system:widget/system/uiRender/menu/listMenu.js", injectMenuLegacy);
+                hook("system-core:pluginHub/register/register.js", registerPlugin);
+                hook("system-core:system/uiService/list/list.js", initQueryLink);
+            }
+        }
+        function showAlert(text) {
+            alert(TAG + ":\n" + text);
+        }
+        function showSwal() {}
         function injectStyle() {
             var swalThemes = GM_getValue("swalThemes") || "Minimal";
             var Minimal = GM_getResourceText("swalCss");
@@ -187,20 +279,21 @@
             return;
         }
         function getThemesCss(swalThemes) {
+            var ThemesCssKey = "1.7.4" + swalThemes;
             $.get({
                 url: extCssUrl[swalThemes],
                 dataType: "text",
-                success: function(data, textStatus) {
-                    if (textStatus == "success") {
+                success: function(data, statusTxt, _xhr) {
+                    if (statusTxt == "success") {
                         var ThemesCss = data;
                         if (ThemesCss.length < 100) {
-                            alert(dependAlert);
-                        } else {
-                            GM_setValue("1.7.4" + swalThemes, ThemesCss);
-                            GM_addStyle(ThemesCss);
+                            showAlert("样式包加载错误, 请前往脚本页反馈");
+                            return;
                         }
-                    } else {
-                        alert(csdAlert);
+                        GM_setValue(ThemesCssKey, ThemesCss);
+                        GM_addStyle(ThemesCss);
+                    } else if (statusTxt == "error") {
+                        showAlert("样式包加载失败, 弹出跨域访问窗口请选择允许");
                     }
                 }
             });
@@ -209,26 +302,34 @@
             var Base64 = __webpack_require__(158);
             var SparkMD5 = __webpack_require__(938);
             var Swal = __webpack_require__(262);
-            if (Base64 && $ && SparkMD5 && Swal) {
-                return true;
-            }
-            return false;
+            return Base64 && $ && SparkMD5 && Swal;
         }
         function checkDomain(domain) {
+            var moduleName = "";
             if (baiduMatchList.includes(domain)) {
-                return "baidu";
+                moduleName = "baidu";
             } else if (aliyunMatchList.includes(domain)) {
-                return "aliyun";
+                moduleName = "aliyun";
+            }
+            return moduleName;
+        }
+        function loader(moduleName) {
+            var myLoader = function() {};
+            if (moduleName === "baidu") {
+                myLoader = loaderBaidu;
+            } else if (moduleName === "aliyun") {
+                myLoader = loaderAliyun;
+            }
+            myLoader();
+        }
+        function app_app() {
+            if (checkDepend()) {
+                injectStyle();
+                loader(checkDomain(domain));
             } else {
-                return "";
+                showAlert("外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS");
             }
         }
-        if (checkDepend()) {
-            console.log("秒传连接提取: 外部依赖加载成功");
-            injectStyle();
-            loader(checkDomain(domain));
-        } else {
-            alert(dependAlert);
-        }
+        app_app();
     })();
 })();

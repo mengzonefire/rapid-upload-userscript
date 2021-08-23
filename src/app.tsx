@@ -47,7 +47,7 @@ function loader(moduleName: string): void {
   } else if (moduleName === "aliyun") {
     myLoader = loaderAliyun;
   }
-  window.addEventListener("DOMContentLoaded", myLoader);
+  myLoader();
 }
 
 /**

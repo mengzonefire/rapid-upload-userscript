@@ -3,7 +3,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  mode: dev ? "development" : "production",
+  mode: "production",
   entry: path.resolve(__dirname, "src", "app.tsx"),
   externals: {
     sweetalert2: "Swal",
@@ -12,6 +12,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".json"],
+    alias: {
+      "@": path.resolve(__dirname, "src/"),
+    },
   },
   output: {
     filename: "秒传连接提取.user.js",
@@ -46,14 +49,19 @@ module.exports = {
     contentBase: path.join(__dirname, "dist"),
   },
   plugins: [
+    // 生成 userscript header信息
     new WebpackUserscript({
       headers: {
         name: "秒传链接提取",
+        "name:en": `[name]`,
         version: `[version]`,
         author: `[author]`,
-        license: `[license]`,
+        license: "MIT",
+        namespace: "moe.cangku.mengzonefire",
+        supportURL: `https://github.com/mengzonefire/rapid-upload-userscript/issues`,
+        homepageURL: `[homepage]`,
         contributionURL: "https://afdian.net/@mengzonefire",
-        description: "用于提取和生成百度网盘秒传链接",
+        description: `[description]`,
         compatible: [
           "firefox Violentmonkey",
           "firefox Tampermonkey",
