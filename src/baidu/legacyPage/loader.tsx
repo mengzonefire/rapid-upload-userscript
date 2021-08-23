@@ -4,7 +4,12 @@ let oRequire: any;
 
 const hooks = new Map();
 
-function fakeRequire(module: string) {
+interface IfakeRequire {
+  (module: string): any;
+  async: any;
+}
+
+const fakeRequire: IfakeRequire = function (module: string) {
   const result = oRequire.apply(this, arguments);
   const moduleHook = hooks.get(module);
   if (moduleHook) {
@@ -17,22 +22,36 @@ function fakeRequire(module: string) {
     hooks.delete(module);
   }
   return result;
-}
+};
+fakeRequire.async = null;
 
 export function load(module: any) {
   return oRequire.call(window, module);
 }
 
-export function hook(module: any, fn: any) {
+export function loadAsync(module: any) {
+  return new Promise((resolve) => {
+    fakeRequire.async(module, resolve);
+  });
+}
+
+export function hook(module: string, fn: { (): void; (): void; (): void }) {
   hooks.set(module, fn);
 }
 
-console.info("%s 钩子方式安装，若失效请前往脚本页反馈", TAG);
-Object.defineProperty(window, "require", {
-  set(require) {
-    oRequire = require;
-  },
-  get() {
-    return fakeRequire;
-  },
-});
+if (window.require) {
+  console.warn("%s 覆盖方式安装，若无效请强制刷新。", TAG);
+  oRequire = window.require;
+  window.require = fakeRequire;
+  Object.assign(fakeRequire, oRequire);
+} else {
+  console.info("%s 钩子方式安装，若失效请报告。", TAG);
+  Object.defineProperty(window, "require", {
+    set(require) {
+      oRequire = require;
+    },
+    get() {
+      return fakeRequire;
+    },
+  });
+}

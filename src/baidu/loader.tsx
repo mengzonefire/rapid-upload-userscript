@@ -1,7 +1,9 @@
 import { locUrl, baiduNewPage } from "src/common/const";
 import injectMenuLegacy from "./legacyPage/injectMenu";
+import registerPlugin from './legacyPage/registerPlugin';
 import initQueryLink from "src/common/initQueryLink";
 import { hook } from "./legacyPage/loader";
+
 export function loaderBaidu(): void {
   if (locUrl.indexOf(baiduNewPage) !== -1) {
   } // 新版界面
