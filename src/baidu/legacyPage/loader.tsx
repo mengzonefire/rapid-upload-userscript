@@ -21,7 +21,7 @@ function fakeRequire(module: string) {
 fakeRequire.async = null;
 
 export function load(module: any) {
-  return oRequire.call(window, module);
+  return oRequire.call(unsafeWindow, module);
 }
 
 export function loadAsync(module: any) {
@@ -35,15 +35,16 @@ export function hook(module: string, fn: any) {
 }
 
 export function install() {
-  console.log(window);
-  if (window.require) {
+  // 注意, 若userscript header内添加了GM_api, 则脚本运行在隔离环境, window对象由插件环境提供
+  // 此时unsafeWindow才是真正的页面window对象
+  if (unsafeWindow.require) {
     console.warn("%s 覆盖方式安装，若无效请强制刷新。", TAG);
-    oRequire = window.require;
-    window.require = fakeRequire;
+    oRequire = unsafeWindow.require;
+    unsafeWindow.require = fakeRequire;
     Object.assign(fakeRequire, oRequire);
   } else {
     console.info("%s 钩子方式安装，若失效请报告。", TAG);
-    Object.defineProperty(window, "require", {
+    Object.defineProperty(unsafeWindow, "require", {
       set(require) {
         oRequire = require;
       },

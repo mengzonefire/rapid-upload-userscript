@@ -48,6 +48,7 @@ function loader(moduleName: string): void {
     myLoader = loaderAliyun;
   }
   myLoader();
+  // window.addEventListener("DOMContentLoaded", myLoader);
 }
 
 /**

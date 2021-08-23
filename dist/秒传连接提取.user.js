@@ -154,10 +154,14 @@
         };
         var htmlDonate = '<p id="bdcode_donate" class="mzf_text">若喜欢该脚本, 可前往 <a class="mzf_link" href="https://afdian.net/@mengzonefire" rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>';
         var htmlFeedback = '<p id="bdcode_feedback" class="mzf_text">若有任何疑问, 可前往 <a class="mzf_link" href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank">脚本页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>';
-        function injectMenuLegacy() {}
         function registerPlugin() {
-            window.define("function-widget:mengzonefire/rapidupload-userscript.js", (function(_require, _exports) {}));
-            window.manifest.push({
+            unsafeWindow.define("function-widget:mengzonefire/rapidupload-userscript.js", (function(_require, exports, _module) {
+                exports.start = function(context, module) {
+                    console.log(context);
+                    console.log(module);
+                };
+            }));
+            unsafeWindow.manifest.push({
                 name: "秒传链接提取",
                 group: "moe.cangku.mengzonefire",
                 version: "1.0",
@@ -169,34 +173,37 @@
                     },
                     index: 5,
                     disabled: "none",
-                    enable: true,
                     color: "blue blue-upload",
                     icon: "icon-disk",
                     title: "秒传链接",
-                    name: "rapidupload"
+                    name: "rapidupload",
+                    position: "tools"
                 }, {
                     conditions: {
                         excludeDirType: "sourceHolder,cardHolder,shareHolder"
                     },
-                    index: 1,
+                    index: 0,
                     title: "生成秒传",
                     icon: "icon-share",
-                    name: "generateBdlink"
+                    name: "generateBdlink",
+                    position: "listTools"
                 } ],
                 contextMenu: [ {
                     conditions: {
                         excludeDirType: "sourceHolder,cardHolder,shareHolder",
                         pageModule: "list,share,search,category,searchGlobal"
                     },
-                    index: 7,
+                    index: 6,
+                    type: "file",
                     title: "生成秒传",
-                    keyboard: "G",
+                    keyboard: "g",
                     disabled: "disable",
                     name: "generateBdlink"
                 } ],
                 preload: false,
+                depsFiles: [],
                 entranceFile: "function-widget:mengzonefire/rapidupload-userscript.js",
-                pluginId: "moe.cangku.mengzonefire"
+                pluginId: "rapiduploadUserscript"
             });
         }
         function initQueryLink() {}
@@ -218,7 +225,7 @@
         }
         fakeRequire.async = null;
         function load(module) {
-            return oRequire.call(window, module);
+            return oRequire.call(unsafeWindow, module);
         }
         function loadAsync(module) {
             return new Promise((function(resolve) {
@@ -229,15 +236,14 @@
             hooks.set(module, fn);
         }
         function install() {
-            console.log(window);
-            if (window.require) {
+            if (unsafeWindow.require) {
                 console.warn("%s 覆盖方式安装，若无效请强制刷新。", TAG);
-                oRequire = window.require;
-                window.require = fakeRequire;
+                oRequire = unsafeWindow.require;
+                unsafeWindow.require = fakeRequire;
                 Object.assign(fakeRequire, oRequire);
             } else {
                 console.info("%s 钩子方式安装，若失效请报告。", TAG);
-                Object.defineProperty(window, "require", {
+                Object.defineProperty(unsafeWindow, "require", {
                     set: function(require) {
                         oRequire = require;
                     },
@@ -250,7 +256,6 @@
         function loaderBaidu() {
             if (locUrl.indexOf(baiduNewPage) !== -1) {} else {
                 install();
-                hook("disk-system:widget/system/uiRender/menu/listMenu.js", injectMenuLegacy);
                 hook("system-core:pluginHub/register/register.js", registerPlugin);
                 hook("system-core:system/uiService/list/list.js", initQueryLink);
             }

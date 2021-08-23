@@ -9,8 +9,7 @@
     "declaration": true, // 是否生成声明文件
     "declarationDir": "./dist/types/", // 声明文件打包的位置
     "declarationMap": true, // 是否生成声明文件map文件（便于调试）
-    "moduleResolution": "node",
-    "module": "esnext",
+    "module": "ES2015",
     "target": "es5", // 转化成的目标语言 设为es5以支持更多浏览器
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] },

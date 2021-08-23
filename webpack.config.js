@@ -49,7 +49,7 @@ module.exports = {
     contentBase: path.join(__dirname, "dist"),
   },
   plugins: [
-    // 生成 userscript header信息
+    // 生成userscript header信息
     new WebpackUserscript({
       headers: {
         name: "秒传链接提取",
