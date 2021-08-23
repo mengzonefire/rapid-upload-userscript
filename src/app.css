@@ -1,69 +1,31 @@
-/*"不再显示"的样式*/
+/*按钮样式*/
 .mzf_btn {
-  font-feature-settings: "lnum";
-  -webkit-font-smoothing: antialiased;
-  font-family: inherit;
-  font-weight: 400;
-  word-break: break-word;
-  -webkit-tap-highlight-color: transparent;
-  line-height: 34px;
   text-align: center;
-  text-decoration: none;
-  outline: 0;
-  font-size: 15px;
+  font-size: 0.85em;
   color: #09aaff;
   border: 2px solid #c3eaff;
   border-radius: 4px;
-  padding: 10px;
   margin: 0 5px;
+  padding: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
-  cursor: pointer;
 }
 
-/*"查看支持格式"的样式*/
+/*超链接样式*/
 .mzf_link {
-  font-feature-settings: "lnum";
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
   font-family: inherit;
-  font-size: 1em;
-  font-weight: 300;
-  -webkit-tap-highlight-color: transparent;
   color: #09aaff;
   text-decoration: none;
-  outline: 0;
 }
 
-/*"赞助页" "脚本页"的样式*/
-.mzf_link2 {
-  font-feature-settings: "lnum";
-  -webkit-font-smoothing: antialiased;
-  font-family: inherit;
-  font-size: 1.125em;
-  font-weight: 400;
-  word-break: break-word;
-  -webkit-tap-highlight-color: transparent;
-  line-height: 34px;
-  text-align: center;
-  text-decoration: none;
-  outline: 0;
-  color: #09aaff;
-}
-
-/*若喜欢该脚本...的样式*/
+/*文本样式*/
 .mzf_text {
-  font-feature-settings: "lnum";
-  -webkit-font-smoothing: antialiased;
-  font-family: inherit;
   color: #545454;
   font-size: 1.125em;
   font-weight: 400;
   word-break: break-word;
-  -webkit-tap-highlight-color: transparent;
   margin: 0;
   padding: 0;
-  width: 100%;
   height: 34px;
   display: block;
   line-height: 34px;

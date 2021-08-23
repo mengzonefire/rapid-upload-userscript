@@ -1,6 +1,5 @@
 const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
-const dev = process.env.NODE_ENV === "development";
 const path = require("path");
 
 module.exports = {
@@ -50,7 +49,7 @@ module.exports = {
     new WebpackUserscript({
       headers: {
         name: "秒传链接提取",
-        version: dev ? `[version]-build.[buildNo]` : `[version]`,
+        version: `[version]`,
         author: `[author]`,
         license: `[license]`,
         contributionURL: "https://afdian.net/@mengzonefire",
