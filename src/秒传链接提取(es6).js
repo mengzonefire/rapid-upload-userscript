@@ -39,7 +39,7 @@
     "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
   const meta_url = "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
   const meta_url2 = "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
-  const pcs_url = "/rest/2.0/xpan/file?app_id=778750&method=download";
+  const pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
   const css_url = {
     Minimal:
       "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
@@ -53,7 +53,7 @@
     "Bootstrap 4":
       "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
   };
-  const css_checkbox = '';
+  const css_checkbox = "";
   var check_mode = false,
     new_flag = false,
     file_info_list = [],
@@ -1060,7 +1060,7 @@
   function saveFile_v2(i) {
     let file_info = codeInfo[i];
     $.ajax({
-      url: create_url+`&bdstoken=${bdstoken}`,
+      url: create_url + `&bdstoken=${bdstoken}`,
       type: "POST",
       dataType: "json",
       data: {

@@ -10,4 +10,7 @@ declare global {
     (module: string): any;
     async: any;
   }
+  interface String {
+    fromBase64: any;
+  }
 }

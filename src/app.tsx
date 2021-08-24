@@ -8,18 +8,10 @@ import {
   baiduMatchList,
   aliyunMatchList,
   appError,
+  Base64,
+  SparkMD5,
+  Swal,
 } from "./common/const";
-
-/**
- * @description: 检查外部依赖
- * @return {boolean} t:依赖完整加载, f:缺少某些依赖
- */
-function checkDepend(): boolean {
-  let Base64 = require("js-base64");
-  let SparkMD5 = require("spark-md5");
-  let Swal = require("sweetalert2");
-  return Base64 && $ && SparkMD5 && Swal;
-}
 
 /**
  * @description: 根据域名返回对应的模块名
@@ -55,11 +47,13 @@ function loader(moduleName: string): void {
  * @description: 主函数入口
  */
 function app(): void {
-  if (checkDepend()) {
+  // 检查外部依赖是否加载完整
+  if (Base64 && $ && SparkMD5 && Swal) {
+    Base64.extendString();
     injectStyle();
     loader(checkDomain(domain));
   } else {
-    showAlert(appError.missDepend); // 依赖加载不成功, 弹窗提示
+    showAlert(appError.missDepend); // 缺少依赖, 弹窗提示
   }
 }
 
