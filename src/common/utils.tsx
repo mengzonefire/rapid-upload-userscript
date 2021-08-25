@@ -15,3 +15,17 @@ export function showAlert(text: string): void {
  * @return {*}
  */
 export function showSwal(): void {}
+
+/**
+ * @description: 弹出转存秒传的对话框
+ * @param {*}
+ * @return {*}
+ */
+export function showSwalRapidupload(): void {}
+
+/**
+ * @description: 弹出生成秒传的对话框
+ * @param {*}
+ * @return {*}
+ */
+export function showSwalGenerateBdlink(): void {}

@@ -12,6 +12,7 @@ import {
   SparkMD5,
   Swal,
 } from "./common/const";
+export var moduleName = "";
 
 /**
  * @description: 根据域名返回对应的模块名
@@ -19,7 +20,6 @@ import {
  * @return {string} 模块名
  */
 function checkDomain(domain: string): string {
-  let moduleName = "";
   if (baiduMatchList.includes(domain)) {
     moduleName = "baidu";
   } else if (aliyunMatchList.includes(domain)) {

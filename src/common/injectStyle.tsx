@@ -1,3 +1,4 @@
+import "@/components/CheckBox.css"
 import { showAlert } from "./utils";
 import { extCssUrl, appError } from "./const";
 
