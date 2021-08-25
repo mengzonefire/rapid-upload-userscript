@@ -1,6 +1,4 @@
-export const domain: string = document.domain;
 export const locUrl: string = location.href;
-export const aliyunMatchList: Array<string> = ["www.aliyundrive.com"];
 export const baiduMatchList: Array<string> = ["pan.baidu.com", "yun.baidu.com"];
 export const baiduNewPage = "pan.baidu.com/disk/main#/"; // 新版度盘界面
 export const TAG = "[秒传链接提取 by mengzonefire]";

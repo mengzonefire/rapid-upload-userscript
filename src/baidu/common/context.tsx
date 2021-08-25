@@ -1,3 +1,9 @@
+import Swalbase from "@/common/SwalBase";
+import GeneratebdlinkTask from "./GeneratebdlinkTask";
+import RapiduploadTask from "./RapiduploadTask";
+
+export const swalInstance = new Swalbase(new RapiduploadTask(), new GeneratebdlinkTask())
+
 export var gen_prog: any, gen_num: any;
 
 // 生成秒传进度刷新
