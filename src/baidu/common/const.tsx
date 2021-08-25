@@ -7,6 +7,7 @@ export const html_document = `<p class="mzf_text">秒传无效/md5获取失败/�
 
 export interface FileInfo {
   path: string;
+  isdir?: number;
   errno?: number;
   size?: number;
   md5?: string;
