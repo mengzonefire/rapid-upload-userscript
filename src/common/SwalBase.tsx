@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-26 01:22:47
+ * @LastEditTime: 2021-08-26 11:51:41
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗样式和逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -21,24 +21,29 @@ export default class Swalbase {
     this.generatebdlinkTask = mygeneratebdlinkTask;
   }
 
+  mergeArg(...inputArgs: any){
+    return $.extend({}, this.swalConfig, ...inputArgs);
+  }
   // 点击 "秒传链接" 后显示的弹窗
-  inputView() {}
+  inputView(swalArg?: any) {}
   // 转存/生成过程中的弹窗
-  processView() {}
+  processView(swalArg?: any) {}
   // 转存秒传完成的弹窗
-  saveFinishView() {}
+  saveFinishView(swalArg?: any) {}
   // 生成秒传完成的弹窗
-  genFinishiView() {}
+  genFinishiView(swalArg?: any) {}
   // 生成文件夹秒传, 是否递归生成提示
-  checkRecursive() {}
+  checkRecursive(swalArg?: any) {}
   // 设置页
-  settingView() {}
+  settingView(swalArg?: any) {}
   // 生成页 (输入路径列表进行秒传生成)
-  genView() {}
+  genView(swalArg?: any) {}
   // 跨域提示
-  csdWarning() {}
+  csdWarning(swalArg?: any) {}
   // 生成秒传未完成任务提示
-  genUnfinishi() {}
+  genUnfinishi(swalArg?: any) {}
   // 测试秒传覆盖文件提示
-  checkMd5Warning() {}
+  checkMd5Warning(swalArg?: any) {}
+  // 更新信息页
+  updateInfo(swalArg?: any) {}
 }
