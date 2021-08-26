@@ -18,14 +18,11 @@ export const extCssUrl = {
   "Bootstrap 4":
     "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
-
 export const enum appError {
   missDepend = "外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS",
   errorSwalCss = "样式包加载错误, 请前往脚本页反馈",
   missSwalCss = "样式包加载失败, 弹出跨域访问窗口请选择允许",
 }
-
 export const bdlinkPattern = /[\?#]bdlink=([\da-zA-Z/\+]+)&?/;
-
 export const htmlDonate = `<p id="bdcode_donate" class="mzf_text">若喜欢该脚本, 可前往 <a class="mzf_link" href="https://afdian.net/@mengzonefire" rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;
 export const htmlFeedback = `<p id="bdcode_feedback" class="mzf_text">若有任何疑问, 可前往 <a class="mzf_link" href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank">脚本页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;

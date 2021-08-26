@@ -8,7 +8,7 @@ import { swalInstance } from "./common/context";
 export function loaderBaidu(): void {
   if (locUrl.indexOf(baiduNewPage) !== -1) {
     // 添加参数以防止新版界面下的body样式突变
-    swalInstance.swalConfig = { heightAuto: false, scrollbarPadding: false };
+    swalInstance.swalArgs = { heightAuto: false, scrollbarPadding: false };
     installNew();
   } // 新版界面loader入口
   else {
