@@ -1,3 +1,4 @@
+import { htmlCsdWarning } from "./const";
 import DuParser from "./DuParser";
 
 // 各弹窗的Swal固定参数配置:
@@ -34,10 +35,49 @@ export const swalConfig = {
     showCancelButton: true,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
-    inputValidator: (value) => {
+    inputValidator: (value: string) => {
       if (value.match(/["\\\:*?<>|]/)) {
         return '路径中不能含有以下字符"\\:*?<>|, 格式示例：/GTA5/';
       }
     },
+  },
+
+  csdWarning: {
+    title: "请允许跨域访问",
+    showCloseButton: true,
+    allowOutsideClick: false,
+    input: "checkbox",
+    inputPlaceholder: "不再显示",
+    html: htmlCsdWarning,
+  },
+
+  genUnfinishi: {
+    title: "检测到未完成的秒传任务",
+    text: "是否继续进行？",
+    showCancelButton: true,
+    allowOutsideClick: false,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+  },
+
+  genView: {
+    title: "请输入需要生成的文件路径",
+    input: "textarea",
+    showCancelButton: true,
+    inputPlaceholder: "[支持批量(换行分隔)]",
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    inputValidator: (value: string) => {
+      if (!value) {
+        return "文件路径不能为空";
+      }
+    },
+  },
+
+  updateInfo: {
+    title: `秒传链接提取 更新内容`,
+    showCloseButton: true,
+    allowOutsideClick: false,
+    confirmButtonText: "确定",
   },
 };

@@ -19,9 +19,11 @@ export function loaderBaidu(): void {
   let bdlink = initQueryLink();
   if (bdlink) {
     // 解析到秒传链接, 弹出转存窗口
-    swalInstance.inputView();
+    window.addEventListener("DOMContentLoaded", () => {
+      swalInstance.inputView({ inputValue: bdlink });
+    });
   } else {
     // 检查是否首次运行, 若是弹出更新信息窗口
-    swalInstance.updateInfo();
+    // swalInstance.updateInfo();
   }
 } // 百度秒传脚本主函数入口

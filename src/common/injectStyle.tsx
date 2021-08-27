@@ -6,11 +6,11 @@ import { extCssUrl, appError } from "./const";
  * @description: 注入Swal样式
  */
 export function injectStyle(): void {
-  let swalThemes: string = GM_getValue("swalThemes") || "Minimal"; // sweetAlert的主题(css), 默认为Minimal
-  let Minimal: string = GM_getResourceText("swalCss");
-  if (swalThemes === "Minimal") {
-    if (Minimal) {
-      GM_addStyle(Minimal);
+  let swalThemes: string = GM_getValue("swalThemes") || "default"; // sweetAlert的主题(css), 默认为default
+  let defaultThemes: string = GM_getResourceText("swalCss");
+  if (swalThemes === "default") {
+    if (defaultThemes) {
+      GM_addStyle(defaultThemes);
     } else {
       getThemesCss(swalThemes); // 暴力猴直接粘贴脚本代码可能不会将resource中的数据下载缓存，fallback到下载css代码
     }
