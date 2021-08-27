@@ -1,26 +1,32 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-27 13:22:34
+ * @LastEditTime: 2021-08-27 16:00:45
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
+import ajax from "@/common/ajax";
 import { FileInfo, rapidTryflag } from "@/common/const";
 import IRapiduploadTask from "@/common/IRapiduploadTask";
 import { randomStringTransform } from "@/common/utils";
+import { create_url, rapid_url } from "./const";
 export default class RapiduploadTask implements IRapiduploadTask {
+  checkMode: boolean;
   savePath: string;
   fileInfoList: Array<FileInfo>;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
+
   constructor(
     mysavePath: string,
     myfileInfoList: Array<FileInfo>,
-    myonFinish: (fileInfoList: Array<FileInfo>) => void
+    myonFinish: (fileInfoList: Array<FileInfo>) => void,
+    mycheckMode?: boolean
   ) {
     this.savePath = mysavePath;
     this.fileInfoList = myfileInfoList;
     this.onFinish = myonFinish;
   }
+
   saveFile(i: number, tryFlag?: number): void {
     if (i >= this.fileInfoList.length) {
       this.onFinish(this.fileInfoList);
@@ -58,62 +64,66 @@ export default class RapiduploadTask implements IRapiduploadTask {
         return;
     }
 
-    $.ajax({
-      url: `${rapid_url}?bdstoken=${bdstoken}${check_mode ? "&rtype=3" : ""}`,
-      type: "POST",
-      data: {
-        path: dir + file.path,
-        "content-md5": file.md5,
-        "slice-md5": file.md5s.toLowerCase(),
-        "content-length": file.size,
+    ajax(
+      {
+        url: `${rapid_url}?bdstoken=${bdstoken}${checkMode ? "&rtype=3" : ""}`,
+        type: "POST",
+        data: {
+          path: this.savePath + file.path,
+          "content-md5": file.md5,
+          "slice-md5": file.md5s.toLowerCase(),
+          "content-length": file.size,
+        },
       },
-    })
-      .success(function (r) {
-        if (file.path.match(/["\\\:*?<>|]/)) {
-          codeInfo[i].errno = 2333;
-        } else {
-          codeInfo[i].errno = r.errno;
-        }
-      })
-      .fail(function (r) {
-        codeInfo[i].errno = 114;
-      })
-      .always(function () {
-        if (codeInfo[i].errno === 404) {
-          saveFile(i, tryFlag + 1);
-        } else if (codeInfo[i].errno === 2 && codeInfo[i].size > 21474836480) {
-          saveFile(i, 3);
-        } else {
-          saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
-        }
-      });
+      () => {},
+      () => {}
+    );
+    //     .success(function (r) {
+    //       if (file.path.match(/["\\\:*?<>|]/)) {
+    //         codeInfo[i].errno = 2333;
+    //       } else {
+    //         codeInfo[i].errno = r.errno;
+    //       }
+    //     })
+    //     .fail(function (r) {
+    //       codeInfo[i].errno = 114;
+    //     })
+    //     .always(function () {
+    //       if (codeInfo[i].errno === 404) {
+    //         saveFile(i, tryFlag + 1);
+    //       } else if (codeInfo[i].errno === 2 && codeInfo[i].size > 21474836480) {
+    //         saveFile(i, 3);
+    //       } else {
+    //         saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+    //       }
+    //     });
   }
 
   saveFileV2(i: number): void {
-    let file_info = codeInfo[i];
+    let file = this.fileInfoList[i];
     $.ajax({
       url: create_url + `&bdstoken=${bdstoken}`,
       type: "POST",
       dataType: "json",
       data: {
-        block_list: JSON.stringify([file_info.md5]),
-        path: dir + file_info.path,
-        size: file_info.size,
+        block_list: JSON.stringify([file.md5]),
+        path: this.savePath + file.path,
+        size: file.size,
         isdir: 0,
-        rtype: check_mode ? 3 : 0,
+        rtype: checkMode ? 3 : 0,
       },
     })
       .success(function (r) {
-        file_info.errno = r.errno;
+        file.errno = r.errno;
       })
       .fail(function (r) {
-        file_info.errno = 114;
+        file.errno = 114;
       })
       .always(function () {
-        if (file_info.errno === 2) {
-          file_info.errno = 404;
+        if (file.errno === 2) {
+          file.errno = 404;
         }
-        saveFile(i + 1, 0);
+        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
       });
   }
 }

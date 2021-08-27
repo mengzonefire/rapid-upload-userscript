@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-27 12:34:43
+ * @LastEditTime: 2021-08-27 15:40:40
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -31,17 +31,16 @@ export default class Swalbase {
   inputView(swalArgs?: any) {
     Swal.fire(this.mergeArg(swalConfig.inputView, swalArgs)).then(
       (result: any) => {
-        if (result.isConfirmed) {
-          this.inputPathView();
-        }
+        if (result.isConfirmed) this.inputPathView();
       }
     );
   }
   // 输入转存路径的弹窗
   inputPathView(swalArg?: any) {
-    Swal.fire(this.mergeArg(swalConfig.inputPathView, swalArg)).then(
+    Swal.fire(this.mergeArg(swalConfig.inputPathView, swalArg))
+      .then
       // 转存文件代码入口 异步调用
-    );
+      ();
   }
   // 转存/生成过程中的弹窗
   // processView(swalArg?: any) {}
