@@ -2,30 +2,25 @@ import { TAG } from "./const";
 
 /**
  * @description: 弹出一个文本对话框
- * @param {*}
- * @return {*}
+ * @param {string} text
  */
 export function showAlert(text: string): void {
   alert(`${TAG}:\n${text}`);
 }
 
 /**
- * @description: 弹出一个swal对话框
- * @param {*}
- * @return {*}
+ * @description: md5随机大小写
+ * @param {string} string
+ * @return {string}
  */
-export function showSwal(): void {}
-
-/**
- * @description: 弹出转存秒传的对话框
- * @param {*}
- * @return {*}
- */
-export function showSwalRapidupload(): void {}
-
-/**
- * @description: 弹出生成秒传的对话框
- * @param {*}
- * @return {*}
- */
-export function showSwalGenerateBdlink(): void {}
+export function randomStringTransform(string: string): string {
+  const tempString = [];
+  for (let i of string) {
+    if (!Math.round(Math.random())) {
+      tempString.push(i.toLowerCase());
+    } else {
+      tempString.push(i.toUpperCase());
+    }
+  }
+  return tempString.join("");
+}
