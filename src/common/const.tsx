@@ -1,6 +1,6 @@
+export const updateInfoVer = "2.0.0"; // 更新信息的版本, 有些没必要提示的小更新就不加到更新提示里了
 export const locUrl: string = location.href;
-export const baiduMatchList: Array<string> = ["pan.baidu.com", "yun.baidu.com"];
-export const baiduNewPage = "pan.baidu.com/disk/main#/"; // 新版度盘界面
+export const baiduNewPage = "pan.baidu.com/disk/main#/"; // 匹配新版度盘界面
 export const TAG = "[秒传链接提取 by mengzonefire]";
 export const Base64 = require("js-base64");
 export const SparkMD5 = require("spark-md5");
@@ -31,7 +31,8 @@ export interface FileInfo {
   md5?: string;
   md5s?: string;
 }
-export const bdlinkPattern = /[\?#]bdlink=([\da-zA-Z/\+]+)&?/;
+// b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
+export const bdlinkPattern = /[\?#]bdlink=([\da-zA-Z+/=]+)/;
 
 export const htmlCsdWarning =
   '<p>弹出跨域访问窗口时,请选择"<span style="color: red;">总是允许</span>"或"<span style="color: red;">总是允许全部</span>"</p><img style="max-width: 100%; height: auto" src="https://pic.rmb.bdstatic.com/bjh/763ff5014cca49237cb3ede92b5b7ac5.png">';

@@ -7,6 +7,7 @@ export default function initQueryLink(): string {
   let bdlink = "";
   let bdlinkB64 = locUrl.match(bdlinkPattern);
   if (bdlinkB64) {
+    console.log(bdlinkB64);
     bdlink = bdlinkB64[1].fromBase64();
   }
   return bdlink;

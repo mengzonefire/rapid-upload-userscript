@@ -146,8 +146,8 @@
     var __webpack_exports__ = {};
     (() => {
         var app = __webpack_require__(780);
+        var updateInfoVer = "2.0.0";
         var locUrl = location.href;
-        var baiduMatchList = null && [ "pan.baidu.com", "yun.baidu.com" ];
         var baiduNewPage = "pan.baidu.com/disk/main#/";
         var TAG = "[秒传链接提取 by mengzonefire]";
         var Base64 = __webpack_require__(158);
@@ -161,7 +161,7 @@
             Bulma: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5/bulma.min.css",
             "Bootstrap 4": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css"
         };
-        var bdlinkPattern = /[\?#]bdlink=([\da-zA-Z/\+]+)&?/;
+        var bdlinkPattern = /[\?#]bdlink=([\da-zA-Z+/=]+)/;
         var htmlCsdWarning = '<p>弹出跨域访问窗口时,请选择"<span style="color: red;">总是允许</span>"或"<span style="color: red;">总是允许全部</span>"</p><img style="max-width: 100%; height: auto" src="https://pic.rmb.bdstatic.com/bjh/763ff5014cca49237cb3ede92b5b7ac5.png">';
         var htmlCheckMd5 = '<p class="mzf_text">测试秒传, 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>';
         var htmlDocument = '<p class="mzf_text">秒传无效/md5获取失败/防和谐 可参考<a class="mzf_btn" href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer" target="_blank"><span class="text" style="width: auto;">分享教程</span></a></p>';
@@ -171,6 +171,7 @@
             var bdlink = "";
             var bdlinkB64 = locUrl.match(bdlinkPattern);
             if (bdlinkB64) {
+                console.log(bdlinkB64);
                 bdlink = bdlinkB64[1].fromBase64();
             }
             return bdlink;
@@ -436,7 +437,6 @@
                 }
                 var output = {};
                 $.extend.apply($, __spreadArray([ output, this.swalArgs ], inputArgs));
-                console.log(output);
                 return output;
             };
             Swalbase.prototype.inputView = function(swalArgs) {
