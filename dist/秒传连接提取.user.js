@@ -168,13 +168,8 @@
         var htmlDonate = '<p id="bdcode_donate" class="mzf_text">若喜欢该脚本, 可前往 <a class="mzf_link" href="https://afdian.net/@mengzonefire" rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>';
         var htmlFeedback = '<p id="bdcode_feedback" class="mzf_text">若有任何疑问, 可前往 <a class="mzf_link" href="https://greasyfork.org/zh-CN/scripts/424574" rel="noopener noreferrer" target="_blank">脚本页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>';
         function initQueryLink() {
-            var bdlink = "";
             var bdlinkB64 = locUrl.match(bdlinkPattern);
-            if (bdlinkB64) {
-                console.log(bdlinkB64);
-                bdlink = bdlinkB64[1].fromBase64();
-            }
-            return bdlink;
+            return bdlinkB64 ? bdlinkB64[1].fromBase64() : "";
         }
         var oRequire;
         var hooks = new Map;
@@ -448,7 +443,7 @@
                 }));
             };
             Swalbase.prototype.inputPathView = function(swalArg) {
-                Swal.update(this.mergeArg(swalConfig.inputPathView, swalArg));
+                Swal.fire(this.mergeArg(swalConfig.inputPathView, swalArg));
             };
             return Swalbase;
         }();

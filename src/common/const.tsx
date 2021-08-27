@@ -22,7 +22,17 @@ export const enum appError {
   missDepend = "外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS",
   errorSwalCss = "样式包加载错误, 请前往脚本页反馈",
   missSwalCss = "样式包加载失败, 弹出跨域访问窗口请选择允许",
-}
+} // 主程序异常
+export const enum rapidTryflag {
+  useUpperCaseMd5 = 0,
+  useLowerCaseMd5 = 1,
+  useRandomCaseMd5 = 2,
+  useSaveFileV2 = 3,
+} // 秒传转存 标识参数
+export const enum genTryflag {
+  useDlink1 = 0,
+  useDlink2 = 1,
+} // 秒传生成 标识参数
 export interface FileInfo {
   path: string;
   isdir?: number;

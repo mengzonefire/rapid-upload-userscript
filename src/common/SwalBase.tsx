@@ -1,9 +1,9 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-27 08:58:46
+ * @LastEditTime: 2021-08-27 12:34:43
  * @LastEditors: mengzonefire
- * @Description: 定义全套的前台弹窗样式和逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
+ * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
 import { Swal } from "./const";
 import IGeneratebdlinkTask from "./IGeneratebdlinkTask";
@@ -39,7 +39,9 @@ export default class Swalbase {
   }
   // 输入转存路径的弹窗
   inputPathView(swalArg?: any) {
-    Swal.update(this.mergeArg(swalConfig.inputPathView, swalArg));
+    Swal.fire(this.mergeArg(swalConfig.inputPathView, swalArg)).then(
+      // 转存文件代码入口 异步调用
+    );
   }
   // 转存/生成过程中的弹窗
   // processView(swalArg?: any) {}
