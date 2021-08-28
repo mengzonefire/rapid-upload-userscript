@@ -9,7 +9,7 @@ import ajax from "./ajax";
 export function injectStyle(): void {
   let swalThemes: string = GM_getValue("swalThemes") || "default"; // sweetAlert的主题(css), 默认为default
   let defaultThemes: string = GM_getResourceText("swalCss");
-  if (swalThemes === "default") {
+  if (swalThemes == "default") {
     if (defaultThemes) {
       GM_addStyle(defaultThemes);
     } else {
@@ -48,7 +48,7 @@ function getThemesCss(swalThemes: string): void {
     },
 
     (statusCode: number) => {
-      if (statusCode === ajaxError) showAlert(appError.SwalCssErrReq);
+      if (statusCode == ajaxError) showAlert(appError.SwalCssErrReq);
       else showAlert(appError.SwalCssBadReq + `(http#${statusCode})`);
     }
   );

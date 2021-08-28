@@ -1,4 +1,5 @@
-import { htmlCsdWarning } from "./const";
+import { illegalPathPattern } from "@/baidu/common/const";
+import { doc, htmlCsdWarning, linkStyle } from "./const";
 import DuParser from "./DuParser";
 
 // 各弹窗的Swal固定参数配置:
@@ -8,22 +9,21 @@ export const swalConfig = {
     input: "textarea",
     showCancelButton: true,
     inputPlaceholder:
-      "[支持PD/标准码/游侠/GO][支持批量(换行分隔)]\n[输入set进入设置页][输入gen进入生成页]",
+      "[支持PanDL/标准码/GO格式][支持批量(换行分隔)]\n[输入set进入设置页][输入gen进入生成页]",
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     inputValidator: (value: string) => {
       if (!value) {
         return "链接不能为空";
       }
-      if (value === "set") {
+      if (value == "set") {
         return;
       }
-      if (value === "gen") {
+      if (value == "gen") {
         return;
       }
-      let codeInfo = DuParser.parse(value);
-      if (!codeInfo.length) {
-        return '<p>未识别到正确的链接 <a href="https://shimo.im/docs/hTCKJHPJRkp8PDR8/">查看支持格式</a></p>';
+      if (!DuParser.parse(value).length) {
+        return `<p>未识别到正确的链接 <a href="${doc.shareDoc}" ${linkStyle}>查看支持格式</a></p>`;
       }
     },
   },
@@ -36,10 +36,16 @@ export const swalConfig = {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     inputValidator: (value: string) => {
-      if (value.match(/["\\\:*?<>|]/)) {
-        return '路径中不能含有以下字符"\\:*?<>|, 格式示例：/GTA5/';
+      if (value.match(illegalPathPattern)) {
+        return '不能含有字符\\":*?<>|, 格式示例：/GTA5/';
       }
     },
+  },
+
+  processView: {
+    showCloseButton: true,
+    showConfirmButton: false,
+    allowOutsideClick: false,
   },
 
   csdWarning: {
@@ -49,6 +55,11 @@ export const swalConfig = {
     input: "checkbox",
     inputPlaceholder: "不再显示",
     html: htmlCsdWarning,
+  },
+
+  finishView: {
+    showCloseButton: true,
+    allowOutsideClick: false,
   },
 
   genUnfinishi: {

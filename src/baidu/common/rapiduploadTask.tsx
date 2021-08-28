@@ -1,42 +1,47 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-27 16:00:45
+ * @LastEditTime: 2021-08-28 09:50:29
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo, rapidTryflag } from "@/common/const";
-import IRapiduploadTask from "@/common/IRapiduploadTask";
 import { randomStringTransform } from "@/common/utils";
-import { create_url, rapid_url } from "./const";
-export default class RapiduploadTask implements IRapiduploadTask {
-  checkMode: boolean;
+import { create_url, rapid_url, bdstoken } from "./const";
+export default class RapiduploadTask {
   savePath: string;
   fileInfoList: Array<FileInfo>;
+  checkMode: boolean = false;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
+  onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
 
-  constructor(
-    mysavePath: string,
-    myfileInfoList: Array<FileInfo>,
-    myonFinish: (fileInfoList: Array<FileInfo>) => void,
-    mycheckMode?: boolean
-  ) {
-    this.savePath = mysavePath;
-    this.fileInfoList = myfileInfoList;
-    this.onFinish = myonFinish;
+  reset(): void {
+    this.fileInfoList = [];
+    this.savePath = "";
+    this.checkMode = false;
+    this.onFinish = () => {};
+    this.onProcess = () => {};
+  }
+
+  start(): void {
+    this.saveFile(0, rapidTryflag.useUpperCaseMd5);
   }
 
   saveFile(i: number, tryFlag?: number): void {
     if (i >= this.fileInfoList.length) {
       this.onFinish(this.fileInfoList);
+      return;
     }
     let file = this.fileInfoList[i];
-
-    // file_num.textContent =
-    //   (i + 1).toString() + " / " + codeInfo.length.toString();
-
-    if (!file.md5s) {
+    this.onProcess(i, this.fileInfoList);
+    // 文件名含有非法字符 / 文件名为空
+    if (file.path.match(/["\\\:*?<>|]/) || file.path == "/") {
+      file.errno = 2333;
+      return;
+    }
+    // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
+    if (!file.md5s || file.size > 21474836480) {
       file.md5 = file.md5.toLowerCase();
       this.saveFileV2(i);
       return;
@@ -66,7 +71,9 @@ export default class RapiduploadTask implements IRapiduploadTask {
 
     ajax(
       {
-        url: `${rapid_url}?bdstoken=${bdstoken}${checkMode ? "&rtype=3" : ""}`,
+        url: `${rapid_url}?bdstoken=${bdstoken}${
+          this.checkMode ? "&rtype=3" : ""
+        }`,
         type: "POST",
         data: {
           path: this.savePath + file.path,
@@ -75,55 +82,42 @@ export default class RapiduploadTask implements IRapiduploadTask {
           "content-length": file.size,
         },
       },
-      () => {},
-      () => {}
+      (data: any) => {
+        if (data.errno == 404) this.saveFile(i, tryFlag + 1);
+        else file.errno = data.errno;
+        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+      },
+      (statusCode: number) => {
+        file.errno = statusCode;
+        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+      }
     );
-    //     .success(function (r) {
-    //       if (file.path.match(/["\\\:*?<>|]/)) {
-    //         codeInfo[i].errno = 2333;
-    //       } else {
-    //         codeInfo[i].errno = r.errno;
-    //       }
-    //     })
-    //     .fail(function (r) {
-    //       codeInfo[i].errno = 114;
-    //     })
-    //     .always(function () {
-    //       if (codeInfo[i].errno === 404) {
-    //         saveFile(i, tryFlag + 1);
-    //       } else if (codeInfo[i].errno === 2 && codeInfo[i].size > 21474836480) {
-    //         saveFile(i, 3);
-    //       } else {
-    //         saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
-    //       }
-    //     });
   }
 
   saveFileV2(i: number): void {
     let file = this.fileInfoList[i];
-    $.ajax({
-      url: create_url + `&bdstoken=${bdstoken}`,
-      type: "POST",
-      dataType: "json",
-      data: {
-        block_list: JSON.stringify([file.md5]),
-        path: this.savePath + file.path,
-        size: file.size,
-        isdir: 0,
-        rtype: checkMode ? 3 : 0,
+    ajax(
+      {
+        url: create_url + `&bdstoken=${bdstoken}`,
+        type: "POST",
+        dataType: "json",
+        data: {
+          block_list: JSON.stringify([file.md5]),
+          path: this.savePath + file.path,
+          size: file.size,
+          isdir: 0,
+          rtype: this.checkMode ? 3 : 0,
+        },
       },
-    })
-      .success(function (r) {
-        file.errno = r.errno;
-      })
-      .fail(function (r) {
-        file.errno = 114;
-      })
-      .always(function () {
-        if (file.errno === 2) {
-          file.errno = 404;
-        }
+      (data: any) => {
+        if (data.errno == 2) file.errno = 404;
+        else file.errno = data.errno;
         this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
-      });
+      },
+      (statusCode: number) => {
+        file.errno = statusCode;
+        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+      }
+    );
   }
 }

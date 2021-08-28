@@ -3,9 +3,11 @@ import initQueryLink from "@/common/initQueryLink";
 import { hook, install } from "./legacyPage/loader";
 import installNew from "./newPage/loader";
 import registerPlugin from "./legacyPage/registerPlugin";
-import { swalInstance } from "./common/context";
+import { swalInstance } from "./common/const";
+import { getbdstoken } from "@/common/utils";
 
 export function loaderBaidu(): void {
+  getbdstoken();
   if (locUrl.indexOf(baiduNewPage) !== -1) {
     // 添加参数以防止新版界面下的body样式突变
     swalInstance.swalArgs = { heightAuto: false, scrollbarPadding: false };

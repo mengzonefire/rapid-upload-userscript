@@ -1,13 +1,13 @@
-import { swalInstance } from "../common/context";
+import { swalInstance } from "../common/const";
 
 export default function registerPlugin() {
   unsafeWindow.define(
     "function-widget:mengzonefire/rapidupload-userscript.js",
     (_require: any, exports: any, _module: any) => {
       exports.start = function (_context: any, module: any) {
-        if (!module || module.config.name === "generateBdlink") {
+        if (!module || module.config.name == "generateBdlink") {
           // 生成秒传按钮代码入口
-        } else if (module.config.name === "rapidupload") {
+        } else if (module.config.name == "rapidupload") {
           // 转存秒传按钮代码入口
           swalInstance.inputView();
         }

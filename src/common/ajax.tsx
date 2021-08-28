@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-27 14:48:24
- * @LastEditTime: 2021-08-27 15:39:15
+ * @LastEditTime: 2021-08-28 01:21:36
  * @LastEditors: mengzonefire
  * @Description: 自封装JQ ajax方法
  */
@@ -16,7 +16,7 @@ export default function ajax(
   $.ajax({
     ...config,
     success: (data: any, _statusTxt: string, jqXHR: JQuery.jqXHR) => {
-      if (jqXHR.status === 200) callback(data);
+      if (jqXHR.status == 200) callback(data);
       else failback(jqXHR.status);
     },
     error: () => {
