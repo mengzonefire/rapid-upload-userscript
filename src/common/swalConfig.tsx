@@ -2,7 +2,7 @@ import { illegalPathPattern } from "@/baidu/common/const";
 import { doc, htmlCsdWarning, linkStyle } from "./const";
 import DuParser from "./DuParser";
 
-// 各弹窗的Swal固定参数配置:
+// 各Swal弹窗的固定参数配置:
 export const swalConfig = {
   inputView: {
     title: "请输入秒传",
@@ -54,6 +54,7 @@ export const swalConfig = {
     allowOutsideClick: false,
     input: "checkbox",
     inputPlaceholder: "不再显示",
+    confirmButtonText: "知道了",
     html: htmlCsdWarning,
   },
 
@@ -62,13 +63,13 @@ export const swalConfig = {
     allowOutsideClick: false,
   },
 
-  genUnfinishi: {
+  genUnfinish: {
     title: "检测到未完成的秒传任务",
-    text: "是否继续进行？",
+    text: "是否继续进行?",
     showCancelButton: true,
     allowOutsideClick: false,
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
+    confirmButtonText: "是",
+    cancelButtonText: "否",
   },
 
   genView: {
@@ -89,6 +90,6 @@ export const swalConfig = {
     title: `秒传链接提取 更新内容`,
     showCloseButton: true,
     allowOutsideClick: false,
-    confirmButtonText: "确定",
+    confirmButtonText: "知道了",
   },
 };

@@ -6,9 +6,15 @@ export default function registerPlugin() {
     (_require: any, exports: any, _module: any) => {
       exports.start = function (_context: any, module: any) {
         if (!module || module.config.name == "generateBdlink") {
-          // 生成秒传按钮代码入口
+          // 右键菜单生成事件 + 生成按钮事件
+          swalInstance.generatebdlinkTask.reset();
+          if (!GM_getValue("show_csd_warning")) {
+            swalInstance.csdWarning(() => {
+              swalInstance.checkUnfinish();
+            });
+          }
         } else if (module.config.name == "rapidupload") {
-          // 转存秒传按钮代码入口
+          // 转存按钮事件
           swalInstance.inputView();
         }
       };

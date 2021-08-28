@@ -13,7 +13,9 @@ export const meta_url2 =
   "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
-export const illegalPathPattern = /[\\":*?<>|]/;
+export const UA =
+  "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
+export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
 export var bdstoken = "";
 export function setbdstoken(mybdstoken: string) {
   bdstoken = mybdstoken;
@@ -53,7 +55,7 @@ export function baiduErrno(errno: number) {
     case 900:
       return "路径为文件夹, 不支持生成秒传";
     case 901:
-      return "文件数量超出限制";
+      return "包含的文件数量超出限制(1w个)";
     default:
       return "未知错误";
   }

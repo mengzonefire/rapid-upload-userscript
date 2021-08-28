@@ -75,3 +75,12 @@ export function getbdstoken() {
     }
   );
 }
+
+/**
+ * @description: 获取选择的文件列表(仅旧版界面可用)
+ */
+export function getSelectedFileList() {
+  return unsafeWindow
+    .require("system-core:context/context.js")
+    .instanceForSystem.list.getSelected();
+}

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-28 09:50:29
+ * @LastEditTime: 2021-08-28 15:51:00
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -11,8 +11,8 @@ import { randomStringTransform } from "@/common/utils";
 import { create_url, rapid_url, bdstoken } from "./const";
 export default class RapiduploadTask {
   savePath: string;
-  fileInfoList: Array<FileInfo>;
   checkMode: boolean = false;
+  fileInfoList: Array<FileInfo>;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
 
@@ -28,16 +28,22 @@ export default class RapiduploadTask {
     this.saveFile(0, rapidTryflag.useUpperCaseMd5);
   }
 
+  /**
+   * @description: 转存秒传 接口1
+   * @param {number} i
+   * @param {number} tryFlag 标识参数
+   */
   saveFile(i: number, tryFlag?: number): void {
     if (i >= this.fileInfoList.length) {
       this.onFinish(this.fileInfoList);
       return;
     }
-    let file = this.fileInfoList[i];
     this.onProcess(i, this.fileInfoList);
+    let file = this.fileInfoList[i];
     // 文件名含有非法字符 / 文件名为空
     if (file.path.match(/["\\\:*?<>|]/) || file.path == "/") {
       file.errno = 2333;
+      this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
       return;
     }
     // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
@@ -75,6 +81,7 @@ export default class RapiduploadTask {
           this.checkMode ? "&rtype=3" : ""
         }`,
         type: "POST",
+        dataType: "json",
         data: {
           path: this.savePath + file.path,
           "content-md5": file.md5,
@@ -82,10 +89,12 @@ export default class RapiduploadTask {
           "content-length": file.size,
         },
       },
-      (data: any) => {
+      (data) => {
         if (data.errno == 404) this.saveFile(i, tryFlag + 1);
-        else file.errno = data.errno;
-        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+        else {
+          file.errno = data.errno;
+          this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+        }
       },
       (statusCode: number) => {
         file.errno = statusCode;
@@ -94,6 +103,10 @@ export default class RapiduploadTask {
     );
   }
 
+  /**
+   * @description: 转存秒传 接口2
+   * @param {number} i
+   */
   saveFileV2(i: number): void {
     let file = this.fileInfoList[i];
     ajax(
@@ -109,9 +122,8 @@ export default class RapiduploadTask {
           rtype: this.checkMode ? 3 : 0,
         },
       },
-      (data: any) => {
-        if (data.errno == 2) file.errno = 404;
-        else file.errno = data.errno;
+      (data) => {
+        file.errno = data.errno == 2 ? 404 : data.errno;
         this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
       },
       (statusCode: number) => {

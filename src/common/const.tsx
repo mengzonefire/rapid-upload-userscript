@@ -45,6 +45,8 @@ export interface FileInfo {
   size?: number;
   md5?: string;
   md5s?: string;
+  fs_id?: string;
+  retry_996?: boolean;
 } // 自定义文件信息数据结构
 export const doc = {
   shareDoc: "https://shimo.im/docs/TZ1JJuEjOM0wnFDH",

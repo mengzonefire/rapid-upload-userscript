@@ -1,16 +1,16 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-28 11:41:47
+ * @LastEditTime: 2021-08-28 18:45:18
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
 import GeneratebdlinkTask from "@/baidu/common/GeneratebdlinkTask";
 import RapiduploadTask from "@/baidu/common/RapiduploadTask";
-import { FileInfo, Swal } from "./const";
+import { Swal } from "./const";
 import DuParser from "./DuParser";
 import { swalConfig } from "./swalConfig";
-import { parsefileInfo } from "./utils";
+import { getSelectedFileList, parsefileInfo } from "./utils";
 
 export default class Swalbase {
   swalArgs: any;
@@ -44,8 +44,10 @@ export default class Swalbase {
   // 输入转存路径的弹窗
   inputPathView() {
     Swal.fire(this.mergeArg(swalConfig.inputPathView)).then((result: any) => {
-      this.rapiduploadTask.savePath = result.value;
-      this.processView(false);
+      if (result.isConfirmed) {
+        this.rapiduploadTask.savePath = result.value;
+        this.processView(false);
+      }
     });
   }
 
@@ -113,6 +115,8 @@ export default class Swalbase {
     };
     this.rapiduploadTask.start(); // 开始转存任务
   }
+
+  genFileWork() {}
   // // 生成文件夹秒传, 是否递归生成提示
   // checkRecursive(swalArg?: any) {}
   // // 设置页
@@ -120,11 +124,45 @@ export default class Swalbase {
   // // 生成页 (输入路径列表进行秒传生成)
   // genView(swalArg?: any) {}
   // // 跨域提示
-  // csdWarning(swalArg?: any) {}
-  // // 生成秒传未完成任务提示
-  // genUnfinishi(swalArg?: any) {}
-  // // 测试秒传覆盖文件提示
+  csdWarning(onConfirm: () => void, swalArg?: any) {
+    Swal.fire(this.mergeArg(swalConfig.csdWarning)).then((result: any) => {
+      if (result.isConfirmed) {
+        GM_setValue("show_csd_warning", result.value);
+        onConfirm();
+      }
+    });
+    this.processView(true);
+  }
+  // 生成秒传未完成任务提示
+  genUnfinishi(onConfirm: () => void, onCancel: () => void, swalArg?: any) {
+    Swal.fire(this.mergeArg(swalConfig.genUnfinish)).then((result: any) => {
+      this.processView(true);
+      this.generatebdlinkTask.onFinish
+      this.generatebdlinkTask.onHasDir
+      this.generatebdlinkTask.onProcess
+      this.generatebdlinkTask.onProgress
+      if (result.value) onConfirm();
+      else onCancel();
+    });
+  }
+  // 测试秒传覆盖文件提示
   // checkMd5Warning(swalArg?: any) {}
   // // 更新信息页
   // updateInfo(swalArg?: any) {}
+
+  checkUnfinish() {
+    if (GM_getValue("unfinish")) {
+      this.genUnfinishi(
+        () => {
+          let unfinishInfo: any = GM_getValue("unfinish");
+          this.generatebdlinkTask.fileInfoList = unfinishInfo.file_info_list;
+          this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
+        },
+        () => {
+          this.generatebdlinkTask.fileInfoList = getSelectedFileList();
+          this.generatebdlinkTask.inital();
+        }
+      );
+    }
+  }
 }
