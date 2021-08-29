@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-30 00:43:06
+ * @LastEditTime: 2021-08-30 03:11:36
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -128,7 +128,7 @@ export default class GeneratebdlinkTask {
         data = data.response;
         if (!data.errno) {
           console.log(data.list[0]); // debug
-          if (data.isdir) {
+          if (data.list[0].isdir) {
             file.errno = 900;
             this.generateBdlink(i + 1);
             return;
@@ -205,7 +205,8 @@ export default class GeneratebdlinkTask {
         this.parseDownloadData(i, data);
       },
       (statusCode) => {
-        file.errno = statusCode;
+        if (statusCode === 404) file.errno = 909;
+        else file.errno = statusCode;
         this.generateBdlink(i + 1);
       }
     );
@@ -244,7 +245,7 @@ export default class GeneratebdlinkTask {
       spark.append(data.response);
       let sliceMd5 = spark.end();
       file.md5s = sliceMd5;
-      let interval = this.fileInfoList.length > 1 ? 2500 : 1000;
+      let interval = this.fileInfoList.length > 1 ? 2000 : 1000;
       setTimeout(() => {
         this.generateBdlink(i + 1);
       }, interval);

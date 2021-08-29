@@ -128,7 +128,7 @@ export const SwalConfig = {
     cancelButtonText: "取消",
     allowOutsideClick: false,
     input: "select",
-    inputValue: GM_getValue("Themes") || "Default",
+    inputValue: GM_getValue("swalThemes") || "Default",
     inputOptions: {
       Default: "Default 白色主题(默认)",
       Bulma: "Bulma 白色简约",

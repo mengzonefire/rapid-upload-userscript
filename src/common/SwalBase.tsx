@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-30 02:15:49
+ * @LastEditTime: 2021-08-30 03:19:46
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -54,9 +54,11 @@ export default class Swalbase {
 
   // 输入转存路径的弹窗
   inputPathView() {
-    Swal.fire(this.mergeArg(SwalConfig.inputPathView), {
-      inputValue: GM_getValue("last_dir") || "",
-    }).then((result: any) => {
+    Swal.fire(
+      this.mergeArg(SwalConfig.inputPathView, {
+        inputValue: GM_getValue("last_dir") || "",
+      })
+    ).then((result: any) => {
       if (result.isConfirmed) {
         let path = result.value;
         GM_setValue("last_dir", path);
@@ -105,17 +107,24 @@ export default class Swalbase {
     if (isGen) this.rapiduploadTask.fileInfoList = parseResult.successList;
     let html =
       (isGen
-        ? htmlCheckMd5 + // 添加测试秒传入口
+        ? (parseResult.failedCount === fileInfoList.length
+            ? ""
+            : htmlCheckMd5) + // 添加测试秒传入口, 若全部失败则不添加
           htmlDocument // 添加文档入口
-        : "") + (parseResult.htmlInfo && "<p><br></p>" + parseResult.htmlInfo); // 如果有失败列表则添加空行间隔
+        : "") +
+      (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
+      parseResult.htmlInfo; // 添加失败列表, 生成模式下添加顶部空行分隔
     let htmlFooter = "";
     if (!GM_getValue(`${donateVer}_kill_donate`)) htmlFooter += htmlDonate; // 添加赞助入口提示
     if (!GM_getValue(`${feedbackVer}_kill_donate`)) htmlFooter += htmlFeedback; // 添加反馈入口提示
-    if (htmlFooter) htmlFooter = "<p><br></p>" + htmlFooter; // 添加空行分隔
+    if (htmlFooter) htmlFooter = "<p><br></p>" + htmlFooter; // 添加底部空行分隔
     let swalArg = {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failedCount}个!`,
       confirmButtonText:
-        isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
+        parseResult.failedCount !== fileInfoList.length &&
+        (isGen || this.rapiduploadTask.checkMode)
+          ? "复制秒传代码"
+          : "确认",
       html: html + htmlFooter,
       ...((isGen || this.rapiduploadTask.checkMode) && checkboxArg),
       willOpen: () => {
@@ -159,7 +168,8 @@ export default class Swalbase {
   settingView() {
     Swal.fire(this.mergeArg(SwalConfig.settingView)).then((result: any) => {
       if (result.isConfirmed) {
-        GM_setValue("Themes", result.value);
+        GM_setValue("swalThemes", result.value);
+        Swal.close();
         Swal.fire(this.mergeArg(SwalConfig.settingWarning));
       }
     });
@@ -171,11 +181,12 @@ export default class Swalbase {
       if (result.isConfirmed) {
         this.generatebdlinkTask.reset();
         result.value.split("\n").forEach((item: string) => {
+          if (item.charAt(0) !== "/") item = "/" + item;
           this.generatebdlinkTask.fileInfoList.push({
             path: item,
           });
         });
-        this.genFileWork(true); // 以unfinish模式执行, 跳过扫描文件夹的步骤
+        this.genFileWork(false, true); // 跳过获取选择文件列表和扫描文件夹的步骤
       }
     });
   }
@@ -228,8 +239,8 @@ export default class Swalbase {
     this.rapiduploadTask.start(); // 开始转存任务
   }
 
-  genFileWork(isUnfinish: boolean) {
-    this.generatebdlinkTask.selectList = getSelectedFileList();
+  genFileWork(isUnfinish: boolean, isGenView: boolean) {
+    if (!isGenView) this.generatebdlinkTask.selectList = getSelectedFileList();
     this.generatebdlinkTask.onProcess = (i, fileInfoList) => {
       Swal.getHtmlContainer().querySelector("file_num").textContent = `${
         i + 1
@@ -253,26 +264,27 @@ export default class Swalbase {
     this.generatebdlinkTask.onFinish = () => {
       this.finishView(true);
     };
-    if (!isUnfinish) this.generatebdlinkTask.start();
+    if (!isUnfinish && !isGenView) this.generatebdlinkTask.start();
   }
 
   checkUnfinish() {
     if (GM_getValue("unfinish")) {
       this.genUnfinishi(
         () => {
-          this.genFileWork(true);
+          this.processView(true);
+          this.genFileWork(true, false);
           let unfinishInfo: any = GM_getValue("unfinish");
           this.generatebdlinkTask.fileInfoList = unfinishInfo.file_info_list;
           this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
         }, // 确认继续未完成任务
         () => {
           GM_deleteValue("unfinish");
-          this.genFileWork(false);
-        } // 不继续未完成任务, 清楚数据, 开启新任务
+          this.genFileWork(false, false);
+        } // 不继续未完成任务, 清除数据, 开启新任务
       );
     } else {
-      this.genFileWork(false);
-    } // 没有未完成任务, 开启新任务
+      this.genFileWork(false, false);
+    } // 没有未完成任务, 直接开启新任务
   }
 
   checkMd5() {
@@ -281,12 +293,12 @@ export default class Swalbase {
       this.checkMd5Warning(
         () => {
           this.processView(false);
-        }, // 点击确定按钮, 开始测试转存秒传
+        }, // 点击确定按钮, 开始测试转存
         () => {
           this.finishView(true);
         } // 点击返回按钮, 回到生成完成的界面
       );
-    } else this.processView(false); // 直接开始测试转存秒传
+    } else this.processView(false); // 已勾选"不再提示", 直接开始测试转存
   }
 
   // 添加 "打开目录" 按钮
