@@ -4,7 +4,7 @@ import DuParser from "./DuParser";
 import updateInfo from "@/components/updateInfo.html";
 
 // 各Swal弹窗的固定参数配置:
-export const swalConfig = {
+export const SwalConfig = {
   inputView: {
     title: "请输入秒传",
     input: "textarea",
@@ -77,6 +77,7 @@ export const swalConfig = {
     title: "请输入需要生成的文件路径",
     input: "textarea",
     showCancelButton: true,
+    showCloseButton: true,
     inputPlaceholder: "[支持批量(换行分隔)]",
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -94,4 +95,28 @@ export const swalConfig = {
     confirmButtonText: "知道了",
     html: updateInfo,
   },
+
+  checkRecursive: {
+    type: "info",
+    title: "选择中包含文件夹, 是否递归生成?",
+    text: "若选是, 将同时生成各级子文件夹下的文件",
+    allowOutsideClick: false,
+    focusCancel: true,
+    showCancelButton: true,
+    reverseButtons: true,
+    showCloseButton: true,
+    confirmButtonText: "是",
+    cancelButtonText: "否",
+  },
+
+  checkMd5Warning: {
+    title: "使用前请注意",
+    text: "测试秒传会转存并覆盖文件,若在生成期间修改过同名文件,为避免修改的文件丢失,请不要使用此功能!",
+    input: "checkbox",
+    inputPlaceholder: "不再显示",
+    showCancelButton: true,
+    allowOutsideClick: false,
+    confirmButtonText: "知道了",
+    cancelButtonText: "返回",
+  }
 };

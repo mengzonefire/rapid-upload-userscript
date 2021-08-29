@@ -1,5 +1,7 @@
 export const updateInfoVer = "2.0.0"; // 更新信息的版本, 有些没必要提示的小更新就不加到更新提示里了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字串以刷新缓存
+export const donateVer = "2.0.0"; // 用于检测可关闭的赞助提示的版本号
+export const feedbackVer = "2.0.0"; // 用于检测可关闭的反馈提示的版本号
 export const locUrl: string = location.href;
 export const baiduNewPage = "pan.baidu.com/disk/main#/"; // 匹配新版度盘界面
 export const TAG = "[秒传链接提取 by mengzonefire]";
@@ -61,5 +63,5 @@ export const htmlCsdWarning =
   '<p>弹出跨域访问窗口时,请选择"<span style="color: red;">总是允许</span>"或"<span style="color: red;">总是允许全部</span>"</p><img style="max-width: 100%; height: auto" src="https://pic.rmb.bdstatic.com/bjh/763ff5014cca49237cb3ede92b5b7ac5.png">';
 export const htmlCheckMd5 = `<p class="mzf_text">测试秒传, 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>`;
 export const htmlDocument = `<p class="mzf_text">秒传无效/md5获取失败/防和谐等 可参考<a href="${doc.shareDoc}" ${linkStyle}><span class="text" style="width: auto;">分享教程</span></a></p>`;
-export const htmlDonate = `<p id="bdcode_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="${donatePage}" ${btnStyle}>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;
-export const htmlFeedback = `<p id="bdcode_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="${homePage}" ${btnStyle}>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;
+export const htmlDonate = `<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="${donatePage}" ${btnStyle}>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;
+export const htmlFeedback = `<p id="mzf_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="${homePage}" ${btnStyle}>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;

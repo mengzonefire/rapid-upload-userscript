@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-29 13:25:23
+ * @LastEditTime: 2021-08-29 15:24:13
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -26,13 +26,16 @@ export default class GeneratebdlinkTask {
     this.fileInfoList = [];
     this.onFinish = () => {};
     this.onProcess = () => {};
-    this.onProgress = () => {}
+    this.onProgress = () => {};
     this.onHasDir = () => {};
     this.onHasNoDir = () => {};
   }
 
-  start(): void { 
-    // 执行新任务的初始化步骤
+  /**
+   * @description: 执行新任务的初始化步骤 扫描选择的文件列表
+   */  
+  start(): void {
+    // 
     this.selectList.forEach(function (item) {
       if (item.isdir) this.dirList.push(item.path);
       else {
@@ -47,7 +50,7 @@ export default class GeneratebdlinkTask {
   }
 
   /**
-   * @description: 获取文件夹路径下的子文件
+   * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
    * @param {number} i
    */
   scanFile(i: number): void {
@@ -92,6 +95,10 @@ export default class GeneratebdlinkTask {
    * @return {*}
    */
   generateBdlink(i: number): void {
+    GM_setValue("unfinish", {
+      file_info_list: this.fileInfoList,
+      file_id: i,
+    }); // 保存任务进度数据
     if (i >= this.fileInfoList.length) {
       this.onFinish(this.fileInfoList);
       return;
