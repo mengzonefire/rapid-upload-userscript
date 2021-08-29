@@ -2,7 +2,7 @@
 
 ## 近期通知
 
-* 21.8.12: 1.8.8以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新1.8.8并重新生成
+* 21.8.12: 1.8.8以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新最新版并重新生成
 
 * 21.7.30: 若转存提示 <span style="color: red;">转存失败(尝试...)(#2)</span>, 请更新到1.8.5版本以上
 
@@ -33,7 +33,7 @@
 
 ## 脚本说明
 
-* 参考了初版秒传脚本 [仓库用度盘投稿助手](https://greasyfork.org/zh-CN/scripts/3285)进行开发，代码通过babel工具转换为es5，若需要es6版本的源码，请前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/my_web_script/blob/main/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96(es6).js)
+* 参考了初版秒传脚本 [仓库用度盘投稿助手](https://greasyfork.org/zh-CN/scripts/3285) 进行开发，脚本源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/rapid-upload-userscript)
 
 * 支持批量提取(换行分隔符), 支持url传参(一键秒传), 格式：`https://pan.baidu.com/#bdlink=[参数]`，[参数]为base64加密过的任意格式链接 (支持批量)
 
@@ -58,6 +58,13 @@
 4. ~~修复设置为非默认主题时, 窗口内会出现警告标识的问题~~ (完成, 实际为主题包不适配旧版sweetalert2)
 
 ## 更新说明
+21.8.30更新:
+
+1. 移除游侠秒传格式的支持
+
+2. 重构代码, 全面优化, 提升使用体验
+
+3. 旧版界面文件右键菜单内加入了生成秒传选项
 
 21.8.12更新: 修复部分生成得到错误md5导致秒传无法转存(#404)的问题
 

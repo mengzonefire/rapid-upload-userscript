@@ -72,6 +72,7 @@ module.exports = {
         homepageURL: `[homepage]`,
         contributionURL: "https://afdian.net/@mengzonefire",
         description: `[description]`,
+        "description:en" :"input bdlink to get files or get bdlink for Baidu™ WebDisk.",
         compatible: [
           "firefox Violentmonkey",
           "firefox Tampermonkey",

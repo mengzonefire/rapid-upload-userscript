@@ -14,6 +14,7 @@
 // @namespace moe.cangku.mengzonefire
 // @homepageURL https://greasyfork.org/zh-CN/scripts/424574
 // @contributionURL https://afdian.net/@mengzonefire
+// @description:en input bdlink to get files or get bdlink for Baidu™ WebDisk.
 // @compatible firefox Violentmonkey
 // @compatible firefox Tampermonkey
 // @compatible chrome Violentmonkey
@@ -132,8 +133,8 @@
         var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
         var bdlinkPattern = /[\?#]bdlink=([\da-zA-Z+/=]+)/;
         var htmlCsdWarning = '<p>弹出跨域访问窗口时,请选择"<span style="color: red;">总是允许</span>"或"<span style="color: red;">总是允许全部</span>"</p><img style="max-width: 100%; height: auto" src="https://pic.rmb.bdstatic.com/bjh/763ff5014cca49237cb3ede92b5b7ac5.png">';
-        var htmlCheckMd5 = '<p class="mzf_text">测试秒传,可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>';
-        var htmlDocument = '<p class="mzf_text">秒传无效/md5获取失败/防和谐等,可参考<a href="' + doc.shareDoc + '" ' + btnStyle + '><span class="text" style="width: auto;">分享教程</span></a></p>';
+        var htmlCheckMd5 = '<p class="mzf_text">测试秒传 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>';
+        var htmlDocument = '<p class="mzf_text">秒传无效/md5获取失败/防和谐等 可参考<a href="' + doc.shareDoc + '" ' + btnStyle + '><span class="text" style="width: auto;">分享教程</span></a></p>';
         var htmlDonate = '<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="' + donatePage + '" ' + linkStyle + '>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>';
         var htmlFeedback = '<p id="mzf_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="' + homePage + '" ' + linkStyle + '>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>';
         function initQueryLink() {

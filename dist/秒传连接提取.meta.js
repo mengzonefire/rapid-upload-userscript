@@ -14,6 +14,7 @@
 // @namespace moe.cangku.mengzonefire
 // @homepageURL https://greasyfork.org/zh-CN/scripts/424574
 // @contributionURL https://afdian.net/@mengzonefire
+// @description:en input bdlink to get files or get bdlink for Baidu™ WebDisk.
 // @compatible firefox Violentmonkey
 // @compatible firefox Tampermonkey
 // @compatible chrome Violentmonkey
