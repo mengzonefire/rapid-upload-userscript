@@ -1,8 +1,8 @@
 # du_rapid_upload
 
-> 秒传链接提取脚本 重构项目, 使用typescript + webpack
+> 秒传链接提取脚本, 使用typescript + webpack重构
 
-> 重构中, 进度95%
+> 用于提取和生成百度网盘秒传链接
 
 ## Build Setup
 

@@ -1,13 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-29 18:13:58
+ * @LastEditTime: 2021-08-30 01:35:19
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo, rapidTryflag } from "@/common/const";
-import { randomStringTransform } from "@/common/utils";
+import { convertData, randomStringTransform } from "@/common/utils";
 import { create_url, rapid_url, bdstoken } from "./const";
 export default class RapiduploadTask {
   savePath: string;
@@ -42,7 +42,7 @@ export default class RapiduploadTask {
     this.onProcess(i, this.fileInfoList);
     let file = this.fileInfoList[i];
     // 文件名含有非法字符 / 文件名为空
-    if (file.path.match(/["\\\:*?<>|]/) || file.path == "/") {
+    if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
       file.errno = 2333;
       this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
       return;
@@ -81,23 +81,24 @@ export default class RapiduploadTask {
         url: `${rapid_url}?bdstoken=${bdstoken}${
           this.checkMode ? "&rtype=3" : "" // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为0
         }`,
-        type: "POST",
-        dataType: "json",
-        data: {
+        method: "POST",
+        responseType: "json",
+        data: convertData({
           path: this.savePath + file.path,
           "content-md5": file.md5,
           "slice-md5": file.md5s.toLowerCase(),
           "content-length": file.size,
-        },
+        }),
       },
       (data) => {
-        if (data.errno == 404) this.saveFile(i, tryFlag + 1);
+        data = data.response;
+        if (data.errno === 404) this.saveFile(i, tryFlag + 1);
         else {
           file.errno = data.errno;
           this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
         }
       },
-      (statusCode: number) => {
+      (statusCode) => {
         file.errno = statusCode;
         this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
       }
@@ -113,18 +114,19 @@ export default class RapiduploadTask {
     ajax(
       {
         url: create_url + `&bdstoken=${bdstoken}`,
-        type: "POST",
-        dataType: "json",
-        data: {
+        method: "POST",
+        responseType: "json",
+        data: convertData({
           block_list: JSON.stringify([file.md5]),
           path: this.savePath + file.path,
           size: file.size,
           isdir: 0,
           rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件
-        },
+        }),
       },
       (data) => {
-        file.errno = data.errno == 2 ? 404 : data.errno;
+        data = data.response;
+        file.errno = data.errno === 2 ? 404 : data.errno;
         this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
       },
       (statusCode: number) => {

@@ -36,7 +36,7 @@ export function parsefileInfo(fileInfoList: Array<FileInfo>) {
   let failedInfo = "";
   let failedCount = 0;
   let successList = [];
-  fileInfoList.forEach(function (item) {
+  fileInfoList.forEach((item) => {
     if (item.errno) {
       failedCount++;
       failedInfo += `<p>文件：${item.path}</p><p>失败原因：${baiduErrno(
@@ -64,14 +64,16 @@ export function getbdstoken() {
   ajax(
     {
       url: bdstoken_url,
-      type: "POST",
-      dataType: "json",
-      data: {
+      method: "POST",
+      responseType: "json",
+      data: convertData({
         fields: JSON.stringify(["bdstoken"]),
-      },
+      }),
     },
     (data) => {
-      if (!data.errno && data.result.bdstoken) setbdstoken(data.result.bdstoken);
+      data = data.response;
+      if (!data.errno && data.result.bdstoken)
+        setbdstoken(data.result.bdstoken);
       else
         showAlert(
           `获取bdstoken失败(${data.errno}), 可能导致转存失败(#2), 请尝试重新登录`
@@ -92,4 +94,15 @@ export function getSelectedFileList() {
   return unsafeWindow
     .require("system-core:context/context.js")
     .instanceForSystem.list.getSelected();
+}
+
+/**
+ * @description: 将data键值对转换为query字符串
+ * @param {any} data
+ * @return {string} query string
+ */
+export function convertData(data: any): string {
+  let query = "";
+  for (let key in data) query += `&${key}=${encodeURIComponent(data[key])}`;
+  return query;
 }

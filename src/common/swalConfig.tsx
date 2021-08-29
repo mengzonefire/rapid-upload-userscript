@@ -17,10 +17,10 @@ export const SwalConfig = {
       if (!value) {
         return "链接不能为空";
       }
-      if (value == "set") {
+      if (value === "set") {
         return;
       }
-      if (value == "gen") {
+      if (value === "gen") {
         return;
       }
       if (!DuParser.parse(value).length) {
@@ -97,8 +97,8 @@ export const SwalConfig = {
   },
 
   checkRecursive: {
-    type: "info",
-    title: "选择中包含文件夹, 是否递归生成?",
+    icon: "info",
+    title: "包含文件夹, 是否递归生成?",
     text: "若选是, 将同时生成各级子文件夹下的文件",
     allowOutsideClick: false,
     focusCancel: true,
@@ -118,5 +118,32 @@ export const SwalConfig = {
     allowOutsideClick: false,
     confirmButtonText: "确定",
     cancelButtonText: "返回",
-  }
+  },
+
+  settingView: {
+    title: "秒传链接提取 设置页",
+    showCloseButton: true,
+    showCancelButton: true,
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    allowOutsideClick: false,
+    input: "select",
+    inputValue: GM_getValue("Themes") || "Default",
+    inputOptions: {
+      Default: "Default 白色主题(默认)",
+      Bulma: "Bulma 白色简约",
+      "Bootstrap 4": "Bootstrap4 白色简约",
+      "Material UI": "MaterialUI 白色主题",
+      Dark: "Dark 黑色主题",
+      "WordPress Admin": "WordPressAdmin 灰色主题",
+    },
+  },
+
+  settingWarning: {
+    title: "设置成功 刷新页面生效",
+    showCloseButton: true,
+    allowOutsideClick: false,
+    confirmButtonText: "知道了",
+    html: htmlCsdWarning,
+  },
 };

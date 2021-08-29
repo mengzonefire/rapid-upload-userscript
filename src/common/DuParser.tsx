@@ -10,10 +10,10 @@ export default function DuParser() {}
 
 DuParser.parse = function generalDuCodeParse(szUrl:string) {
   let r: any;
-  if (szUrl.indexOf("bdpan") == 0) {
+  if (szUrl.indexOf("bdpan") === 0) {
     r = DuParser.parseDu_v1(szUrl);
     r.ver = "PanDL";
-  } else if (szUrl.indexOf("BaiduPCS-Go") == 0) {
+  } else if (szUrl.indexOf("BaiduPCS-Go") === 0) {
     r = DuParser.parseDu_v2(szUrl);
     r.ver = "PCS-Go";
   } else {

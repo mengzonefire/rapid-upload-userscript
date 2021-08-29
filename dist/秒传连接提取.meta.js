@@ -24,6 +24,7 @@
 // @grant GM_setClipboard
 // @grant GM_getResourceText
 // @grant GM_addStyle
+// @grant GM_xmlhttpRequest
 // @resource swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
 // @require https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
 // @require https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js

@@ -1,10 +1,11 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-29 18:26:15
+ * @LastEditTime: 2021-08-30 02:02:48
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
+import { refreshList } from "@/baidu/common/const";
 import GeneratebdlinkTask from "@/baidu/common/GeneratebdlinkTask";
 import RapiduploadTask from "@/baidu/common/RapiduploadTask";
 import {
@@ -39,8 +40,8 @@ export default class Swalbase {
     Swal.fire(this.mergeArg(SwalConfig.inputView, swalArg)).then(
       (result: any) => {
         if (result.isConfirmed) {
-          if (result.value == "set") this.settingView();
-          else if (result.value == "gen") this.genView();
+          if (result.value === "set") this.settingView();
+          else if (result.value === "gen") this.genView();
           else {
             this.rapiduploadTask.reset();
             this.rapiduploadTask.fileInfoList = DuParser.parse(result.value);
@@ -53,9 +54,14 @@ export default class Swalbase {
 
   // 输入转存路径的弹窗
   inputPathView() {
-    Swal.fire(this.mergeArg(SwalConfig.inputPathView)).then((result: any) => {
+    Swal.fire(this.mergeArg(SwalConfig.inputPathView), {
+      inputValue: GM_getValue("last_dir") || "",
+    }).then((result: any) => {
       if (result.isConfirmed) {
-        this.rapiduploadTask.savePath = result.value;
+        let path = result.value;
+        GM_setValue("last_dir", path);
+        if (path.charAt(path.length - 1) !== "/") path += "/";
+        this.rapiduploadTask.savePath = path;
         this.processView(false);
       }
     });
@@ -73,10 +79,11 @@ export default class Swalbase {
             this.rapiduploadTask.checkMode ? "测试" : "转存"
           }第 <file_num>0</file_num> 个`,
       willOpen: () => {
+        Swal.showLoading();
         isGen || this.saveFileWork();
       },
     };
-    Swal.fire(this.mergeArg(SwalConfig.inputPathView, swalArg));
+    Swal.fire(this.mergeArg(SwalConfig.processView, swalArg));
   }
 
   // 转存/生成/测试秒传完成的弹窗
@@ -111,16 +118,25 @@ export default class Swalbase {
         isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
       html: html + htmlFooter,
       ...((isGen || this.rapiduploadTask.checkMode) && checkboxArg),
+      willOpen: () => {
+        if (!isGen && !this.rapiduploadTask.checkMode) this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
+      },
     };
     Swal.fire(this.mergeArg(SwalConfig.finishView, swalArg)).then(
       (result: any) => {
-        if (result.isConfirmed && (isGen || this.rapiduploadTask.checkMode)) {
-          GM_setValue("with_path", result.value);
-          if (!result.value)
-            GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
-          // 去除秒传链接中的目录结构(仅保留文件名)
-          else GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
-          GM_deleteValue("unfinish"); // 清除任务进度数据
+        if (result.isConfirmed) {
+          if (isGen || this.rapiduploadTask.checkMode) {
+            // 生成/测试模式, "复制秒传代码"按钮
+            GM_setValue("with_path", result.value);
+            if (!result.value)
+              GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
+            // 去除秒传链接中的目录结构(仅保留文件名)
+            else GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
+            GM_deleteValue("unfinish"); // 清除任务进度数据
+          } else {
+            // 转存模式, "确定" 按钮
+            refreshList(); // 调用刷新文件列表的方法
+          }
         }
       }
     );
@@ -131,7 +147,7 @@ export default class Swalbase {
     Swal.fire(this.mergeArg(SwalConfig.checkRecursive)).then((result: any) => {
       if (result.isConfirmed) {
         this.generatebdlinkTask.recursive = true;
-      } else if (result.dismiss == Swal.DismissReason.cancel)
+      } else if (result.dismiss === Swal.DismissReason.cancel)
         this.generatebdlinkTask.recursive = false;
       else return;
       this.processView(true);
@@ -140,10 +156,29 @@ export default class Swalbase {
   }
 
   // 设置页
-  settingView() {}
+  settingView() {
+    Swal.fire(this.mergeArg(SwalConfig.settingView)).then((result: any) => {
+      if (result.isConfirmed) {
+        GM_setValue("Themes", result.value);
+        Swal.fire(this.mergeArg(SwalConfig.settingWarning));
+      }
+    });
+  }
 
   // 生成页 (输入路径列表进行秒传生成)
-  genView() {}
+  genView() {
+    Swal.fire(this.mergeArg(SwalConfig.genView)).then((result: any) => {
+      if (result.isConfirmed) {
+        this.generatebdlinkTask.reset();
+        result.value.split("\n").forEach((item: string) => {
+          this.generatebdlinkTask.fileInfoList.push({
+            path: item,
+          });
+        });
+        this.genFileWork(true); // 以unfinish模式执行, 跳过扫描文件夹的步骤
+      }
+    });
+  }
 
   // 跨域提示
   csdWarning(onConfirm: () => void) {
@@ -159,7 +194,7 @@ export default class Swalbase {
   genUnfinishi(onConfirm: () => void, onCancel: () => void) {
     Swal.fire(this.mergeArg(SwalConfig.genUnfinish)).then((result: any) => {
       if (result.isConfirmed) onConfirm();
-      else if (result.dismiss == Swal.DismissReason.cancel) onCancel();
+      else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
     });
   }
 
@@ -169,7 +204,7 @@ export default class Swalbase {
       if (result.isConfirmed) {
         GM_setValue("check_md5_warning", result.value);
         onConfirm();
-      } else if (result.dismiss == Swal.DismissReason.cancel) onCancel();
+      } else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
     });
   }
 
@@ -252,5 +287,28 @@ export default class Swalbase {
         } // 点击返回按钮, 回到生成完成的界面
       );
     } else this.processView(false); // 直接开始测试转存秒传
+  }
+
+  // 添加 "打开目录" 按钮
+  addOpenDirBtn() {
+    let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
+    if (_dir) {
+      if (_dir.charAt(0) != "/") _dir = "/" + _dir; // 补齐路径开头的"/"
+      let cBtn = Swal.getConfirmButton();
+      let btn = cBtn.cloneNode();
+      btn.textContent = "打开目录";
+      btn.style.backgroundColor = "#ecae3c";
+      btn.onclick = () => {
+        let path = location.href.match(/(path=.+?)(?:&|$)/);
+        if (path)
+          location.href = location.href.replace(
+            // 仅替换path参数, 不修改其他参数
+            path[1],
+            `path=${encodeURIComponent(_dir)}`
+          );
+        Swal.close();
+      };
+      cBtn.before(btn);
+    }
   }
 }

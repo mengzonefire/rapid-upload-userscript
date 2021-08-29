@@ -5,7 +5,7 @@ export default function registerPlugin() {
     "function-widget:mengzonefire/rapidupload-userscript.js",
     (_require: any, exports: any, _module: any) => {
       exports.start = function (_context: any, module: any) {
-        if (!module || module.config.name == "generateBdlink") {
+        if (!module.config || module.config.name === "generateBdlink") {
           // 右键菜单生成事件 + 生成按钮事件
           swalInstance.generatebdlinkTask.reset();
           if (!GM_getValue("show_csd_warning")) {
@@ -13,7 +13,7 @@ export default function registerPlugin() {
               swalInstance.checkUnfinish();
             });
           } else swalInstance.checkUnfinish();
-        } else if (module.config.name == "rapidupload") {
+        } else if (module.config.name === "rapidupload") {
           // 转存按钮事件
           swalInstance.inputView();
         }
@@ -57,7 +57,7 @@ export default function registerPlugin() {
           excludeDirType: "sourceHolder,cardHolder,shareHolder",
           pageModule: "list,share,search,category,searchGlobal",
         },
-        index: 6,
+        index: 7,
         type: "file",
         title: "生成秒传",
         keyboard: "g",

@@ -90,6 +90,7 @@ module.exports = {
           "GM_setClipboard",
           "GM_getResourceText",
           "GM_addStyle",
+          "GM_xmlhttpRequest",
         ],
         resource:
           "swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
