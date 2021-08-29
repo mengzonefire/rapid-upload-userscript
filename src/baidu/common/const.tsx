@@ -50,6 +50,8 @@ export function baiduErrno(errno: number) {
       return `md5获取失败(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
     case 500:
       return `服务器错误(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
+    case 503:
+      return `服务器不可用(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
     case 909:
       return "路径不存在";
     case 900:

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-28 18:45:18
+ * @LastEditTime: 2021-08-29 13:51:19
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -58,11 +58,10 @@ export default class Swalbase {
         ? "秒传生成中"
         : `文件${this.rapiduploadTask.checkMode ? "测试" : "提取"}中`,
       html: isGen
-        ? "<p>正在生成第 <gen_num></gen_num> 个</p><p><gen_prog></gen_prog></p>"
+        ? "<p>正在生成第 <file_num></file_num> 个</p><p><gen_prog></gen_prog></p>"
         : `正在${
             this.rapiduploadTask.checkMode ? "测试" : "转存"
           }第 <file_num></file_num> 个`,
-      ...this.saveFileWork,
       willOpen: this.saveFileWork,
     };
     Swal.fire(this.mergeArg(swalConfig.inputPathView, swalArg));
@@ -116,53 +115,90 @@ export default class Swalbase {
     this.rapiduploadTask.start(); // 开始转存任务
   }
 
-  genFileWork() {}
-  // // 生成文件夹秒传, 是否递归生成提示
-  // checkRecursive(swalArg?: any) {}
+  genFileWork(isUnfinish: boolean) {
+    this.generatebdlinkTask.selectList = getSelectedFileList();
+    this.generatebdlinkTask.onProcess = (i, fileInfoList) => {
+      Swal.getHtmlContainer().querySelector("file_num").textContent = `${
+        i + 1
+      } / ${fileInfoList.length}`;
+      Swal.getHtmlContainer().querySelector("gen_prog").textContent = "0%";
+    };
+    this.generatebdlinkTask.onProgress = (e: any) => {
+      if (typeof e.total != "number") return; // 参数数据不正确 跳过
+      Swal.getHtmlContainer().querySelector("gen_prog").textContent = `${(
+        (e.loaded / e.total) *
+        100
+      ).toFixed()}%`;
+    };
+    this.generatebdlinkTask.onHasNoDir = () => {
+      this.processView(true);
+      this.generatebdlinkTask.generateBdlink(0);
+    };
+    this.generatebdlinkTask.onHasDir = () => {
+      this.checkRecursive();
+    };
+    this.generatebdlinkTask.onFinish = () => {};
+    if (!isUnfinish) this.generatebdlinkTask.start();
+  }
+
+  // 生成文件夹秒传, 是否递归生成提示
+  checkRecursive(swalArg?: any) {
+    this.processView(true);
+  }
+
   // // 设置页
   // settingView(swalArg?: any) {}
+
   // // 生成页 (输入路径列表进行秒传生成)
   // genView(swalArg?: any) {}
-  // // 跨域提示
-  csdWarning(onConfirm: () => void, swalArg?: any) {
+
+  // 跨域提示
+  csdWarning(onConfirm: () => void) {
     Swal.fire(this.mergeArg(swalConfig.csdWarning)).then((result: any) => {
       if (result.isConfirmed) {
         GM_setValue("show_csd_warning", result.value);
         onConfirm();
       }
     });
-    this.processView(true);
   }
+
   // 生成秒传未完成任务提示
-  genUnfinishi(onConfirm: () => void, onCancel: () => void, swalArg?: any) {
+  genUnfinishi(onConfirm: () => void, onCancel: () => void) {
     Swal.fire(this.mergeArg(swalConfig.genUnfinish)).then((result: any) => {
       this.processView(true);
-      this.generatebdlinkTask.onFinish
-      this.generatebdlinkTask.onHasDir
-      this.generatebdlinkTask.onProcess
-      this.generatebdlinkTask.onProgress
+      // this.generatebdlinkTask.onFinish;
+      // this.generatebdlinkTask.onProcess;
+      // this.generatebdlinkTask.onProgress;
       if (result.value) onConfirm();
       else onCancel();
     });
   }
+
   // 测试秒传覆盖文件提示
   // checkMd5Warning(swalArg?: any) {}
-  // // 更新信息页
-  // updateInfo(swalArg?: any) {}
+
+  // 更新信息页
+  updateInfo(onConfirm: () => void) {
+    Swal.fire(this.mergeArg(swalConfig.updateInfo)).then((result: any) => {
+      if (result.isConfirmed) onConfirm();
+    });
+  }
 
   checkUnfinish() {
     if (GM_getValue("unfinish")) {
       this.genUnfinishi(
         () => {
+          this.genFileWork(true);
           let unfinishInfo: any = GM_getValue("unfinish");
           this.generatebdlinkTask.fileInfoList = unfinishInfo.file_info_list;
           this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
-        },
+        }, // 确认继续未完成任务
         () => {
-          this.generatebdlinkTask.fileInfoList = getSelectedFileList();
-          this.generatebdlinkTask.inital();
-        }
+          this.genFileWork(false);
+        } // 不继续未完成任务, 开启新任务
       );
-    }
+    } else {
+      this.genFileWork(false);
+    } // 没有未完成任务, 开启新任务
   }
 }

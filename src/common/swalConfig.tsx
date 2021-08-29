@@ -1,6 +1,7 @@
 import { illegalPathPattern } from "@/baidu/common/const";
 import { doc, htmlCsdWarning, linkStyle } from "./const";
 import DuParser from "./DuParser";
+import updateInfo from "@/components/updateInfo.html";
 
 // 各Swal弹窗的固定参数配置:
 export const swalConfig = {
@@ -91,5 +92,6 @@ export const swalConfig = {
     showCloseButton: true,
     allowOutsideClick: false,
     confirmButtonText: "知道了",
+    html: updateInfo,
   },
 };

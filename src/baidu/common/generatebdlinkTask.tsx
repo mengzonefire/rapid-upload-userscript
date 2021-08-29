@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-28 18:04:03
+ * @LastEditTime: 2021-08-29 13:25:23
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -17,6 +17,7 @@ export default class GeneratebdlinkTask {
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
   onProgress: (e: any) => void;
   onHasDir: () => void;
+  onHasNoDir: () => void;
 
   reset(): void {
     this.recursive = false;
@@ -25,14 +26,13 @@ export default class GeneratebdlinkTask {
     this.fileInfoList = [];
     this.onFinish = () => {};
     this.onProcess = () => {};
+    this.onProgress = () => {}
     this.onHasDir = () => {};
+    this.onHasNoDir = () => {};
   }
 
-  start(): void {
-    this.inital();
-  }
-
-  inital(): void {
+  start(): void { 
+    // 执行新任务的初始化步骤
     this.selectList.forEach(function (item) {
       if (item.isdir) this.dirList.push(item.path);
       else {
@@ -42,9 +42,8 @@ export default class GeneratebdlinkTask {
         });
       }
     });
-    if (this.dirList.length) {
-      this.onHasDir;
-    } else this.generateBdlink(0);
+    if (this.dirList.length) this.onHasDir();
+    else this.onHasNoDir();
   }
 
   /**
@@ -190,6 +189,7 @@ export default class GeneratebdlinkTask {
         },
       },
       (data, xhr) => {
+        this.onProgress({ loaded: 100, total: 100 }); // 100%
         this.parseDownloadData(i, data, xhr);
       },
       (statusCode) => {

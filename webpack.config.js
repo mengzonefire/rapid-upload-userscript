@@ -23,6 +23,15 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "text-loader",
+          },
+        ],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.tsx?$/,
         use: [
           {

@@ -12,7 +12,7 @@ export default function registerPlugin() {
             swalInstance.csdWarning(() => {
               swalInstance.checkUnfinish();
             });
-          }
+          } else swalInstance.checkUnfinish();
         } else if (module.config.name == "rapidupload") {
           // 转存按钮事件
           swalInstance.inputView();

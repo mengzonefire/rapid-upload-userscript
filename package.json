@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "css-loader": "^6.2.0",
+    "text-loader": "^0.0.1",
     "ts-loader": "^9.2.5",
     "typescript": "^4.3.5",
     "webpack": "^5.51.0",

@@ -2,12 +2,7 @@ import "./app.css"; // 加载自定义样式
 import { loaderBaidu } from "./baidu/loader";
 import { injectStyle } from "./common/injectStyle";
 import { showAlert } from "./common/utils";
-import {
-  appError,
-  Base64,
-  SparkMD5,
-  Swal,
-} from "./common/const";
+import { appError, Base64, SparkMD5, Swal } from "./common/const";
 
 /**
  * @description: 主函数入口
@@ -23,4 +18,9 @@ function app(): void {
   }
 }
 
-app();
+// 广告拦截插件会导致脚本报错跳出, 网页卡死, 故加入异常处理
+try {
+  app();
+} catch (error) {
+  console.log(error);
+}
