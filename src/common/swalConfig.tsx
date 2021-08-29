@@ -116,7 +116,7 @@ export const SwalConfig = {
     inputPlaceholder: "不再显示",
     showCancelButton: true,
     allowOutsideClick: false,
-    confirmButtonText: "知道了",
+    confirmButtonText: "确定",
     cancelButtonText: "返回",
   }
 };

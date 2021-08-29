@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-29 16:13:50
+ * @LastEditTime: 2021-08-29 17:01:51
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -45,9 +45,13 @@ export default class Swalbase {
     Swal.fire(this.mergeArg(SwalConfig.inputView, swalArg)).then(
       (result: any) => {
         if (result.isConfirmed) {
+          if(result.value=="set") this.settingView()
+          else if(result.value=="gen") this.genView()
+          else{
           this.rapiduploadTask.reset();
           this.rapiduploadTask.fileInfoList = DuParser.parse(result.value);
           this.inputPathView();
+          }
         }
       }
     );
@@ -73,14 +77,14 @@ export default class Swalbase {
         ? "<p>正在生成第 <file_num>0</file_num> 个</p><p><gen_prog>正在获取文件列表...</gen_prog></p>"
         : `正在${
             this.rapiduploadTask.checkMode ? "测试" : "转存"
-          }第 <file_num></file_num> 个`,
-      willOpen: this.saveFileWork,
+          }第 <file_num>0</file_num> 个`,
+      willOpen: isGen ? () => {} : this.saveFileWork,
     };
     Swal.fire(this.mergeArg(SwalConfig.inputPathView, swalArg));
   }
 
   // 转存/生成/测试秒传完成的弹窗
-  FinishView(isGen: boolean) {
+  finishView(isGen: boolean) {
     let checkboxArg = {
       input: "checkbox",
       inputValue: GM_getValue("with_path"),
@@ -95,6 +99,7 @@ export default class Swalbase {
       ? this.generatebdlinkTask.fileInfoList
       : this.rapiduploadTask.fileInfoList;
     let parseResult = parsefileInfo(fileInfoList);
+    if (isGen) this.rapiduploadTask.fileInfoList = parseResult.successList;
     let html = isGen
       ? htmlCheckMd5 + // 添加测试秒传入口
         htmlDocument + // 默认添加文档入口
@@ -138,11 +143,11 @@ export default class Swalbase {
     });
   }
 
-  // // 设置页
-  // settingView(swalArg?: any) {}
+  // 设置页
+  settingView() {}
 
-  // // 生成页 (输入路径列表进行秒传生成)
-  // genView(swalArg?: any) {}
+  // 生成页 (输入路径列表进行秒传生成)
+  genView() {}
 
   // 跨域提示
   csdWarning(onConfirm: () => void) {
@@ -163,7 +168,14 @@ export default class Swalbase {
   }
 
   // 测试秒传覆盖文件提示
-  checkMd5Warning() {}
+  checkMd5Warning(onConfirm: () => void, onCancel: () => void) {
+    Swal.fire(this.mergeArg(SwalConfig.checkMd5Warning)).then((result: any) => {
+      if (result.isConfirmed) {
+        GM_setValue("check_md5_warning", result.value);
+        onConfirm();
+      } else if (result.dismiss == Swal.DismissReason.cancel) onCancel();
+    });
+  }
 
   // 更新信息页
   updateInfo(onConfirm: () => void) {
@@ -172,10 +184,10 @@ export default class Swalbase {
     });
   }
 
-  // 下面三个都是任务操作逻辑, 不是弹窗逻辑
+  // 以下的方法都是任务操作逻辑, 不是弹窗逻辑
   saveFileWork() {
     this.rapiduploadTask.onFinish = () => {
-      this.FinishView(false);
+      this.finishView(false);
     };
     this.rapiduploadTask.onProcess = (i, fileInfoList) => {
       Swal.getHtmlContainer().querySelector("file_num").textContent = `${
@@ -231,6 +243,16 @@ export default class Swalbase {
   }
 
   checkMd5() {
-    if (!GM_getValue("check_md5_warning")){}
+    this.rapiduploadTask.checkMode = true;
+    if (!GM_getValue("check_md5_warning")) {
+      this.checkMd5Warning(
+        () => {
+          this.processView(false);
+        }, // 点击确定按钮, 开始测试转存秒传
+        () => {
+          this.finishView(true);
+        } // 点击返回按钮, 回到生成完成的界面
+      );
+    } else this.processView(false); // 直接开始测试转存秒传
   }
 }

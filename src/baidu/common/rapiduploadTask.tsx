@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-28 15:51:00
+ * @LastEditTime: 2021-08-29 16:55:27
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -25,6 +25,7 @@ export default class RapiduploadTask {
   }
 
   start(): void {
+    if (this.checkMode) this.savePath = "";
     this.saveFile(0, rapidTryflag.useUpperCaseMd5);
   }
 
@@ -78,7 +79,7 @@ export default class RapiduploadTask {
     ajax(
       {
         url: `${rapid_url}?bdstoken=${bdstoken}${
-          this.checkMode ? "&rtype=3" : ""
+          this.checkMode ? "&rtype=3" : "" // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为0
         }`,
         type: "POST",
         dataType: "json",
@@ -119,7 +120,7 @@ export default class RapiduploadTask {
           path: this.savePath + file.path,
           size: file.size,
           isdir: 0,
-          rtype: this.checkMode ? 3 : 0,
+          rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件
         },
       },
       (data) => {

@@ -28,24 +28,33 @@ export function randomStringTransform(string: string): string {
 }
 
 /**
- * @description: 解析文件信息, 返回转存结果列表html和秒传链接和失败文件个数
+ * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表
  * @param {Array} fileInfoList
  */
 export function parsefileInfo(fileInfoList: Array<FileInfo>) {
   let bdcode = "";
   let failedInfo = "";
   let failedCount = 0;
+  let successList = [];
   fileInfoList.forEach(function (item) {
     if (item.errno) {
       failedCount++;
       failedInfo += `<p>文件：${item.path}</p><p>失败原因：${baiduErrno(
         item.errno
       )}(#${item.errno})</p>`;
-    } else bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`;
+    } else {
+      bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`;
+      successList.push(item);
+    }
   });
   if (failedInfo) failedInfo = "<p>失败文件列表:</p>" + failedInfo;
   bdcode = bdcode.trim();
-  return { htmlInfo: failedInfo, failedCount: failedCount, bdcode: bdcode };
+  return {
+    htmlInfo: failedInfo,
+    failedCount: failedCount,
+    bdcode: bdcode,
+    successList: successList,
+  };
 }
 
 /**
