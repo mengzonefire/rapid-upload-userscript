@@ -1,4 +1,4 @@
-import "./app.css"; // 加载自定义样式
+import myCss from "./app.css";
 import { loaderBaidu } from "./baidu/loader";
 import { injectStyle } from "./common/injectStyle";
 import { showAlert } from "./common/utils";
@@ -11,6 +11,7 @@ function app(): void {
   // 检查外部依赖是否加载完整
   if (Base64 && $ && SparkMD5 && Swal) {
     Base64.extendString();
+    GM_addStyle(myCss); // 注入自定义样式
     injectStyle();
     loaderBaidu();
   } else {

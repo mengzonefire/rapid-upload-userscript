@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-29 18:08:09
+ * @LastEditTime: 2021-08-29 18:26:15
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -22,16 +22,10 @@ import { getSelectedFileList, parsefileInfo } from "./utils";
 
 export default class Swalbase {
   swalArgs: any;
-  rapiduploadTask: RapiduploadTask;
-  generatebdlinkTask: GeneratebdlinkTask;
-
   constructor(
-    myrapiduploadTask: RapiduploadTask,
-    mygeneratebdlinkTask: GeneratebdlinkTask
-  ) {
-    this.rapiduploadTask = myrapiduploadTask;
-    this.generatebdlinkTask = mygeneratebdlinkTask;
-  }
+    readonly rapiduploadTask: RapiduploadTask,
+    readonly generatebdlinkTask: GeneratebdlinkTask
+  ) {}
 
   // 合并swal参数
   mergeArg(...inputArgs: any) {
@@ -78,7 +72,9 @@ export default class Swalbase {
         : `正在${
             this.rapiduploadTask.checkMode ? "测试" : "转存"
           }第 <file_num>0</file_num> 个`,
-      willOpen: isGen ? () => {} : this.saveFileWork,
+      willOpen: () => {
+        isGen || this.saveFileWork();
+      },
     };
     Swal.fire(this.mergeArg(SwalConfig.inputPathView, swalArg));
   }

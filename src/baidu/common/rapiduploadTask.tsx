@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-29 18:08:31
+ * @LastEditTime: 2021-08-29 18:13:58
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -13,7 +13,7 @@ export default class RapiduploadTask {
   savePath: string;
   checkMode: boolean = false;
   fileInfoList: Array<FileInfo>;
-  onFinish: () => void;
+  onFinish: (fileInfoList: Array<FileInfo>) => void;
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
 
   reset(): void {
@@ -36,7 +36,7 @@ export default class RapiduploadTask {
    */
   saveFile(i: number, tryFlag?: number): void {
     if (i >= this.fileInfoList.length) {
-      this.onFinish();
+      this.onFinish(this.fileInfoList);
       return;
     }
     this.onProcess(i, this.fileInfoList);

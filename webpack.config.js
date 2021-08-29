@@ -47,7 +47,7 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: "css-loader",
+            loader: "text-loader",
           },
         ],
         exclude: /node_modules/,
