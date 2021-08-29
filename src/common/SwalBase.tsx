@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-30 02:02:48
+ * @LastEditTime: 2021-08-30 02:15:49
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -103,11 +103,11 @@ export default class Swalbase {
       : this.rapiduploadTask.fileInfoList;
     let parseResult = parsefileInfo(fileInfoList);
     if (isGen) this.rapiduploadTask.fileInfoList = parseResult.successList;
-    let html = isGen
-      ? htmlCheckMd5 + // 添加测试秒传入口
-        htmlDocument + // 默认添加文档入口
-        (parseResult.htmlInfo && "<p><br></p>" + parseResult.htmlInfo) // 如果有失败列表则添加空行间隔
-      : htmlDocument + "<p><br></p>" + parseResult.htmlInfo;
+    let html =
+      (isGen
+        ? htmlCheckMd5 + // 添加测试秒传入口
+          htmlDocument // 添加文档入口
+        : "") + (parseResult.htmlInfo && "<p><br></p>" + parseResult.htmlInfo); // 如果有失败列表则添加空行间隔
     let htmlFooter = "";
     if (!GM_getValue(`${donateVer}_kill_donate`)) htmlFooter += htmlDonate; // 添加赞助入口提示
     if (!GM_getValue(`${feedbackVer}_kill_donate`)) htmlFooter += htmlFeedback; // 添加反馈入口提示
