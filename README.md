@@ -2,7 +2,7 @@
 
 > 秒传链接提取脚本, 使用typescript + webpack重构
 
-> 用于提取和生成百度网盘秒传链接 [脚本介绍页](https://github.com/mengzonefire/rapid-upload-userscript/blob/main/homePage.md)
+> 用于提取和生成百度网盘秒传链接, 详见 [脚本介绍页](https://github.com/mengzonefire/rapid-upload-userscript/blob/main/homePage.md)
 
 ## Usage
 
