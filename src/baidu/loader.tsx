@@ -15,7 +15,7 @@ import { getbdstoken } from "@/common/utils";
 export function loaderBaidu(): void {
   getbdstoken();
 
-  if (locUrl.indexOf(baiduNewPage) !== -1) {
+  if (locUrl.indexOf(baiduNewPage) != -1) {
     // 添加swal参数以防止新版界面下的body样式突变
     swalInstance.swalArgs = { heightAuto: false, scrollbarPadding: false };
     installNew();
@@ -33,9 +33,11 @@ export function loaderBaidu(): void {
       swalInstance.inputView({ inputValue: bdlink });
     });
   } else if (!GM_getValue(`${updateInfoVer}_no_first`))
-    swalInstance.updateInfo(() => {
-      GM_setValue(`${updateInfoVer}_no_first`, true);
-    }); // 检查是否首次运行, 若是弹出更新信息窗口
+    window.addEventListener("DOMContentLoaded", () => {
+      swalInstance.updateInfo(() => {
+        GM_setValue(`${updateInfoVer}_no_first`, true);
+      });
+    }); // 检查是否首次运行, 若是则弹出更新信息窗口
 
   // 预先绑定好自定义按钮事件
   $(document).on("click", "#kill_donate", function () {

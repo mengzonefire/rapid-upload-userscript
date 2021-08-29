@@ -71,7 +71,7 @@ export function getbdstoken() {
       },
     },
     (data) => {
-      if (!data.errno && data.bdstoken) setbdstoken(data.bdstoken);
+      if (!data.errno && data.result.bdstoken) setbdstoken(data.result.bdstoken);
       else
         showAlert(
           `获取bdstoken失败(${data.errno}), 可能导致转存失败(#2), 请尝试重新登录`

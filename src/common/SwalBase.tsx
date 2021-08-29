@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-29 17:01:51
+ * @LastEditTime: 2021-08-29 18:08:09
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -45,12 +45,12 @@ export default class Swalbase {
     Swal.fire(this.mergeArg(SwalConfig.inputView, swalArg)).then(
       (result: any) => {
         if (result.isConfirmed) {
-          if(result.value=="set") this.settingView()
-          else if(result.value=="gen") this.genView()
-          else{
-          this.rapiduploadTask.reset();
-          this.rapiduploadTask.fileInfoList = DuParser.parse(result.value);
-          this.inputPathView();
+          if (result.value == "set") this.settingView();
+          else if (result.value == "gen") this.genView();
+          else {
+            this.rapiduploadTask.reset();
+            this.rapiduploadTask.fileInfoList = DuParser.parse(result.value);
+            this.inputPathView();
           }
         }
       }
@@ -219,7 +219,9 @@ export default class Swalbase {
     this.generatebdlinkTask.onHasDir = () => {
       this.checkRecursive();
     };
-    this.generatebdlinkTask.onFinish = () => {};
+    this.generatebdlinkTask.onFinish = () => {
+      this.finishView(true);
+    };
     if (!isUnfinish) this.generatebdlinkTask.start();
   }
 

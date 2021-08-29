@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-29 15:24:13
+ * @LastEditTime: 2021-08-29 18:06:53
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -13,7 +13,7 @@ export default class GeneratebdlinkTask {
   dirList: Array<string>;
   selectList: Array<FileInfo>;
   fileInfoList: Array<FileInfo>;
-  onFinish: (fileInfoList: any[]) => void;
+  onFinish: () => void;
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
   onProgress: (e: any) => void;
   onHasDir: () => void;
@@ -100,7 +100,7 @@ export default class GeneratebdlinkTask {
       file_id: i,
     }); // 保存任务进度数据
     if (i >= this.fileInfoList.length) {
-      this.onFinish(this.fileInfoList);
+      this.onFinish();
       return;
     }
     this.onProcess(i, this.fileInfoList);
@@ -135,7 +135,7 @@ export default class GeneratebdlinkTask {
           file.fs_id = data.list[0].fs_id;
           let md5 = data.list[0].md5.match(/[\dA-Fa-f]{32}/);
           if (md5) file.md5 = md5[0].toLowerCase();
-          else if (data.list[0].block_list.length === 1)
+          else if (data.list[0].block_list.length == 1)
             file.md5 = data.list[0].block_list[0].toLowerCase();
           this.getDlink(i);
         } else {
