@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-30 03:11:36
+ * @LastEditTime: 2021-08-30 09:16:43
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -136,8 +136,8 @@ export default class GeneratebdlinkTask {
           file.size = data.list[0].size;
           file.fs_id = data.list[0].fs_id;
           let md5 = data.list[0].md5.match(/[\dA-Fa-f]{32}/);
-          if (md5) file.md5 = md5[0].toLowerCase();
-          else if (data.list[0].block_list.length === 1)
+          if (md5) file.md5 = md5[0].toLowerCase(); // 获取到正确的md5
+          else if (data.list[0].block_list.length === 1) // block_list内获取到正确的md5
             file.md5 = data.list[0].block_list[0].toLowerCase();
           this.getDlink(i);
         } else {
@@ -228,16 +228,16 @@ export default class GeneratebdlinkTask {
     } else {
       console.log(data.responseHeaders); // debug
       let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
-      if (fileMd5) file.md5 = fileMd5[1].toLowerCase();
-      else if (file.size <= 3900000000 && !file.retry_996) {
+      if (fileMd5) file.md5 = fileMd5[1].toLowerCase(); // 从下载接口拿到了md5, 会覆盖meta接口的md5
+      else if (file.size <= 3900000000 && !file.retry_996) { // 未拿到md5, 尝试使用另一个下载接口
         file.retry_996 = true;
         this.downloadFileData(
           i,
           pcs_url + `&path=${encodeURIComponent(file.path)}`
         );
         return;
-      } else {
-        if (!file.md5) file.errno = 996;
+      } else if (!file.md5) { // 两个下载接口和meta接口都未拿到md5
+        file.errno = 996;
         this.generateBdlink(i + 1);
         return;
       }

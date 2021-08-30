@@ -39,7 +39,7 @@ export function baiduErrno(errno: number) {
     case 403:
       return "接口被限制(请等待24h再试)";
     case 404:
-      return `秒传未生效(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
+      return `秒传未生效(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 2:
       return "转存失败(尝试重登网盘账号/修改文件名或转存路径)";
     case 2333:
@@ -49,13 +49,13 @@ export function baiduErrno(errno: number) {
     case 514:
       return "接口调用失败(请重试/弹出跨域请求窗口请选择允许)";
     case 1919:
-      return `文件已被和谐(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
+      return `文件已被和谐(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 996:
-      return `md5获取失败(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
+      return `md5获取失败(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 500:
-      return `服务器错误(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
+      return `服务器错误(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 503:
-      return `服务器不可用(请参考<a href="${doc.shareDoc} ${linkStyle}">分享教程</a>)`;
+      return `服务器不可用(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 909:
       return "路径不存在";
     case 900:

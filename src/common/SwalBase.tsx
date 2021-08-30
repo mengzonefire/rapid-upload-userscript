@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-30 03:19:46
+ * @LastEditTime: 2021-08-30 09:25:20
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -90,11 +90,6 @@ export default class Swalbase {
 
   // 转存/生成/测试秒传完成的弹窗
   finishView(isGen: boolean) {
-    let checkboxArg = {
-      input: "checkbox",
-      inputValue: GM_getValue("with_path"),
-      inputPlaceholder: "导出文件夹目录结构",
-    };
     let action = isGen
       ? "生成"
       : this.rapiduploadTask.checkMode
@@ -105,6 +100,14 @@ export default class Swalbase {
       : this.rapiduploadTask.fileInfoList;
     let parseResult = parsefileInfo(fileInfoList);
     if (isGen) this.rapiduploadTask.fileInfoList = parseResult.successList;
+    let checkboxArg =
+      parseResult.failedCount === fileInfoList.length
+        ? {}
+        : {
+            input: "checkbox",
+            inputValue: GM_getValue("with_path"),
+            inputPlaceholder: "导出文件夹目录结构",
+          }; // 全部失败不显示此checkbox
     let html =
       (isGen
         ? (parseResult.failedCount === fileInfoList.length

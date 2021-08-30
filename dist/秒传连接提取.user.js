@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.0
+// @version 2.0.1
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -526,15 +526,15 @@
             };
             Swalbase.prototype.finishView = function(isGen) {
                 var _this = this;
-                var checkboxArg = {
-                    input: "checkbox",
-                    inputValue: GM_getValue("with_path"),
-                    inputPlaceholder: "导出文件夹目录结构"
-                };
                 var action = isGen ? "生成" : this.rapiduploadTask.checkMode ? "测试" : "转存";
                 var fileInfoList = isGen ? this.generatebdlinkTask.fileInfoList : this.rapiduploadTask.fileInfoList;
                 var parseResult = parsefileInfo(fileInfoList);
                 if (isGen) this.rapiduploadTask.fileInfoList = parseResult.successList;
+                var checkboxArg = parseResult.failedCount === fileInfoList.length ? {} : {
+                    input: "checkbox",
+                    inputValue: GM_getValue("with_path"),
+                    inputPlaceholder: "导出文件夹目录结构"
+                };
                 var html = (isGen ? (parseResult.failedCount === fileInfoList.length ? "" : htmlCheckMd5) + htmlDocument : "") + (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") + parseResult.htmlInfo;
                 var htmlFooter = "";
                 if (!GM_getValue(donateVer + "_kill_donate")) htmlFooter += htmlDonate;
@@ -865,8 +865,8 @@
                         file.retry_996 = true;
                         this.downloadFileData(i, pcs_url + ("&path=" + encodeURIComponent(file.path)));
                         return;
-                    } else {
-                        if (!file.md5) file.errno = 996;
+                    } else if (!file.md5) {
+                        file.errno = 996;
                         this.generateBdlink(i + 1);
                         return;
                     }
@@ -1022,7 +1022,7 @@
                 return "接口被限制(请等待24h再试)";
 
               case 404:
-                return '秒传未生效(请参考<a href="' + doc.shareDoc + " " + linkStyle + '">分享教程</a>)';
+                return '秒传未生效(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 2:
                 return "转存失败(尝试重登网盘账号/修改文件名或转存路径)";
@@ -1037,16 +1037,16 @@
                 return "接口调用失败(请重试/弹出跨域请求窗口请选择允许)";
 
               case 1919:
-                return '文件已被和谐(请参考<a href="' + doc.shareDoc + " " + linkStyle + '">分享教程</a>)';
+                return '文件已被和谐(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 996:
-                return 'md5获取失败(请参考<a href="' + doc.shareDoc + " " + linkStyle + '">分享教程</a>)';
+                return 'md5获取失败(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 500:
-                return '服务器错误(请参考<a href="' + doc.shareDoc + " " + linkStyle + '">分享教程</a>)';
+                return '服务器错误(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 503:
-                return '服务器不可用(请参考<a href="' + doc.shareDoc + " " + linkStyle + '">分享教程</a>)';
+                return '服务器不可用(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 909:
                 return "路径不存在";
