@@ -76,12 +76,12 @@ export function getbdstoken() {
         setbdstoken(data.result.bdstoken);
       else
         showAlert(
-          `获取bdstoken失败(${data.errno}), 可能导致转存失败(#2), 请尝试重新登录`
+          `获取bdstoken失败(${data.errno}), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录`
         );
     },
     (statusCode) => {
       showAlert(
-        `获取bdstoken失败(${statusCode}), 可能导致转存失败(#2), 请尝试重新登录`
+        `获取bdstoken失败(${statusCode}), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录`
       );
     }
   );

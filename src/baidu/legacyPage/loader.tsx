@@ -1,56 +1,45 @@
 import { TAG } from "@/common/const";
+import { swalInstance } from "../common/const";
+import {
+  htmlBtnRapidlegacy,
+  htmlBtnGenlegacy,
+  htmlTaglegacy,
+  htmlTag2legacy,
+} from "@/baidu/common/const";
 
-let oRequire: any;
-
-const hooks = new Map();
-
-function fakeRequire(module: string) {
-  const result = oRequire.apply(this, arguments);
-  const moduleHook = hooks.get(module);
-  if (moduleHook) {
-    try {
-      moduleHook();
-    } catch (e) {
-      console.error(`${TAG}: 执行 ${module} hook 时发生错误: ${e.message}`);
-      console.trace(e);
-    }
-    hooks.delete(module);
-  }
-  return result;
-}
-fakeRequire.async = null;
-
-export function load(module: any) {
-  return oRequire.call(unsafeWindow, module);
+function getSystemContext() {
+  return unsafeWindow.require("system-core:context/context.js")
+    .instanceForSystem;
 }
 
-export function loadAsync(module: any) {
-  return new Promise((resolve) => {
-    fakeRequire.async(module, resolve);
+function addGenBtn() {
+  let listTools = getSystemContext().Broker.getButtonBroker("listTools");
+  if (listTools && listTools.$box)
+    $(listTools.$box).children("div").after(htmlBtnGenlegacy);
+  else setTimeout(addGenBtn, 300);
+}
+
+function addBtn() {
+  if ($(htmlTaglegacy).length && $(htmlTag2legacy).length)
+    $(htmlTaglegacy).append(htmlBtnRapidlegacy);
+  else setTimeout(addBtn, 100);
+}
+
+export default function installlegacy() {
+  jQuery(function () {
+    console.info("%s DOM方式安装，若失效请报告。", TAG);
+    addBtn(); // DOM添加秒传按钮
+    addGenBtn(); // DOM添加生成按钮
+    $(document).on("click", "#bdlink_btn", () => {
+      swalInstance.inputView();
+    }); // 绑定秒传按钮事件
+    $(document).on("click", "#gen_bdlink_btn", () => {
+      swalInstance.generatebdlinkTask.reset();
+      if (!GM_getValue("show_csd_warning")) {
+        swalInstance.csdWarning(() => {
+          swalInstance.checkUnfinish();
+        });
+      } else swalInstance.checkUnfinish();
+    }); // 绑定生成按钮事件
   });
-}
-
-export function hook(module: string, fn: any) {
-  hooks.set(module, fn);
-}
-
-export function install() {
-  // 注意, 若userscript header内添加了GM_api, 则脚本运行在隔离环境, window对象由插件环境提供
-  // 此时unsafeWindow才是真正的页面window对象
-  if (unsafeWindow.require) {
-    console.warn("%s 覆盖方式安装，若无效请强制刷新。", TAG);
-    oRequire = unsafeWindow.require;
-    unsafeWindow.require = fakeRequire;
-    Object.assign(fakeRequire, oRequire);
-  } else {
-    console.info("%s 钩子方式安装，若失效请报告。", TAG);
-    Object.defineProperty(unsafeWindow, "require", {
-      set(require) {
-        oRequire = require;
-      },
-      get() {
-        return fakeRequire;
-      },
-    });
-  }
 }

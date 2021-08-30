@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.1
+// @version 2.0.2
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -44,7 +44,7 @@
             module.exports = 'input[type="checkbox"],\r\ninput[type="radio"] {\r\n  --active: #275efe;\r\n  --active-inner: #fff;\r\n  --focus: 2px rgba(39, 94, 254, 0.3);\r\n  --border: #bbc1e1;\r\n  --border-hover: #275efe;\r\n  --background: #fff;\r\n  --disabled: #f6f8ff;\r\n  --disabled-inner: #e1e6f9;\r\n  -webkit-appearance: none;\r\n  -moz-appearance: none;\r\n  height: 21px;\r\n  outline: none;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  position: relative;\r\n  margin: 0;\r\n  cursor: pointer;\r\n  border: 1px solid var(--bc, var(--border));\r\n  background: var(--b, var(--background));\r\n  -webkit-transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\r\n  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\r\n}\r\ninput[type="checkbox"]:after,\r\ninput[type="radio"]:after {\r\n  content: "";\r\n  display: block;\r\n  left: 0;\r\n  top: 0;\r\n  position: absolute;\r\n  -webkit-transition: opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n  transition: opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),\r\n    opacity var(--d-o, 0.2s);\r\n  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),\r\n    opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n}\r\ninput[type="checkbox"]:checked,\r\ninput[type="radio"]:checked {\r\n  --b: var(--active);\r\n  --bc: var(--active);\r\n  --d-o: 0.3s;\r\n  --d-t: 0.6s;\r\n  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);\r\n}\r\ninput[type="checkbox"]:disabled,\r\ninput[type="radio"]:disabled {\r\n  --b: var(--disabled);\r\n  cursor: not-allowed;\r\n  opacity: 0.9;\r\n}\r\ninput[type="checkbox"]:disabled:checked,\r\ninput[type="radio"]:disabled:checked {\r\n  --b: var(--disabled-inner);\r\n  --bc: var(--border);\r\n}\r\ninput[type="checkbox"]:disabled + label,\r\ninput[type="radio"]:disabled + label {\r\n  cursor: not-allowed;\r\n}\r\ninput[type="checkbox"]:hover:not(:checked):not(:disabled),\r\ninput[type="radio"]:hover:not(:checked):not(:disabled) {\r\n  --bc: var(--border-hover);\r\n}\r\ninput[type="checkbox"]:focus,\r\ninput[type="radio"]:focus {\r\n  box-shadow: 0 0 0 var(--focus);\r\n}\r\ninput[type="checkbox"]:not(.switch),\r\ninput[type="radio"]:not(.switch) {\r\n  width: 21px;\r\n}\r\ninput[type="checkbox"]:not(.switch):after,\r\ninput[type="radio"]:not(.switch):after {\r\n  opacity: var(--o, 0);\r\n}\r\ninput[type="checkbox"]:not(.switch):checked,\r\ninput[type="radio"]:not(.switch):checked {\r\n  --o: 1;\r\n}\r\ninput[type="checkbox"] + label,\r\ninput[type="radio"] + label {\r\n  font-size: 18px;\r\n  line-height: 21px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  cursor: pointer;\r\n  margin-left: 4px;\r\n}\r\n\r\ninput[type="checkbox"]:not(.switch) {\r\n  border-radius: 7px;\r\n}\r\ninput[type="checkbox"]:not(.switch):after {\r\n  width: 5px;\r\n  height: 9px;\r\n  border: 2px solid var(--active-inner);\r\n  border-top: 0;\r\n  border-left: 0;\r\n  left: 7px;\r\n  top: 4px;\r\n  -webkit-transform: rotate(var(--r, 20deg));\r\n  transform: rotate(var(--r, 20deg));\r\n}\r\ninput[type="checkbox"]:not(.switch):checked {\r\n  --r: 43deg;\r\n}\r\ninput[type="checkbox"].switch {\r\n  width: 38px;\r\n  border-radius: 11px;\r\n}\r\ninput[type="checkbox"].switch:after {\r\n  left: 2px;\r\n  top: 2px;\r\n  border-radius: 50%;\r\n  width: 15px;\r\n  height: 15px;\r\n  background: var(--ab, var(--border));\r\n  -webkit-transform: translateX(var(--x, 0));\r\n  transform: translateX(var(--x, 0));\r\n}\r\ninput[type="checkbox"].switch:checked {\r\n  --ab: var(--active-inner);\r\n  --x: 17px;\r\n}\r\ninput[type="checkbox"].switch:disabled:not(:checked):after {\r\n  opacity: 0.6;\r\n}\r\n';
         },
         184: module => {
-            module.exports = '<div class="panel-body" style="height: 250px; overflow-y:scroll">\r\n        <div style="border: 1px  #000000; width: 100%; margin: 0 auto;"><span>\r\n\r\n                        <p>若喜欢该脚本可前往 <a href="https://afdian.net/@mengzonefire" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者</p>\r\n\r\n                        <p>若出现任何问题请前往 <a href="https://greasyfork.org/zh-CN/scripts/424574" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">脚本主页</a> 反馈</p>\r\n\r\n                        <p>脚本源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width=\'16\'><a\r\n                                        href="https://github.com/mengzonefire/rapid-upload-userscript" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">Github</a>, 若喜欢可以给个Star</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p><span style="color: red;">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n                        <p>1.移除游侠秒传格式的支持</p>\r\n\r\n                        <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n                        <p>3.旧版界面文件右键菜单内加入了生成秒传选项</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n                        <p>修复了部分转存提示 "<span style="color: red;">转存失败(尝试...)(#2)</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n                        <p>修复了部分生成提示 "<span style="color: red;">md5获取失败</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n                        <p>支持转存与生成 <span style="color: red;">20G以上</span> 文件的秒传</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n                        <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n                        <p>2.修复生成4G以上文件提示"<span style="color: red;">服务器错误(#500)</span>"的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n                        <p>修复了绝大部分转存提示 "<span style="color: red;">文件不存在(秒传未生效)(#404)</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n                        <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n                        <p>移除 <span style="color: red;">修复下载</span> 功能(已在21年4月上旬失效), 后续不会再考虑修复该功能</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n                        <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n                        <p>新增 <span style="color: red;">直接修复下载</span> 的功能, 选中网盘内文件, 再点击上方 <span\r\n                                        style="color: red;">修复下载</span>\r\n                                按钮即可生成可正常下载的新文件</p>\r\n\r\n                        <img src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png" />\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n                        <p>修复部分文件转存后 <span style="color: red;">无法下载</span> 的问题, 可尝试 <span\r\n                                        style="color: red;">重新转存</span> 之前无法下载文件.\r\n                                且转存新增了 <span style="color: red;">修复下载</span> 功能</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n                        <p>面向分享者的 <a href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer"\r\n                                        target="_blank">分享教程</a> 的防和谐方法更新:</p>\r\n\r\n                        <p>经测试, 原教程的 "固实压缩+加密文件名" 已无法再防和谐(在度盘移动端依旧可以在线解压), 目前有效的防和谐方法请参考教程内的 <span\r\n                                        style="color: red;">"双层压缩"</span>\r\n                        </p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n                        <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n                        <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n                        <p>2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页, 更换为其他主题, 即可避免弹窗时的背景变暗</p>\r\n\r\n                        <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n                        <p>本次更新针对生成功能做了优化:</p>\r\n\r\n                        <p>1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔, 防止生成过快导致接口被限制(#403)</p>\r\n\r\n                        <p>2. 为秒传分享者提供了一份<a href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer"\r\n                                        target="_blank">分享教程</a>用于参考</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n                        <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n                        <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n                        <p>秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失</p>\r\n\r\n                        <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n                        <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n                        <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n                        <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n                        <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n                        <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n                        <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n                        <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n                        <p>新增生成秒传:</p>\r\n\r\n                        <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>继续未完成任务:</p>\r\n\r\n                        <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>测试秒传功能:</p>\r\n\r\n                        <p>生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变), 以检测秒传有效性, 以及修复md5错误防止秒传失效</p>\r\n\r\n                </span></div>\r\n</div>';
+            module.exports = '<div class="panel-body" style="height: 250px; overflow-y:scroll">\r\n        <div style="border: 1px  #000000; width: 100%; margin: 0 auto;"><span>\r\n\r\n                        <p>若喜欢该脚本可前往 <a href="https://afdian.net/@mengzonefire" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者</p>\r\n\r\n                        <p>若出现任何问题请前往 <a href="https://greasyfork.org/zh-CN/scripts/424574" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">脚本主页</a> 反馈</p>\r\n\r\n                        <p>脚本源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width=\'16\'><a\r\n                                        href="https://github.com/mengzonefire/rapid-upload-userscript" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">Github</a>, 若喜欢可以给个Star</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p><span style="color: red;">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n                        <p>1.移除游侠秒传格式的支持</p>\r\n\r\n                        <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n                        <p>修复了部分转存提示 "<span style="color: red;">转存失败(尝试...)(#2)</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n                        <p>修复了部分生成提示 "<span style="color: red;">md5获取失败</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n                        <p>支持转存与生成 <span style="color: red;">20G以上</span> 文件的秒传</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n                        <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n                        <p>2.修复生成4G以上文件提示"<span style="color: red;">服务器错误(#500)</span>"的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n                        <p>修复了绝大部分转存提示 "<span style="color: red;">文件不存在(秒传未生效)(#404)</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n                        <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n                        <p>移除 <span style="color: red;">修复下载</span> 功能(已在21年4月上旬失效), 后续不会再考虑修复该功能</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n                        <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n                        <p>新增 <span style="color: red;">直接修复下载</span> 的功能, 选中网盘内文件, 再点击上方 <span\r\n                                        style="color: red;">修复下载</span>\r\n                                按钮即可生成可正常下载的新文件</p>\r\n\r\n                        <img src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png" />\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n                        <p>修复部分文件转存后 <span style="color: red;">无法下载</span> 的问题, 可尝试 <span\r\n                                        style="color: red;">重新转存</span> 之前无法下载文件.\r\n                                且转存新增了 <span style="color: red;">修复下载</span> 功能</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n                        <p>面向分享者的 <a href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer"\r\n                                        target="_blank">分享教程</a> 的防和谐方法更新:</p>\r\n\r\n                        <p>经测试, 原教程的 "固实压缩+加密文件名" 已无法再防和谐(在度盘移动端依旧可以在线解压), 目前有效的防和谐方法请参考教程内的 <span\r\n                                        style="color: red;">"双层压缩"</span>\r\n                        </p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n                        <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n                        <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n                        <p>2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页, 更换为其他主题, 即可避免弹窗时的背景变暗</p>\r\n\r\n                        <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n                        <p>本次更新针对生成功能做了优化:</p>\r\n\r\n                        <p>1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔, 防止生成过快导致接口被限制(#403)</p>\r\n\r\n                        <p>2. 为秒传分享者提供了一份<a href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer"\r\n                                        target="_blank">分享教程</a>用于参考</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n                        <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n                        <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n                        <p>秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失</p>\r\n\r\n                        <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n                        <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n                        <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n                        <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n                        <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n                        <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n                        <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n                        <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n                        <p>新增生成秒传:</p>\r\n\r\n                        <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>继续未完成任务:</p>\r\n\r\n                        <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>测试秒传功能:</p>\r\n\r\n                        <p>生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变), 以检测秒传有效性, 以及修复md5错误防止秒传失效</p>\r\n\r\n                </span></div>\r\n</div>';
         },
         158: module => {
             "use strict";
@@ -140,52 +140,6 @@
         function initQueryLink() {
             var bdlinkB64 = locUrl.match(bdlinkPattern);
             return bdlinkB64 ? bdlinkB64[1].fromBase64() : "";
-        }
-        var oRequire;
-        var hooks = new Map;
-        function fakeRequire(module) {
-            var result = oRequire.apply(this, arguments);
-            var moduleHook = hooks.get(module);
-            if (moduleHook) {
-                try {
-                    moduleHook();
-                } catch (e) {
-                    console.error(TAG + ": 执行 " + module + " hook 时发生错误: " + e.message);
-                    console.trace(e);
-                }
-                hooks.delete(module);
-            }
-            return result;
-        }
-        fakeRequire.async = null;
-        function load(module) {
-            return oRequire.call(unsafeWindow, module);
-        }
-        function loadAsync(module) {
-            return new Promise((function(resolve) {
-                fakeRequire.async(module, resolve);
-            }));
-        }
-        function hook(module, fn) {
-            hooks.set(module, fn);
-        }
-        function install() {
-            if (unsafeWindow.require) {
-                console.warn("%s 覆盖方式安装，若无效请强制刷新。", TAG);
-                oRequire = unsafeWindow.require;
-                unsafeWindow.require = fakeRequire;
-                Object.assign(fakeRequire, oRequire);
-            } else {
-                console.info("%s 钩子方式安装，若失效请报告。", TAG);
-                Object.defineProperty(unsafeWindow, "require", {
-                    set: function(require) {
-                        oRequire = require;
-                    },
-                    get: function() {
-                        return fakeRequire;
-                    }
-                });
-            }
         }
         function DuParser() {}
         DuParser.parse = function generalDuCodeParse(szUrl) {
@@ -445,9 +399,9 @@
                 })
             }, (function(data) {
                 data = data.response;
-                if (!data.errno && data.result.bdstoken) setbdstoken(data.result.bdstoken); else showAlert("获取bdstoken失败(" + data.errno + "), 可能导致转存失败(#2), 请尝试重新登录");
+                if (!data.errno && data.result.bdstoken) setbdstoken(data.result.bdstoken); else showAlert("获取bdstoken失败(" + data.errno + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
             }), (function(statusCode) {
-                showAlert("获取bdstoken失败(" + statusCode + "), 可能导致转存失败(#2), 请尝试重新登录");
+                showAlert("获取bdstoken失败(" + statusCode + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
             }));
         }
         function getSelectedFileList() {
@@ -883,6 +837,16 @@
             return GeneratebdlinkTask;
         }();
         const common_GeneratebdlinkTask = GeneratebdlinkTask;
+        var RapiduploadTask_assign = undefined && undefined.__assign || function() {
+            RapiduploadTask_assign = Object.assign || function(t) {
+                for (var s, i = 1, n = arguments.length; i < n; i++) {
+                    s = arguments[i];
+                    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                }
+                return t;
+            };
+            return RapiduploadTask_assign.apply(this, arguments);
+        };
         var RapiduploadTask = function() {
             function RapiduploadTask() {
                 this.checkMode = false;
@@ -943,15 +907,18 @@
                     return;
                 }
                 ajax({
-                    url: rapid_url + "?bdstoken=" + bdstoken + (this.checkMode ? "&rtype=3" : ""),
+                    url: rapid_url,
                     method: "POST",
                     responseType: "json",
-                    data: convertData({
+                    data: convertData(RapiduploadTask_assign({
+                        rtype: this.checkMode ? 3 : 0,
                         path: this.savePath + file.path,
                         "content-md5": file.md5,
                         "slice-md5": file.md5s.toLowerCase(),
                         "content-length": file.size
-                    })
+                    }, bdstoken && {
+                        bdstoken
+                    }))
                 }, (function(data) {
                     data = data.response;
                     if (data.errno === 404) _this.saveFile(i, tryFlag + 1); else {
@@ -967,16 +934,18 @@
                 var _this = this;
                 var file = this.fileInfoList[i];
                 ajax({
-                    url: create_url + ("&bdstoken=" + bdstoken),
+                    url: create_url,
                     method: "POST",
                     responseType: "json",
-                    data: convertData({
+                    data: convertData(RapiduploadTask_assign({
                         block_list: JSON.stringify([ file.md5 ]),
                         path: this.savePath + file.path,
                         size: file.size,
                         isdir: 0,
                         rtype: this.checkMode ? 3 : 0
-                    })
+                    }, bdstoken && {
+                        bdstoken
+                    }))
                 }, (function(data) {
                     data = data.response;
                     file.errno = data.errno === 2 ? 404 : data.errno;
@@ -1007,6 +976,13 @@
             refreshList = func;
         }
         var swalInstance = new SwalBase(new common_RapiduploadTask, new common_GeneratebdlinkTask);
+        var htmlTagNew = "div.nd-file-list-toolbar__actions";
+        var htmlTaglegacy = "div.tcuLAu";
+        var htmlTag2legacy = "#h5Input0";
+        var htmlBtnRapidNew = '<a id="bdlink_btn" style="margin-left: 8px;" class="nd-upload-button upload-wrapper"><span class="nd-common-btn nd-file-list-toolbar-action-item u-btn u-btn--primary u-btn--medium u-btn--default is-has-icon"><i class="iconfont inline-block-v-middle icon-copy"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">秒传</span></span> </a>';
+        var htmlBtnGenNew = '<button id="gen_bdlink_btn" class="u-btn nd-common-btn nd-file-list-toolbar-action-item is-need-left-sep u-btn--normal u-btn--medium u-btn--default is-has-icon"> <span><i class="iconfont inline-block-v-middle nd-file-list-toolbar__action-item-icon icon-share"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">生成秒传</span></span> </button>';
+        var htmlBtnRapidlegacy = '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
+        var htmlBtnGenlegacy = '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
         function baiduErrno(errno) {
             switch (errno) {
               case -7:
@@ -1016,7 +992,7 @@
                 return "路径下存在同名文件";
 
               case 400:
-                return "请求错误(请尝试使用最新版Chrome浏览器+更新油猴插件)";
+                return "请求错误(请尝试使用最新版Chrome浏览器/更新油猴插件)";
 
               case 403:
                 return "接口被限制(请等待24h再试)";
@@ -1034,7 +1010,7 @@
                 return "网盘容量已满";
 
               case 514:
-                return "接口调用失败(请重试/弹出跨域请求窗口请选择允许)";
+                return "请求失败(弹出跨域请求窗口请选择允许)";
 
               case 1919:
                 return '文件已被和谐(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
@@ -1061,77 +1037,42 @@
                 return "未知错误";
             }
         }
-        var htmlTag = "div.nd-file-list-toolbar__actions";
-        var htmlBtnRapid = '<a id="bdlink_btn" style="margin-left: 8px;" class="nd-upload-button upload-wrapper"><span class="nd-common-btn nd-file-list-toolbar-action-item u-btn u-btn--primary u-btn--medium u-btn--default is-has-icon"><i class="iconfont inline-block-v-middle icon-copy"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">秒传</span></span> </a>';
-        var htmlBtnGen = '<button id="gen_bdlink_btn" class="u-btn nd-common-btn nd-file-list-toolbar-action-item is-need-left-sep u-btn--normal u-btn--medium u-btn--default is-has-icon"> <span><i class="iconfont inline-block-v-middle nd-file-list-toolbar__action-item-icon icon-share"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">生成秒传</span></span> </button>';
         function installNew() {
             jQuery((function() {
                 console.info("%s DOM方式安装，若失效请报告。", TAG);
-                $(htmlTag).append(htmlBtnRapid);
+                $(htmlTagNew).append(htmlBtnRapidNew);
                 $(document).on("click", "#bdlink_btn", (function() {
                     swalInstance.inputView();
                 }));
             }));
         }
-        function registerPlugin() {
-            unsafeWindow.define("function-widget:mengzonefire/rapidupload-userscript.js", (function(_require, exports, _module) {
-                exports.start = function(_context, module) {
-                    if (!module.config || module.config.name === "generateBdlink") {
-                        swalInstance.generatebdlinkTask.reset();
-                        if (!GM_getValue("show_csd_warning")) {
-                            swalInstance.csdWarning((function() {
-                                swalInstance.checkUnfinish();
-                            }));
-                        } else swalInstance.checkUnfinish();
-                    } else if (module.config.name === "rapidupload") {
-                        swalInstance.inputView();
-                    }
-                };
+        function getSystemContext() {
+            return unsafeWindow.require("system-core:context/context.js").instanceForSystem;
+        }
+        function addGenBtn() {
+            var listTools = getSystemContext().Broker.getButtonBroker("listTools");
+            if (listTools && listTools.$box) $(listTools.$box).children("div").after(htmlBtnGenlegacy); else setTimeout(addGenBtn, 300);
+        }
+        function addBtn() {
+            if ($(htmlTaglegacy).length && $(htmlTag2legacy).length) $(htmlTaglegacy).append(htmlBtnRapidlegacy); else setTimeout(addBtn, 100);
+        }
+        function installlegacy() {
+            jQuery((function() {
+                console.info("%s DOM方式安装，若失效请报告。", TAG);
+                addBtn();
+                addGenBtn();
+                $(document).on("click", "#bdlink_btn", (function() {
+                    swalInstance.inputView();
+                }));
+                $(document).on("click", "#gen_bdlink_btn", (function() {
+                    swalInstance.generatebdlinkTask.reset();
+                    if (!GM_getValue("show_csd_warning")) {
+                        swalInstance.csdWarning((function() {
+                            swalInstance.checkUnfinish();
+                        }));
+                    } else swalInstance.checkUnfinish();
+                }));
             }));
-            unsafeWindow.manifest.push({
-                name: "秒传链接提取",
-                group: "moe.cangku.mengzonefire",
-                version: "1.0",
-                type: "1",
-                description: "用于转存百度网盘秒传链接",
-                buttons: [ {
-                    conditions: {
-                        pageModule: "list"
-                    },
-                    index: 5,
-                    disabled: "none",
-                    color: "blue blue-upload",
-                    icon: "icon-disk",
-                    title: "秒传链接",
-                    name: "rapidupload",
-                    position: "tools"
-                }, {
-                    conditions: {
-                        excludeDirType: "sourceHolder,cardHolder,shareHolder"
-                    },
-                    index: 0,
-                    title: "生成秒传",
-                    icon: "icon-share",
-                    name: "generateBdlink",
-                    position: "listTools"
-                } ],
-                contextMenu: [ {
-                    conditions: {
-                        excludeDirType: "sourceHolder,cardHolder,shareHolder",
-                        pageModule: "list,share,search,category,searchGlobal"
-                    },
-                    index: 7,
-                    type: "file",
-                    title: "生成秒传",
-                    keyboard: "g",
-                    disabled: "disable",
-                    name: "generateBdlink"
-                } ],
-                preload: false,
-                depsFiles: [],
-                entranceFile: "function-widget:mengzonefire/rapidupload-userscript.js",
-                pluginId: "rapiduploadUserscript"
-            });
         }
         function loaderBaidu() {
             getbdstoken();
@@ -1148,8 +1089,7 @@
                 setrefreshList((function() {
                     unsafeWindow.require("system-core:system/baseService/message/message.js").trigger("system-refresh");
                 }));
-                install();
-                hook("system-core:pluginHub/register/register.js", registerPlugin);
+                installlegacy();
             }
             var bdlink = initQueryLink();
             if (bdlink) {

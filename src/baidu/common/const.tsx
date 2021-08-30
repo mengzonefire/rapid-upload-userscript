@@ -28,6 +28,19 @@ export const swalInstance = new Swalbase(
   new RapiduploadTask(),
   new GeneratebdlinkTask()
 );
+
+export const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
+export const htmlTaglegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
+export const htmlTag2legacy = "#h5Input0"; // 旧版界面秒传按钮的html同级对象
+export const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
+  '<a id="bdlink_btn" style="margin-left: 8px;" class="nd-upload-button upload-wrapper"><span class="nd-common-btn nd-file-list-toolbar-action-item u-btn u-btn--primary u-btn--medium u-btn--default is-has-icon"><i class="iconfont inline-block-v-middle icon-copy"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">秒传</span></span> </a>';
+export const htmlBtnGenNew = // 新版界面秒传生成的html元素
+  '<button id="gen_bdlink_btn" class="u-btn nd-common-btn nd-file-list-toolbar-action-item is-need-left-sep u-btn--normal u-btn--medium u-btn--default is-has-icon"> <span><i class="iconfont inline-block-v-middle nd-file-list-toolbar__action-item-icon icon-share"></i><span class="inline-block-v-middle nd-file-list-toolbar-action-item-text">生成秒传</span></span> </button>';
+export const htmlBtnRapidlegacy = // 旧版界面秒传按钮的html元素
+  '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
+export const htmlBtnGenlegacy = // 旧版界面秒传生成按钮的html元素
+  '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
+
 export function baiduErrno(errno: number) {
   switch (errno) {
     case -7:
@@ -35,7 +48,7 @@ export function baiduErrno(errno: number) {
     case -8:
       return "路径下存在同名文件";
     case 400:
-      return "请求错误(请尝试使用最新版Chrome浏览器+更新油猴插件)";
+      return "请求错误(请尝试使用最新版Chrome浏览器/更新油猴插件)";
     case 403:
       return "接口被限制(请等待24h再试)";
     case 404:
@@ -47,7 +60,7 @@ export function baiduErrno(errno: number) {
     case -10:
       return "网盘容量已满";
     case 514:
-      return "接口调用失败(请重试/弹出跨域请求窗口请选择允许)";
+      return "请求失败(弹出跨域请求窗口请选择允许)";
     case 1919:
       return `文件已被和谐(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 996:
