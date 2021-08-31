@@ -43,6 +43,8 @@ export const htmlBtnGenlegacy = // 旧版界面秒传生成按钮的html元素
 
 export function baiduErrno(errno: number) {
   switch (errno) {
+    case -6:
+      return "认证失败(尝试重登网盘账号)";
     case -7:
       return '文件名错误, 不能含有字符\\":*?<>|';
     case -8:

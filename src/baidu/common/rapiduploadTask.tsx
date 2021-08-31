@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-30 19:15:49
+ * @LastEditTime: 2021-08-31 14:39:40
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -77,7 +77,7 @@ export default class RapiduploadTask {
     }
     ajax(
       {
-        url: rapid_url,
+        url: `${rapid_url}${bdstoken && "?bdstoken=" + bdstoken}`,
         method: "POST",
         responseType: "json",
         data: convertData({
@@ -86,7 +86,6 @@ export default class RapiduploadTask {
           "content-md5": file.md5,
           "slice-md5": file.md5s.toLowerCase(),
           "content-length": file.size,
-          ...(bdstoken && { bdstoken: bdstoken }),
         }),
       },
       (data) => {
@@ -112,7 +111,7 @@ export default class RapiduploadTask {
     let file = this.fileInfoList[i];
     ajax(
       {
-        url: create_url,
+        url: `${create_url}${bdstoken && "&bdstoken=" + bdstoken}`,
         method: "POST",
         responseType: "json",
         data: convertData({
@@ -121,7 +120,6 @@ export default class RapiduploadTask {
           size: file.size,
           isdir: 0,
           rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为0
-          ...(bdstoken && { bdstoken: bdstoken }),
         }),
       },
       (data) => {

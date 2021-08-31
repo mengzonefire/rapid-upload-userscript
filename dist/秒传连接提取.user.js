@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.2
+// @version 2.0.3
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -837,16 +837,6 @@
             return GeneratebdlinkTask;
         }();
         const common_GeneratebdlinkTask = GeneratebdlinkTask;
-        var RapiduploadTask_assign = undefined && undefined.__assign || function() {
-            RapiduploadTask_assign = Object.assign || function(t) {
-                for (var s, i = 1, n = arguments.length; i < n; i++) {
-                    s = arguments[i];
-                    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-                }
-                return t;
-            };
-            return RapiduploadTask_assign.apply(this, arguments);
-        };
         var RapiduploadTask = function() {
             function RapiduploadTask() {
                 this.checkMode = false;
@@ -907,18 +897,16 @@
                     return;
                 }
                 ajax({
-                    url: rapid_url,
+                    url: "" + rapid_url + (bdstoken && "?bdstoken=" + bdstoken),
                     method: "POST",
                     responseType: "json",
-                    data: convertData(RapiduploadTask_assign({
+                    data: convertData({
                         rtype: this.checkMode ? 3 : 0,
                         path: this.savePath + file.path,
                         "content-md5": file.md5,
                         "slice-md5": file.md5s.toLowerCase(),
                         "content-length": file.size
-                    }, bdstoken && {
-                        bdstoken
-                    }))
+                    })
                 }, (function(data) {
                     data = data.response;
                     if (data.errno === 404) _this.saveFile(i, tryFlag + 1); else {
@@ -934,18 +922,16 @@
                 var _this = this;
                 var file = this.fileInfoList[i];
                 ajax({
-                    url: create_url,
+                    url: "" + create_url + (bdstoken && "&bdstoken=" + bdstoken),
                     method: "POST",
                     responseType: "json",
-                    data: convertData(RapiduploadTask_assign({
+                    data: convertData({
                         block_list: JSON.stringify([ file.md5 ]),
                         path: this.savePath + file.path,
                         size: file.size,
                         isdir: 0,
                         rtype: this.checkMode ? 3 : 0
-                    }, bdstoken && {
-                        bdstoken
-                    }))
+                    })
                 }, (function(data) {
                     data = data.response;
                     file.errno = data.errno === 2 ? 404 : data.errno;
@@ -985,6 +971,9 @@
         var htmlBtnGenlegacy = '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
         function baiduErrno(errno) {
             switch (errno) {
+              case -6:
+                return "认证失败(尝试重登网盘账号)";
+
               case -7:
                 return '文件名错误, 不能含有字符\\":*?<>|';
 
