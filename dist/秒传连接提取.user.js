@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.3
+// @version 2.0.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -45,18 +45,6 @@
         },
         184: module => {
             module.exports = '<div class="panel-body" style="height: 250px; overflow-y:scroll">\r\n        <div style="border: 1px  #000000; width: 100%; margin: 0 auto;"><span>\r\n\r\n                        <p>若喜欢该脚本可前往 <a href="https://afdian.net/@mengzonefire" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">赞助页</a> 支持作者</p>\r\n\r\n                        <p>若出现任何问题请前往 <a href="https://greasyfork.org/zh-CN/scripts/424574" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">脚本主页</a> 反馈</p>\r\n\r\n                        <p>脚本源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width=\'16\'><a\r\n                                        href="https://github.com/mengzonefire/rapid-upload-userscript" class="mzf_link"\r\n                                        rel="noopener noreferrer" target="_blank">Github</a>, 若喜欢可以给个Star</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p><span style="color: red;">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n                        <p>1.移除游侠秒传格式的支持</p>\r\n\r\n                        <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n                        <p>修复了部分转存提示 "<span style="color: red;">转存失败(尝试...)(#2)</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n                        <p>修复了部分生成提示 "<span style="color: red;">md5获取失败</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n                        <p>支持转存与生成 <span style="color: red;">20G以上</span> 文件的秒传</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n                        <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n                        <p>2.修复生成4G以上文件提示"<span style="color: red;">服务器错误(#500)</span>"的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n                        <p>修复了绝大部分转存提示 "<span style="color: red;">文件不存在(秒传未生效)(#404)</span>" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n                        <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n                        <p>移除 <span style="color: red;">修复下载</span> 功能(已在21年4月上旬失效), 后续不会再考虑修复该功能</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n                        <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n                        <p>新增 <span style="color: red;">直接修复下载</span> 的功能, 选中网盘内文件, 再点击上方 <span\r\n                                        style="color: red;">修复下载</span>\r\n                                按钮即可生成可正常下载的新文件</p>\r\n\r\n                        <img src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png" />\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n                        <p>修复部分文件转存后 <span style="color: red;">无法下载</span> 的问题, 可尝试 <span\r\n                                        style="color: red;">重新转存</span> 之前无法下载文件.\r\n                                且转存新增了 <span style="color: red;">修复下载</span> 功能</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n                        <p>面向分享者的 <a href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer"\r\n                                        target="_blank">分享教程</a> 的防和谐方法更新:</p>\r\n\r\n                        <p>经测试, 原教程的 "固实压缩+加密文件名" 已无法再防和谐(在度盘移动端依旧可以在线解压), 目前有效的防和谐方法请参考教程内的 <span\r\n                                        style="color: red;">"双层压缩"</span>\r\n                        </p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n                        <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n                        <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n                        <p>2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页, 更换为其他主题, 即可避免弹窗时的背景变暗</p>\r\n\r\n                        <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n                        <p>本次更新针对生成功能做了优化:</p>\r\n\r\n                        <p>1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔, 防止生成过快导致接口被限制(#403)</p>\r\n\r\n                        <p>2. 为秒传分享者提供了一份<a href="https://shimo.im/docs/TZ1JJuEjOM0wnFDH" rel="noopener noreferrer"\r\n                                        target="_blank">分享教程</a>用于参考</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n                        <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n                        <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n                        <p>秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失</p>\r\n\r\n                        <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n                        <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n                        <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n                        <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n                        <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n                        <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n                        <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n                        <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n                        <p>新增生成秒传:</p>\r\n\r\n                        <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>继续未完成任务:</p>\r\n\r\n                        <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n                        <p><br></p>\r\n\r\n                        <p>测试秒传功能:</p>\r\n\r\n                        <p>生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变), 以检测秒传有效性, 以及修复md5错误防止秒传失效</p>\r\n\r\n                </span></div>\r\n</div>';
-        },
-        158: module => {
-            "use strict";
-            module.exports = Base64;
-        },
-        938: module => {
-            "use strict";
-            module.exports = SparkMD5;
-        },
-        262: module => {
-            "use strict";
-            module.exports = Swal;
         }
     };
     var __webpack_module_cache__ = {};
@@ -107,9 +95,6 @@
         var TAG = "[秒传链接提取 by mengzonefire]";
         var homePage = "https://greasyfork.org/zh-CN/scripts/424574";
         var donatePage = "https://afdian.net/@mengzonefire";
-        var Base64 = __webpack_require__(158);
-        var SparkMD5 = __webpack_require__(938);
-        var Swal = __webpack_require__(262);
         var ajaxError = 514;
         var extCssUrl = {
             Default: "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
@@ -594,7 +579,7 @@
                     Swal.getHtmlContainer().querySelector("gen_prog").textContent = "0%";
                 };
                 this.generatebdlinkTask.onProgress = function(e) {
-                    if (typeof e.total != "number") return;
+                    if (typeof e.total !== "number") return;
                     Swal.getHtmlContainer().querySelector("gen_prog").textContent = (e.loaded / e.total * 100).toFixed() + "%";
                 };
                 this.generatebdlinkTask.onHasNoDir = function() {
@@ -640,7 +625,7 @@
             Swalbase.prototype.addOpenDirBtn = function() {
                 var _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, "");
                 if (_dir) {
-                    if (_dir.charAt(0) != "/") _dir = "/" + _dir;
+                    if (_dir.charAt(0) !== "/") _dir = "/" + _dir;
                     var cBtn = Swal.getConfirmButton();
                     var btn = cBtn.cloneNode();
                     btn.textContent = "打开目录";
@@ -808,7 +793,7 @@
                 var _this = this;
                 console.log("dl_url: " + data.finalUrl);
                 var file = this.fileInfoList[i];
-                if (data.finalUrl.indexOf("issuecdn.baidupcs.com") != -1) {
+                if (data.finalUrl.indexOf("issuecdn.baidupcs.com") !== -1) {
                     file.errno = 1919;
                     this.generateBdlink(i + 1);
                     return;
@@ -1065,7 +1050,7 @@
         }
         function loaderBaidu() {
             getbdstoken();
-            if (locUrl.indexOf(baiduNewPage) != -1) {
+            if (locUrl.indexOf(baiduNewPage) !== -1) {
                 swalInstance.swalArgs = {
                     heightAuto: false,
                     scrollbarPadding: false
@@ -1147,12 +1132,10 @@
             }));
         }
         function app_app() {
-            if (Base64 && $ && SparkMD5 && Swal) {
+            if ([ typeof Base64, typeof $, typeof SparkMD5, typeof Swal ].indexOf("undefined") !== -1) showAlert(appError.missDepend); else {
                 Base64.extendString();
                 injectStyle();
                 loaderBaidu();
-            } else {
-                showAlert(appError.missDepend);
             }
         }
         try {

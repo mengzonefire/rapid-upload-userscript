@@ -1,12 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-30 09:16:43
+ * @LastEditTime: 2021-08-31 18:50:30
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 import ajax from "@/common/ajax";
-import { FileInfo, SparkMD5 } from "@/common/const";
+import { FileInfo } from "@/common/const";
 import { list_url, meta_url, meta_url2, pcs_url, UA } from "./const";
 export default class GeneratebdlinkTask {
   recursive: boolean;
@@ -221,7 +221,7 @@ export default class GeneratebdlinkTask {
   parseDownloadData(i: number, data: any): void {
     console.log(`dl_url: ${data.finalUrl}`); // debug
     let file = this.fileInfoList[i];
-    if (data.finalUrl.indexOf("issuecdn.baidupcs.com") != -1) {
+    if (data.finalUrl.indexOf("issuecdn.baidupcs.com") !== -1) {
       file.errno = 1919;
       this.generateBdlink(i + 1);
       return;

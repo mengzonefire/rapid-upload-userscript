@@ -1,15 +1,12 @@
 const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
-
+const nodeExternals = require('webpack-node-externals');
 module.exports = {
   mode: "production",
   entry: path.resolve(__dirname, "src", "app.tsx"),
-  externals: {
-    sweetalert2: "Swal",
-    "js-base64": "Base64",
-    "spark-md5": "SparkMD5",
-  },
+  externalsPresets: { node: true },
+  externals: [nodeExternals()],
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".json"],
     alias: {

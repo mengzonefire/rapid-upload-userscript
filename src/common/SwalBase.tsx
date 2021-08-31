@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-30 09:25:20
+ * @LastEditTime: 2021-08-31 18:51:56
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -14,8 +14,7 @@ import {
   htmlCheckMd5,
   htmlDocument,
   htmlDonate,
-  htmlFeedback,
-  Swal,
+  htmlFeedback
 } from "./const";
 import DuParser from "./DuParser";
 import { SwalConfig } from "./SwalConfig";
@@ -251,7 +250,7 @@ export default class Swalbase {
       Swal.getHtmlContainer().querySelector("gen_prog").textContent = "0%";
     };
     this.generatebdlinkTask.onProgress = (e: any) => {
-      if (typeof e.total != "number") return; // 参数数据不正确 跳过
+      if (typeof e.total !== "number") return; // 参数数据不正确 跳过
       Swal.getHtmlContainer().querySelector("gen_prog").textContent = `${(
         (e.loaded / e.total) *
         100
@@ -308,7 +307,7 @@ export default class Swalbase {
   addOpenDirBtn() {
     let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
     if (_dir) {
-      if (_dir.charAt(0) != "/") _dir = "/" + _dir; // 补齐路径开头的"/"
+      if (_dir.charAt(0) !== "/") _dir = "/" + _dir; // 补齐路径开头的"/"
       let cBtn = Swal.getConfirmButton();
       let btn = cBtn.cloneNode();
       btn.textContent = "打开目录";

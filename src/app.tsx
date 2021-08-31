@@ -1,19 +1,24 @@
 import { loaderBaidu } from "./baidu/loader";
 import { injectStyle } from "./common/injectStyle";
 import { showAlert } from "./common/utils";
-import { appError, Base64, SparkMD5, Swal } from "./common/const";
+import { appError } from "./common/const";
 
 /**
  * @description: 主函数入口
  */
 function app(): void {
   // 检查外部依赖是否加载完整
-  if (Base64 && $ && SparkMD5 && Swal) {
+  if (
+    [typeof Base64, typeof $, typeof SparkMD5, typeof Swal].indexOf(
+      "undefined"
+    ) !== -1
+  )
+    showAlert(appError.missDepend);
+  // 缺少依赖, 弹窗提示
+  else {
     Base64.extendString();
     injectStyle();
     loaderBaidu();
-  } else {
-    showAlert(appError.missDepend); // 缺少依赖, 弹窗提示
   }
 }
 

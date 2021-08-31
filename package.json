@@ -1,6 +1,6 @@
 {
   "name": "rapidupload-userscript",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "用于提取和生成百度网盘秒传链接",
   "main": "app.tsx",
   "scripts": {
@@ -31,6 +31,7 @@
     "webpack": "^5.51.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0",
+    "webpack-node-externals": "^3.0.0",
     "webpack-userscript": "^2.5.8"
   }
 }

@@ -14,7 +14,7 @@ import { getbdstoken } from "@/common/utils";
 export function loaderBaidu(): void {
   getbdstoken();
 
-  if (locUrl.indexOf(baiduNewPage) != -1) {
+  if (locUrl.indexOf(baiduNewPage) !== -1) {
     // 添加swal参数以防止新版界面下的body样式突变
     swalInstance.swalArgs = { heightAuto: false, scrollbarPadding: false };
     setrefreshList(() => {

@@ -7,9 +7,6 @@ export const baiduNewPage = "pan.baidu.com/disk/main"; // 匹配新版度盘界�
 export const TAG = "[秒传链接提取 by mengzonefire]";
 export const homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 export const donatePage = "https://afdian.net/@mengzonefire";
-export const Base64 = require("js-base64");
-export const SparkMD5 = require("spark-md5");
-export const Swal = require("sweetalert2");
 export const ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 export const extCssUrl = {
   Default:
