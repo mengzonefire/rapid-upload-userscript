@@ -51,9 +51,6 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    contentBase: path.join(__dirname, "dist"),
-  },
   plugins: [
     // 生成userscript header信息
     new WebpackUserscript({

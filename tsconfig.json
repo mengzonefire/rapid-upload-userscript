@@ -2,14 +2,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/", // 打包到的目录
-    "sourceMap": false, // 是否生成sourceMap（用于浏览器调试）
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "declaration": true, // 是否生成声明文件
-    "declarationDir": "./dist/types/", // 声明文件打包的位置
-    "declarationMap": true, // 是否生成声明文件map文件（便于调试）
     "module": "ES2015",
+    "moduleResolution": "Node",
     "target": "es5", // 转化成的目标语言 设为es5以支持更多浏览器
     "baseUrl": ".",
     "paths": { "@/*": ["src/*"] },

@@ -1,5 +1,4 @@
 export {};
-
 declare global {
   interface Window {
     define: any;

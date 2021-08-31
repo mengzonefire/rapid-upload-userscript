@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-31 14:39:40
+ * @LastEditTime: 2021-08-31 20:56:24
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -111,7 +111,7 @@ export default class RapiduploadTask {
     let file = this.fileInfoList[i];
     ajax(
       {
-        url: `${create_url}${bdstoken && "&bdstoken=" + bdstoken}`,
+        url: `${create_url}${bdstoken && "&bdstoken=" + bdstoken}`, // bdstoken参数不能放在data里, 否则无效
         method: "POST",
         responseType: "json",
         data: convertData({
