@@ -1,4 +1,4 @@
-# du_rapid_upload
+# rapid-upload-userscript
 
 > 秒传链接提取脚本, 使用typescript + webpack重构
 
