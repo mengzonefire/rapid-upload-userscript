@@ -53,7 +53,7 @@
 
 ## 待更新
 1. 支持 新版度盘页面 下的 "生成秒传" 功能
-2. 支持 [阿里云盘](https://www.aliyundrive.com/drive/) 的秒传提取&生成
+2. ~~支持 [阿里云盘](https://www.aliyundrive.com/drive/) 的秒传提取&生成~~ (另开一个项目, 不在此脚本做支持)
 3. ~~支持 [新版度盘页面](https://pan.baidu.com/disk/main?from=oldversion#/index)~~ (完成)
 4. ~~修复设置为非默认主题时, 窗口内会出现警告标识的问题~~ (完成, 实际为主题包不适配旧版sweetalert2)
 
