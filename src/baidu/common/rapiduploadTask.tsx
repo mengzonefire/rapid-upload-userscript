@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-08-31 20:56:24
+ * @LastEditTime: 2021-09-01 11:19:16
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -11,7 +11,8 @@ import { convertData, randomStringTransform } from "@/common/utils";
 import { create_url, rapid_url, bdstoken } from "./const";
 export default class RapiduploadTask {
   savePath: string;
-  checkMode: boolean = false;
+  isDefaultPath: boolean;
+  checkMode: boolean;
   fileInfoList: Array<FileInfo>;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
@@ -20,6 +21,7 @@ export default class RapiduploadTask {
     this.fileInfoList = [];
     this.savePath = "";
     this.checkMode = false;
+    this.isDefaultPath = false;
     this.onFinish = () => {};
     this.onProcess = () => {};
   }

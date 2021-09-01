@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-08-31 18:51:56
+ * @LastEditTime: 2021-09-01 11:23:19
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -14,7 +14,7 @@ import {
   htmlCheckMd5,
   htmlDocument,
   htmlDonate,
-  htmlFeedback
+  htmlFeedback,
 } from "./const";
 import DuParser from "./DuParser";
 import { SwalConfig } from "./SwalConfig";
@@ -61,7 +61,17 @@ export default class Swalbase {
       if (result.isConfirmed) {
         let path = result.value;
         GM_setValue("last_dir", path);
-        if (path.charAt(path.length - 1) !== "/") path += "/";
+        if (!path) {
+          // 路径留空
+          let nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+          if (nowPath) {
+            path = decodeURIComponent(nowPath[1]);
+            this.rapiduploadTask.isDefaultPath = true;
+          }
+        }
+        if (path.charAt(path.length - 1) !== "/") path += "/"; // 补全路径结尾的 "/""
+        // debug
+        console.log(`秒传文件保存到: ${path}`);
         this.rapiduploadTask.savePath = path;
         this.processView(false);
       }
@@ -305,8 +315,8 @@ export default class Swalbase {
 
   // 添加 "打开目录" 按钮
   addOpenDirBtn() {
-    let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
-    if (_dir) {
+    if (!this.rapiduploadTask.isDefaultPath) {
+      let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
       if (_dir.charAt(0) !== "/") _dir = "/" + _dir; // 补齐路径开头的"/"
       let cBtn = Swal.getConfirmButton();
       let btn = cBtn.cloneNode();

@@ -32,7 +32,7 @@ export const SwalConfig = {
   inputPathView: {
     title: "请输入保存路径",
     input: "text",
-    inputPlaceholder: "格式示例：/GTA5/, 留空保存在根目录",
+    inputPlaceholder: "格式示例：/GTA5/, 留空保存在当前目录",
     showCancelButton: true,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
