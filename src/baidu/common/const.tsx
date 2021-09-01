@@ -33,7 +33,7 @@ export const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面�
 export const htmlTaglegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
 export const htmlTag2legacy = "#h5Input0"; // 旧版界面秒传按钮的html同级对象
 export const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
-  '<button id="bdlink_btn" class="u-btn nd-file-list-toolbar-action-item u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-copy"></i><span>秒传</span></button>';
+  '<button id="bdlink_btn" style="margin-left: 8px;" class="u-btn nd-file-list-toolbar-action-item u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-copy"></i><span>秒传</span></button>';
 export const htmlBtnRapidlegacy = // 旧版界面秒传按钮的html元素
   '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
 export const htmlBtnGenlegacy = // 旧版界面秒传生成按钮的html元素
