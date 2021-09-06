@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-09-01 11:23:19
+ * @LastEditTime: 2021-09-06 22:01:07
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -199,16 +199,6 @@ export default class Swalbase {
           });
         });
         this.genFileWork(false, true); // 跳过获取选择文件列表和扫描文件夹的步骤
-      }
-    });
-  }
-
-  // 跨域提示
-  csdWarning(onConfirm: () => void) {
-    Swal.fire(this.mergeArg(SwalConfig.csdWarning)).then((result: any) => {
-      if (result.isConfirmed) {
-        GM_setValue("show_csd_warning", result.value);
-        onConfirm();
       }
     });
   }

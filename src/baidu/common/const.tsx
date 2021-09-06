@@ -60,15 +60,15 @@ export function baiduErrno(errno: number) {
     case -10:
       return "网盘容量已满";
     case 514:
-      return "请求失败(弹出跨域请求窗口请选择允许)";
+      return "请求失败(请尝试使用最新版Chrome浏览器/更新油猴插件)";
     case 1919:
       return `文件已被和谐(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 996:
       return `md5获取失败(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 500:
-      return `服务器错误(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
+    case 502:
     case 503:
-      return `服务器不可用(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
+      return `服务器错误(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 909:
       return "路径不存在";
     case 900:

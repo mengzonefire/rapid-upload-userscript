@@ -1,7 +1,7 @@
 const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
-const nodeExternals = require('webpack-node-externals');
+const nodeExternals = require("webpack-node-externals");
 module.exports = {
   mode: "production",
   entry: path.resolve(__dirname, "src", "app.tsx"),
@@ -66,7 +66,8 @@ module.exports = {
         homepageURL: `[homepage]`,
         contributionURL: "https://afdian.net/@mengzonefire",
         description: `[description]`,
-        "description:en" :"input bdlink to get files or get bdlink for Baidu™ WebDisk.",
+        "description:en":
+          "input bdlink to get files or get bdlink for Baidu™ WebDisk.",
         compatible: [
           "firefox Violentmonkey",
           "firefox Tampermonkey",
@@ -96,7 +97,7 @@ module.exports = {
           "https://cdn.jsdelivr.net/npm/js-base64",
         ],
         "run-at": "document-start",
-        connect: "*",
+        connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net"],
       },
       pretty: false,
     }),

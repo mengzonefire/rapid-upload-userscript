@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-08-31 18:50:30
+ * @LastEditTime: 2021-09-06 22:10:03
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -127,7 +127,7 @@ export default class GeneratebdlinkTask {
       (data) => {
         data = data.response;
         if (!data.errno) {
-          console.log(data.list[0]); // debug
+          // console.log(data.list[0]); // debug
           if (data.list[0].isdir) {
             file.errno = 900;
             this.generateBdlink(i + 1);
@@ -167,7 +167,7 @@ export default class GeneratebdlinkTask {
       (data) => {
         data = data.response;
         if (!data.errno) {
-          console.log(data.list[0]); // debug
+          // console.log(data.list[0]); // debug
           this.downloadFileData(i, data.list[0].dlink);
         } else {
           file.errno = data.errno;
@@ -226,7 +226,7 @@ export default class GeneratebdlinkTask {
       this.generateBdlink(i + 1);
       return;
     } else {
-      console.log(data.responseHeaders); // debug
+      // console.log(data.responseHeaders); // debug
       let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
       if (fileMd5) file.md5 = fileMd5[1].toLowerCase(); // 从下载接口拿到了md5, 会覆盖meta接口的md5
       else if (file.size <= 3900000000 && !file.retry_996) { // 未拿到md5, 尝试使用另一个下载接口

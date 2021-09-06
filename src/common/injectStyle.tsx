@@ -1,7 +1,7 @@
 import checkBoxCss from "@/components/checkBox.css";
 import appCss from "@/app.css";
 import { showAlert } from "./utils";
-import { extCssUrl, appError, ajaxError, swalCssVer } from "./const";
+import { extCssUrl, appError, swalCssVer } from "./const";
 import ajax from "./ajax";
 
 /**
@@ -51,8 +51,7 @@ function getThemesCss(swalThemes: string): void {
     },
 
     (statusCode) => {
-      if (statusCode === ajaxError) showAlert(appError.SwalCssErrReq);
-      else showAlert(appError.SwalCssBadReq + `(http#${statusCode})`);
+      showAlert(appError.SwalCssErrReq + `(http#${statusCode})`);
     }
   );
 }

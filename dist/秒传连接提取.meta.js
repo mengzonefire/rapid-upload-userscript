@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.6
+// @version 2.0.7
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -32,5 +32,7 @@
 // @require https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
 // @require https://cdn.jsdelivr.net/npm/js-base64
 // @run-at document-start
-// @connect *
+// @connect baidu.com
+// @connect baidupcs.com
+// @connect cdn.jsdelivr.net
 // ==/UserScript==

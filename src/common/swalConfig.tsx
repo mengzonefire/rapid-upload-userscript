@@ -1,5 +1,5 @@
 import { illegalPathPattern } from "@/baidu/common/const";
-import { doc, htmlCsdWarning, linkStyle } from "./const";
+import { doc, linkStyle } from "./const";
 import DuParser from "./DuParser";
 import updateInfo from "@/components/updateInfo.html";
 
@@ -47,16 +47,6 @@ export const SwalConfig = {
     showCloseButton: true,
     showConfirmButton: false,
     allowOutsideClick: false,
-  },
-
-  csdWarning: {
-    title: "请允许跨域访问",
-    showCloseButton: true,
-    allowOutsideClick: false,
-    input: "checkbox",
-    inputPlaceholder: "不再显示",
-    confirmButtonText: "知道了",
-    html: htmlCsdWarning,
   },
 
   finishView: {
@@ -144,6 +134,5 @@ export const SwalConfig = {
     showCloseButton: true,
     allowOutsideClick: false,
     confirmButtonText: "知道了",
-    html: htmlCsdWarning,
   },
 };

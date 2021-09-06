@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.6
+// @version 2.0.7
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -32,7 +32,9 @@
 // @require https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
 // @require https://cdn.jsdelivr.net/npm/js-base64
 // @run-at document-start
-// @connect *
+// @connect baidu.com
+// @connect baidupcs.com
+// @connect cdn.jsdelivr.net
 // ==/UserScript==
 
 (() => {
@@ -107,8 +109,7 @@
         var appError = {
             missDepend: "外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS",
             SwalCssInvalid: "样式包加载错误, 请前往脚本页反馈F12控制台截图\n" + homePage,
-            SwalCssErrReq: "样式包加载失败, 弹出跨域访问窗口请选择允许",
-            SwalCssBadReq: "样式包加载失败"
+            SwalCssErrReq: "样式包加载失败"
         };
         var doc = {
             shareDoc: "https://shimo.im/docs/TZ1JJuEjOM0wnFDH",
@@ -117,7 +118,6 @@
         var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
         var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
         var bdlinkPattern = /[\?#]bdlink=([\da-zA-Z+/=]+)/;
-        var htmlCsdWarning = '<p>弹出跨域访问窗口时,请选择"<span style="color: red;">总是允许</span>"或"<span style="color: red;">总是允许全部</span>"</p><img style="max-width: 100%; height: auto" src="https://pic.rmb.bdstatic.com/bjh/763ff5014cca49237cb3ede92b5b7ac5.png">';
         var htmlCheckMd5 = '<p class="mzf_text">测试秒传 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>';
         var htmlDocument = '<p class="mzf_text">秒传无效/md5获取失败/防和谐等 可参考<a href="' + doc.shareDoc + '" ' + btnStyle + '><span class="text" style="width: auto;">分享教程</span></a></p>';
         var htmlDonate = '<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="' + donatePage + '" ' + linkStyle + '>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>';
@@ -226,15 +226,6 @@
                 showConfirmButton: false,
                 allowOutsideClick: false
             },
-            csdWarning: {
-                title: "请允许跨域访问",
-                showCloseButton: true,
-                allowOutsideClick: false,
-                input: "checkbox",
-                inputPlaceholder: "不再显示",
-                confirmButtonText: "知道了",
-                html: htmlCsdWarning
-            },
             finishView: {
                 showCloseButton: true,
                 allowOutsideClick: false
@@ -312,8 +303,7 @@
                 title: "设置成功 刷新页面生效",
                 showCloseButton: true,
                 allowOutsideClick: false,
-                confirmButtonText: "知道了",
-                html: htmlCsdWarning
+                confirmButtonText: "知道了"
             }
         };
         var __assign = undefined && undefined.__assign || function() {
@@ -543,14 +533,6 @@
                     }
                 }));
             };
-            Swalbase.prototype.csdWarning = function(onConfirm) {
-                Swal.fire(this.mergeArg(SwalConfig.csdWarning)).then((function(result) {
-                    if (result.isConfirmed) {
-                        GM_setValue("show_csd_warning", result.value);
-                        onConfirm();
-                    }
-                }));
-            };
             Swalbase.prototype.genUnfinishi = function(onConfirm, onCancel) {
                 Swal.fire(this.mergeArg(SwalConfig.genUnfinish)).then((function(result) {
                     if (result.isConfirmed) onConfirm(); else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
@@ -732,7 +714,6 @@
                 }, (function(data) {
                     data = data.response;
                     if (!data.errno) {
-                        console.log(data.list[0]);
                         if (data.list[0].isdir) {
                             file.errno = 900;
                             _this.generateBdlink(i + 1);
@@ -762,7 +743,6 @@
                 }, (function(data) {
                     data = data.response;
                     if (!data.errno) {
-                        console.log(data.list[0]);
                         _this.downloadFileData(i, data.list[0].dlink);
                     } else {
                         file.errno = data.errno;
@@ -806,7 +786,6 @@
                     this.generateBdlink(i + 1);
                     return;
                 } else {
-                    console.log(data.responseHeaders);
                     var fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
                     if (fileMd5) file.md5 = fileMd5[1].toLowerCase(); else if (file.size <= 39e8 && !file.retry_996) {
                         file.retry_996 = true;
@@ -990,7 +969,7 @@
                 return "网盘容量已满";
 
               case 514:
-                return "请求失败(弹出跨域请求窗口请选择允许)";
+                return "请求失败(请尝试使用最新版Chrome浏览器/更新油猴插件)";
 
               case 1919:
                 return '文件已被和谐(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
@@ -999,10 +978,9 @@
                 return 'md5获取失败(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 500:
-                return '服务器错误(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
-
+              case 502:
               case 503:
-                return '服务器不可用(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
+                return '服务器错误(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 909:
                 return "路径不存在";
@@ -1046,11 +1024,7 @@
                 }));
                 $(document).on("click", "#gen_bdlink_btn", (function() {
                     swalInstance.generatebdlinkTask.reset();
-                    if (!GM_getValue("show_csd_warning")) {
-                        swalInstance.csdWarning((function() {
-                            swalInstance.checkUnfinish();
-                        }));
-                    } else swalInstance.checkUnfinish();
+                    swalInstance.checkUnfinish();
                 }));
             }));
         }
@@ -1134,7 +1108,7 @@
                 GM_setValue("" + swalCssVer + swalThemes, ThemesCss);
                 GM_addStyle(ThemesCss);
             }), (function(statusCode) {
-                if (statusCode === ajaxError) showAlert(appError.SwalCssErrReq); else showAlert(appError.SwalCssBadReq + ("(http#" + statusCode + ")"));
+                showAlert(appError.SwalCssErrReq + ("(http#" + statusCode + ")"));
             }));
         }
         function app_app() {

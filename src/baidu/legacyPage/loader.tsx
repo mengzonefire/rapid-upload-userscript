@@ -35,11 +35,7 @@ export default function installlegacy() {
     }); // 绑定秒传按钮事件
     $(document).on("click", "#gen_bdlink_btn", () => {
       swalInstance.generatebdlinkTask.reset();
-      if (!GM_getValue("show_csd_warning")) {
-        swalInstance.csdWarning(() => {
-          swalInstance.checkUnfinish();
-        });
-      } else swalInstance.checkUnfinish();
+      swalInstance.checkUnfinish();
     }); // 绑定生成按钮事件
   });
 }
