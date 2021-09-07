@@ -24,7 +24,7 @@ export const SwalConfig = {
         return;
       }
       if (!DuParser.parse(value).length) {
-        return `<p>未识别到正确的链接 <a href="${doc.shareDoc}" ${linkStyle}>查看支持格式</a></p>`;
+        return `<p>未识别到正确的链接 <a href="${doc.linkTypeDoc}" ${linkStyle}>查看支持格式</a></p>`;
       }
     },
   },

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.7
+// @version 2.0.8
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -204,7 +204,7 @@
                         return;
                     }
                     if (!DuParser.parse(value).length) {
-                        return '<p>未识别到正确的链接 <a href="' + doc.shareDoc + '" ' + linkStyle + ">查看支持格式</a></p>";
+                        return '<p>未识别到正确的链接 <a href="' + doc.linkTypeDoc + '" ' + linkStyle + ">查看支持格式</a></p>";
                     }
                 }
             },
@@ -942,7 +942,7 @@
         function baiduErrno(errno) {
             switch (errno) {
               case -6:
-                return "认证失败(尝试重登网盘账号)";
+                return "认证失败(尝试刷新页面)";
 
               case -7:
                 return '文件名错误, 不能含有字符\\":*?<>|';
@@ -951,7 +951,7 @@
                 return "路径下存在同名文件";
 
               case 400:
-                return "请求错误(请尝试使用最新版Chrome浏览器/更新油猴插件)";
+                return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
 
               case 403:
                 return "接口被限制(请等待24h再试)";
@@ -960,7 +960,7 @@
                 return '秒传未生效(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 2:
-                return "转存失败(尝试重登网盘账号/修改文件名或转存路径)";
+                return "转存失败(尝试刷新页面/修改文件名或转存路径)";
 
               case 2333:
                 return '文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
@@ -969,7 +969,7 @@
                 return "网盘容量已满";
 
               case 514:
-                return "请求失败(请尝试使用最新版Chrome浏览器/更新油猴插件)";
+                return "请求失败(尝试使用最新版Chrome浏览器/更新油猴插件)";
 
               case 1919:
                 return '文件已被和谐(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
