@@ -2,6 +2,8 @@
 
 ## 近期通知
 
+* 21.9.10: 阿里云版本由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/aliyun-rapidupload-userscript) 获取源码
+
 * 21.8.12: 1.8.8以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新最新版并重新生成
 
 * 21.7.30: 若转存提示 <span style="color: red;">转存失败(尝试...)(#2)</span>, 请更新到1.8.5版本以上
@@ -55,7 +57,7 @@
 
 ## 待更新
 1. 支持 新版度盘页面 下的 "生成秒传" 功能
-2. ~~支持 [阿里云盘](https://www.aliyundrive.com/drive/) 的秒传提取&生成~~ (另开一个项目, 不在此脚本做支持)
+2. ~~支持 [阿里云盘](https://www.aliyundrive.com/drive/) 的秒传提取&生成~~ (废弃, 阿里官方限制了秒传接口)
 3. ~~支持 [新版度盘页面](https://pan.baidu.com/disk/main?from=oldversion#/index)~~ (完成)
 4. ~~修复设置为非默认主题时, 窗口内会出现警告标识的问题~~ (完成, 实际为主题包不适配旧版sweetalert2)
 
