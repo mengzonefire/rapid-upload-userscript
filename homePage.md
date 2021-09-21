@@ -2,7 +2,7 @@
 
 ## 近期通知
 
-* 21.9.10: 阿里云版本由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/aliyun-rapidupload-userscript) 获取源码
+* 21.9.10: [阿里版本](https://greasyfork.org/zh-CN/scripts/432065) 由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/aliyun-rapidupload-userscript) 获取源码
 
 * 21.8.12: 1.8.8以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新最新版并重新生成
 
