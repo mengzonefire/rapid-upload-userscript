@@ -6,7 +6,7 @@
 
 ## Usage
 
-安装脚本可参考 [安装教程](https://shimo.im/docs/Jqf8y260KuofSb4K/)
+安装脚本可参考 [安装教程](https://shimowendang.com/docs/Jqf8y260KuofSb4K/)
 
 ## Build Setup
 
