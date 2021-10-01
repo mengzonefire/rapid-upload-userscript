@@ -2,7 +2,7 @@
 
 ## 近期通知
 
-* 修复失效的教程文档地址 (部分地区打开显示石墨文档正在升级)
+* 21.10.1: 修复失效的教程文档地址 (部分地区打开显示石墨文档正在升级)
 
 * 21.9.10: [阿里版本](https://greasyfork.org/zh-CN/scripts/432065) 由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/aliyun-rapidupload-userscript) 获取源码
 
