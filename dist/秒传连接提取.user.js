@@ -714,6 +714,7 @@
                 }, (function(data) {
                     data = data.response;
                     if (!data.errno) {
+                        console.log(data.list[0]);
                         if (data.list[0].isdir) {
                             file.errno = 900;
                             _this.generateBdlink(i + 1);
@@ -743,6 +744,7 @@
                 }, (function(data) {
                     data = data.response;
                     if (!data.errno) {
+                        console.log(data.list[0]);
                         _this.downloadFileData(i, data.list[0].dlink);
                     } else {
                         file.errno = data.errno;

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-09-01 11:19:16
+ * @LastEditTime: 2021-10-15 23:58:48
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -121,7 +121,7 @@ export default class RapiduploadTask {
           path: this.savePath + file.path,
           size: file.size,
           isdir: 0,
-          rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为0
+          rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为1(自动重命名)
         }),
       },
       (data) => {
