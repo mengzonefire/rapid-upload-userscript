@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-09-06 22:01:07
+ * @LastEditTime: 2021-10-16 12:26:59
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -69,7 +69,7 @@ export default class Swalbase {
             this.rapiduploadTask.isDefaultPath = true;
           }
         }
-        if (path.charAt(path.length - 1) !== "/") path += "/"; // 补全路径结尾的 "/""
+        if (path.charAt(path.length - 1) !== "/") path += "/"; // 补全路径结尾的 "/"
         // debug
         console.log(`秒传文件保存到: ${path}`);
         this.rapiduploadTask.savePath = path;
