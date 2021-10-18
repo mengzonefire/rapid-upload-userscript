@@ -1,4 +1,4 @@
-export const updateInfoVer = "2.0.10"; // 更新信息的版本, 有些没必要提示的小更新就不加到更新提示里了
+export const updateInfoVer = "2.0.11"; // 更新信息的版本, 有些没必要提示的小更新就不加到更新提示里了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字串以刷新缓存
 export const donateVer = "2.0.0"; // 用于检测可关闭的赞助提示的版本号
 export const feedbackVer = "2.0.0"; // 用于检测可关闭的反馈提示的版本号
