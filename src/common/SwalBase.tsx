@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-11-09 17:52:35
+ * @LastEditTime: 2021-11-10 23:34:38
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -311,7 +311,7 @@ export default class Swalbase {
       btn.textContent = "打开目录";
       btn.style.backgroundColor = "#ecae3c";
       btn.onclick = () => {
-        let path = location.href.match(/(path=(.+?)(?:&|$))/);
+        let path = location.href.match(/(path=(.+?))(?:&|$)/);
         if (path && path[2] !== encodeURIComponent(_dir))
           location.href = location.href.replace(
             // 仅替换path参数, 不修改其他参数
