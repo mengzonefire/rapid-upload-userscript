@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-10-16 00:09:29
+ * @LastEditTime: 2021-11-12 11:23:42
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -141,6 +141,16 @@ export default class GeneratebdlinkTask {
           if (data.list[0].block_list.length === 1)
             // block_list内获取到正确的md5
             file.md5 = data.list[0].block_list[0].toLowerCase();
+
+          // 测试旧下载接口_start
+          // file.retry_996 = true;
+          // this.downloadFileData(
+          //   i,
+          //   pcs_url + `&path=${encodeURIComponent(file.path)}`
+          // );
+          // return;
+          // 测试旧下载接口_end
+
           this.getDlink(i);
         } else {
           file.errno = data.errno;
@@ -232,8 +242,8 @@ export default class GeneratebdlinkTask {
       let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
       if (fileMd5) file.md5 = fileMd5[1].toLowerCase();
       // 从下载接口拿到了md5, 会覆盖meta接口的md5
-      else if (file.size <= 3900000000 && !file.retry_996) {
-        // 未拿到md5, 尝试使用另一个下载接口
+      else if (!file.md5 && file.size <= 3900000000 && !file.retry_996) {
+        // 下载接口和meta接口均未拿到md5, 尝试使用旧下载接口
         file.retry_996 = true;
         this.downloadFileData(
           i,
@@ -241,7 +251,7 @@ export default class GeneratebdlinkTask {
         );
         return;
       } else if (!file.md5) {
-        // 两个下载接口和meta接口都未拿到md5
+        // 两个下载接口和meta接口均未拿到md5
         file.errno = 996;
         this.generateBdlink(i + 1);
         return;

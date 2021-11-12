@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.13
+// @version 2.0.14
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -791,7 +791,7 @@
                     return;
                 } else {
                     var fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
-                    if (fileMd5) file.md5 = fileMd5[1].toLowerCase(); else if (file.size <= 39e8 && !file.retry_996) {
+                    if (fileMd5) file.md5 = fileMd5[1].toLowerCase(); else if (!file.md5 && file.size <= 39e8 && !file.retry_996) {
                         file.retry_996 = true;
                         this.downloadFileData(i, pcs_url + ("&path=" + encodeURIComponent(file.path)));
                         return;
@@ -958,7 +958,7 @@
                 return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
 
               case 403:
-                return "接口被限制(请等待24h再试)";
+                return '接口限制访问(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
               case 404:
                 return '秒传未生效(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
