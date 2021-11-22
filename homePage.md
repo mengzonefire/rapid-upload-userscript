@@ -2,6 +2,8 @@
 
 ## 近期通知
 
+- 21.11.15: Gitlab Page 服务正在维护中, 若急需文档可前往 [Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
+
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page 服务: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 
 - 21.10.16: 已将完整的秒传转存功能移植到 [秒传网页版工具](https://rapidacg.gmgard.moe/)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
@@ -32,7 +34,7 @@
 
 ## 常见问题
 
-1. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭杀软
+1. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭代理
 
 2. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
 
