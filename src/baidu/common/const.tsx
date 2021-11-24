@@ -60,7 +60,7 @@ export function baiduErrno(errno: number) {
     case -10:
       return "网盘容量已满";
     case 514:
-      return "请求失败(尝试使用最新版Chrome浏览器/更新油猴插件)";
+      return "请求失败(尝试关闭网络代理/更新油猴插件)";
     case 1919:
       return `文件已被和谐(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 996:

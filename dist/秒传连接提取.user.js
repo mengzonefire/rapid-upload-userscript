@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.14
+// @version 2.0.15
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -973,7 +973,7 @@
                 return "网盘容量已满";
 
               case 514:
-                return "请求失败(尝试使用最新版Chrome浏览器/更新油猴插件)";
+                return "请求失败(尝试关闭网络代理/更新油猴插件)";
 
               case 1919:
                 return '文件已被和谐(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
