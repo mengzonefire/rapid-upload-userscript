@@ -94,7 +94,7 @@ module.exports = {
           "https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js",
           "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js",
           "https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js",
-          "https://cdn.jsdelivr.net/npm/js-base64",
+          "https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js",
         ],
         "run-at": "document-start",
         connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net"],

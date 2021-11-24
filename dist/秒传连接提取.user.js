@@ -30,7 +30,7 @@
 // @require https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
 // @require https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 // @require https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
-// @require https://cdn.jsdelivr.net/npm/js-base64
+// @require https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js
 // @run-at document-start
 // @connect baidu.com
 // @connect baidupcs.com
