@@ -2,7 +2,7 @@
 
 ## 近期通知
 
-- 21.11.15: Gitlab Page 服务正在维护中, 若临时需要文档可前往 [Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
+- 21.11.15: ~~Gitlab Page 服务正在维护中~~(11.25维护完成), 若临时需要文档可前往 [Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
 
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page 服务: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 
