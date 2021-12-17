@@ -8,17 +8,11 @@
 
 - 21.10.16: 已将完整的秒传转存功能移植到 [秒传网页版工具](https://rapidacg.gmgard.moe/)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
 
-- 21.10.1: 修复失效的教程文档地址 (部分地区打开显示石墨文档正在升级)
-
-- 21.9.10: [阿里版本](https://greasyfork.org/zh-CN/scripts/432065) 由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/aliyun-rapidupload-userscript) 获取源码
-
-- 21.8.12: 1.8.8 以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新最新版并重新生成
-
-- 21.7.30: 若转存提示 <span style="color: red;">转存失败(尝试...)(#2)</span>, 请更新到 1.8.5 版本以上
-
+- 
 <details>
 <summary>历史通知</summary>
-<ul><li><p>21.7.17: </p><ul><li><p>管理员已完成对昨日举报的审核<a href="https://pic.rmb.bdstatic.com/bjh/a6abf0daa40362c10385432fb5150ae7.png">(图1)</a>, 脚本页现可正常访问了</p></li><li><p>鉴于 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 有更稳定的服务端(不存在&quot;秒传无效&quot;, &quot;md5获取失败&quot;等问题), 即将着手阿里云盘对应的秒传提取&amp;生成功能, 预计下个月更新.</p></li></ul></li><li><p>21.7.16: 估计是因为脚本头几行留有babel工具生成的语法转换代码<a href="https://pic.rmb.bdstatic.com/bjh/9cd999f1d1a35b350e83f93fc685dee7.png">(图1)</a>, 被人误解为压缩代码举报了<a href="https://pic.rmb.bdstatic.com/bjh/eb18b94af7dacd00b11e8cbac3b1e1e4.png">(图2)</a>, 故将源码重新格式化了一遍<a href="https://pic.rmb.bdstatic.com/bjh/ecc36a94f8632b8fba81594d37646b31.png">(图3)</a>以避免误解.</p></li></ul><ul><li><p>21.7.12: 经测试, 度盘服务器已恢复正常, 可以正常上传文件并生成秒传.</p></li><li><p>21.7.10: (<span style="color: red;"> 重要 </span>) 从7.9开始, 新上传网盘的文件<span style="color: red;"> 很可能 </span>出现 &quot;秒传未生效&quot;, &quot;md5获取失败&quot;的问题, 疑似百度服务器异常, 正在尝试修复.</p><p>*<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/">分享教程</a> 内提供了临时的解决方法</p></li><li><p>21.7.9: (<span style="color: red;"> 重要 </span>) 1.8.1版本更换了秒传接口, 解决了绝大部分 &quot;<span style="color: red;"> 文件不存在(秒传未生效) </span>&quot; 和 &quot;<span style="color: red;"> md5获取失败 </span>&quot; 的问题, 为保证使用体验, 强烈建议更新到最新版</p></li></ul>
+<ul><li><p>21.10.1: 修复失效的教程文档地址 (部分地区打开显示石墨文档正在升级)</p></li><li><p>21.9.10: <a href="https://greasyfork.org/zh-CN/scripts/432065">阿里版本</a> 由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'><a href="https://github.com/mengzonefire/aliyun-rapidupload-userscript">GitHub</a> 获取源码</p></li><li><p>21.8.12: 1.8.8 以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新最新版并重新生成</p></li><li><p>21.7.30: 若转存提示 <span style="color: red;">转存失败(尝试...)(#2)</span>, 请更新到 1.8.5 版本以上</p></li></ul>
+<ul><li><p>21.7.17: </p><ul><li><p>管理员已完成对昨日举报的审核<a href="https://pic.rmb.bdstatic.com/bjh/a6abf0daa40362c10385432fb5150ae7.png">(图1)</a>, 脚本页现可正常访问了</p></li><li><p>鉴于 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 有更稳定的服务端(不存在"秒传无效", "md5获取失败"等问题), 即将着手阿里云盘对应的秒传提取&amp;生成功能, 预计下个月更新.</p></li></ul></li><li><p>21.7.16: 估计是因为脚本头几行留有babel工具生成的语法转换代码<a href="https://pic.rmb.bdstatic.com/bjh/9cd999f1d1a35b350e83f93fc685dee7.png">(图1)</a>, 被人误解为压缩代码举报了<a href="https://pic.rmb.bdstatic.com/bjh/eb18b94af7dacd00b11e8cbac3b1e1e4.png">(图2)</a>, 故将源码重新格式化了一遍<a href="https://pic.rmb.bdstatic.com/bjh/ecc36a94f8632b8fba81594d37646b31.png">(图3)</a>以避免误解.</p></li></ul><ul><li><p>21.7.12: 经测试, 度盘服务器已恢复正常, 可以正常上传文件并生成秒传.</p></li><li><p>21.7.10: (<span style="color: red;"> 重要 </span>) 从7.9开始, 新上传网盘的文件<span style="color: red;"> 很可能 </span>出现 "秒传未生效", "md5获取失败"的问题, 疑似百度服务器异常, 正在尝试修复.</p><p>*<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/">分享教程</a> 内提供了临时的解决方法</p></li><li><p>21.7.9: (<span style="color: red;"> 重要 </span>) 1.8.1版本更换了秒传接口, 解决了绝大部分 "<span style="color: red;"> 文件不存在(秒传未生效) </span>" 和 "<span style="color: red;"> md5获取失败 </span>" 的问题, 为保证使用体验, 强烈建议更新到最新版</p></li></ul>
 
 </details>
 
@@ -34,11 +28,13 @@
 
 ## 常见问题
 
-1. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭代理
+1. 此脚本只在度盘主页运行: https://pan.baidu.com/
 
-2. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
+2. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭代理
 
-3. 使用脚本转存文件, 下载时提示 "<span style="color: red;">下载失败[1252017]</span>", 可尝试 更新度盘客户端 或 [参考教程](https://www.cnblogs.com/zlr585/p/14683918.html)
+3. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
+
+4. 使用脚本转存文件, 下载时提示 "<span style="color: red;">下载失败[1252017]</span>", 可尝试 更新度盘客户端 或 [参考教程](https://www.cnblogs.com/zlr585/p/14683918.html)
 
 \*若遇到其他问题, 请按 F12 打开控制台截图反馈, 并反馈浏览器、油猴插件及脚本版本
 
@@ -57,7 +53,7 @@
 <details>
 <summary>点击展开</summary>
 
-<ul><li><p>梦姬标准/标准码: D5AABEFC3290F7A3C09912228B136D0C#821A9F0D27FCD19C80474D2140ED2D85#6467659#test.exe</p></li><li><p>PanDL格式: bdpan://dGVzdC5leGV8NjQ2NzY1OXxENUFBQkVGQzMyOTBGN0EzQzA5OTEyMjI4QjEzNkQwQ3w4MjFBOUYwRDI3RkNEMTlDODA0NzREMjE0MEVEMkQ4NQ==</p></li><li><p>PCS-GO格式: BaiduPCS-Go rapidupload -length=6467659 -md5=D5AABEFC3290F7A3C09912228B136D0C -slicemd5=821A9F0D27FCD19C80474D2140ED2D85 &quot;/test.exe&quot;</p></li></ul>
+<ul><li><p>梦姬标准/标准码: D5AABEFC3290F7A3C09912228B136D0C#821A9F0D27FCD19C80474D2140ED2D85#6467659#test.exe</p></li><li><p>PanDL格式: bdpan://dGVzdC5leGV8NjQ2NzY1OXxENUFBQkVGQzMyOTBGN0EzQzA5OTEyMjI4QjEzNkQwQ3w4MjFBOUYwRDI3RkNEMTlDODA0NzREMjE0MEVEMkQ4NQ==</p></li><li><p>PCS-GO格式: BaiduPCS-Go rapidupload -length=6467659 -md5=D5AABEFC3290F7A3C09912228B136D0C -slicemd5=821A9F0D27FCD19C80474D2140ED2D85 "/test.exe"</p></li></ul>
 
 </details>
 
@@ -107,23 +103,23 @@
 <details>
 <summary>历史更新 [点击展开]</summary>
 
-<p>21.6.24更新：修复从yun.baidu.com进入时, 弹窗提示 &quot;bdskoten获取失败&quot; 的问题</p>
+<p>21.6.24更新：修复从yun.baidu.com进入时, 弹窗提示 "bdskoten获取失败" 的问题</p>
 
 <p>21.6.23更新：将sweetalert2和设置内的主题包升级到最新版(适配主题后修复了 待更新#3)</p>
 
-<p>21.6.18更新：转存秒传添加bdstoken参数, 防止报错&quot;转存失败(#2)&quot;, 并支持了新版度盘页面下的转存功能:</p>
+<p>21.6.18更新：转存秒传添加bdstoken参数, 防止报错"转存失败(#2)", 并支持了新版度盘页面下的转存功能:</p>
 
 <p><img alt="" src="https://pic.rmb.bdstatic.com/bjh/ed9647f2c8d16a8a6fb74d42e51626cf.png"/></p>
 
 <p>21.6.18更新：移除<span style="color: red;"> 修复下载 </span>功能(已在21年4月上旬失效), 后续不会再考虑修复该功能</p>
 
-<p>21.3.30更新：修复部分秒传转存提示 &quot;文件不存在&quot; 或 &quot;md5不匹配&quot;, 有该情况的请务必更新到1.6.7版本</p>
+<p>21.3.30更新：修复部分秒传转存提示 "文件不存在" 或 "md5不匹配", 有该情况的请务必更新到1.6.7版本</p>
 
 <p>21.3.29更新：新增<span style="color: red;"> 直接修复下载 </span>功能，无需秒传即可修复下载，感谢TkzcM的帮助</p>
 
 <p><span style="color: red;">注意:</span> 后续测试发现1.6.1和1.6.2版本该功能有可能使原文件丢失, 若需要使用该功能请务必更新到1.6.3以上版本</p>
 
-<p><span style="color: red;">注意2:</span> 由于实现机制不同, &quot;直接修复&quot; 的成功率相对 &quot;转存的修复&quot; 较低, 至少一半以上的文件无法修复(弹窗提示 &quot;不支持修复&quot;), 目前暂时未找到解决方法</p>
+<p><span style="color: red;">注意2:</span> 由于实现机制不同, "直接修复" 的成功率相对 "转存的修复" 较低, 至少一半以上的文件无法修复(弹窗提示 "不支持修复"), 目前暂时未找到解决方法</p>
 
 <p><img alt="" src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png"/></p>
 
@@ -133,11 +129,11 @@
 
 <p>21.2.26更新：若在更新1.5.0版本后出现秒传按钮不显示的问题, 请尝试更新到1.5.5版本</p>
 
-<p>21.2.11更新：<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/">分享教程</a> 更新, 原教程的 &quot;固实压缩+加密文件名&quot; 已无法再防和谐(在度盘移动端依旧可以在线解压), 目前有效的防和谐方法请参考教程内的 &quot;<span style="color: red;">双层压缩</span>&quot;</p>
+<p>21.2.11更新：<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/">分享教程</a> 更新, 原教程的 "固实压缩+加密文件名" 已无法再防和谐(在度盘移动端依旧可以在线解压), 目前有效的防和谐方法请参考教程内的 "<span style="color: red;">双层压缩</span>"</p>
 
 <p>21.1.28更新：兼容了暴力猴插件, 添加更换主题功能, 优化部分代码逻辑</p>
 
-<p>21.1.11更新：若1.4.0版本出现 &quot;转存失败&quot; 的情况, 请更新1.4.4版本</p>
+<p>21.1.11更新：若1.4.0版本出现 "转存失败" 的情况, 请更新1.4.4版本</p>
 
 <p>20.12.18更新：不再支持暴力猴violentmonkey2.12.8以上插件, 使用该插件的用户请降级插件或改用油猴插件Tampermonkey</p>
 
