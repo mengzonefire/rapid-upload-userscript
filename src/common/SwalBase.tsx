@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2021-11-10 23:34:38
+ * @LastEditTime: 2022-01-04 03:42:14
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -196,7 +196,9 @@ export default class Swalbase {
             path: item,
           });
         });
+        this.processView(true); // 显示进度弹窗
         this.genFileWork(false, true); // 跳过获取选择文件列表和扫描文件夹的步骤
+        this.generatebdlinkTask.generateBdlink(0); // 开始生成任务
       }
     });
   }
@@ -264,7 +266,7 @@ export default class Swalbase {
     this.generatebdlinkTask.onFinish = () => {
       this.finishView(true);
     };
-    if (!isUnfinish && !isGenView) this.generatebdlinkTask.start();
+    if (!isUnfinish && !isGenView) this.generatebdlinkTask.start(); // 执行新任务初始化
   }
 
   checkUnfinish() {
