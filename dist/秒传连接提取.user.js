@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.17
+// @version 2.0.18
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -135,8 +135,11 @@
             } else if (szUrl.indexOf("BaiduPCS-Go") === 0) {
                 r = DuParser.parseDu_v2(szUrl);
                 r.ver = "PCS-Go";
-            } else {
+            } else if (szUrl.indexOf("BDLINK") === 0) {
                 r = DuParser.parseDu_v3(szUrl);
+                r.ver = "游侠 v1";
+            } else {
+                r = DuParser.parseDu_v4(szUrl);
                 r.ver = "梦姬标准";
             }
             return r;
@@ -170,6 +173,31 @@
             }));
         };
         DuParser.parseDu_v3 = function parseDu_v3(szUrl) {
+            var raw = atob(szUrl.slice(6).replace(/\s/g, ""));
+            if (raw.slice(0, 5) !== "BDFS\0") {
+                return null;
+            }
+            var buf = new SimpleBuffer(raw);
+            var ptr = 9;
+            var arrFiles = [];
+            var fileInfo, nameSize;
+            var total = buf.readUInt(5);
+            var i;
+            for (i = 0; i < total; i++) {
+                fileInfo = {};
+                fileInfo.size = buf.readULong(ptr + 0);
+                fileInfo.md5 = buf.readHex(ptr + 8, 16);
+                fileInfo.md5s = buf.readHex(ptr + 24, 16);
+                nameSize = buf.readUInt(ptr + 40) << 1;
+                fileInfo.nameSize = nameSize;
+                ptr += 44;
+                fileInfo.path = buf.readUnicode(ptr, nameSize);
+                arrFiles.push(fileInfo);
+                ptr += nameSize;
+            }
+            return arrFiles;
+        };
+        DuParser.parseDu_v4 = function parseDu_v3(szUrl) {
             return szUrl.split("\n").map((function(z) {
                 return z.trim().match(/^([\dA-Fa-f]{32})#(?:([\dA-Fa-f]{32})#)?([\d]{1,20})#([\s\S]+)/);
             })).filter((function(z) {
@@ -183,6 +211,46 @@
                 };
             }));
         };
+        function SimpleBuffer(str) {
+            this.fromString(str);
+        }
+        SimpleBuffer.toStdHex = function toStdHex(n) {
+            return ("0" + n.toString(16)).slice(-2);
+        };
+        SimpleBuffer.prototype.fromString = function fromString(str) {
+            var len = str.length;
+            this.buf = new Uint8Array(len);
+            for (var i = 0; i < len; i++) {
+                this.buf[i] = str.charCodeAt(i);
+            }
+        };
+        SimpleBuffer.prototype.readUnicode = function readUnicode(index, size) {
+            if (size & 1) {
+                size++;
+            }
+            var bufText = Array.prototype.slice.call(this.buf, index, index + size).map(SimpleBuffer.toStdHex);
+            var buf = [ "" ];
+            for (var i = 0; i < size; i += 2) {
+                buf.push(bufText[i + 1] + bufText[i]);
+            }
+            return JSON.parse('"' + buf.join("\\u") + '"');
+        };
+        SimpleBuffer.prototype.readNumber = function readNumber(index, size) {
+            var ret = 0;
+            for (var i = index + size; i > index; ) {
+                ret = this.buf[--i] + ret * 256;
+            }
+            return ret;
+        };
+        SimpleBuffer.prototype.readUInt = function readUInt(index) {
+            return this.readNumber(index, 4);
+        };
+        SimpleBuffer.prototype.readULong = function readULong(index) {
+            return this.readNumber(index, 8);
+        };
+        SimpleBuffer.prototype.readHex = function readHex(index, size) {
+            return Array.prototype.slice.call(this.buf, index, index + size).map(SimpleBuffer.toStdHex).join("");
+        };
         var updateInfo = __webpack_require__(184);
         var updateInfo_default = __webpack_require__.n(updateInfo);
         var SwalConfig = {
@@ -190,7 +258,7 @@
                 title: "请输入秒传",
                 input: "textarea",
                 showCancelButton: true,
-                inputPlaceholder: "[支持PanDL/标准码/GO格式][支持批量(换行分隔)]\n[输入set进入设置页][输入gen进入生成页]",
+                inputPlaceholder: "[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[输入set进入设置页][输入gen进入生成页]",
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 inputValidator: function(value) {

@@ -1,14 +1,14 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:01:28
- * @LastEditTime: 2021-08-29 17:55:49
+ * @LastEditTime: 2022-01-07 07:51:31
  * @LastEditors: mengzonefire
  * @Description: 秒传链接解析器
  */
 
 export default function DuParser() {}
 
-DuParser.parse = function generalDuCodeParse(szUrl:string) {
+DuParser.parse = function generalDuCodeParse(szUrl: string) {
   let r: any;
   if (szUrl.indexOf("bdpan") === 0) {
     r = DuParser.parseDu_v1(szUrl);
@@ -16,8 +16,11 @@ DuParser.parse = function generalDuCodeParse(szUrl:string) {
   } else if (szUrl.indexOf("BaiduPCS-Go") === 0) {
     r = DuParser.parseDu_v2(szUrl);
     r.ver = "PCS-Go";
-  } else {
+  } else if (szUrl.indexOf("BDLINK") === 0) {
     r = DuParser.parseDu_v3(szUrl);
+    r.ver = "游侠 v1";
+  } else {
+    r = DuParser.parseDu_v4(szUrl);
     r.ver = "梦姬标准";
   }
   return r;
@@ -72,6 +75,45 @@ DuParser.parseDu_v2 = function parseDu_v2(szUrl: string) {
 };
 
 DuParser.parseDu_v3 = function parseDu_v3(szUrl: string) {
+  var raw = atob(szUrl.slice(6).replace(/\s/g, ""));
+  if (raw.slice(0, 5) !== "BDFS\x00") {
+    return null;
+  }
+  var buf = new SimpleBuffer(raw);
+  var ptr = 9;
+  var arrFiles = [];
+  var fileInfo: {
+      size?: any;
+      md5?: any;
+      md5s?: any;
+      nameSize?: any;
+      path?: any;
+    },
+    nameSize: number;
+  var total = buf.readUInt(5);
+  var i: number;
+
+  for (i = 0; i < total; i++) {
+    // 大小 (8 bytes)
+    // MD5 + MD5S (0x20)
+    // nameSize (4 bytes)
+    // Name (unicode)
+    fileInfo = {};
+    fileInfo.size = buf.readULong(ptr + 0);
+    fileInfo.md5 = buf.readHex(ptr + 8, 0x10);
+    fileInfo.md5s = buf.readHex(ptr + 0x18, 0x10);
+    nameSize = buf.readUInt(ptr + 0x28) << 1;
+    fileInfo.nameSize = nameSize;
+    ptr += 0x2c;
+    fileInfo.path = buf.readUnicode(ptr, nameSize);
+    arrFiles.push(fileInfo);
+    ptr += nameSize;
+  }
+
+  return arrFiles;
+};
+
+DuParser.parseDu_v4 = function parseDu_v3(szUrl: string) {
   return szUrl
     .split("\n")
     .map(function (z) {
@@ -93,4 +135,77 @@ DuParser.parseDu_v3 = function parseDu_v3(szUrl: string) {
         path: info[4],
       };
     });
+};
+
+/**
+ * 一个简单的类似于 NodeJS Buffer 的实现.
+ * 用于解析游侠度娘提取码。
+ * @param {SimpleBuffer}
+ */
+
+function SimpleBuffer(str: string) {
+  this.fromString(str);
+}
+
+SimpleBuffer.toStdHex = function toStdHex(n: {
+  toString: (arg0: number) => string;
+}) {
+  return ("0" + n.toString(16)).slice(-2);
+};
+
+SimpleBuffer.prototype.fromString = function fromString(str: string) {
+  var len = str.length;
+  this.buf = new Uint8Array(len);
+
+  for (var i = 0; i < len; i++) {
+    this.buf[i] = str.charCodeAt(i);
+  }
+};
+
+SimpleBuffer.prototype.readUnicode = function readUnicode(
+  index: any,
+  size: number
+) {
+  if (size & 1) {
+    size++;
+  }
+
+  var bufText = Array.prototype.slice
+    .call(this.buf, index, index + size)
+    .map(SimpleBuffer.toStdHex);
+  var buf = [""];
+
+  for (var i = 0; i < size; i += 2) {
+    buf.push(bufText[i + 1] + bufText[i]);
+  }
+
+  return JSON.parse('"' + buf.join("\\u") + '"');
+};
+
+SimpleBuffer.prototype.readNumber = function readNumber(
+  index: number,
+  size: any
+) {
+  var ret = 0;
+
+  for (var i = index + size; i > index; ) {
+    ret = this.buf[--i] + ret * 256;
+  }
+
+  return ret;
+};
+
+SimpleBuffer.prototype.readUInt = function readUInt(index: any) {
+  return this.readNumber(index, 4);
+};
+
+SimpleBuffer.prototype.readULong = function readULong(index: any) {
+  return this.readNumber(index, 8);
+};
+
+SimpleBuffer.prototype.readHex = function readHex(index: any, size: any) {
+  return Array.prototype.slice
+    .call(this.buf, index, index + size)
+    .map(SimpleBuffer.toStdHex)
+    .join("");
 };

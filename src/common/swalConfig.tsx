@@ -10,7 +10,7 @@ export const SwalConfig = {
     input: "textarea",
     showCancelButton: true,
     inputPlaceholder:
-      "[支持PanDL/标准码/GO格式][支持批量(换行分隔)]\n[输入set进入设置页][输入gen进入生成页]",
+      "[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[输入set进入设置页][输入gen进入生成页]",
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     inputValidator: (value: string) => {

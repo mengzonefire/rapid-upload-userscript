@@ -2,7 +2,7 @@
 
 ## 近期通知
 
-- 21.11.15: ~~Gitlab Page 服务正在维护中~~(11.25维护完成), 若临时需要文档可前往 [Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
+- 21.12.18: ~~Gitlab Page 服务正在维护中~~(12.21维护完成), 若临时需要文档可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
 
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page 服务: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 
@@ -24,19 +24,23 @@
 
 - [防和谐教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/file-protect/): 关于度盘 <span style="color: red;">文件和谐</span> 的详解
 
-- [视频教程](https://www.bilibili.com/video/BV1E5411H76K): 脚本的完整使用教程(包含安装、提取、生成)
+- [视频教程 Win](https://www.bilibili.com/video/BV1E5411H76K): Win端下的完整使用教程(包含安装、提取、生成)
+
+- [视频教程 安卓] (https://www.bilibili.com/video/BV1ty4y127kJ): 安卓端下的安装使用教程
 
 ## 常见问题
 
 1. 此脚本只在度盘主页运行: https://pan.baidu.com/
 
-2. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭代理
+2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>过旧版本(低于4.9)的油猴, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
-3. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
+3. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭代理
 
-4. 使用脚本转存文件, 下载时提示 "<span style="color: red;">下载失败[1252017]</span>", 可尝试 更新度盘客户端 或 [参考教程](https://www.cnblogs.com/zlr585/p/14683918.html)
+4. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
 
-\*若遇到其他问题, 请按 F12 打开控制台截图反馈, 并反馈浏览器、油猴插件及脚本版本
+5. 使用脚本转存文件, 下载时提示 "<span style="color: red;">下载失败[1252017]</span>", 可尝试 更新度盘客户端 或 [参考教程](https://www.cnblogs.com/zlr585/p/14683918.html)
+
+6. \*若遇到其他问题, 请按 F12 打开控制台截图反馈, 并反馈浏览器、油猴插件及脚本版本
 
 ## 脚本说明
 
@@ -44,16 +48,24 @@
 
 - 支持批量提取(换行分隔符), 支持 url 传参(一键秒传), 格式：`https://pan.baidu.com/#bdlink=[参数]`，[参数]为 base64 加密过的任意格式链接 (支持批量)
 
-- 支持生成秒传, 选中 文件/文件夹后 即可看到秒传生成按钮
+- 支持生成秒传, 网盘内选中 文件/文件夹后 即可看到秒传生成按钮
 
 ![](https://pic.rmb.bdstatic.com/bjh/1cb5384f4b7cd3fc5a07b42ef45bfe93.png)
+
+- 支持输入文件路径生成秒传, 在秒传输入框中输入gen即可进入生成页面
+
+![](https://pic.rmb.bdstatic.com/bjh/8cbdb318fb0e918f7d98a11757c1e6f2.png)
+
+- 支持设置主题样式, 在秒传输入框中输入set即可进入设置页面
+
+![](https://pic.rmb.bdstatic.com/bjh/4e7fd96c7ca7a098de3b0b3ba56bc125.png)
 
 ## 常见秒传格式
 
 <details>
 <summary>点击展开</summary>
 
-<ul><li><p>梦姬标准/标准码: D5AABEFC3290F7A3C09912228B136D0C#821A9F0D27FCD19C80474D2140ED2D85#6467659#test.exe</p></li><li><p>PanDL格式: bdpan://dGVzdC5leGV8NjQ2NzY1OXxENUFBQkVGQzMyOTBGN0EzQzA5OTEyMjI4QjEzNkQwQ3w4MjFBOUYwRDI3RkNEMTlDODA0NzREMjE0MEVEMkQ4NQ==</p></li><li><p>PCS-GO格式: BaiduPCS-Go rapidupload -length=6467659 -md5=D5AABEFC3290F7A3C09912228B136D0C -slicemd5=821A9F0D27FCD19C80474D2140ED2D85 "/test.exe"</p></li></ul>
+<ul><li><p>梦姬标准/标准码: D5AABEFC3290F7A3C09912228B136D0C#821A9F0D27FCD19C80474D2140ED2D85#6467659#test.exe</p></li><li><p>PanDL格式: bdpan://dGVzdC5leGV8NjQ2NzY1OXxENUFBQkVGQzMyOTBGN0EzQzA5OTEyMjI4QjEzNkQwQ3w4MjFBOUYwRDI3RkNEMTlDODA0NzREMjE0MEVEMkQ4NQ==</p></li><li><p>PCS-GO格式: BaiduPCS-Go rapidupload -length=6467659 -md5=D5AABEFC3290F7A3C09912228B136D0C -slicemd5=821A9F0D27FCD19C80474D2140ED2D85 "/test.exe"</p></li><li><p>游侠格式: BDLINK......</p></li></ul>
 
 </details>
 
@@ -66,7 +78,9 @@
 
 ## 更新说明
 
-21.11.9: 
+22.1.7 更新: 重新添加游侠秒传格式的支持
+
+21.11.9 更新: 
 
 1. 修复所有失效的文档地址
 
@@ -84,24 +98,21 @@
 
 2. 重构代码, 全面优化, 提升使用体验
 
-   21.8.12 更新: 修复部分生成得到错误 md5 导致秒传无法转存(#404)的问题
-
-   21.7.30 更新: 修复了部分转存提示 "<span style="color: red;">转存失败(尝试...)(#2)</span>" 的问题" 的问题
-
-   21.7.18 更新: 修复了部分生成提示 "<span style="color: red;">md5 获取失败</span>" 的问题
-
-   21.7.6 更新: 支持转存与生成 <span style="color: red;">20G 以上</span> 文件的秒传
-
-   21.6.28 更新:
-
-3. 大幅提升非会员账号生成秒传的速度
-
-4. 修复生成 4G 以上文件提示"<span style="color: red;">服务器错误(#500)</span>"的问题
-
-   21.6.25 更新：修复了绝大部分转存提示 "<span style="color: red;">文件不存在(秒传未生效)(#404)</span>" 的问题
-
 <details>
 <summary>历史更新 [点击展开]</summary>
+<p>21.8.12 更新: 修复部分生成得到错误 md5 导致秒传无法转存(#404)的问题</p>
+
+<p>21.7.30 更新: 修复了部分转存提示 "<span style="color: red;">转存失败(尝试...)(#2)</span>" 的问题" 的问题</p>
+
+<p>21.7.18 更新: 修复了部分生成提示 "<span style="color: red;">md5 获取失败</span>" 的问题</p>
+
+<p>21.7.6 更新: 支持转存与生成 <span style="color: red;">20G 以上</span> 文件的秒传</p>
+
+<p>21.6.28 更新:</p>
+
+<ol><li><p>大幅提升非会员账号生成秒传的速度</p></li><li><p>修复生成 4G 以上文件提示"<span style="color: red;">服务器错误(#500)</span>"的问题</p></li></ol>
+
+<p>21.6.25 更新：修复了绝大部分转存提示 "<span style="color: red;">文件不存在(秒传未生效)(#404)</span>" 的问题</p>
 
 <p>21.6.24更新：修复从yun.baidu.com进入时, 弹窗提示 "bdskoten获取失败" 的问题</p>
 
