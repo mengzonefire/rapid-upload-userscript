@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.18
+// @version 2.0.19
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -1025,6 +1025,7 @@
               case 403:
                 return '接口限制访问(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 
+              case 31190:
               case 404:
                 return '秒传未生效(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
 

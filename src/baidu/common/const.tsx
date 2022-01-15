@@ -51,6 +51,7 @@ export function baiduErrno(errno: number) {
       return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
     case 403:
       return `接口限制访问(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
+    case 31190:
     case 404:
       return `秒传未生效(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 2:
