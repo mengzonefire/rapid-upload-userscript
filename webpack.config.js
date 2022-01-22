@@ -97,7 +97,7 @@ module.exports = {
           "https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js",
         ],
         "run-at": "document-start",
-        connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net"],
+        connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
       },
       pretty: false,
     }),
