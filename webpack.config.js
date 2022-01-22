@@ -80,6 +80,7 @@ module.exports = {
           "*://pan.baidu.com/disk/home*",
           "*://pan.baidu.com/disk/main*",
           "*://yun.baidu.com/disk/home*",
+          "*://yun.baidu.com/disk/main*",
         ],
         grant: [
           "GM_setValue",
