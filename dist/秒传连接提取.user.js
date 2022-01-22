@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.0.20
+// @version 2.1.0
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -47,7 +47,7 @@
             module.exports = 'input[type="checkbox"],\r\ninput[type="radio"] {\r\n  --active: #275efe;\r\n  --active-inner: #fff;\r\n  --focus: 2px rgba(39, 94, 254, 0.3);\r\n  --border: #bbc1e1;\r\n  --border-hover: #275efe;\r\n  --background: #fff;\r\n  --disabled: #f6f8ff;\r\n  --disabled-inner: #e1e6f9;\r\n  -webkit-appearance: none;\r\n  -moz-appearance: none;\r\n  height: 21px;\r\n  outline: none;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  position: relative;\r\n  margin: 0;\r\n  cursor: pointer;\r\n  border: 1px solid var(--bc, var(--border));\r\n  background: var(--b, var(--background));\r\n  -webkit-transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\r\n  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\r\n}\r\ninput[type="checkbox"]:after,\r\ninput[type="radio"]:after {\r\n  content: "";\r\n  display: block;\r\n  left: 0;\r\n  top: 0;\r\n  position: absolute;\r\n  -webkit-transition: opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n  transition: opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),\r\n    opacity var(--d-o, 0.2s);\r\n  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),\r\n    opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n}\r\ninput[type="checkbox"]:checked,\r\ninput[type="radio"]:checked {\r\n  --b: var(--active);\r\n  --bc: var(--active);\r\n  --d-o: 0.3s;\r\n  --d-t: 0.6s;\r\n  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);\r\n}\r\ninput[type="checkbox"]:disabled,\r\ninput[type="radio"]:disabled {\r\n  --b: var(--disabled);\r\n  cursor: not-allowed;\r\n  opacity: 0.9;\r\n}\r\ninput[type="checkbox"]:disabled:checked,\r\ninput[type="radio"]:disabled:checked {\r\n  --b: var(--disabled-inner);\r\n  --bc: var(--border);\r\n}\r\ninput[type="checkbox"]:disabled + label,\r\ninput[type="radio"]:disabled + label {\r\n  cursor: not-allowed;\r\n}\r\ninput[type="checkbox"]:hover:not(:checked):not(:disabled),\r\ninput[type="radio"]:hover:not(:checked):not(:disabled) {\r\n  --bc: var(--border-hover);\r\n}\r\ninput[type="checkbox"]:focus,\r\ninput[type="radio"]:focus {\r\n  box-shadow: 0 0 0 var(--focus);\r\n}\r\ninput[type="checkbox"]:not(.switch),\r\ninput[type="radio"]:not(.switch) {\r\n  width: 21px;\r\n}\r\ninput[type="checkbox"]:not(.switch):after,\r\ninput[type="radio"]:not(.switch):after {\r\n  opacity: var(--o, 0);\r\n}\r\ninput[type="checkbox"]:not(.switch):checked,\r\ninput[type="radio"]:not(.switch):checked {\r\n  --o: 1;\r\n}\r\ninput[type="checkbox"] + label,\r\ninput[type="radio"] + label {\r\n  font-size: 18px;\r\n  line-height: 21px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  cursor: pointer;\r\n  margin-left: 4px;\r\n}\r\n\r\ninput[type="checkbox"]:not(.switch) {\r\n  border-radius: 7px;\r\n}\r\ninput[type="checkbox"]:not(.switch):after {\r\n  width: 5px;\r\n  height: 9px;\r\n  border: 2px solid var(--active-inner);\r\n  border-top: 0;\r\n  border-left: 0;\r\n  left: 7px;\r\n  top: 4px;\r\n  -webkit-transform: rotate(var(--r, 20deg));\r\n  transform: rotate(var(--r, 20deg));\r\n}\r\ninput[type="checkbox"]:not(.switch):checked {\r\n  --r: 43deg;\r\n}\r\ninput[type="checkbox"].switch {\r\n  width: 38px;\r\n  border-radius: 11px;\r\n}\r\ninput[type="checkbox"].switch:after {\r\n  left: 2px;\r\n  top: 2px;\r\n  border-radius: 50%;\r\n  width: 15px;\r\n  height: 15px;\r\n  background: var(--ab, var(--border));\r\n  -webkit-transform: translateX(var(--x, 0));\r\n  transform: translateX(var(--x, 0));\r\n}\r\ninput[type="checkbox"].switch:checked {\r\n  --ab: var(--active-inner);\r\n  --x: 17px;\r\n}\r\ninput[type="checkbox"].switch:disabled:not(:checked):after {\r\n  opacity: 0.6;\r\n}\r\n';
         },
         184: module => {
-            module.exports = '<div class="panel-body" style="height: 250px; overflow-y: scroll">\r\n  <div style="border: 1px #000000; width: 100%; margin: 0 auto">\r\n    <span>\r\n      <p>\r\n        已将完整的秒传转存功能移植到\r\n        <a\r\n          href="https://rapidacg.gmgard.moe/"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >秒传网页版工具</a\r\n        >\r\n      </p>\r\n\r\n      <p>\r\n        * 无需安装插件, <span style="color: red">支持所有平台</span>, 强烈推荐\r\n      </p>\r\n\r\n      <p>\r\n        工具源码托管在\r\n        <img\r\n          src="https://github.githubassets.com/favicons/favicon.png"\r\n          width="16"\r\n        /><a\r\n          href="https://github.com/mengzonefire/baidupan-rapidupload"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >Github</a\r\n        >, 欢迎搭建分流\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>\r\n        若喜欢该脚本可前往\r\n        <a\r\n          href="https://afdian.net/@mengzonefire"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >赞助页</a\r\n        >\r\n        支持作者\r\n      </p>\r\n\r\n      <p>\r\n        若出现任何问题请前往\r\n        <a\r\n          href="https://greasyfork.org/zh-CN/scripts/424574"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >脚本主页</a\r\n        >\r\n        反馈\r\n      </p>\r\n\r\n      <p>\r\n        脚本源码托管在\r\n        <img\r\n          src="https://github.githubassets.com/favicons/favicon.png"\r\n          width="16"\r\n        /><a\r\n          href="https://github.com/mengzonefire/rapid-upload-userscript"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >Github</a\r\n        >, 若喜欢可以给个Star\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.20 更新内容(22.1.22):</p>\r\n\r\n      <p>\r\n        修复部分生成秒传时提示 "请求失败...(#514)" 的问题, 生成时若弹出跨域提示,\r\n        请选择允许\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.12 更新内容(21.11.9):</p>\r\n\r\n      <p>\r\n        修复所有失效的文档链接, 见\r\n        <a\r\n          href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >文档目录</a\r\n        >\r\n      </p>\r\n\r\n      <p>修复在目标目录下点击"打开目录"按钮, 文件列表不刷新的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.11 更新内容(21.10.18):</p>\r\n\r\n      <p>移除一处可能导致生成错误秒传的代码</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.10 更新内容(21.10.1):</p>\r\n\r\n      <p>修复失效的教程文档地址</p>\r\n\r\n      <p>*部分地区打开显示石墨文档正在升级</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.5 更新内容(21.9.1):</p>\r\n\r\n      <p>\r\n        转存路径留空现改为默认转存到 <span style="color: red">当前目录</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p><span style="color: red">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n      <p>1.移除游侠秒传格式的支持</p>\r\n\r\n      <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n      <p>\r\n        修复了部分转存提示 "<span style="color: red">转存失败(尝试...)(#2)</span\r\n        >" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n      <p>\r\n        修复了部分生成提示 "<span style="color: red">md5获取失败</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n      <p>支持转存与生成 <span style="color: red">20G以上</span> 文件的秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n      <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n      <p>\r\n        2.修复生成4G以上文件提示"<span style="color: red">服务器错误(#500)</span\r\n        >"的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n      <p>\r\n        修复了绝大部分转存提示 "<span style="color: red"\r\n          >文件不存在(秒传未生效)(#404)</span\r\n        >" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n      <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n      <p>\r\n        移除 <span style="color: red">修复下载</span> 功能(已在21年4月上旬失效),\r\n        后续不会再考虑修复该功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n      <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n      <p>\r\n        新增 <span style="color: red">直接修复下载</span> 的功能,\r\n        选中网盘内文件, 再点击上方\r\n        <span style="color: red">修复下载</span> 按钮即可生成可正常下载的新文件\r\n      </p>\r\n\r\n      <img\r\n        src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png"\r\n      />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n      <p>\r\n        修复部分文件转存后 <span style="color: red">无法下载</span> 的问题,\r\n        可尝试 <span style="color: red">重新转存</span> 之前无法下载文件.\r\n        且转存新增了 <span style="color: red">修复下载</span> 功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n      <p>\r\n        面向分享者的\r\n        <a\r\n          href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >分享教程</a\r\n        >\r\n        的防和谐方法更新:\r\n      </p>\r\n\r\n      <p>\r\n        经测试, 原教程的 "固实压缩+加密文件名"\r\n        已无法再防和谐(在度盘移动端依旧可以在线解压),\r\n        目前有效的防和谐方法请参考教程内的\r\n        <span style="color: red">"双层压缩"</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n      <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n      <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n      <p>\r\n        2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页,\r\n        更换为其他主题, 即可避免弹窗时的背景变暗\r\n      </p>\r\n\r\n      <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n      <p>本次更新针对生成功能做了优化:</p>\r\n\r\n      <p>\r\n        1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔,\r\n        防止生成过快导致接口被限制(#403)\r\n      </p>\r\n\r\n      <p>\r\n        2. 为秒传分享者提供了一份<a\r\n          href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >分享教程</a\r\n        >用于参考\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n      <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n      <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n      <p>\r\n        秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失\r\n      </p>\r\n\r\n      <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n      <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n      <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n      <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n      <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n      <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n      <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n      <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n      <p>新增生成秒传:</p>\r\n\r\n      <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>继续未完成任务:</p>\r\n\r\n      <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>测试秒传功能:</p>\r\n\r\n      <p>\r\n        生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变),\r\n        以检测秒传有效性, 以及修复md5错误防止秒传失效\r\n      </p>\r\n    </span>\r\n  </div>\r\n</div>\r\n';
+            module.exports = '<div class="panel-body" style="height: 250px; overflow-y: scroll">\r\n  <div style="border: 1px #000000; width: 100%; margin: 0 auto">\r\n    <span>\r\n      <p>\r\n        已将完整的秒传转存功能移植到\r\n        <a\r\n          href="https://rapidacg.gmgard.moe/"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >秒传网页版工具</a\r\n        >\r\n      </p>\r\n\r\n      <p>\r\n        * 无需安装插件, <span style="color: red">支持所有平台</span>, 强烈推荐\r\n      </p>\r\n\r\n      <p>\r\n        工具源码托管在\r\n        <img\r\n          src="https://github.githubassets.com/favicons/favicon.png"\r\n          width="16"\r\n        /><a\r\n          href="https://github.com/mengzonefire/baidupan-rapidupload"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >Github</a\r\n        >, 欢迎搭建分流\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>\r\n        若喜欢该脚本可前往\r\n        <a\r\n          href="https://afdian.net/@mengzonefire"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >赞助页</a\r\n        >\r\n        支持作者\r\n      </p>\r\n\r\n      <p>\r\n        若出现任何问题请前往\r\n        <a\r\n          href="https://greasyfork.org/zh-CN/scripts/424574"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >脚本主页</a\r\n        >\r\n        反馈\r\n      </p>\r\n\r\n      <p>\r\n        脚本源码托管在\r\n        <img\r\n          src="https://github.githubassets.com/favicons/favicon.png"\r\n          width="16"\r\n        /><a\r\n          href="https://github.com/mengzonefire/rapid-upload-userscript"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >Github</a\r\n        >, 若喜欢可以给个Star\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.0 更新内容(22.1.22):</p>\r\n\r\n      <p>支持 新版度盘页面 下的 "生成秒传" 功能</p>\r\n\r\n      <img\r\n        src="https://pic.rmb.bdstatic.com/bjh/8c05bf7c7ba44cb6f7e0a68c3e17ab54.png"\r\n      />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.20 更新内容(22.1.22):</p>\r\n\r\n      <p>\r\n        修复部分生成秒传时提示 "请求失败...(#514)" 的问题, 生成时若弹出跨域提示,\r\n        请选择允许\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.12 更新内容(21.11.9):</p>\r\n\r\n      <p>\r\n        修复所有失效的文档链接, 见\r\n        <a\r\n          href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc"\r\n          class="mzf_link"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >文档目录</a\r\n        >\r\n      </p>\r\n\r\n      <p>修复在目标目录下点击"打开目录"按钮, 文件列表不刷新的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.11 更新内容(21.10.18):</p>\r\n\r\n      <p>移除一处可能导致生成错误秒传的代码</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.10 更新内容(21.10.1):</p>\r\n\r\n      <p>修复失效的教程文档地址</p>\r\n\r\n      <p>*部分地区打开显示石墨文档正在升级</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.5 更新内容(21.9.1):</p>\r\n\r\n      <p>\r\n        转存路径留空现改为默认转存到 <span style="color: red">当前目录</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p><span style="color: red">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n      <p>1.移除游侠秒传格式的支持</p>\r\n\r\n      <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n      <p>\r\n        修复了部分转存提示 "<span style="color: red">转存失败(尝试...)(#2)</span\r\n        >" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n      <p>\r\n        修复了部分生成提示 "<span style="color: red">md5获取失败</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n      <p>支持转存与生成 <span style="color: red">20G以上</span> 文件的秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n      <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n      <p>\r\n        2.修复生成4G以上文件提示"<span style="color: red">服务器错误(#500)</span\r\n        >"的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n      <p>\r\n        修复了绝大部分转存提示 "<span style="color: red"\r\n          >文件不存在(秒传未生效)(#404)</span\r\n        >" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n      <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n      <p>\r\n        移除 <span style="color: red">修复下载</span> 功能(已在21年4月上旬失效),\r\n        后续不会再考虑修复该功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n      <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n      <p>\r\n        新增 <span style="color: red">直接修复下载</span> 的功能,\r\n        选中网盘内文件, 再点击上方\r\n        <span style="color: red">修复下载</span> 按钮即可生成可正常下载的新文件\r\n      </p>\r\n\r\n      <img\r\n        src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png"\r\n      />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n      <p>\r\n        修复部分文件转存后 <span style="color: red">无法下载</span> 的问题,\r\n        可尝试 <span style="color: red">重新转存</span> 之前无法下载文件.\r\n        且转存新增了 <span style="color: red">修复下载</span> 功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n      <p>\r\n        面向分享者的\r\n        <a\r\n          href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >分享教程</a\r\n        >\r\n        的防和谐方法更新:\r\n      </p>\r\n\r\n      <p>\r\n        经测试, 原教程的 "固实压缩+加密文件名"\r\n        已无法再防和谐(在度盘移动端依旧可以在线解压),\r\n        目前有效的防和谐方法请参考教程内的\r\n        <span style="color: red">"双层压缩"</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n      <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n      <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n      <p>\r\n        2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页,\r\n        更换为其他主题, 即可避免弹窗时的背景变暗\r\n      </p>\r\n\r\n      <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n      <p>本次更新针对生成功能做了优化:</p>\r\n\r\n      <p>\r\n        1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔,\r\n        防止生成过快导致接口被限制(#403)\r\n      </p>\r\n\r\n      <p>\r\n        2. 为秒传分享者提供了一份<a\r\n          href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer"\r\n          target="_blank"\r\n          >分享教程</a\r\n        >用于参考\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n      <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n      <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n      <p>\r\n        秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失\r\n      </p>\r\n\r\n      <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n      <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n      <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n      <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n      <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n      <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n      <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n      <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n      <p>新增生成秒传:</p>\r\n\r\n      <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>继续未完成任务:</p>\r\n\r\n      <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>测试秒传功能:</p>\r\n\r\n      <p>\r\n        生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变),\r\n        以检测秒传有效性, 以及修复md5错误防止秒传失效\r\n      </p>\r\n    </span>\r\n  </div>\r\n</div>\r\n';
         }
     };
     var __webpack_module_cache__ = {};
@@ -89,10 +89,10 @@
     var __webpack_exports__ = {};
     (() => {
         "use strict";
-        var updateInfoVer = "2.0.20";
+        var updateInfoVer = "2.1.0";
         var swalCssVer = "1.7.4";
-        var donateVer = "2.0.0";
-        var feedbackVer = "2.0.0";
+        var donateVer = "2.1.0";
+        var feedbackVer = "2.1.0";
         var locUrl = location.href;
         var baiduNewPage = "pan.baidu.com/disk/main";
         var TAG = "[秒传链接提取 by mengzonefire]";
@@ -373,6 +373,12 @@
                 showCloseButton: true,
                 allowOutsideClick: false,
                 confirmButtonText: "知道了"
+            },
+            selectNoFileWarning: {
+                title: "请勾选要生成秒传的文件/文件夹",
+                icon: "error",
+                showCloseButton: true,
+                confirmButtonText: "知道了"
             }
         };
         var __assign = undefined && undefined.__assign || function() {
@@ -443,13 +449,16 @@
                 })
             }, (function(data) {
                 data = data.response;
-                if (!data.errno && data.result.bdstoken) setbdstoken(data.result.bdstoken); else showAlert("获取bdstoken失败(" + data.errno + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
+                if (!data.errno && data.result.bdstoken) setBdstoken(data.result.bdstoken); else showAlert("获取bdstoken失败(" + data.errno + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
             }), (function(statusCode) {
                 showAlert("获取bdstoken失败(" + statusCode + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
             }));
         }
-        function getSelectedFileList() {
-            return unsafeWindow.require("system-core:context/context.js").instanceForSystem.list.getSelected();
+        function getSelectedFileListLegacy() {
+            return require("system-core:context/context.js").instanceForSystem.list.getSelected();
+        }
+        function getSelectedFileListNew() {
+            return document.querySelector(".nd-main-list").__vue__.selectedList;
         }
         function convertData(data) {
             var query = "";
@@ -615,6 +624,9 @@
                     } else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
                 }));
             };
+            Swalbase.prototype.selectNoFileWarning = function() {
+                Swal.fire(this.mergeArg(SwalConfig.selectNoFileWarning));
+            };
             Swalbase.prototype.updateInfo = function(onConfirm) {
                 Swal.fire(this.mergeArg(SwalConfig.updateInfo)).then((function(result) {
                     if (result.isConfirmed) onConfirm();
@@ -633,6 +645,10 @@
             Swalbase.prototype.genFileWork = function(isUnfinish, isGenView) {
                 var _this = this;
                 if (!isGenView) this.generatebdlinkTask.selectList = getSelectedFileList();
+                if (!this.generatebdlinkTask.selectList.length) {
+                    this.selectNoFileWarning();
+                    return;
+                }
                 this.generatebdlinkTask.onProcess = function(i, fileInfoList) {
                     Swal.getHtmlContainer().querySelector("file_num").textContent = i + 1 + " / " + fileInfoList.length;
                     Swal.getHtmlContainer().querySelector("gen_prog").textContent = "0%";
@@ -995,20 +1011,25 @@
         var UA = "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2";
         var illegalPathPattern = /[\\":*?<>|]/;
         var bdstoken = "";
-        function setbdstoken(mybdstoken) {
+        function setBdstoken(mybdstoken) {
             bdstoken = mybdstoken;
         }
-        var refreshList = function() {};
-        function setrefreshList(func) {
+        var refreshList;
+        function setRefreshList(func) {
             refreshList = func;
+        }
+        var getSelectedFileList;
+        function setGetSelectedFileList(func) {
+            getSelectedFileList = func;
         }
         var swalInstance = new SwalBase(new common_RapiduploadTask, new common_GeneratebdlinkTask);
         var htmlTagNew = "div.nd-file-list-toolbar__actions";
         var htmlTaglegacy = "div.tcuLAu";
         var htmlTag2legacy = "#h5Input0";
-        var htmlBtnRapidNew = '<button id="bdlink_btn" style="margin-left: 8px;" class="u-btn nd-file-list-toolbar-action-item u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-copy"></i><span>秒传</span></button>';
-        var htmlBtnRapidlegacy = '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
-        var htmlBtnGenlegacy = '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
+        var htmlBtnRapidNew = '<button id="bdlink_btn" style="margin-left: 8px;" class="u-btn u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-copy"></i><span>秒传</span></button>';
+        var htmlBtnGenNew = '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="u-btn u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-share"></i><span>生成秒传</span></button>';
+        var htmlBtnRapidLegacy = '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
+        var htmlBtnGenLegacy = '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
         function baiduErrno(errno) {
             switch (errno) {
               case -6:
@@ -1069,21 +1090,25 @@
         function installNew() {
             jQuery((function() {
                 console.info("%s DOM方式安装，若失效请报告。", TAG);
-                $(htmlTagNew).append(htmlBtnRapidNew);
+                $(htmlTagNew).append(htmlBtnRapidNew, htmlBtnGenNew);
                 $(document).on("click", "#bdlink_btn", (function() {
                     swalInstance.inputView();
+                }));
+                $(document).on("click", "#gen_bdlink_btn", (function() {
+                    swalInstance.generatebdlinkTask.reset();
+                    swalInstance.checkUnfinish();
                 }));
             }));
         }
         function getSystemContext() {
-            return unsafeWindow.require("system-core:context/context.js").instanceForSystem;
+            return require("system-core:context/context.js").instanceForSystem;
         }
         function addGenBtn() {
             var listTools = getSystemContext().Broker.getButtonBroker("listTools");
-            if (listTools && listTools.$box) $(listTools.$box).children("div").after(htmlBtnGenlegacy); else setTimeout(addGenBtn, 300);
+            if (listTools && listTools.$box) $(listTools.$box).children("div").after(htmlBtnGenLegacy); else setTimeout(addGenBtn, 300);
         }
         function addBtn() {
-            if ($(htmlTaglegacy).length && $(htmlTag2legacy).length) $(htmlTaglegacy).append(htmlBtnRapidlegacy); else setTimeout(addBtn, 100);
+            if ($(htmlTaglegacy).length && $(htmlTag2legacy).length) $(htmlTaglegacy).append(htmlBtnRapidLegacy); else setTimeout(addBtn, 100);
         }
         function installlegacy() {
             jQuery((function() {
@@ -1106,14 +1131,16 @@
                     heightAuto: false,
                     scrollbarPadding: false
                 };
-                setrefreshList((function() {
+                setRefreshList((function() {
                     location.reload();
                 }));
+                setGetSelectedFileList(getSelectedFileListNew);
                 installNew();
             } else {
-                setrefreshList((function() {
-                    unsafeWindow.require("system-core:system/baseService/message/message.js").trigger("system-refresh");
+                setRefreshList((function() {
+                    require("system-core:system/baseService/message/message.js").trigger("system-refresh");
                 }));
+                setGetSelectedFileList(getSelectedFileListLegacy);
                 installlegacy();
             }
             var bdlink = initQueryLink();

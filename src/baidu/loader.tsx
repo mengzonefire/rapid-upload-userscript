@@ -7,9 +7,17 @@ import {
 } from "@/common/const";
 import initQueryLink from "@/common/initQueryLink";
 import installNew from "./newPage/loader";
-import installlegacy from "./legacyPage/loader";
-import { setrefreshList, swalInstance } from "./common/const";
-import { getbdstoken } from "@/common/utils";
+import installLegacy from "./legacyPage/loader";
+import {
+  setRefreshList,
+  setGetSelectedFileList,
+  swalInstance,
+} from "./common/const";
+import {
+  getbdstoken,
+  getSelectedFileListLegacy,
+  getSelectedFileListNew,
+} from "@/common/utils";
 
 export function loaderBaidu(): void {
   getbdstoken();
@@ -17,20 +25,21 @@ export function loaderBaidu(): void {
   if (locUrl.indexOf(baiduNewPage) !== -1) {
     // 添加swal参数以防止新版界面下的body样式突变
     swalInstance.swalArgs = { heightAuto: false, scrollbarPadding: false };
-    setrefreshList(() => {
-      // 新版界面, 通过刷新页面实现刷新文件列表, 等jixun大大逆向完后再抄原生调用进来
+    setRefreshList(() => {
       location.reload();
     });
+    setGetSelectedFileList(getSelectedFileListNew);
     installNew();
   } // 新版界面loader入口
   else {
-    setrefreshList(() => {
+    setRefreshList(() => {
       // 旧版界面, 调用原生方法刷新文件列表, 无需重新加载页面
-      unsafeWindow
-        .require("system-core:system/baseService/message/message.js")
-        .trigger("system-refresh");
+      __non_webpack_require__(
+        "system-core:system/baseService/message/message.js"
+      ).trigger("system-refresh");
     });
-    installlegacy();
+    setGetSelectedFileList(getSelectedFileListLegacy);
+    installLegacy();
   } // 旧版界面loader入口
 
   let bdlink = initQueryLink(); // 解析url中的秒传链接

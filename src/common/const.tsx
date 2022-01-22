@@ -1,7 +1,7 @@
-export const updateInfoVer = "2.0.20"; // 更新信息的版本, 有些没必要提示的小更新就不加到更新提示里了
+export const updateInfoVer = "2.1.0"; // 更新信息的版本, 有些没必要提示的小更新就不加到更新提示里了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字串以刷新缓存
-export const donateVer = "2.0.0"; // 用于检测可关闭的赞助提示的版本号
-export const feedbackVer = "2.0.0"; // 用于检测可关闭的反馈提示的版本号
+export const donateVer = "2.1.0"; // 用于检测可关闭的赞助提示的版本号
+export const feedbackVer = "2.1.0"; // 用于检测可关闭的反馈提示的版本号
 export const locUrl: string = location.href;
 export const baiduNewPage = "pan.baidu.com/disk/main"; // 匹配新版度盘界面
 export const TAG = "[秒传链接提取 by mengzonefire]";
@@ -47,8 +47,10 @@ export interface FileInfo {
   retry_996?: boolean;
 } // 自定义文件信息数据结构
 export const doc = {
-  shareDoc: "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/",
-  linkTypeDoc: "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/format-support/",
+  shareDoc:
+    "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/",
+  linkTypeDoc:
+    "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/format-support/",
 }; // 各文档url
 export const linkStyle =
   'class="mzf_link" rel="noopener noreferrer" target="_blank"';

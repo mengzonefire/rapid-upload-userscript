@@ -2,6 +2,8 @@ const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
+const requireFunc = typeof __webpack_require__ === 'function' ? __non_webpack_require__ : require
+// 忽略源码中的require功能
 module.exports = {
   mode: "production",
   entry: path.resolve(__dirname, "src", "app.tsx"),

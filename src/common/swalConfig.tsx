@@ -135,4 +135,11 @@ export const SwalConfig = {
     allowOutsideClick: false,
     confirmButtonText: "知道了",
   },
+
+  selectNoFileWarning: {
+    title: "请勾选要生成秒传的文件/文件夹",
+    icon: "error",
+    showCloseButton: true,
+    confirmButtonText: "知道了",
+  },
 };

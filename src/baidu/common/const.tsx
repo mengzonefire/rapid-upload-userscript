@@ -17,12 +17,16 @@ export const UA =
   "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
 export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
 export var bdstoken = "";
-export function setbdstoken(mybdstoken: string) {
+export function setBdstoken(mybdstoken: string) {
   bdstoken = mybdstoken;
 }
-export var refreshList = () => {}; // 刷新文件列表的实现
-export function setrefreshList(func: () => void) {
+export var refreshList: () => void; // 刷新文件列表的实现
+export function setRefreshList(func: () => void) {
   refreshList = func;
+}
+export var getSelectedFileList: () => any; // 获取选中的文件列表的实现
+export function setGetSelectedFileList(func: () => any) {
+  getSelectedFileList = func;
 }
 export const swalInstance = new Swalbase(
   new RapiduploadTask(),
@@ -33,10 +37,12 @@ export const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面�
 export const htmlTaglegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
 export const htmlTag2legacy = "#h5Input0"; // 旧版界面秒传按钮的html同级对象
 export const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
-  '<button id="bdlink_btn" style="margin-left: 8px;" class="u-btn nd-file-list-toolbar-action-item u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-copy"></i><span>秒传</span></button>';
-export const htmlBtnRapidlegacy = // 旧版界面秒传按钮的html元素
+  '<button id="bdlink_btn" style="margin-left: 8px;" class="u-btn u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-copy"></i><span>秒传</span></button>';
+export const htmlBtnGenNew = // 新版界面秒传生成按钮的html元素
+  '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="u-btn u-btn--primary u-btn--default u-btn--small is-round is-has-icon"><i class="iconfont icon-share"></i><span>生成秒传</span></button>';
+export const htmlBtnRapidLegacy = // 旧版界面秒传按钮的html元素
   '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
-export const htmlBtnGenlegacy = // 旧版界面秒传生成按钮的html元素
+export const htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
   '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
 
 export function baiduErrno(errno: number) {

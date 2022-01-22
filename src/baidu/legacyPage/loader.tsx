@@ -1,27 +1,26 @@
 import { TAG } from "@/common/const";
 import { swalInstance } from "../common/const";
 import {
-  htmlBtnRapidlegacy,
-  htmlBtnGenlegacy,
+  htmlBtnRapidLegacy,
+  htmlBtnGenLegacy,
   htmlTaglegacy,
   htmlTag2legacy,
 } from "@/baidu/common/const";
 
 function getSystemContext() {
-  return unsafeWindow.require("system-core:context/context.js")
-    .instanceForSystem;
+  return __non_webpack_require__("system-core:context/context.js").instanceForSystem;
 }
 
 function addGenBtn() {
   let listTools = getSystemContext().Broker.getButtonBroker("listTools");
   if (listTools && listTools.$box)
-    $(listTools.$box).children("div").after(htmlBtnGenlegacy);
+    $(listTools.$box).children("div").after(htmlBtnGenLegacy);
   else setTimeout(addGenBtn, 300);
 }
 
 function addBtn() {
   if ($(htmlTaglegacy).length && $(htmlTag2legacy).length)
-    $(htmlTaglegacy).append(htmlBtnRapidlegacy);
+    $(htmlTaglegacy).append(htmlBtnRapidLegacy);
   else setTimeout(addBtn, 100);
 }
 

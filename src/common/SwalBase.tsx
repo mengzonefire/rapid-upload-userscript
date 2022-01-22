@@ -1,11 +1,11 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-01-04 03:42:14
+ * @LastEditTime: 2022-01-22 19:10:55
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
-import { refreshList } from "@/baidu/common/const";
+import { refreshList, getSelectedFileList } from "@/baidu/common/const";
 import GeneratebdlinkTask from "@/baidu/common/GeneratebdlinkTask";
 import RapiduploadTask from "@/baidu/common/RapiduploadTask";
 import {
@@ -18,7 +18,7 @@ import {
 } from "./const";
 import DuParser from "./DuParser";
 import { SwalConfig } from "./SwalConfig";
-import { getSelectedFileList, parsefileInfo } from "./utils";
+import { parsefileInfo } from "./utils";
 
 export default class Swalbase {
   swalArgs: any;
@@ -221,6 +221,11 @@ export default class Swalbase {
     });
   }
 
+  // 生成秒传, 未选择任何文件的提示
+  selectNoFileWarning() {
+    Swal.fire(this.mergeArg(SwalConfig.selectNoFileWarning));
+  }
+
   // 更新信息页
   updateInfo(onConfirm: () => void) {
     Swal.fire(this.mergeArg(SwalConfig.updateInfo)).then((result: any) => {
@@ -243,6 +248,10 @@ export default class Swalbase {
 
   genFileWork(isUnfinish: boolean, isGenView: boolean) {
     if (!isGenView) this.generatebdlinkTask.selectList = getSelectedFileList();
+    if (!this.generatebdlinkTask.selectList.length) {
+      this.selectNoFileWarning();
+      return;
+    }
     this.generatebdlinkTask.onProcess = (i, fileInfoList) => {
       Swal.getHtmlContainer().querySelector("file_num").textContent = `${
         i + 1

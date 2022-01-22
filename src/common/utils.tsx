@@ -1,4 +1,4 @@
-import { baiduErrno, bdstoken_url, setbdstoken } from "@/baidu/common/const";
+import { baiduErrno, bdstoken_url, setBdstoken } from "@/baidu/common/const";
 import ajax from "./ajax";
 import { FileInfo, TAG } from "./const";
 
@@ -73,7 +73,7 @@ export function getbdstoken() {
     (data) => {
       data = data.response;
       if (!data.errno && data.result.bdstoken)
-        setbdstoken(data.result.bdstoken);
+        setBdstoken(data.result.bdstoken);
       else
         showAlert(
           `获取bdstoken失败(${data.errno}), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录`
@@ -88,12 +88,17 @@ export function getbdstoken() {
 }
 
 /**
- * @description: 获取选择的文件列表(仅旧版界面可用)
+ * @description: 获取选择的文件列表(旧版界面)
  */
-export function getSelectedFileList() {
-  return unsafeWindow
-    .require("system-core:context/context.js")
-    .instanceForSystem.list.getSelected();
+export function getSelectedFileListLegacy() {
+  return __non_webpack_require__("system-core:context/context.js").instanceForSystem.list.getSelected();
+}
+
+/**
+ * @description: 获取选择的文件列表(新版界面)
+ */
+export function getSelectedFileListNew() {
+  return document.querySelector(".nd-main-list").__vue__.selectedList;
 }
 
 /**
