@@ -2,7 +2,8 @@ const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
 const nodeExternals = require("webpack-node-externals");
-const requireFunc = typeof __webpack_require__ === 'function' ? __non_webpack_require__ : require
+const requireFunc =
+  typeof __webpack_require__ === "function" ? __non_webpack_require__ : require;
 // 忽略源码中的require功能
 module.exports = {
   mode: "production",
@@ -91,14 +92,18 @@ module.exports = {
           "GM_addStyle",
           "GM_xmlhttpRequest",
         ],
-        resource:
+        resource: [
           "swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
+          "swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css",
+        ],
         require: [
           "https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js",
-          "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js",
           "https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js",
+          "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js",
           "https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js",
-        ],
+          "https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.js",
+          "https://unpkg.com/js-base64@3.7.2/base64.js",
+        ], // 不要问为啥有重复cdn, jsdelivr老是抽风
         "run-at": "document-start",
         connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
       },

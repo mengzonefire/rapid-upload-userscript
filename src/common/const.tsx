@@ -22,9 +22,9 @@ export const extCssUrl = {
     "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 export const appError = {
-  missDepend: "外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS",
-  SwalCssInvalid: `样式包加载错误, 请前往脚本页反馈F12控制台截图\n${homePage}`,
-  SwalCssErrReq: "样式包加载失败",
+  missDepend: `外部资源加载失败, 请前往脚本页反馈:\n${homePage}`,
+  SwalCssInvalid: `样式包数据错误, 请前往脚本页反馈:\n${homePage}`,
+  SwalCssErrReq: `样式包加载失败, 请前往脚本页反馈:\n${homePage}\n错误代码: `,
 }; // 主程序异常
 export const enum rapidTryflag {
   useUpperCaseMd5 = 0,

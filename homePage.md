@@ -2,6 +2,8 @@
 
 ## 近期通知
 
+- 22.1.26: 最近反馈外部资源加载失败的问题有点严重, 故2.1.2版本添加了备用cdn, 即使jsdelivr寄掉也能保证脚本正常运行了
+
 - 21.12.18: ~~Gitlab Page 服务正在维护中~~(12.21维护完成), 若临时需要文档可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
 
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page 服务: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
@@ -75,8 +77,11 @@
 2. ~~支持 [阿里云盘](https://www.aliyundrive.com/drive/) 的秒传提取&生成~~ (废弃, 阿里官方限制了秒传接口)
 3. ~~支持 [新版度盘页面](https://pan.baidu.com/disk/main?from=oldversion#/index)~~ (完成)
 4. ~~修复设置为非默认主题时, 窗口内会出现警告标识的问题~~ (完成, 实际为主题包不适配旧版 sweetalert2)
+5. ~~cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn~~ (完成)
 
 ## 更新说明
+
+22.1.26 更新: 添加备用依赖cdn
 
 22.1.22 更新: 
 

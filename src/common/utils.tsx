@@ -96,6 +96,7 @@ export function getSelectedFileListLegacy() {
 
 /**
  * @description: 获取选择的文件列表(新版界面)
+ * 我从这里抄的, 谢谢你: https://greasyfork.org/zh-CN/scripts/436446
  */
 export function getSelectedFileListNew() {
   return document.querySelector(".nd-main-list").__vue__.selectedList;

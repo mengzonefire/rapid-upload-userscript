@@ -11,10 +11,11 @@ export function injectStyle(): void {
   GM_addStyle(appCss); // 注入自定义样式
   GM_addStyle(checkBoxCss); // 注入checkBox选框样式
   let swalThemes: string = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
-  let defaultThemes: string = GM_getResourceText("swalCss");
+  let defaultThemesCss: string =
+    GM_getResourceText("swalCss") || GM_getResourceText("swalCssBak");
   if (swalThemes === "Default") {
-    if (defaultThemes) {
-      GM_addStyle(defaultThemes);
+    if (defaultThemesCss) {
+      GM_addStyle(defaultThemesCss);
     } else {
       getThemesCss(swalThemes); // 暴力猴直接粘贴脚本代码可能不会将resource中的数据下载缓存，fallback到下载css代码
     }
@@ -42,8 +43,10 @@ function getThemesCss(swalThemes: string): void {
     (data) => {
       let ThemesCss = data.responseText;
       if (ThemesCss.length < 100) {
-        console.log(`${swalThemes} InvalidCss:\n${ThemesCss}`);
-        showAlert(appError.SwalCssInvalid);
+        showAlert(
+          appError.SwalCssInvalid +
+            `\n错误数据:${swalThemes} InvalidCss:\n${ThemesCss}`
+        );
         return;
       } // 返回data数据长度过小, 判定为无效样式代码
       GM_setValue(`${swalCssVer}${swalThemes}`, ThemesCss); // 缓存css代码
@@ -51,7 +54,7 @@ function getThemesCss(swalThemes: string): void {
     },
 
     (statusCode) => {
-      showAlert(appError.SwalCssErrReq + `(http#${statusCode})`);
+      showAlert(appError.SwalCssErrReq + `#${statusCode}`);
     }
   );
 }

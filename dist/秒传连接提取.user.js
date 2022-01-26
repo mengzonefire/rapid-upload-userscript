@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.1.1
+// @version 2.1.2
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -28,10 +28,13 @@
 // @grant GM_addStyle
 // @grant GM_xmlhttpRequest
 // @resource swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
+// @resource swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css
 // @require https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
-// @require https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 // @require https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
+// @require https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
 // @require https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js
+// @require https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.js
+// @require https://unpkg.com/js-base64@3.7.2/base64.js
 // @run-at document-start
 // @connect baidu.com
 // @connect baidupcs.com
@@ -109,9 +112,9 @@
             "Bootstrap 4": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css"
         };
         var appError = {
-            missDepend: "外部资源加载失败, 脚本无法运行, 请检查网络或更换DNS",
-            SwalCssInvalid: "样式包加载错误, 请前往脚本页反馈F12控制台截图\n" + homePage,
-            SwalCssErrReq: "样式包加载失败"
+            missDepend: "外部资源加载失败, 请前往脚本页反馈:\n" + homePage,
+            SwalCssInvalid: "样式包数据错误, 请前往脚本页反馈:\n" + homePage,
+            SwalCssErrReq: "样式包加载失败, 请前往脚本页反馈:\n" + homePage + "\n错误代码: "
         };
         var doc = {
             shareDoc: "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/",
@@ -1062,7 +1065,7 @@
                 return "网盘容量已满";
 
               case 514:
-                return "请求失败(若弹出跨域提示,请选择允许/尝试关闭网络代理/更新油猴插件)";
+                return "请求失败(若弹出跨域提示,请选择允许/尝试关闭网络代理/更换浏览器)";
 
               case 1919:
                 return '文件已被和谐(请参考<a href="' + doc.shareDoc + '" ' + linkStyle + ">分享教程</a>)";
@@ -1176,10 +1179,10 @@
             GM_addStyle(app_default());
             GM_addStyle(checkBox_default());
             var swalThemes = GM_getValue("swalThemes") || "Default";
-            var defaultThemes = GM_getResourceText("swalCss");
+            var defaultThemesCss = GM_getResourceText("swalCss") || GM_getResourceText("swalCssBak");
             if (swalThemes === "Default") {
-                if (defaultThemes) {
-                    GM_addStyle(defaultThemes);
+                if (defaultThemesCss) {
+                    GM_addStyle(defaultThemesCss);
                 } else {
                     getThemesCss(swalThemes);
                 }
@@ -1200,14 +1203,13 @@
             }, (function(data) {
                 var ThemesCss = data.responseText;
                 if (ThemesCss.length < 100) {
-                    console.log(swalThemes + " InvalidCss:\n" + ThemesCss);
-                    showAlert(appError.SwalCssInvalid);
+                    showAlert(appError.SwalCssInvalid + ("\n错误数据:" + swalThemes + " InvalidCss:\n" + ThemesCss));
                     return;
                 }
                 GM_setValue("" + swalCssVer + swalThemes, ThemesCss);
                 GM_addStyle(ThemesCss);
             }), (function(statusCode) {
-                showAlert(appError.SwalCssErrReq + ("(http#" + statusCode + ")"));
+                showAlert(appError.SwalCssErrReq + ("#" + statusCode));
             }));
         }
         function app_app() {
