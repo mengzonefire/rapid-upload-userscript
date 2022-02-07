@@ -36,15 +36,13 @@
 
 2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>过旧版本(低于4.9)的油猴, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
-3. 若持续报错 <span style="color: red;">接口调用失败(请重试/...)(#514)</span> 请尝试使用 chrome 浏览器 或 关闭代理
+3. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
 
-4. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
-
-5. 使用脚本转存文件, 下载时提示 "<span style="color: red;">下载失败[1252017]</span>", 可尝试 更新度盘客户端 或 [参考教程](https://www.cnblogs.com/zlr585/p/14683918.html)
-
-6. \*若遇到其他问题, 请按 F12 打开控制台截图反馈, 并反馈浏览器、油猴插件及脚本版本
+4. \*若遇到其他问题, 请按 F12 打开控制台(console)截图反馈, 并反馈浏览器、油猴插件及脚本版本
 
 ## 脚本说明
+
+- 秒传链接是一种通过模拟网盘自带秒传功能实现的文件分享方式(非官方), 其优点是可以永久保证分享有效性(在官方不限制秒传功能前提下), 且秒传链接不包含任何账号信息. 使用秒传链接转存文件并没有任何加速下载的效果.
 
 - 参考了初版秒传脚本 [仓库用度盘投稿助手](https://greasyfork.org/zh-CN/scripts/3285) 进行开发，脚本源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/rapid-upload-userscript)
 
