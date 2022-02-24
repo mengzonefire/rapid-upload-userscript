@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-01-22 19:10:55
+ * @LastEditTime: 2022-02-24 21:47:50
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -323,13 +323,18 @@ export default class Swalbase {
       btn.style.backgroundColor = "#ecae3c";
       btn.onclick = () => {
         let path = location.href.match(/(path=(.+?))(?:&|$)/);
-        if (path && path[2] !== encodeURIComponent(_dir))
-          location.href = location.href.replace(
-            // 仅替换path参数, 不修改其他参数
-            path[1],
-            `path=${encodeURIComponent(_dir)}`
-          );
-        else refreshList();
+        if (path) {
+          if (path[2] !== encodeURIComponent(_dir))
+            location.href = location.href.replace(
+              // 仅替换path参数, 不修改其他参数
+              path[1],
+              `path=${encodeURIComponent(_dir)}`
+            );
+          else refreshList(); // path参数相同, 已在目标目录下, 调用刷新函数
+        } else {
+          let connectChar = location.href.indexOf("?") === -1 ? "?" : "&"; // 确定参数的连接符
+          location.href += `${connectChar}path=${encodeURIComponent(_dir)}`;
+        } // 没有找到path参数, 直接添加
         Swal.close();
       };
       cBtn.before(btn);
