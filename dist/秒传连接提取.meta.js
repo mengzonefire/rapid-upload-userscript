@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.1.3
+// @version 2.1.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574

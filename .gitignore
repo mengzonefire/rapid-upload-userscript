@@ -1,4 +1,5 @@
 .vscode
+.history
 node_modules
 dist/types
 sample

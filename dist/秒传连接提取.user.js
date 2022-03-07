@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.1.3
+// @version 2.1.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -1045,7 +1045,7 @@
                 return "认证失败(尝试刷新页面)";
 
               case -7:
-                return '文件名错误, 不能含有字符\\":*?<>|';
+                return "文件名/转存路径 包含非法字符, 请尝试更改";
 
               case -8:
                 return "路径下存在同名文件";
