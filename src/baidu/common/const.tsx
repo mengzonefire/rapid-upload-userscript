@@ -51,7 +51,7 @@ export function baiduErrno(errno: number) {
     case -6:
       return "认证失败(尝试刷新页面)";
     case -7:
-      return '文件名/转存路径 包含非法字符, 请尝试更改';
+      return '秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改';
     case -8:
       return "路径下存在同名文件";
     case 400:
@@ -64,7 +64,7 @@ export function baiduErrno(errno: number) {
     case 2:
       return "转存失败(尝试重新登录度盘账号/更换或重装浏览器)";
     case 2333:
-      return '文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
+      return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
     case -10:
       return "网盘容量已满";
     case 514:
