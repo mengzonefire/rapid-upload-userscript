@@ -78,6 +78,7 @@
 3. ~~支持 [新版度盘页面](https://pan.baidu.com/disk/main?from=oldversion#/index)~~ (完成)
 4. ~~修复设置为非默认主题时, 窗口内会出现警告标识的问题~~ (完成, 实际为主题包不适配旧版 sweetalert2)
 5. ~~cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn~~ (完成)
+6. 转存完成后的提示框添加转存成功列表(使用折叠框隐藏)
 
 ## 更新说明
 
