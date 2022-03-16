@@ -1,6 +1,6 @@
 {
   "name": "rapidupload-userscript",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "用于提取和生成百度网盘秒传链接",
   "main": "app.tsx",
   "scripts": {
@@ -25,6 +25,11 @@
   "devDependencies": {
     "@types/jquery": "^3.5.6",
     "@types/tampermonkey": "^4.0.2",
+    "css-loader": "^6.7.1",
+    "mini-css-extract-plugin": "^2.6.0",
+    "node-sass": "^7.0.1",
+    "sass": "^1.49.9",
+    "sass-loader": "^12.6.0",
     "text-loader": "^0.0.1",
     "ts-loader": "^9.2.5",
     "typescript": "^4.3.5",

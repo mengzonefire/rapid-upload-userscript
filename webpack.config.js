@@ -1,3 +1,4 @@
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
@@ -44,6 +45,16 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.s[ac]ss$/i,
+        use: [
+          {
+            loader: "text-loader",
+          },
+          "sass-loader",
+        ],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.css$/,
         use: [
           {
@@ -55,6 +66,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new MiniCssExtractPlugin(),
     // 生成userscript header信息
     new WebpackUserscript({
       headers: {
