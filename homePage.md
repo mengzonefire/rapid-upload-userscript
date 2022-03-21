@@ -4,8 +4,6 @@
 
 - 22.1.26: 最近反馈外部资源加载失败的问题有点严重, 故2.1.2版本添加了备用cdn, 即使jsdelivr寄掉也能保证脚本正常运行了
 
-- 21.12.18: ~~Gitlab Page 服务正在维护中~~(12.21维护完成), 若临时需要文档可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[Github](https://github.com/mengzonefire/rapid-upload-userscript/tree/main/doc) 获取
-
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page 服务: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 
 - 21.10.16: 已将完整的秒传转存功能移植到 [秒传网页版工具](https://rapidacg.gmgard.moe/)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
@@ -14,7 +12,7 @@
 <details>
 <summary>历史通知</summary>
 <ul><li><p>21.10.1: 修复失效的教程文档地址 (部分地区打开显示石墨文档正在升级)</p></li><li><p>21.9.10: <a href="https://greasyfork.org/zh-CN/scripts/432065">阿里版本</a> 由于官方限制了秒传接口, 现已无法使用, 若有需要接手开发可前往 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'><a href="https://github.com/mengzonefire/aliyun-rapidupload-userscript">GitHub</a> 获取源码</p></li><li><p>21.8.12: 1.8.8 以前版本使用生成秒传功能时, 小概率会得到错误的秒传, 导致无法转存(#404), 若出现该情况请更新最新版并重新生成</p></li><li><p>21.7.30: 若转存提示 <span style="color: red;">转存失败(尝试...)(#2)</span>, 请更新到 1.8.5 版本以上</p></li></ul>
-<ul><li><p>21.7.17: </p><ul><li><p>管理员已完成对昨日举报的审核<a href="https://pic.rmb.bdstatic.com/bjh/a6abf0daa40362c10385432fb5150ae7.png">(图1)</a>, 脚本页现可正常访问了</p></li><li><p>鉴于 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 有更稳定的服务端(不存在"秒传无效", "md5获取失败"等问题), 即将着手阿里云盘对应的秒传提取&amp;生成功能, 预计下个月更新.</p></li></ul></li><li><p>21.7.16: 估计是因为脚本头几行留有babel工具生成的语法转换代码<a href="https://pic.rmb.bdstatic.com/bjh/9cd999f1d1a35b350e83f93fc685dee7.png">(图1)</a>, 被人误解为压缩代码举报了<a href="https://pic.rmb.bdstatic.com/bjh/eb18b94af7dacd00b11e8cbac3b1e1e4.png">(图2)</a>, 故将源码重新格式化了一遍<a href="https://pic.rmb.bdstatic.com/bjh/ecc36a94f8632b8fba81594d37646b31.png">(图3)</a>以避免误解.</p></li></ul><ul><li><p>21.7.12: 经测试, 度盘服务器已恢复正常, 可以正常上传文件并生成秒传.</p></li><li><p>21.7.10: (<span style="color: red;"> 重要 </span>) 从7.9开始, 新上传网盘的文件<span style="color: red;"> 很可能 </span>出现 "秒传未生效", "md5获取失败"的问题, 疑似百度服务器异常, 正在尝试修复.</p><p>*<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/">分享教程</a> 内提供了临时的解决方法</p></li><li><p>21.7.9: (<span style="color: red;"> 重要 </span>) 1.8.1版本更换了秒传接口, 解决了绝大部分 "<span style="color: red;"> 文件不存在(秒传未生效) </span>" 和 "<span style="color: red;"> md5获取失败 </span>" 的问题, 为保证使用体验, 强烈建议更新到最新版</p></li></ul>
+<ul><li><p>21.7.17: </p><ul><li><p>管理员已完成对昨日举报的审核<a href="https://pic.rmb.bdstatic.com/bjh/a6abf0daa40362c10385432fb5150ae7.png">(图1)</a>, 脚本页现可正常访问了</p></li><li><p>鉴于 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 有更稳定的服务端(不存在"秒传无效", "md5获取失败"等问题), 即将着手阿里云盘对应的秒传提取&生成功能, 预计下个月更新.</p></li></ul></li><li><p>21.7.16: 估计是因为脚本头几行留有babel工具生成的语法转换代码<a href="https://pic.rmb.bdstatic.com/bjh/9cd999f1d1a35b350e83f93fc685dee7.png">(图1)</a>, 被人误解为压缩代码举报了<a href="https://pic.rmb.bdstatic.com/bjh/eb18b94af7dacd00b11e8cbac3b1e1e4.png">(图2)</a>, 故将源码重新格式化了一遍<a href="https://pic.rmb.bdstatic.com/bjh/ecc36a94f8632b8fba81594d37646b31.png">(图3)</a>以避免误解.</p></li></ul><ul><li><p>21.7.12: 经测试, 度盘服务器已恢复正常, 可以正常上传文件并生成秒传.</p></li><li><p>21.7.10: (<span style="color: red;"> 重要 </span>) 从7.9开始, 新上传网盘的文件<span style="color: red;"> 很可能 </span>出现 "秒传未生效", "md5获取失败"的问题, 疑似百度服务器异常, 正在尝试修复.</p><p>*<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/">分享教程</a> 内提供了临时的解决方法</p></li><li><p>21.7.9: (<span style="color: red;"> 重要 </span>) 1.8.1版本更换了秒传接口, 解决了绝大部分 "<span style="color: red;"> 文件不存在(秒传未生效) </span>" 和 "<span style="color: red;"> md5获取失败 </span>" 的问题, 为保证使用体验, 强烈建议更新到最新版</p></li></ul>
 
 </details>
 
@@ -73,12 +71,15 @@
 
 ## 待更新
 
-1. ~~支持 新版度盘页面 下的 "生成秒传" 功能~~ (完成)
-2. ~~支持 [阿里云盘](https://www.aliyundrive.com/drive/) 的秒传提取&生成~~ (废弃, 阿里官方限制了秒传接口)
-3. ~~支持 [新版度盘页面](https://pan.baidu.com/disk/main?from=oldversion#/index)~~ (完成)
-4. ~~修复设置为非默认主题时, 窗口内会出现警告标识的问题~~ (完成, 实际为主题包不适配旧版 sweetalert2)
-5. ~~cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn~~ (完成)
-6. ~~转存完成后的提示框添加转存成功列表(使用折叠框隐藏)~~(完成)
+1. 设置页添加配置项 “禁止闪烁”，在弹窗时阻止背景变暗
+2. 修改弹窗逻辑, 多步操作在单个弹窗内刷新, 不再重复弹窗
+3. 设置页添加配置项 “默认转存路径” 用于跳过转存时的路径输入操作
+
+<details>
+<summary>已完成 [点击展开]</summary>
+<ol><li>支持 新版度盘页面 下的 "生成秒传" 功能 (完成)</li><li>支持 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 的秒传提取&生成 (废弃, 阿里官方限制了秒传接口)</li><li>支持 <a href="https://pan.baidu.com/disk/main?from=oldversion#/index">新版度盘页面</a> (完成)</li><li>修复设置为非默认主题时, 窗口内会出现警告标识的问题 (完成, 实际为主题包不适配旧版 sweetalert2)</li><li>cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn (完成)</li><li>转存完成后的提示框添加转存成功列表(使用折叠框隐藏)(完成)</li></ol>
+</details>
+
 
 ## 更新说明
 
@@ -90,38 +91,32 @@
 
 2. 修复新版度盘页面下的 "打开目录" 功能
 
-22.1.26 更新: 添加备用依赖cdn
-
-22.1.22 更新: 
-
-1. 修复部分生成秒传时提示 "请求失败...(#514)" 的问题
-
-2. 支持 新版度盘页面 下的 "生成秒传" 功能
-
-![](https://pic.rmb.bdstatic.com/bjh/8c05bf7c7ba44cb6f7e0a68c3e17ab54.png)
-
-22.1.7 更新: 重新添加游侠秒传格式的支持
-
-21.11.9 更新: 
-
-1. 修复所有失效的文档地址
-
-2. 修复在目标目录下点击"打开目录"按钮, 文件列表不刷新的问题
-
-21.10.18: 移除一处可能导致生成错误秒传的代码
-
-21.9.6 更新: 修正脚本头, 不会再弹出跨域警告, 并移除了跨域提示弹窗
-
-21.9.1 更新: 转存路径留空现改为默认转存到 <span style="color: red;">当前目录</span>
-
-21.8.30 更新:
-
-1. 移除游侠秒传格式的支持
-
-2. 重构代码, 全面优化, 提升使用体验
-
 <details>
 <summary>历史更新 [点击展开]</summary>
+<p>22.1.26 更新: 添加备用依赖cdn</p>
+
+<p>22.1.22 更新: </p>
+
+<ol><li><p>修复部分生成秒传时提示 "请求失败...(#514)" 的问题</p></li><li><p>支持 新版度盘页面 下的 "生成秒传" 功能</p></li></ol>
+
+<p><img alt="" src="https://pic.rmb.bdstatic.com/bjh/8c05bf7c7ba44cb6f7e0a68c3e17ab54.png"/></p>
+
+<p>22.1.7 更新: 重新添加游侠秒传格式的支持</p>
+
+<p>21.11.9 更新: </p>
+
+<ol><li><p>修复所有失效的文档地址</p></li><li><p>修复在目标目录下点击"打开目录"按钮, 文件列表不刷新的问题</p></li></ol>
+
+<p>21.10.18: 移除一处可能导致生成错误秒传的代码</p>
+
+<p>21.9.6 更新: 修正脚本头, 不会再弹出跨域警告, 并移除了跨域提示弹窗</p>
+
+<p>21.9.1 更新: 转存路径留空现改为默认转存到 <span style="color: red;">当前目录</span></p>
+
+<p>21.8.30 更新:</p>
+
+<ol><li><p>移除游侠秒传格式的支持</p></li><li><p>重构代码, 全面优化, 提升使用体验</p></li></ol>
+
 <p>21.8.12 更新: 修复部分生成得到错误 md5 导致秒传无法转存(#404)的问题</p>
 
 <p>21.7.30 更新: 修复了部分转存提示 "<span style="color: red;">转存失败(尝试...)(#2)</span>" 的问题" 的问题</p>
