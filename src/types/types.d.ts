@@ -6,6 +6,9 @@ declare global {
   interface Element {
     __vue__: any;
   }
+  interface HTMLElement {
+    value: string;
+  }
   var Swal: any;
   var Base64: any;
   var SparkMD5: any;

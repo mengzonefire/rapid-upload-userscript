@@ -1,5 +1,5 @@
 import { doc, linkStyle } from "@/common/const";
-import Swalbase from "@/common/SwalBase";
+import Swalbase from "@/common/swalBase";
 import GeneratebdlinkTask from "./GeneratebdlinkTask";
 import RapiduploadTask from "./RapiduploadTask";
 

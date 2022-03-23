@@ -1,11 +1,17 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-02-24 21:47:50
+ * @LastEditTime: 2022-03-24 04:54:21
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
-import { refreshList, getSelectedFileList } from "@/baidu/common/const";
+
+import { doc, linkStyle } from "./const";
+import {
+  refreshList,
+  getSelectedFileList,
+  illegalPathPattern,
+} from "@/baidu/common/const";
 import GeneratebdlinkTask from "@/baidu/common/GeneratebdlinkTask";
 import RapiduploadTask from "@/baidu/common/RapiduploadTask";
 import {
@@ -16,7 +22,7 @@ import {
   htmlDonate,
   htmlFeedback,
 } from "./const";
-import DuParser from "./DuParser";
+import DuParser from "./duParser";
 import { SwalConfig } from "./SwalConfig";
 import { parsefileInfo } from "./utils";
 
@@ -36,42 +42,67 @@ export default class Swalbase {
 
   // 点击 "秒传链接" 后显示的弹窗
   inputView(swalArg?: any) {
-    Swal.fire(this.mergeArg(SwalConfig.inputView, swalArg)).then(
-      (result: any) => {
-        if (result.isConfirmed) {
-          if (result.value === "set") this.settingView();
-          else if (result.value === "gen") this.genView();
-          else {
-            this.rapiduploadTask.reset();
-            this.rapiduploadTask.fileInfoList = DuParser.parse(result.value);
-            this.inputPathView();
-          }
-        }
+    // 从GM存储读取之前输入的路径数据&从粘贴板读取有效的秒传数据
+    let rapidValue: string = "";
+    let pathValue: string = GM_getValue("last_dir") || "";
+    // 自行读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
+    let preConfirm = () => {
+      rapidValue = $("#mzf-rapid-input")[0].value;
+      pathValue = $("#mzf-path-input")[0].value;
+      if (!rapidValue) {
+        Swal.showValidationMessage("秒传不能为空");
+        return false;
       }
-    );
-  }
-
-  // 输入转存路径的弹窗
-  inputPathView() {
+      if (rapidValue === "set") {
+        return;
+      }
+      if (rapidValue === "gen") {
+        return;
+      }
+      if (!DuParser.parse(rapidValue).length) {
+        Swal.showValidationMessage(
+          `<p>未识别到正确的链接 <a href="${doc.linkTypeDoc}" ${linkStyle}>查看支持格式</a></p>`
+        );
+        return false;
+      }
+      if (pathValue.match(illegalPathPattern)) {
+        Swal.showValidationMessage(
+          '保存路径不能含有字符\\":*?<>|, 示例：/GTA5/'
+        );
+        return false;
+      }
+    };
+    let willOpen = () => {
+      $("#swal2-html-container")
+        .css("font-size", "1rem")
+        .css("display", "grid")
+        .css("margin", "0");
+    };
     Swal.fire(
-      this.mergeArg(SwalConfig.inputPathView, {
-        inputValue: GM_getValue("last_dir") || "",
+      this.mergeArg(SwalConfig.inputView, swalArg, {
+        preConfirm: preConfirm,
+        willOpen: willOpen,
       })
     ).then((result: any) => {
       if (result.isConfirmed) {
-        let path = result.value;
-        GM_setValue("last_dir", path);
-        if (!path) {
-          // 路径留空
-          this.rapiduploadTask.isDefaultPath = true;
-          let nowPath = location.href.match(/path=(.+?)(?:&|$)/);
-          if (nowPath) path = decodeURIComponent(nowPath[1]);
-          else path = "/";
+        if (rapidValue === "set") this.settingView();
+        else if (rapidValue === "gen") this.genView();
+        else {
+          this.rapiduploadTask.reset();
+          this.rapiduploadTask.fileInfoList = DuParser.parse(rapidValue);
+          GM_setValue("last_dir", pathValue);
+          if (!pathValue) {
+            // 路径留空
+            this.rapiduploadTask.isDefaultPath = true;
+            let nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+            if (nowPath) pathValue = decodeURIComponent(nowPath[1]);
+            else pathValue = "/";
+          }
+          if (pathValue.charAt(pathValue.length - 1) !== "/") pathValue += "/"; // 补全路径结尾的 "/"
+          console.log(`秒传文件保存到: ${pathValue}`); // debug
+          this.rapiduploadTask.savePath = pathValue;
+          this.processView(false);
         }
-        if (path.charAt(path.length - 1) !== "/") path += "/"; // 补全路径结尾的 "/"
-        console.log(`秒传文件保存到: ${path}`); // debug
-        this.rapiduploadTask.savePath = path;
-        this.processView(false);
       }
     });
   }

@@ -1,46 +1,15 @@
-import { illegalPathPattern } from "@/baidu/common/const";
-import { doc, linkStyle } from "./const";
-import DuParser from "./DuParser";
 import updateInfo from "@/components/updateInfo.html";
 
 // 各Swal弹窗的固定参数配置:
 export const SwalConfig = {
   inputView: {
-    title: "请输入秒传",
-    input: "textarea",
+    title: "请输入秒传&保存路径",
     showCancelButton: true,
-    inputPlaceholder:
-      "[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[输入set进入设置页][输入gen进入生成页]",
+    html: `<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[默认监听粘贴板,可在设置中关闭]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>
+    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 5px;">`,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
-    inputValidator: (value: string) => {
-      if (!value) {
-        return "链接不能为空";
-      }
-      if (value === "set") {
-        return;
-      }
-      if (value === "gen") {
-        return;
-      }
-      if (!DuParser.parse(value).length) {
-        return `<p>未识别到正确的链接 <a href="${doc.linkTypeDoc}" ${linkStyle}>查看支持格式</a></p>`;
-      }
-    },
-  },
-
-  inputPathView: {
-    title: "请输入保存路径",
-    input: "text",
-    inputPlaceholder: "格式示例：/GTA5/, 留空保存在当前目录",
-    showCancelButton: true,
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    inputValidator: (value: string) => {
-      if (value.match(illegalPathPattern)) {
-        return '不能含有字符\\":*?<>|, 格式示例：/GTA5/';
-      }
-    },
+    customClass: { htmlContainer: "mzf_html_container" },
   },
 
   processView: {

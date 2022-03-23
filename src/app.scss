@@ -99,3 +99,12 @@ svg {
     max-height: 100%;
   }
 }
+
+/*html容器样式*/
+.mzf_html_container {
+  grid-template-columns: minmax(0, 100%);
+  align-self: center;
+  justify-self: center;
+  width: 32em;
+  max-width: 100%;
+}
