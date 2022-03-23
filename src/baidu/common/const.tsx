@@ -3,15 +3,17 @@ import Swalbase from "@/common/SwalBase";
 import GeneratebdlinkTask from "./GeneratebdlinkTask";
 import RapiduploadTask from "./RapiduploadTask";
 
-export const rapid_url = "/api/rapidupload";
-export const bdstoken_url = "/api/gettemplatevariable";
-export const create_url = "/rest/2.0/xpan/file?method=create";
+export const rapid_url = "https://pan.baidu.com/api/rapidupload";
+export const bdstoken_url = "https://pan.baidu.com/api/gettemplatevariable";
+export const create_url =
+  "https://pan.baidu.com/rest/2.0/xpan/file?method=create";
 export const list_url =
-  "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
+  "https://pan.baidu.com/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
 // 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
-export const meta_url = "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
+export const meta_url =
+  "https://pan.baidu.com/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
 export const meta_url2 =
-  "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
+  "https://pan.baidu.com/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 export const UA =
@@ -51,7 +53,7 @@ export function baiduErrno(errno: number) {
     case -6:
       return "认证失败(尝试刷新页面)";
     case -7:
-      return '文件名错误, 不能含有字符\\":*?<>|';
+      return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
     case -8:
       return "路径下存在同名文件";
     case 400:
