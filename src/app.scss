@@ -67,3 +67,35 @@
   border-radius: 16px;
   border: none;
 }
+
+/*折叠框箭头样式*/
+svg {
+  margin-right: 5px;
+  transform: rotate(180deg);
+  transition: transform 0.2s;
+  fill: none;
+  stroke: gray;
+}
+
+/*折叠框*/
+.mzf_details {
+  cursor: pointer;
+}
+
+/*折叠框内容*/
+.mzf_content {
+  max-height: 0;
+  margin: 0;
+  transition: max-height 0.5s;
+  overflow: hidden;
+}
+
+/*折叠框动画*/
+.mzf_details[open] {
+  > summary > svg {
+    transform: rotate(0deg);
+  }
+  + .mzf_content {
+    max-height: 100%;
+  }
+}

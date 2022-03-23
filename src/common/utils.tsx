@@ -33,6 +33,7 @@ export function randomStringTransform(string: string): string {
  */
 export function parsefileInfo(fileInfoList: Array<FileInfo>) {
   let bdcode = "";
+  let successInfo = "";
   let failedInfo = "";
   let failedCount = 0;
   let successList = [];
@@ -43,14 +44,21 @@ export function parsefileInfo(fileInfoList: Array<FileInfo>) {
         item.errno
       )}(#${item.errno})</p>`;
     } else {
+      successInfo += `<p>文件：${item.path}</p>`;
       bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`;
       successList.push(item);
     }
   });
-  if (failedInfo) failedInfo = "<p>失败文件列表:</p>" + failedInfo;
+  if (failedInfo)
+    failedInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>失败文件列表(点击展开):</b></summary></details><div class="mzf_content">${failedInfo}</div>`;
+  if (successInfo)
+    successInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>成功文件列表(点击展开):</b></summary></details><div class="mzf_content">${successInfo}</div>`;
   bdcode = bdcode.trim();
   return {
-    htmlInfo: failedInfo,
+    htmlInfo:
+      successInfo && failedInfo
+        ? successInfo + "<p><br /></p>" + failedInfo
+        : successInfo + failedInfo,
     failedCount: failedCount,
     bdcode: bdcode,
     successList: successList,
@@ -67,6 +75,8 @@ export function getbdstoken() {
       method: "POST",
       responseType: "json",
       data: convertData({
+        clienttype: 0,
+        app_id: 250528,
         fields: JSON.stringify(["bdstoken"]),
       }),
     },
@@ -91,7 +101,9 @@ export function getbdstoken() {
  * @description: 获取选择的文件列表(旧版界面)
  */
 export function getSelectedFileListLegacy() {
-  return __non_webpack_require__("system-core:context/context.js").instanceForSystem.list.getSelected();
+  return __non_webpack_require__(
+    "system-core:context/context.js"
+  ).instanceForSystem.list.getSelected();
 }
 
 /**

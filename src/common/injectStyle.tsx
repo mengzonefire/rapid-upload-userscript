@@ -1,5 +1,5 @@
 import checkBoxCss from "@/components/checkBox.css";
-import appCss from "@/app.css";
+import appCss from "@/app.scss";
 import { showAlert } from "./utils";
 import { extCssUrl, appError, swalCssVer } from "./const";
 import ajax from "./ajax";
