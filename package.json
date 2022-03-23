@@ -1,6 +1,6 @@
 {
   "name": "rapidupload-userscript",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "用于提取和生成百度网盘秒传链接",
   "main": "app.tsx",
   "scripts": {
