@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.1.7
+// @version 2.2.0
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -45,13 +45,13 @@
 (() => {
     var __webpack_modules__ = {
         119: module => {
-            module.exports = '.mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin:0 5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:"lnum";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center}.mzf_new_btn{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;vertical-align:middle;font:inherit;overflow:visible;text-transform:none;font-family:SFUIText,PingFangSC-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;display:inline-block;line-height:1;white-space:nowrap;cursor:pointer;background:#fff;text-align:center;box-sizing:border-box;outline:0;margin:0;transition:.1s;color:#fff;background-color:#06a7ff;font-weight:700;padding:8px 24px;height:32px;font-size:14px;border-radius:16px;border:none}svg{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}';
+            module.exports = '.mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin:0 5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:"lnum";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center}.mzf_new_btn{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;vertical-align:middle;font:inherit;overflow:visible;text-transform:none;font-family:SFUIText,PingFangSC-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;display:inline-block;line-height:1;white-space:nowrap;cursor:pointer;background:#fff;text-align:center;box-sizing:border-box;outline:0;margin:0;transition:.1s;color:#fff;background-color:#06a7ff;font-weight:700;padding:8px 24px;height:32px;font-size:14px;border-radius:16px;border:none}svg{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}';
         },
         197: module => {
             module.exports = 'input[type="checkbox"],\r\ninput[type="radio"] {\r\n  --active: #275efe;\r\n  --active-inner: #fff;\r\n  --focus: 2px rgba(39, 94, 254, 0.3);\r\n  --border: #bbc1e1;\r\n  --border-hover: #275efe;\r\n  --background: #fff;\r\n  --disabled: #f6f8ff;\r\n  --disabled-inner: #e1e6f9;\r\n  -webkit-appearance: none;\r\n  -moz-appearance: none;\r\n  height: 21px;\r\n  outline: none;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  position: relative;\r\n  margin: 0;\r\n  cursor: pointer;\r\n  border: 1px solid var(--bc, var(--border));\r\n  background: var(--b, var(--background));\r\n  -webkit-transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\r\n  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;\r\n}\r\ninput[type="checkbox"]:after,\r\ninput[type="radio"]:after {\r\n  content: "";\r\n  display: block;\r\n  left: 0;\r\n  top: 0;\r\n  position: absolute;\r\n  -webkit-transition: opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n  transition: opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),\r\n    opacity var(--d-o, 0.2s);\r\n  transition: transform var(--d-t, 0.3s) var(--d-t-e, ease),\r\n    opacity var(--d-o, 0.2s),\r\n    -webkit-transform var(--d-t, 0.3s) var(--d-t-e, ease);\r\n}\r\ninput[type="checkbox"]:checked,\r\ninput[type="radio"]:checked {\r\n  --b: var(--active);\r\n  --bc: var(--active);\r\n  --d-o: 0.3s;\r\n  --d-t: 0.6s;\r\n  --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);\r\n}\r\ninput[type="checkbox"]:disabled,\r\ninput[type="radio"]:disabled {\r\n  --b: var(--disabled);\r\n  cursor: not-allowed;\r\n  opacity: 0.9;\r\n}\r\ninput[type="checkbox"]:disabled:checked,\r\ninput[type="radio"]:disabled:checked {\r\n  --b: var(--disabled-inner);\r\n  --bc: var(--border);\r\n}\r\ninput[type="checkbox"]:disabled + label,\r\ninput[type="radio"]:disabled + label {\r\n  cursor: not-allowed;\r\n}\r\ninput[type="checkbox"]:hover:not(:checked):not(:disabled),\r\ninput[type="radio"]:hover:not(:checked):not(:disabled) {\r\n  --bc: var(--border-hover);\r\n}\r\ninput[type="checkbox"]:focus,\r\ninput[type="radio"]:focus {\r\n  box-shadow: 0 0 0 var(--focus);\r\n}\r\ninput[type="checkbox"]:not(.switch),\r\ninput[type="radio"]:not(.switch) {\r\n  width: 21px;\r\n}\r\ninput[type="checkbox"]:not(.switch):after,\r\ninput[type="radio"]:not(.switch):after {\r\n  opacity: var(--o, 0);\r\n}\r\ninput[type="checkbox"]:not(.switch):checked,\r\ninput[type="radio"]:not(.switch):checked {\r\n  --o: 1;\r\n}\r\ninput[type="checkbox"] + label,\r\ninput[type="radio"] + label {\r\n  font-size: 18px;\r\n  line-height: 21px;\r\n  display: inline-block;\r\n  vertical-align: top;\r\n  cursor: pointer;\r\n  margin-left: 4px;\r\n}\r\n\r\ninput[type="checkbox"]:not(.switch) {\r\n  border-radius: 7px;\r\n}\r\ninput[type="checkbox"]:not(.switch):after {\r\n  width: 5px;\r\n  height: 9px;\r\n  border: 2px solid var(--active-inner);\r\n  border-top: 0;\r\n  border-left: 0;\r\n  left: 7px;\r\n  top: 4px;\r\n  -webkit-transform: rotate(var(--r, 20deg));\r\n  transform: rotate(var(--r, 20deg));\r\n}\r\ninput[type="checkbox"]:not(.switch):checked {\r\n  --r: 43deg;\r\n}\r\ninput[type="checkbox"].switch {\r\n  width: 38px;\r\n  border-radius: 11px;\r\n}\r\ninput[type="checkbox"].switch:after {\r\n  left: 2px;\r\n  top: 2px;\r\n  border-radius: 50%;\r\n  width: 15px;\r\n  height: 15px;\r\n  background: var(--ab, var(--border));\r\n  -webkit-transform: translateX(var(--x, 0));\r\n  transform: translateX(var(--x, 0));\r\n}\r\ninput[type="checkbox"].switch:checked {\r\n  --ab: var(--active-inner);\r\n  --x: 17px;\r\n}\r\ninput[type="checkbox"].switch:disabled:not(:checked):after {\r\n  opacity: 0.6;\r\n}\r\n';
         },
         184: module => {
-            module.exports = '<div class="panel-body" style="height: 250px; overflow-y: scroll">\r\n  <div style="border: 1px #000000; width: 100%; margin: 0 auto">\r\n    <span>\r\n      <p>\r\n        若喜欢该脚本可前往\r\n        <a href="https://afdian.net/@mengzonefire" class="mzf_link" rel="noopener noreferrer" target="_blank">赞助页</a>\r\n        支持作者\r\n      </p>\r\n\r\n      <p>\r\n        若出现任何问题请前往\r\n        <a href="https://greasyfork.org/zh-CN/scripts/424574" class="mzf_link" rel="noopener noreferrer"\r\n          target="_blank">脚本主页</a>\r\n        反馈\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.5 更新内容(22.3.17):</p>\r\n\r\n      <p>转存完成后同时显示成功和失败列表折叠框</p>\r\n\r\n      <img src="https://pic3.58cdn.com.cn/nowater/webim/big/n_v2227bef15f950440bae9e4b710fb42eb5.gif" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.3 更新内容(22.2.24):</p>\r\n\r\n      <p>1. 修复新版度盘页面下的按钮样式</p>\r\n\r\n      <p>2. 修复新版度盘页面下的 "打开目录" 功能</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.0 更新内容(22.1.22):</p>\r\n\r\n      <p>支持 新版度盘页面 下的 "生成秒传" 功能</p>\r\n\r\n      <img src="https://pic.rmb.bdstatic.com/bjh/8c05bf7c7ba44cb6f7e0a68c3e17ab54.png" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.20 更新内容(22.1.22):</p>\r\n\r\n      <p>\r\n        修复部分生成秒传时提示 "请求失败...(#514)" 的问题, 生成时若弹出跨域提示,\r\n        请选择允许\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.12 更新内容(21.11.9):</p>\r\n\r\n      <p>\r\n        修复所有失效的文档链接, 见\r\n        <a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc" class="mzf_link"\r\n          rel="noopener noreferrer" target="_blank">文档目录</a>\r\n      </p>\r\n\r\n      <p>修复在目标目录下点击"打开目录"按钮, 文件列表不刷新的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.11 更新内容(21.10.18):</p>\r\n\r\n      <p>移除一处可能导致生成错误秒传的代码</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.10 更新内容(21.10.1):</p>\r\n\r\n      <p>修复失效的教程文档地址</p>\r\n\r\n      <p>*部分地区打开显示石墨文档正在升级</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.5 更新内容(21.9.1):</p>\r\n\r\n      <p>\r\n        转存路径留空现改为默认转存到 <span style="color: red">当前目录</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p><span style="color: red">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n      <p>1.移除游侠秒传格式的支持</p>\r\n\r\n      <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n      <p>\r\n        修复了部分转存提示 "<span style="color: red">转存失败(尝试...)(#2)</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n      <p>\r\n        修复了部分生成提示 "<span style="color: red">md5获取失败</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n      <p>支持转存与生成 <span style="color: red">20G以上</span> 文件的秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n      <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n      <p>\r\n        2.修复生成4G以上文件提示"<span style="color: red">服务器错误(#500)</span>"的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n      <p>\r\n        修复了绝大部分转存提示 "<span style="color: red">文件不存在(秒传未生效)(#404)</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n      <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n      <p>\r\n        移除 <span style="color: red">修复下载</span> 功能(已在21年4月上旬失效),\r\n        后续不会再考虑修复该功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n      <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n      <p>\r\n        新增 <span style="color: red">直接修复下载</span> 的功能,\r\n        选中网盘内文件, 再点击上方\r\n        <span style="color: red">修复下载</span> 按钮即可生成可正常下载的新文件\r\n      </p>\r\n\r\n      <img src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n      <p>\r\n        修复部分文件转存后 <span style="color: red">无法下载</span> 的问题,\r\n        可尝试 <span style="color: red">重新转存</span> 之前无法下载文件.\r\n        且转存新增了 <span style="color: red">修复下载</span> 功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n      <p>\r\n        面向分享者的\r\n        <a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer" target="_blank">分享教程</a>\r\n        的防和谐方法更新:\r\n      </p>\r\n\r\n      <p>\r\n        经测试, 原教程的 "固实压缩+加密文件名"\r\n        已无法再防和谐(在度盘移动端依旧可以在线解压),\r\n        目前有效的防和谐方法请参考教程内的\r\n        <span style="color: red">"双层压缩"</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n      <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n      <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n      <p>\r\n        2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页,\r\n        更换为其他主题, 即可避免弹窗时的背景变暗\r\n      </p>\r\n\r\n      <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n      <p>本次更新针对生成功能做了优化:</p>\r\n\r\n      <p>\r\n        1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔,\r\n        防止生成过快导致接口被限制(#403)\r\n      </p>\r\n\r\n      <p>\r\n        2. 为秒传分享者提供了一份<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer" target="_blank">分享教程</a>用于参考\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n      <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n      <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n      <p>\r\n        秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失\r\n      </p>\r\n\r\n      <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n      <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n      <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n      <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n      <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n      <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n      <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n      <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n      <p>新增生成秒传:</p>\r\n\r\n      <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>继续未完成任务:</p>\r\n\r\n      <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>测试秒传功能:</p>\r\n\r\n      <p>\r\n        生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变),\r\n        以检测秒传有效性, 以及修复md5错误防止秒传失效\r\n      </p>\r\n    </span>\r\n  </div>\r\n</div>';
+            module.exports = '<div class="panel-body" style="height: 250px; overflow-y: scroll">\r\n  <div class="mzf_updateInfo">\r\n    <span>\r\n      <p>\r\n        若喜欢该脚本可前往\r\n        <a href="https://afdian.net/@mengzonefire" class="mzf_link" rel="noopener noreferrer" target="_blank">赞助页</a>\r\n        支持作者\r\n      </p>\r\n\r\n      <p>\r\n        若出现任何问题请前往\r\n        <a href="https://greasyfork.org/zh-CN/scripts/424574" class="mzf_link" rel="noopener noreferrer"\r\n          target="_blank">脚本主页</a>\r\n        反馈\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.2.0 更新内容(22.3.24):</p>\r\n\r\n      <p>1.修复重复弹窗时出现的背景闪屏问题</p>\r\n\r\n      <p>2.将输入秒传和保存路径的窗口整合, 减少弹窗步骤</p>\r\n\r\n      <p>3.设置页新增 "<span style="color: red">监听剪贴板</span>" 功能, 开启后可自动粘贴秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.5 更新内容(22.3.17):</p>\r\n\r\n      <p>转存完成后同时显示成功和失败列表折叠框</p>\r\n\r\n      <img src="https://pic3.58cdn.com.cn/nowater/webim/big/n_v2227bef15f950440bae9e4b710fb42eb5.gif" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.3 更新内容(22.2.24):</p>\r\n\r\n      <p>1. 修复新版度盘页面下的按钮样式</p>\r\n\r\n      <p>2. 修复新版度盘页面下的 "打开目录" 功能</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.0 更新内容(22.1.22):</p>\r\n\r\n      <p>支持 新版度盘页面 下的 "生成秒传" 功能</p>\r\n\r\n      <img src="https://pic.rmb.bdstatic.com/bjh/8c05bf7c7ba44cb6f7e0a68c3e17ab54.png" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.20 更新内容(22.1.22):</p>\r\n\r\n      <p>\r\n        修复部分生成秒传时提示 "请求失败...(#514)" 的问题, 生成时若弹出跨域提示,\r\n        请选择允许\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.12 更新内容(21.11.9):</p>\r\n\r\n      <p>\r\n        修复所有失效的文档链接, 见\r\n        <a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc" class="mzf_link"\r\n          rel="noopener noreferrer" target="_blank">文档目录</a>\r\n      </p>\r\n\r\n      <p>修复在目标目录下点击"打开目录"按钮, 文件列表不刷新的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.11 更新内容(21.10.18):</p>\r\n\r\n      <p>移除一处可能导致生成错误秒传的代码</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.10 更新内容(21.10.1):</p>\r\n\r\n      <p>修复失效的教程文档地址</p>\r\n\r\n      <p>*部分地区打开显示石墨文档正在升级</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.5 更新内容(21.9.1):</p>\r\n\r\n      <p>\r\n        转存路径留空现改为默认转存到 <span style="color: red">当前目录</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p><span style="color: red">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n      <p>1.移除游侠秒传格式的支持</p>\r\n\r\n      <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n      <p>\r\n        修复了部分转存提示 "<span style="color: red">转存失败(尝试...)(#2)</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n      <p>\r\n        修复了部分生成提示 "<span style="color: red">md5获取失败</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n      <p>支持转存与生成 <span style="color: red">20G以上</span> 文件的秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n      <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n      <p>\r\n        2.修复生成4G以上文件提示"<span style="color: red">服务器错误(#500)</span>"的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n      <p>\r\n        修复了绝大部分转存提示 "<span style="color: red">文件不存在(秒传未生效)(#404)</span>" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n      <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n      <p>\r\n        移除 <span style="color: red">修复下载</span> 功能(已在21年4月上旬失效),\r\n        后续不会再考虑修复该功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n      <p>修复部分秒传转存时提示 "文件不存在(秒传无效)"</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n      <p>\r\n        新增 <span style="color: red">直接修复下载</span> 的功能,\r\n        选中网盘内文件, 再点击上方\r\n        <span style="color: red">修复下载</span> 按钮即可生成可正常下载的新文件\r\n      </p>\r\n\r\n      <img src="https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n      <p>\r\n        修复部分文件转存后 <span style="color: red">无法下载</span> 的问题,\r\n        可尝试 <span style="color: red">重新转存</span> 之前无法下载文件.\r\n        且转存新增了 <span style="color: red">修复下载</span> 功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n      <p>\r\n        面向分享者的\r\n        <a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer" target="_blank">分享教程</a>\r\n        的防和谐方法更新:\r\n      </p>\r\n\r\n      <p>\r\n        经测试, 原教程的 "固实压缩+加密文件名"\r\n        已无法再防和谐(在度盘移动端依旧可以在线解压),\r\n        目前有效的防和谐方法请参考教程内的\r\n        <span style="color: red">"双层压缩"</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.3 更新内容(21.2.6):</p>\r\n\r\n      <p>修复了生成秒传时, 秒传有效, 仍提示"md5获取失败(#996)"的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n      <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n      <p>\r\n        2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页,\r\n        更换为其他主题, 即可避免弹窗时的背景变暗\r\n      </p>\r\n\r\n      <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n      <p>本次更新针对生成功能做了优化:</p>\r\n\r\n      <p>\r\n        1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔,\r\n        防止生成过快导致接口被限制(#403)\r\n      </p>\r\n\r\n      <p>\r\n        2. 为秒传分享者提供了一份<a href="https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/"\r\n          rel="noopener noreferrer" target="_blank">分享教程</a>用于参考\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n      <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n      <p>修复了会员账号生成50M以下文件时提示 "md5获取失败" 的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n      <p>\r\n        秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失\r\n      </p>\r\n\r\n      <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n      <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n      <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n      <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n      <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n      <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n      <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n      <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n      <p>新增生成秒传:</p>\r\n\r\n      <p>选择文件或文件夹后点击 "生成秒传" 即可开始生成</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>继续未完成任务:</p>\r\n\r\n      <p>若生成秒传期间关闭了网页, 再次点击 "生成秒传" 即可继续任务</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>测试秒传功能:</p>\r\n\r\n      <p>\r\n        生成完成后, 点击"测试"按钮, 会自动转存并覆盖文件(文件内容不变),\r\n        以检测秒传有效性, 以及修复md5错误防止秒传失效\r\n      </p>\r\n    </span>\r\n  </div>\r\n</div>';
         }
     };
     var __webpack_module_cache__ = {};
@@ -93,7 +93,7 @@
     var __webpack_exports__ = {};
     (() => {
         "use strict";
-        var updateInfoVer = "2.1.5";
+        var updateInfoVer = "2.2.0";
         var swalCssVer = "1.7.4";
         var donateVer = "2.1.0";
         var feedbackVer = "2.1.0";
@@ -262,7 +262,7 @@
             inputView: {
                 title: "请输入秒传&保存路径",
                 showCancelButton: true,
-                html: '<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[默认监听粘贴板,可在设置中关闭]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>\n    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 10px;">',
+                html: '<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[可在设置页开启监听剪贴板,自动输入秒传]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>\n    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 10px;">',
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 customClass: {
@@ -336,16 +336,7 @@
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 allowOutsideClick: false,
-                input: "select",
-                inputValue: GM_getValue("swalThemes") || "Default",
-                inputOptions: {
-                    Default: "Default 白色主题(默认)",
-                    Bulma: "Bulma 白色简约",
-                    "Bootstrap 4": "Bootstrap4 白色简约",
-                    "Material UI": "MaterialUI 白色主题",
-                    Dark: "Dark 黑色主题",
-                    "WordPress Admin": "WordPressAdmin 灰色主题"
-                }
+                html: '<select class="swal2-select" id="mzf-theme" style="display: flex;border-width: 1px;border-style: solid;"><option value="Default">Default 白色主题(默认)</option><option value="Bulma">Bulma 白色简约</option><option value="Bootstrap 4">Bootstrap4 白色简约</option><option value="Material UI">MaterialUI 白色主题</option><option value="Dark">Dark 黑色主题</option><option value="WordPress Admin">WordPressAdmin 灰色主题</option></select>\n    <label for="swal2-checkbox" class="swal2-checkbox" style="display: flex;"><span class="swal2-label">监听剪贴板 (需要允许剪贴板权限)</span><input type="checkbox" value="1" id="mzf-listen-clipboard" style="margin-left: 20px;"></label>'
             },
             settingWarning: {
                 title: "设置成功 刷新页面生效",
@@ -380,6 +371,122 @@
                 }
             }));
         }
+        var __awaiter = undefined && undefined.__awaiter || function(thisArg, _arguments, P, generator) {
+            function adopt(value) {
+                return value instanceof P ? value : new P((function(resolve) {
+                    resolve(value);
+                }));
+            }
+            return new (P || (P = Promise))((function(resolve, reject) {
+                function fulfilled(value) {
+                    try {
+                        step(generator.next(value));
+                    } catch (e) {
+                        reject(e);
+                    }
+                }
+                function rejected(value) {
+                    try {
+                        step(generator["throw"](value));
+                    } catch (e) {
+                        reject(e);
+                    }
+                }
+                function step(result) {
+                    result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                }
+                step((generator = generator.apply(thisArg, _arguments || [])).next());
+            }));
+        };
+        var __generator = undefined && undefined.__generator || function(thisArg, body) {
+            var _ = {
+                label: 0,
+                sent: function() {
+                    if (t[0] & 1) throw t[1];
+                    return t[1];
+                },
+                trys: [],
+                ops: []
+            }, f, y, t, g;
+            return g = {
+                next: verb(0),
+                throw: verb(1),
+                return: verb(2)
+            }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+                return this;
+            }), g;
+            function verb(n) {
+                return function(v) {
+                    return step([ n, v ]);
+                };
+            }
+            function step(op) {
+                if (f) throw new TypeError("Generator is already executing.");
+                while (_) try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+                    0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                    if (y = 0, t) op = [ op[0] & 2, t.value ];
+                    switch (op[0]) {
+                      case 0:
+                      case 1:
+                        t = op;
+                        break;
+
+                      case 4:
+                        _.label++;
+                        return {
+                            value: op[1],
+                            done: false
+                        };
+
+                      case 5:
+                        _.label++;
+                        y = op[1];
+                        op = [ 0 ];
+                        continue;
+
+                      case 7:
+                        op = _.ops.pop();
+                        _.trys.pop();
+                        continue;
+
+                      default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                            _ = 0;
+                            continue;
+                        }
+                        if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+                            _.label = op[1];
+                            break;
+                        }
+                        if (op[0] === 6 && _.label < t[1]) {
+                            _.label = t[1];
+                            t = op;
+                            break;
+                        }
+                        if (t && _.label < t[2]) {
+                            _.label = t[2];
+                            _.ops.push(op);
+                            break;
+                        }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop();
+                        continue;
+                    }
+                    op = body.call(thisArg, _);
+                } catch (e) {
+                    op = [ 6, e ];
+                    y = 0;
+                } finally {
+                    f = t = 0;
+                }
+                if (op[0] & 5) throw op[1];
+                return {
+                    value: op[0] ? op[1] : void 0,
+                    done: true
+                };
+            }
+        };
         function showAlert(text) {
             alert(TAG + ":\n" + text);
         }
@@ -449,6 +556,31 @@
             for (var key in data) query += "&" + key + "=" + encodeURIComponent(data[key]);
             return query;
         }
+        function parseClipboard() {
+            return __awaiter(this, void 0, void 0, (function() {
+                var bdlink, error_1;
+                return __generator(this, (function(_a) {
+                    switch (_a.label) {
+                      case 0:
+                        _a.trys.push([ 0, 2, , 3 ]);
+                        return [ 4, navigator.clipboard.readText() ];
+
+                      case 1:
+                        bdlink = _a.sent();
+                        if (!DuParser.parse(bdlink).length) return [ 2, "" ];
+                        return [ 2, bdlink ];
+
+                      case 2:
+                        error_1 = _a.sent();
+                        showAlert('使用 "监听剪贴板" 功能需要允许剪贴板权限!');
+                        return [ 2, "" ];
+
+                      case 3:
+                        return [ 2 ];
+                    }
+                }));
+            }));
+        }
         var swalBase_assign = undefined && undefined.__assign || function() {
             swalBase_assign = Object.assign || function(t) {
                 for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -458,6 +590,122 @@
                 return t;
             };
             return swalBase_assign.apply(this, arguments);
+        };
+        var swalBase_awaiter = undefined && undefined.__awaiter || function(thisArg, _arguments, P, generator) {
+            function adopt(value) {
+                return value instanceof P ? value : new P((function(resolve) {
+                    resolve(value);
+                }));
+            }
+            return new (P || (P = Promise))((function(resolve, reject) {
+                function fulfilled(value) {
+                    try {
+                        step(generator.next(value));
+                    } catch (e) {
+                        reject(e);
+                    }
+                }
+                function rejected(value) {
+                    try {
+                        step(generator["throw"](value));
+                    } catch (e) {
+                        reject(e);
+                    }
+                }
+                function step(result) {
+                    result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+                }
+                step((generator = generator.apply(thisArg, _arguments || [])).next());
+            }));
+        };
+        var swalBase_generator = undefined && undefined.__generator || function(thisArg, body) {
+            var _ = {
+                label: 0,
+                sent: function() {
+                    if (t[0] & 1) throw t[1];
+                    return t[1];
+                },
+                trys: [],
+                ops: []
+            }, f, y, t, g;
+            return g = {
+                next: verb(0),
+                throw: verb(1),
+                return: verb(2)
+            }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+                return this;
+            }), g;
+            function verb(n) {
+                return function(v) {
+                    return step([ n, v ]);
+                };
+            }
+            function step(op) {
+                if (f) throw new TypeError("Generator is already executing.");
+                while (_) try {
+                    if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 
+                    0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                    if (y = 0, t) op = [ op[0] & 2, t.value ];
+                    switch (op[0]) {
+                      case 0:
+                      case 1:
+                        t = op;
+                        break;
+
+                      case 4:
+                        _.label++;
+                        return {
+                            value: op[1],
+                            done: false
+                        };
+
+                      case 5:
+                        _.label++;
+                        y = op[1];
+                        op = [ 0 ];
+                        continue;
+
+                      case 7:
+                        op = _.ops.pop();
+                        _.trys.pop();
+                        continue;
+
+                      default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                            _ = 0;
+                            continue;
+                        }
+                        if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+                            _.label = op[1];
+                            break;
+                        }
+                        if (op[0] === 6 && _.label < t[1]) {
+                            _.label = t[1];
+                            t = op;
+                            break;
+                        }
+                        if (t && _.label < t[2]) {
+                            _.label = t[2];
+                            _.ops.push(op);
+                            break;
+                        }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop();
+                        continue;
+                    }
+                    op = body.call(thisArg, _);
+                } catch (e) {
+                    op = [ 6, e ];
+                    y = 0;
+                } finally {
+                    f = t = 0;
+                }
+                if (op[0] & 5) throw op[1];
+                return {
+                    value: op[0] ? op[1] : void 0,
+                    done: true
+                };
+            }
         };
         var __spreadArray = undefined && undefined.__spreadArray || function(to, from) {
             for (var i = 0, il = from.length, j = to.length; i < il; i++, j++) to[j] = from[i];
@@ -485,57 +733,78 @@
                 $.extend.apply($, __spreadArray([ output, this.swalGlobalArgs, swalCfgArgs ], inputArgs));
                 return output;
             };
-            Swalbase.prototype.inputView = function(swalArg) {
-                var _this = this;
-                var rapidValue = "";
-                var pathValue = GM_getValue("last_dir") || "";
-                var preConfirm = function() {
-                    rapidValue = $("#mzf-rapid-input")[0].value;
-                    pathValue = $("#mzf-path-input")[0].value;
-                    if (!rapidValue) {
-                        Swal.showValidationMessage("秒传不能为空");
-                        return false;
-                    }
-                    if (rapidValue === "set") {
-                        return;
-                    }
-                    if (rapidValue === "gen") {
-                        return;
-                    }
-                    if (!DuParser.parse(rapidValue).length) {
-                        Swal.showValidationMessage('<p>未识别到正确的链接 <a href="' + doc.linkTypeDoc + '" ' + linkStyle + ">查看支持格式</a></p>");
-                        return false;
-                    }
-                    if (pathValue.match(illegalPathPattern)) {
-                        Swal.showValidationMessage('保存路径不能含有字符\\":*?<>|, 示例：/GTA5/');
-                        return false;
-                    }
-                };
-                var willOpen = function() {
-                    $("#swal2-html-container").css("font-size", "1rem").css("display", "grid").css("margin", "0");
-                    $("#mzf-rapid-input")[0].value = rapidValue;
-                    $("#mzf-path-input")[0].value = pathValue;
-                };
-                Swal.fire(this.mergeArg(SwalConfig.inputView, swalArg, {
-                    preConfirm,
-                    willOpen
-                })).then((function(result) {
-                    if (result.isConfirmed) {
-                        if (rapidValue === "set") _this.settingView(); else if (rapidValue === "gen") _this.genView(); else {
-                            _this.rapiduploadTask.reset();
-                            _this.rapiduploadTask.fileInfoList = DuParser.parse(rapidValue);
-                            GM_setValue("last_dir", pathValue);
-                            if (!pathValue) {
-                                _this.rapiduploadTask.isDefaultPath = true;
-                                var nowPath = location.href.match(/path=(.+?)(?:&|$)/);
-                                if (nowPath) pathValue = decodeURIComponent(nowPath[1]); else pathValue = "/";
-                            }
-                            if (pathValue.charAt(pathValue.length - 1) !== "/") pathValue += "/";
-                            console.log("秒传文件保存到: " + pathValue);
-                            _this.rapiduploadTask.savePath = pathValue;
-                            _this.processView(false);
+            Swalbase.prototype.inputView = function(bdlink) {
+                if (bdlink === void 0) {
+                    bdlink = "";
+                }
+                return swalBase_awaiter(this, void 0, void 0, (function() {
+                    var rapidValue, pathValue, preConfirm, willOpen;
+                    var _this = this;
+                    return swalBase_generator(this, (function(_a) {
+                        switch (_a.label) {
+                          case 0:
+                            rapidValue = bdlink;
+                            console.log(GM_getValue("listen-clipboard"));
+                            if (!(GM_getValue("listen-clipboard") && !rapidValue)) return [ 3, 2 ];
+                            return [ 4, parseClipboard() ];
+
+                          case 1:
+                            rapidValue = _a.sent();
+                            _a.label = 2;
+
+                          case 2:
+                            pathValue = GM_getValue("last_dir") || "";
+                            preConfirm = function() {
+                                rapidValue = $("#mzf-rapid-input")[0].value;
+                                pathValue = $("#mzf-path-input")[0].value;
+                                if (!rapidValue) {
+                                    Swal.showValidationMessage("秒传不能为空");
+                                    return false;
+                                }
+                                if (rapidValue === "set") {
+                                    return;
+                                }
+                                if (rapidValue === "gen") {
+                                    return;
+                                }
+                                if (!DuParser.parse(rapidValue).length) {
+                                    Swal.showValidationMessage('<p>未识别到正确的链接 <a href="' + doc.linkTypeDoc + '" ' + linkStyle + ">查看支持格式</a></p>");
+                                    return false;
+                                }
+                                if (pathValue.match(illegalPathPattern)) {
+                                    Swal.showValidationMessage('保存路径不能含有字符\\":*?<>|, 示例：/GTA5/');
+                                    return false;
+                                }
+                            };
+                            willOpen = function() {
+                                $("#swal2-html-container").css("font-size", "1rem").css("display", "grid").css("margin", "0");
+                                $("#mzf-rapid-input")[0].value = rapidValue;
+                                $("#mzf-path-input")[0].value = pathValue;
+                            };
+                            Swal.fire(this.mergeArg(SwalConfig.inputView, {
+                                preConfirm,
+                                willOpen
+                            })).then((function(result) {
+                                if (result.isConfirmed) {
+                                    if (rapidValue === "set") _this.settingView(); else if (rapidValue === "gen") _this.genView(); else {
+                                        _this.rapiduploadTask.reset();
+                                        _this.rapiduploadTask.fileInfoList = DuParser.parse(rapidValue);
+                                        GM_setValue("last_dir", pathValue);
+                                        if (!pathValue) {
+                                            _this.rapiduploadTask.isDefaultPath = true;
+                                            var nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+                                            if (nowPath) pathValue = decodeURIComponent(nowPath[1]); else pathValue = "/";
+                                        }
+                                        if (pathValue.charAt(pathValue.length - 1) !== "/") pathValue += "/";
+                                        console.log("秒传文件保存到: " + pathValue);
+                                        _this.rapiduploadTask.savePath = pathValue;
+                                        _this.processView(false);
+                                    }
+                                }
+                            }));
+                            return [ 2 ];
                         }
-                    }
+                    }));
                 }));
             };
             Swalbase.prototype.processView = function(isGen) {
@@ -599,12 +868,46 @@
             };
             Swalbase.prototype.settingView = function() {
                 var _this = this;
-                Swal.fire(this.mergeArg(SwalConfig.settingView)).then((function(result) {
-                    if (result.isConfirmed) {
-                        GM_setValue("swalThemes", result.value);
-                        Swal.close();
-                        Swal.fire(_this.mergeArg(SwalConfig.settingWarning));
-                    }
+                var willOpen = function() {
+                    $("#swal2-html-container").css("font-size", "1rem").css("display", "grid").css("margin", "0");
+                    $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
+                    $("#mzf-listen-clipboard")[0].checked = Boolean(GM_getValue("listen-clipboard"));
+                };
+                var preConfirm = function() {
+                    return swalBase_awaiter(_this, void 0, void 0, (function() {
+                        var error_1;
+                        return swalBase_generator(this, (function(_a) {
+                            switch (_a.label) {
+                              case 0:
+                                GM_setValue("swalThemes", $("#mzf-theme")[0].value);
+                                if (!$("#mzf-listen-clipboard")[0].checked) return [ 3, 4 ];
+                                _a.label = 1;
+
+                              case 1:
+                                _a.trys.push([ 1, 3, , 4 ]);
+                                return [ 4, navigator.clipboard.readText() ];
+
+                              case 2:
+                                _a.sent();
+                                return [ 3, 4 ];
+
+                              case 3:
+                                error_1 = _a.sent();
+                                showAlert('开启 "监听剪贴板" 功能需要允许剪贴板权限!');
+                                return [ 2 ];
+
+                              case 4:
+                                GM_setValue("listen-clipboard", $("#mzf-listen-clipboard")[0].checked);
+                                return [ 2 ];
+                            }
+                        }));
+                    }));
+                };
+                Swal.fire(this.mergeArg(SwalConfig.settingView, {
+                    willOpen,
+                    preConfirm
+                })).then((function(result) {
+                    if (result.isConfirmed) Swal.fire(_this.mergeArg(SwalConfig.settingWarning));
                 }));
             };
             Swalbase.prototype.genView = function() {
@@ -1164,9 +1467,7 @@
             var bdlink = initQueryLink();
             if (bdlink) {
                 window.addEventListener("DOMContentLoaded", (function() {
-                    swalInstance.inputView({
-                        inputValue: bdlink
-                    });
+                    swalInstance.inputView(bdlink);
                 }));
             } else if (!GM_getValue(updateInfoVer + "_no_first")) window.addEventListener("DOMContentLoaded", (function() {
                 swalInstance.updateInfo((function() {

@@ -5,7 +5,7 @@ export const SwalConfig = {
   inputView: {
     title: "请输入秒传&保存路径",
     showCancelButton: true,
-    html: `<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[默认监听粘贴板,可在设置中关闭]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>
+    html: `<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[可在设置页开启监听剪贴板,自动输入秒传]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>
     <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 10px;">`,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -86,16 +86,8 @@ export const SwalConfig = {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     allowOutsideClick: false,
-    input: "select",
-    inputValue: GM_getValue("swalThemes") || "Default",
-    inputOptions: {
-      Default: "Default 白色主题(默认)",
-      Bulma: "Bulma 白色简约",
-      "Bootstrap 4": "Bootstrap4 白色简约",
-      "Material UI": "MaterialUI 白色主题",
-      Dark: "Dark 黑色主题",
-      "WordPress Admin": "WordPressAdmin 灰色主题",
-    },
+    html: `<select class="swal2-select" id="mzf-theme" style="display: flex;border-width: 1px;border-style: solid;"><option value="Default">Default 白色主题(默认)</option><option value="Bulma">Bulma 白色简约</option><option value="Bootstrap 4">Bootstrap4 白色简约</option><option value="Material UI">MaterialUI 白色主题</option><option value="Dark">Dark 黑色主题</option><option value="WordPress Admin">WordPressAdmin 灰色主题</option></select>
+    <label for="swal2-checkbox" class="swal2-checkbox" style="display: flex;"><span class="swal2-label">监听剪贴板 (需要允许剪贴板权限)</span><input type="checkbox" value="1" id="mzf-listen-clipboard" style="margin-left: 20px;"></label>`,
   },
 
   settingWarning: {

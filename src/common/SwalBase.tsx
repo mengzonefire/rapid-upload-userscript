@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-03-24 18:48:17
+ * @LastEditTime: 2022-03-24 20:52:12
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -24,7 +24,7 @@ import {
 } from "./const";
 import DuParser from "./duParser";
 import { SwalConfig } from "./SwalConfig";
-import { parsefileInfo } from "./utils";
+import { parsefileInfo, parseClipboard, showAlert } from "./utils";
 
 export default class Swalbase {
   swalGlobalArgs: any; // 全局swal参数配置对象
@@ -46,9 +46,12 @@ export default class Swalbase {
   }
 
   // 点击 "秒传链接" 后显示的弹窗
-  inputView(swalArg?: any) {
-    // 从GM存储读取之前输入的路径数据&从粘贴板读取有效的秒传数据
-    let rapidValue: string = "";
+  async inputView(bdlink = "") {
+    let rapidValue: string = bdlink;
+    // 从GM存储读取之前输入的路径数据&从剪贴板读取有效的秒传数据
+    console.log(GM_getValue("listen-clipboard"));
+    if (GM_getValue("listen-clipboard") && !rapidValue)
+      rapidValue = await parseClipboard();
     let pathValue: string = GM_getValue("last_dir") || "";
     // 自行读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
     let preConfirm = () => {
@@ -86,7 +89,7 @@ export default class Swalbase {
       $("#mzf-path-input")[0].value = pathValue;
     };
     Swal.fire(
-      this.mergeArg(SwalConfig.inputView, swalArg, {
+      this.mergeArg(SwalConfig.inputView, {
         preConfirm: preConfirm,
         willOpen: willOpen,
       })
@@ -214,12 +217,36 @@ export default class Swalbase {
 
   // 设置页
   settingView() {
-    Swal.fire(this.mergeArg(SwalConfig.settingView)).then((result: any) => {
-      if (result.isConfirmed) {
-        GM_setValue("swalThemes", result.value);
-        Swal.close();
-        Swal.fire(this.mergeArg(SwalConfig.settingWarning));
+    let willOpen = () => {
+      $("#swal2-html-container")
+        .css("font-size", "1rem")
+        .css("display", "grid")
+        .css("margin", "0");
+      $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
+      $("#mzf-listen-clipboard")[0].checked = Boolean(
+        GM_getValue("listen-clipboard")
+      );
+    };
+    let preConfirm = async () => {
+      GM_setValue("swalThemes", $("#mzf-theme")[0].value);
+      if ($("#mzf-listen-clipboard")[0].checked) {
+        try {
+          await navigator.clipboard.readText();
+        } catch (error) {
+          showAlert('开启 "监听剪贴板" 功能需要允许剪贴板权限!');
+          return;
+        } // 验证剪贴板权限, 若报错则跳出不设置该项
       }
+      GM_setValue("listen-clipboard", $("#mzf-listen-clipboard")[0].checked);
+    };
+    Swal.fire(
+      this.mergeArg(SwalConfig.settingView, {
+        willOpen: willOpen,
+        preConfirm: preConfirm,
+      })
+    ).then((result: any) => {
+      if (result.isConfirmed)
+        Swal.fire(this.mergeArg(SwalConfig.settingWarning));
     });
   }
 

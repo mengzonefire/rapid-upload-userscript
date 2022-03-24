@@ -46,7 +46,7 @@ export function loaderBaidu(): void {
   if (bdlink) {
     // 解析到秒传链接, 弹出转存窗口
     window.addEventListener("DOMContentLoaded", () => {
-      swalInstance.inputView({ inputValue: bdlink });
+      swalInstance.inputView(bdlink);
     });
   } else if (!GM_getValue(`${updateInfoVer}_no_first`))
     // 检查是否首次运行, 若是则弹出更新信息窗口

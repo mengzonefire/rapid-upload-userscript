@@ -8,6 +8,7 @@ declare global {
   }
   interface HTMLElement {
     value: string;
+    checked: boolean;
   }
   var Swal: any;
   var Base64: any;

@@ -1,6 +1,7 @@
 import { baiduErrno, bdstoken_url, setBdstoken } from "@/baidu/common/const";
 import ajax from "./ajax";
 import { FileInfo, TAG } from "./const";
+import DuParser from "./duParser";
 
 /**
  * @description: 弹出一个文本提示框
@@ -124,3 +125,14 @@ export function convertData(data: any): string {
   for (let key in data) query += `&${key}=${encodeURIComponent(data[key])}`;
   return query;
 }
+
+export async function parseClipboard() {
+  try { 
+    let bdlink = await navigator.clipboard.readText();
+    if (!DuParser.parse(bdlink).length) return "";
+    return bdlink;
+  } catch (error) {
+    showAlert('使用 "监听剪贴板" 功能需要允许剪贴板权限!');
+    return ""
+  }
+};
