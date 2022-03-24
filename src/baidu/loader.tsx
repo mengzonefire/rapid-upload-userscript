@@ -24,7 +24,7 @@ export function loaderBaidu(): void {
 
   if (locUrl.indexOf(baiduNewPage) !== -1) {
     // 添加swal参数以防止新版界面下的body样式突变
-    swalInstance.swalArgs = { heightAuto: false, scrollbarPadding: false };
+    swalInstance.swalGlobalArgs = { heightAuto: false, scrollbarPadding: false };
     setRefreshList(() => {
       location.reload();
     });

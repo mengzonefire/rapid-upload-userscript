@@ -6,7 +6,7 @@ export const SwalConfig = {
     title: "请输入秒传&保存路径",
     showCancelButton: true,
     html: `<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[默认监听粘贴板,可在设置中关闭]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>
-    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 5px;">`,
+    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 10px;">`,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     customClass: { htmlContainer: "mzf_html_container" },

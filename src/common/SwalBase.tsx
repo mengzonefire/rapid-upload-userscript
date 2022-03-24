@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-03-24 04:54:21
+ * @LastEditTime: 2022-03-24 18:48:17
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -27,7 +27,7 @@ import { SwalConfig } from "./SwalConfig";
 import { parsefileInfo } from "./utils";
 
 export default class Swalbase {
-  swalArgs: any;
+  swalGlobalArgs: any; // 全局swal参数配置对象
   constructor(
     readonly rapiduploadTask: RapiduploadTask,
     readonly generatebdlinkTask: GeneratebdlinkTask
@@ -36,7 +36,12 @@ export default class Swalbase {
   // 合并swal参数
   mergeArg(...inputArgs: any) {
     let output = {};
-    $.extend(output, this.swalArgs, ...inputArgs);
+    let swalCfgArgs: any = {
+      // 禁用backdrop动画, 阻止多次弹窗时的屏闪
+      showClass: { backdrop: "swal2-noanimation" },
+      hideClass: { backdrop: "swal2-noanimation" },
+    };
+    $.extend(output, this.swalGlobalArgs, swalCfgArgs, ...inputArgs);
     return output;
   }
 
@@ -77,6 +82,8 @@ export default class Swalbase {
         .css("font-size", "1rem")
         .css("display", "grid")
         .css("margin", "0");
+      $("#mzf-rapid-input")[0].value = rapidValue;
+      $("#mzf-path-input")[0].value = pathValue;
     };
     Swal.fire(
       this.mergeArg(SwalConfig.inputView, swalArg, {

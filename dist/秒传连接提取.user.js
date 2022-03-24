@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.1.6
+// @version 2.1.7
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -262,7 +262,7 @@
             inputView: {
                 title: "请输入秒传&保存路径",
                 showCancelButton: true,
-                html: '<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[默认监听粘贴板,可在设置中关闭]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>\n    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 5px;">',
+                html: '<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[默认监听粘贴板,可在设置中关闭]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>\n    <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 10px;">',
                 confirmButtonText: "确定",
                 cancelButtonText: "取消",
                 customClass: {
@@ -474,7 +474,15 @@
                     inputArgs[_i] = arguments[_i];
                 }
                 var output = {};
-                $.extend.apply($, __spreadArray([ output, this.swalArgs ], inputArgs));
+                var swalCfgArgs = {
+                    showClass: {
+                        backdrop: "swal2-noanimation"
+                    },
+                    hideClass: {
+                        backdrop: "swal2-noanimation"
+                    }
+                };
+                $.extend.apply($, __spreadArray([ output, this.swalGlobalArgs, swalCfgArgs ], inputArgs));
                 return output;
             };
             Swalbase.prototype.inputView = function(swalArg) {
@@ -505,6 +513,8 @@
                 };
                 var willOpen = function() {
                     $("#swal2-html-container").css("font-size", "1rem").css("display", "grid").css("margin", "0");
+                    $("#mzf-rapid-input")[0].value = rapidValue;
+                    $("#mzf-path-input")[0].value = pathValue;
                 };
                 Swal.fire(this.mergeArg(SwalConfig.inputView, swalArg, {
                     preConfirm,
@@ -1135,7 +1145,7 @@
         function loaderBaidu() {
             getbdstoken();
             if (locUrl.indexOf(baiduNewPage) !== -1) {
-                swalInstance.swalArgs = {
+                swalInstance.swalGlobalArgs = {
                     heightAuto: false,
                     scrollbarPadding: false
                 };
