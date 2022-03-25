@@ -3,17 +3,14 @@ import Swalbase from "@/common/swalBase";
 import GeneratebdlinkTask from "./GeneratebdlinkTask";
 import RapiduploadTask from "./RapiduploadTask";
 
-export const rapid_url = "https://pan.baidu.com/api/rapidupload";
-export const bdstoken_url = "https://pan.baidu.com/api/gettemplatevariable";
-export const create_url =
-  "https://pan.baidu.com/rest/2.0/xpan/file?method=create";
-export const list_url =
-  "https://pan.baidu.com/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
+const host = location.host;
+export const rapid_url = `https://${host}/api/rapidupload`;
+export const bdstoken_url = `https://${host}/api/gettemplatevariable`;
+export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
+export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000`;
 // 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
-export const meta_url =
-  "https://pan.baidu.com/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
-export const meta_url2 =
-  "https://pan.baidu.com/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
+export const meta_url = `https://${host}/rest/2.0/xpan/file?app_id=778750&method=meta&path=`;
+export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 export const UA =

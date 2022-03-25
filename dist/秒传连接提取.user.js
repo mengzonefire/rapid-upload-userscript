@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.2.0
+// @version 2.2.1
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -1322,12 +1322,13 @@
             return RapiduploadTask;
         }();
         const common_RapiduploadTask = RapiduploadTask;
-        var rapid_url = "https://pan.baidu.com/api/rapidupload";
-        var bdstoken_url = "https://pan.baidu.com/api/gettemplatevariable";
-        var create_url = "https://pan.baidu.com/rest/2.0/xpan/file?method=create";
-        var list_url = "https://pan.baidu.com/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
-        var meta_url = "https://pan.baidu.com/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
-        var meta_url2 = "https://pan.baidu.com/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
+        var host = location.host;
+        var rapid_url = "https://" + host + "/api/rapidupload";
+        var bdstoken_url = "https://" + host + "/api/gettemplatevariable";
+        var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
+        var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
+        var meta_url = "https://" + host + "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
+        var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
         var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
         var UA = "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2";
         var illegalPathPattern = /[\\":*?<>|]/;
