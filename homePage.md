@@ -67,6 +67,8 @@
 
 ## 待更新
 
+1. https://greasyfork.org/zh-CN/scripts/424574/discussions/127485
+
 <details>
 <summary>已完成 [点击展开]</summary>
 <ol><li>支持 新版度盘页面 下的 "生成秒传" 功能 (完成)</li><li>支持 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 的秒传提取&生成 (废弃, 阿里官方限制了秒传接口)</li><li>支持 <a href="https://pan.baidu.com/disk/main?from=oldversion#/index">新版度盘页面</a> (完成)</li><li>修复设置为非默认主题时, 窗口内会出现警告标识的问题 (完成, 实际为主题包不适配旧版 sweetalert2)</li><li>cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn (完成)</li><li>转存完成后的提示框添加转存成功列表(使用折叠框隐藏)(完成)</li></ol>
