@@ -56,7 +56,7 @@ export const linkStyle =
   'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 export const btnStyle =
   'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
-export const bdlinkPattern = /[\?#]bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
+export const bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
 export const htmlCheckMd5 = `<p class="mzf_text">测试秒传 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>`;
 export const htmlDocument = `<p class="mzf_text">秒传无效/md5获取失败/防和谐等 可参考<a href="${doc.shareDoc}" ${btnStyle}><span class="text" style="width: auto;">分享教程</span></a></p>`;
 export const htmlDonate = `<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="${donatePage}" ${linkStyle}>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;

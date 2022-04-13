@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.2.1
+// @version 2.2.2
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -9,6 +9,8 @@
 // @match *://pan.baidu.com/disk/main*
 // @match *://yun.baidu.com/disk/home*
 // @match *://yun.baidu.com/disk/main*
+// @match *://wangpan.baidu.com/disk/home*
+// @match *://wangpan.baidu.com/disk/main*
 // @name:en rapidupload-userscript
 // @license GPLv3
 // @icon data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4AZTTJRBUURTH4TtDwXuPdPrgbhHXiksf3CPucRNScHd3d3d3uO9bKeu7b79+fun8Q17CNHyMMUqaiPE4fEyYVjjGNKnNwQ4lpgV8lManEfwfosLHEGPU1N3ZnAv4qlT+NiQ56uPWSjKBrztUSnIaB66sY1vgxgxoMXB5NbsCB9rxcB5fN2M5/16nCFxeS6YTezpzsB1Pu/C2O7/78/99eYBYHXh+gqdHObGIK4GHgevjVIt1AgAnhvE4cGe8euoHbizgYuD2RGgx8O0RpwIPRmsmJDGqcrANd3pLo/qVr03hUlcpfSwf0/vD3JwkPdPK5/zhkOz+/f1FIDv/RcnOAEjywH/DhgADAAAAAElFTkSuQmCC
@@ -27,6 +29,7 @@
 // @grant GM_getResourceText
 // @grant GM_addStyle
 // @grant GM_xmlhttpRequest
+// @grant unsafeWindow
 // @resource swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
 // @resource swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css
 // @require https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
@@ -122,7 +125,7 @@
         };
         var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
         var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
-        var bdlinkPattern = /[\?#]bdlink=([\da-zA-Z+/=]+)/;
+        var bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/;
         var htmlCheckMd5 = '<p class="mzf_text">测试秒传 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>';
         var htmlDocument = '<p class="mzf_text">秒传无效/md5获取失败/防和谐等 可参考<a href="' + doc.shareDoc + '" ' + btnStyle + '><span class="text" style="width: auto;">分享教程</span></a></p>';
         var htmlDonate = '<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="' + donatePage + '" ' + linkStyle + '>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>';
@@ -351,26 +354,6 @@
                 confirmButtonText: "知道了"
             }
         };
-        var __assign = undefined && undefined.__assign || function() {
-            __assign = Object.assign || function(t) {
-                for (var s, i = 1, n = arguments.length; i < n; i++) {
-                    s = arguments[i];
-                    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-                }
-                return t;
-            };
-            return __assign.apply(this, arguments);
-        };
-        function ajax(config, callback, failback) {
-            GM_xmlhttpRequest(__assign(__assign({}, config), {
-                onload: function(r) {
-                    if (Math.floor(r.status / 100) === 2) callback(r); else failback(r.status);
-                },
-                onerror: function() {
-                    failback(ajaxError);
-                }
-            }));
-        }
         var __awaiter = undefined && undefined.__awaiter || function(thisArg, _arguments, P, generator) {
             function adopt(value) {
                 return value instanceof P ? value : new P((function(resolve) {
@@ -528,25 +511,8 @@
                 successList
             };
         }
-        function getbdstoken() {
-            ajax({
-                url: bdstoken_url,
-                method: "POST",
-                responseType: "json",
-                data: convertData({
-                    clienttype: 0,
-                    app_id: 250528,
-                    fields: JSON.stringify([ "bdstoken" ])
-                })
-            }, (function(data) {
-                data = data.response;
-                if (!data.errno && data.result.bdstoken) setBdstoken(data.result.bdstoken); else showAlert("获取bdstoken失败(" + data.errno + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
-            }), (function(statusCode) {
-                showAlert("获取bdstoken失败(" + statusCode + "), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录");
-            }));
-        }
         function getSelectedFileListLegacy() {
-            return require("system-core:context/context.js").instanceForSystem.list.getSelected();
+            return unsafeWindow.require("system-core:context/context.js").instanceForSystem.list.getSelected();
         }
         function getSelectedFileListNew() {
             return document.querySelector(".nd-main-list").__vue__.selectedList;
@@ -581,15 +547,15 @@
                 }));
             }));
         }
-        var swalBase_assign = undefined && undefined.__assign || function() {
-            swalBase_assign = Object.assign || function(t) {
+        var __assign = undefined && undefined.__assign || function() {
+            __assign = Object.assign || function(t) {
                 for (var s, i = 1, n = arguments.length; i < n; i++) {
                     s = arguments[i];
                     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
                 }
                 return t;
             };
-            return swalBase_assign.apply(this, arguments);
+            return __assign.apply(this, arguments);
         };
         var swalBase_awaiter = undefined && undefined.__awaiter || function(thisArg, _arguments, P, generator) {
             function adopt(value) {
@@ -835,7 +801,7 @@
                 if (!GM_getValue(donateVer + "_kill_donate")) htmlFooter += htmlDonate;
                 if (!GM_getValue(feedbackVer + "_kill_donate")) htmlFooter += htmlFeedback;
                 if (htmlFooter) htmlFooter = "<p><br></p>" + htmlFooter;
-                var swalArg = swalBase_assign(swalBase_assign({
+                var swalArg = __assign(__assign({
                     title: action + "完毕 共" + fileInfoList.length + "个, 失败" + parseResult.failedCount + "个!",
                     confirmButtonText: parseResult.failedCount !== fileInfoList.length && (isGen || this.rapiduploadTask.checkMode) ? "复制秒传代码" : "确认",
                     html: html + htmlFooter
@@ -1037,6 +1003,26 @@
             return Swalbase;
         }();
         const swalBase = Swalbase;
+        var ajax_assign = undefined && undefined.__assign || function() {
+            ajax_assign = Object.assign || function(t) {
+                for (var s, i = 1, n = arguments.length; i < n; i++) {
+                    s = arguments[i];
+                    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+                }
+                return t;
+            };
+            return ajax_assign.apply(this, arguments);
+        };
+        function ajax(config, callback, failback) {
+            GM_xmlhttpRequest(ajax_assign(ajax_assign({}, config), {
+                onload: function(r) {
+                    if (Math.floor(r.status / 100) === 2) callback(r); else failback(r.status);
+                },
+                onerror: function() {
+                    failback(ajaxError);
+                }
+            }));
+        }
         var GeneratebdlinkTask = function() {
             function GeneratebdlinkTask() {}
             GeneratebdlinkTask.prototype.reset = function() {
@@ -1219,6 +1205,8 @@
         var RapiduploadTask = function() {
             function RapiduploadTask() {}
             RapiduploadTask.prototype.reset = function() {
+                this.bdstoken = getBdstoken();
+                console.log("bdstoken: ", this.bdstoken);
                 this.fileInfoList = [];
                 this.savePath = "";
                 this.checkMode = false;
@@ -1275,7 +1263,7 @@
                     return;
                 }
                 ajax({
-                    url: "" + rapid_url + (bdstoken && "?bdstoken=" + bdstoken),
+                    url: "" + rapid_url + (this.bdstoken && "?bdstoken=" + this.bdstoken),
                     method: "POST",
                     responseType: "json",
                     data: convertData({
@@ -1300,7 +1288,7 @@
                 var _this = this;
                 var file = this.fileInfoList[i];
                 ajax({
-                    url: "" + create_url + (bdstoken && "&bdstoken=" + bdstoken),
+                    url: "" + create_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
                     method: "POST",
                     responseType: "json",
                     data: convertData({
@@ -1324,7 +1312,6 @@
         const common_RapiduploadTask = RapiduploadTask;
         var host = location.host;
         var rapid_url = "https://" + host + "/api/rapidupload";
-        var bdstoken_url = "https://" + host + "/api/gettemplatevariable";
         var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
         var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
         var meta_url = "https://" + host + "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
@@ -1332,9 +1319,9 @@
         var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
         var UA = "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2";
         var illegalPathPattern = /[\\":*?<>|]/;
-        var bdstoken = "";
-        function setBdstoken(mybdstoken) {
-            bdstoken = mybdstoken;
+        var getBdstoken;
+        function setGetBdstoken(func) {
+            getBdstoken = func;
         }
         var refreshList;
         function setRefreshList(func) {
@@ -1347,7 +1334,7 @@
         var swalInstance = new swalBase(new common_RapiduploadTask, new common_GeneratebdlinkTask);
         var htmlTagNew = "div.nd-file-list-toolbar__actions";
         var htmlTaglegacy = "div.tcuLAu";
-        var htmlTag2legacy = "#h5Input0";
+        var htmlTag2legacy = "form.h5-uploader-form";
         var htmlBtnRapidNew = '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
         var htmlBtnGenNew = '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>生成秒传</span></button>';
         var htmlBtnRapidLegacy = '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
@@ -1410,81 +1397,80 @@
             }
         }
         function installNew() {
-            jQuery((function() {
-                console.info("%s DOM方式安装，若失效请报告。", TAG);
-                $(htmlTagNew).append(htmlBtnRapidNew, htmlBtnGenNew);
-                $(document).on("click", "#bdlink_btn", (function() {
-                    swalInstance.inputView();
-                }));
-                $(document).on("click", "#gen_bdlink_btn", (function() {
-                    swalInstance.generatebdlinkTask.reset();
-                    swalInstance.checkUnfinish();
-                }));
+            console.info("%s DOM方式安装，若失效请报告。", TAG);
+            $(htmlTagNew).append(htmlBtnRapidNew, htmlBtnGenNew);
+            $(document).on("click", "#bdlink_btn", (function() {
+                swalInstance.inputView();
+            }));
+            $(document).on("click", "#gen_bdlink_btn", (function() {
+                swalInstance.generatebdlinkTask.reset();
+                swalInstance.checkUnfinish();
             }));
         }
         function getSystemContext() {
-            return require("system-core:context/context.js").instanceForSystem;
+            return unsafeWindow.require("system-core:context/context.js").instanceForSystem;
         }
         function addGenBtn() {
             var listTools = getSystemContext().Broker.getButtonBroker("listTools");
             if (listTools && listTools.$box) $(listTools.$box).children("div").after(htmlBtnGenLegacy); else setTimeout(addGenBtn, 300);
         }
         function addBtn() {
-            if ($(htmlTaglegacy).length && $(htmlTag2legacy).length) $(htmlTaglegacy).append(htmlBtnRapidLegacy); else setTimeout(addBtn, 100);
+            if ($(htmlTaglegacy).length) $(htmlTaglegacy).append(htmlBtnRapidLegacy); else setTimeout(addBtn, 100);
         }
         function installlegacy() {
-            jQuery((function() {
-                console.info("%s DOM方式安装，若失效请报告。", TAG);
-                addBtn();
-                addGenBtn();
-                $(document).on("click", "#bdlink_btn", (function() {
-                    swalInstance.inputView();
-                }));
-                $(document).on("click", "#gen_bdlink_btn", (function() {
-                    swalInstance.generatebdlinkTask.reset();
-                    swalInstance.checkUnfinish();
-                }));
+            console.info("%s DOM方式安装，若失效请报告。", TAG);
+            addBtn();
+            addGenBtn();
+            $(document).on("click", "#bdlink_btn", (function() {
+                swalInstance.inputView();
+            }));
+            $(document).on("click", "#gen_bdlink_btn", (function() {
+                swalInstance.generatebdlinkTask.reset();
+                swalInstance.checkUnfinish();
             }));
         }
         function loaderBaidu() {
-            getbdstoken();
-            if (locUrl.indexOf(baiduNewPage) !== -1) {
-                swalInstance.swalGlobalArgs = {
-                    heightAuto: false,
-                    scrollbarPadding: false
-                };
-                setRefreshList((function() {
-                    location.reload();
-                }));
-                setGetSelectedFileList(getSelectedFileListNew);
-                installNew();
-            } else {
-                setRefreshList((function() {
-                    require("system-core:system/baseService/message/message.js").trigger("system-refresh");
-                }));
-                setGetSelectedFileList(getSelectedFileListLegacy);
-                installlegacy();
-            }
-            var bdlink = initQueryLink();
-            if (bdlink) {
-                window.addEventListener("DOMContentLoaded", (function() {
+            jQuery((function() {
+                if (locUrl.indexOf(baiduNewPage) !== -1) {
+                    swalInstance.swalGlobalArgs = {
+                        heightAuto: false,
+                        scrollbarPadding: false
+                    };
+                    setRefreshList((function() {
+                        document.querySelector(".nd-main-list").__vue__.reloadList();
+                    }));
+                    setGetSelectedFileList(getSelectedFileListNew);
+                    setGetBdstoken((function() {
+                        return document.querySelector(".nd-main-list").__vue__.yunData.bdstoken;
+                    }));
+                    installNew();
+                } else {
+                    setRefreshList((function() {
+                        unsafeWindow.require("system-core:system/baseService/message/message.js").trigger("system-refresh");
+                    }));
+                    setGetSelectedFileList(getSelectedFileListLegacy);
+                    setGetBdstoken((function() {
+                        return unsafeWindow.locals.get("bdstoken");
+                    }));
+                    installlegacy();
+                }
+                var bdlink = initQueryLink();
+                if (bdlink) {
                     swalInstance.inputView(bdlink);
-                }));
-            } else if (!GM_getValue(updateInfoVer + "_no_first")) window.addEventListener("DOMContentLoaded", (function() {
-                swalInstance.updateInfo((function() {
+                } else if (!GM_getValue(updateInfoVer + "_no_first")) swalInstance.updateInfo((function() {
                     GM_setValue(updateInfoVer + "_no_first", true);
                 }));
-            }));
-            $(document).on("click", "#kill_donate", (function() {
-                GM_setValue(feedbackVer + "_kill_donate", true);
-                $("#mzf_donate").remove();
-            }));
-            $(document).on("click", "#kill_feedback", (function() {
-                GM_setValue(donateVer + "_kill_feedback", true);
-                $("#mzf_feedback").remove();
-            }));
-            $(document).on("click", "#check_md5_btn", (function() {
-                swalInstance.checkMd5();
+                $(document).on("click", "#kill_donate", (function() {
+                    GM_setValue(feedbackVer + "_kill_donate", true);
+                    $("#mzf_donate").remove();
+                }));
+                $(document).on("click", "#kill_feedback", (function() {
+                    GM_setValue(donateVer + "_kill_feedback", true);
+                    $("#mzf_feedback").remove();
+                }));
+                $(document).on("click", "#check_md5_btn", (function() {
+                    swalInstance.checkMd5();
+                }));
             }));
         }
         var checkBox = __webpack_require__(197);

@@ -5,7 +5,6 @@ import RapiduploadTask from "./RapiduploadTask";
 
 const host = location.host;
 export const rapid_url = `https://${host}/api/rapidupload`;
-export const bdstoken_url = `https://${host}/api/gettemplatevariable`;
 export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
 export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000`;
 // 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
@@ -16,9 +15,9 @@ export const pcs_url =
 export const UA =
   "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
 export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
-export var bdstoken = "";
-export function setBdstoken(mybdstoken: string) {
-  bdstoken = mybdstoken;
+export var getBdstoken: () => string; // 获取bdstoken的实现
+export function setGetBdstoken(func: () => string) {
+  getBdstoken = func;
 }
 export var refreshList: () => void; // 刷新文件列表的实现
 export function setRefreshList(func: () => void) {
@@ -35,7 +34,7 @@ export const swalInstance = new Swalbase(
 
 export const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
 export const htmlTaglegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
-export const htmlTag2legacy = "#h5Input0"; // 旧版界面秒传按钮的html同级对象
+export const htmlTag2legacy = "form.h5-uploader-form"; // 旧版界面秒传按钮的html同级对象
 export const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
   '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
 export const htmlBtnGenNew = // 新版界面秒传生成按钮的html元素

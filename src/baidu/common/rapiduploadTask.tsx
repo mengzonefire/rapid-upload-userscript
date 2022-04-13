@@ -1,23 +1,26 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2021-10-15 23:58:48
+ * @LastEditTime: 2022-04-13 19:01:20
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo, rapidTryflag } from "@/common/const";
 import { convertData, randomStringTransform } from "@/common/utils";
-import { create_url, rapid_url, bdstoken } from "./const";
+import { create_url, rapid_url, getBdstoken } from "./const";
 export default class RapiduploadTask {
   savePath: string;
   isDefaultPath: boolean;
   checkMode: boolean;
   fileInfoList: Array<FileInfo>;
+  bdstoken: string;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
 
   reset(): void {
+    this.bdstoken = getBdstoken();
+    console.log("bdstoken: ", this.bdstoken); // debug
     this.fileInfoList = [];
     this.savePath = "";
     this.checkMode = false;
@@ -79,7 +82,7 @@ export default class RapiduploadTask {
     }
     ajax(
       {
-        url: `${rapid_url}${bdstoken && "?bdstoken=" + bdstoken}`,
+        url: `${rapid_url}${this.bdstoken && "?bdstoken=" + this.bdstoken}`,
         method: "POST",
         responseType: "json",
         data: convertData({
@@ -113,7 +116,7 @@ export default class RapiduploadTask {
     let file = this.fileInfoList[i];
     ajax(
       {
-        url: `${create_url}${bdstoken && "&bdstoken=" + bdstoken}`, // bdstoken参数不能放在data里, 否则无效
+        url: `${create_url}${this.bdstoken && "&bdstoken=" + this.bdstoken}`, // bdstoken参数不能放在data里, 否则无效
         method: "POST",
         responseType: "json",
         data: convertData({

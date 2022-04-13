@@ -10,8 +10,12 @@ declare global {
     value: string;
     checked: boolean;
   }
+  interface Window {
+    require: any;
+    locals: any;
+  }
   var Swal: any;
   var Base64: any;
   var SparkMD5: any;
-  var __non_webpack_require__: any;
+  // var __non_webpack_require__: any;
 }

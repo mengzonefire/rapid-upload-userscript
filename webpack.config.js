@@ -94,6 +94,8 @@ module.exports = {
           "*://pan.baidu.com/disk/main*",
           "*://yun.baidu.com/disk/home*",
           "*://yun.baidu.com/disk/main*",
+          "*://wangpan.baidu.com/disk/home*",
+          "*://wangpan.baidu.com/disk/main*",
         ],
         grant: [
           "GM_setValue",
@@ -103,6 +105,7 @@ module.exports = {
           "GM_getResourceText",
           "GM_addStyle",
           "GM_xmlhttpRequest",
+          "unsafeWindow",
         ],
         resource: [
           "swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",

@@ -1,5 +1,4 @@
-import { baiduErrno, bdstoken_url, setBdstoken } from "@/baidu/common/const";
-import ajax from "./ajax";
+import { baiduErrno } from "@/baidu/common/const";
 import { FileInfo, TAG } from "./const";
 import DuParser from "./duParser";
 
@@ -67,44 +66,12 @@ export function parsefileInfo(fileInfoList: Array<FileInfo>) {
 }
 
 /**
- * @description: 获取bdstoken
- */
-export function getbdstoken() {
-  ajax(
-    {
-      url: bdstoken_url,
-      method: "POST",
-      responseType: "json",
-      data: convertData({
-        clienttype: 0,
-        app_id: 250528,
-        fields: JSON.stringify(["bdstoken"]),
-      }),
-    },
-    (data) => {
-      data = data.response;
-      if (!data.errno && data.result.bdstoken)
-        setBdstoken(data.result.bdstoken);
-      else
-        showAlert(
-          `获取bdstoken失败(${data.errno}), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录`
-        );
-    },
-    (statusCode) => {
-      showAlert(
-        `获取bdstoken失败(${statusCode}), 可能导致转存失败(#2), 请尝试刷新页面, 或重新登录`
-      );
-    }
-  );
-}
-
-/**
  * @description: 获取选择的文件列表(旧版界面)
  */
 export function getSelectedFileListLegacy() {
-  return __non_webpack_require__(
-    "system-core:context/context.js"
-  ).instanceForSystem.list.getSelected();
+  return unsafeWindow
+    .require("system-core:context/context.js")
+    .instanceForSystem.list.getSelected();
 }
 
 /**
@@ -127,12 +94,12 @@ export function convertData(data: any): string {
 }
 
 export async function parseClipboard() {
-  try { 
+  try {
     let bdlink = await navigator.clipboard.readText();
     if (!DuParser.parse(bdlink).length) return "";
     return bdlink;
   } catch (error) {
     showAlert('使用 "监听剪贴板" 功能需要允许剪贴板权限!');
-    return ""
+    return "";
   }
-};
+}
