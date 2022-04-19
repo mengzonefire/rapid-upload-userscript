@@ -47,7 +47,7 @@ export const htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
 export function baiduErrno(errno: number) {
   switch (errno) {
     case -6:
-      return "认证失败(尝试刷新页面)";
+      return "认证失败(尝试刷新页面/重新登录度盘账号)";
     case -7:
       return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
     case -8:
@@ -76,7 +76,7 @@ export function baiduErrno(errno: number) {
     case 503:
       return `服务器错误(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 909:
-      return "路径不存在";
+      return "路径不存在/文件已损坏";
     case 900:
       return "路径为文件夹, 不支持生成秒传";
     case 901:
