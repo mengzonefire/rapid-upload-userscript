@@ -30,7 +30,7 @@
 
 ## 常见问题
 
-1. 此脚本只在度盘主页运行: https://pan.baidu.com/
+1. 此脚本只在度盘主页运行: https://pan.baidu.com, 目前无法兼容safari, macOS用户请使用mac版chrome运行脚本
 
 2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>过旧版本(低于4.9)的油猴, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
