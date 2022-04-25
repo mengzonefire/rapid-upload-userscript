@@ -127,7 +127,7 @@ module.exports = {
   ],
   optimization: {
     minimize: false,
-    // 完全禁用压缩, 防止在greasyfork上被举报为最小化代码
+    // 完全禁用压缩(会导致下面的配置项全部失效), 防止在greasyfork上被举报为加密/最小化代码
     minimizer: [
       new TerserPlugin({
         parallel: true,
