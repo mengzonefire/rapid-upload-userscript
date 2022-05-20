@@ -9,17 +9,15 @@ export const homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 export const donatePage = "https://afdian.net/@mengzonefire";
 export const ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 export const extCssUrl = {
-  Default:
-    "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
-  Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
+  Default: "https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css",
+  Dark: "https://unpkg.com/@sweetalert2/theme-dark@5/dark.min.css",
   "WordPress Admin":
-    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin@5/wordpress-admin.min.css",
+    "https://unpkg.com/@sweetalert2/theme-wordpress-admin@5/wordpress-admin.min.css",
   "Material UI":
-    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui@5/material-ui.min.css",
-  Bulma:
-    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5/bulma.min.css",
+    "https://unpkg.com/@sweetalert2/theme-material-ui@5/material-ui.min.css",
+  Bulma: "https://unpkg.com/@sweetalert2/theme-bulma@5/bulma.min.css",
   "Bootstrap 4":
-    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
+    "https://unpkg.com/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 export const appError = {
   missDepend: `外部资源加载失败, 请前往脚本页反馈:\n${homePage}`,

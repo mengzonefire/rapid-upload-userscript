@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.2.3
+// @version 2.2.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -30,18 +30,15 @@
 // @grant GM_addStyle
 // @grant GM_xmlhttpRequest
 // @grant unsafeWindow
-// @resource swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
 // @resource swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css
-// @require https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
-// @require https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
-// @require https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
-// @require https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js
+// @require https://unpkg.com/jquery@3.6.0/dist/jquery.min.js
+// @require https://unpkg.com/spark-md5@3.0.2/spark-md5.min.js
 // @require https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.js
 // @require https://unpkg.com/js-base64@3.7.2/base64.js
 // @run-at document-start
 // @connect baidu.com
 // @connect baidupcs.com
-// @connect cdn.jsdelivr.net
+// @connect unpkg.com
 // @connect *
 // ==/UserScript==
 
@@ -143,12 +140,12 @@ var homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 var donatePage = "https://afdian.net/@mengzonefire";
 var ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 var extCssUrl = {
-    Default: "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
-    Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
-    "WordPress Admin": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin@5/wordpress-admin.min.css",
-    "Material UI": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui@5/material-ui.min.css",
-    Bulma: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5/bulma.min.css",
-    "Bootstrap 4": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
+    Default: "https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css",
+    Dark: "https://unpkg.com/@sweetalert2/theme-dark@5/dark.min.css",
+    "WordPress Admin": "https://unpkg.com/@sweetalert2/theme-wordpress-admin@5/wordpress-admin.min.css",
+    "Material UI": "https://unpkg.com/@sweetalert2/theme-material-ui@5/material-ui.min.css",
+    Bulma: "https://unpkg.com/@sweetalert2/theme-bulma@5/bulma.min.css",
+    "Bootstrap 4": "https://unpkg.com/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 var appError = {
     missDepend: "\u5916\u90E8\u8D44\u6E90\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
@@ -1688,7 +1685,7 @@ function injectStyle() {
     GM_addStyle((app_default())); // 注入自定义样式
     GM_addStyle((checkBox_default())); // 注入checkBox选框样式
     var swalThemes = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
-    var defaultThemesCss = GM_getResourceText("swalCss") || GM_getResourceText("swalCssBak");
+    var defaultThemesCss = GM_getResourceText("swalCssBak");
     if (swalThemes === "Default") {
         if (defaultThemesCss) {
             GM_addStyle(defaultThemesCss);

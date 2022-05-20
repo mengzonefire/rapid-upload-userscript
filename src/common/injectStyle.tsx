@@ -11,8 +11,7 @@ export function injectStyle(): void {
   GM_addStyle(appCss); // 注入自定义样式
   GM_addStyle(checkBoxCss); // 注入checkBox选框样式
   let swalThemes: string = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
-  let defaultThemesCss: string =
-    GM_getResourceText("swalCss") || GM_getResourceText("swalCssBak");
+  let defaultThemesCss: string = GM_getResourceText("swalCssBak");
   if (swalThemes === "Default") {
     if (defaultThemesCss) {
       GM_addStyle(defaultThemesCss);

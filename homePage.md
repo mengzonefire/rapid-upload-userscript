@@ -2,7 +2,9 @@
 
 ## 近期通知
 
-- 22.1.26: 最近反馈外部资源加载失败的问题有点严重, 故2.1.2版本添加了备用cdn, 即使jsdelivr寄掉也能保证脚本正常运行了
+- 22.5.20: 原依赖cdn jsdelivr加载失败会导致脚本延迟运行或无法安装, 故放弃多cdn方案, 2.2.4版本已将cdn全部更换为unpkg
+
+- 22.1.26: ~~最近反馈外部资源加载失败的问题有点严重, 故2.1.2版本添加了备用cdn, 即使jsdelivr寄掉也能保证脚本正常运行了~~
 
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page 服务: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 

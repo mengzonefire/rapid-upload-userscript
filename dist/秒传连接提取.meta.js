@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.2.3
+// @version 2.2.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -30,17 +30,14 @@
 // @grant GM_addStyle
 // @grant GM_xmlhttpRequest
 // @grant unsafeWindow
-// @resource swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css
 // @resource swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css
-// @require https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js
-// @require https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js
-// @require https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js
-// @require https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js
+// @require https://unpkg.com/jquery@3.6.0/dist/jquery.min.js
+// @require https://unpkg.com/spark-md5@3.0.2/spark-md5.min.js
 // @require https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.js
 // @require https://unpkg.com/js-base64@3.7.2/base64.js
 // @run-at document-start
 // @connect baidu.com
 // @connect baidupcs.com
-// @connect cdn.jsdelivr.net
+// @connect unpkg.com
 // @connect *
 // ==/UserScript==

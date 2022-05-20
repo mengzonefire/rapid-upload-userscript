@@ -108,19 +108,17 @@ module.exports = {
           "unsafeWindow",
         ],
         resource: [
-          "swalCss https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css",
           "swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css",
         ],
         require: [
-          "https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js",
-          "https://cdn.staticfile.org/spark-md5/3.0.0/spark-md5.min.js",
-          "https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js",
-          "https://cdn.jsdelivr.net/npm/js-base64@3.7.2/base64.min.js",
+          "https://unpkg.com/jquery@3.6.0/dist/jquery.min.js",
+          "https://unpkg.com/spark-md5@3.0.2/spark-md5.min.js",
           "https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.js",
           "https://unpkg.com/js-base64@3.7.2/base64.js",
         ], // 不要问为啥有重复cdn, jsdelivr老是抽风
+        // 22.5.20: 由于jsdelivr卡加载会导致脚本延迟运行 (触发http timeout), 现移除该cdn
         "run-at": "document-start",
-        connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
+        connect: ["baidu.com", "baidupcs.com", "unpkg.com", "*"],
       },
       pretty: false,
     }),
