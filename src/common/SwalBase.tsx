@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-03-24 20:52:12
+ * @LastEditTime: 2022-05-22 11:10:45
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -146,16 +146,19 @@ export default class Swalbase {
     let fileInfoList = isGen
       ? this.generatebdlinkTask.fileInfoList
       : this.rapiduploadTask.fileInfoList;
-    let parseResult = parsefileInfo(fileInfoList);
-    if (isGen) this.rapiduploadTask.fileInfoList = parseResult.successList;
-    let checkboxArg =
-      parseResult.failedCount === fileInfoList.length
-        ? {}
-        : {
-            input: "checkbox",
-            inputValue: GM_getValue("with_path"),
-            inputPlaceholder: "导出文件夹目录结构",
-          }; // 全部失败不显示此checkbox
+    let parseResult = parsefileInfo(
+      fileInfoList,
+      this.rapiduploadTask.checkMode
+    );
+    if (isGen) {
+      this.rapiduploadTask.reset();
+      this.rapiduploadTask.fileInfoList = parseResult.successList;
+    }
+    let checkboxArg = {
+      input: "checkbox",
+      inputValue: GM_getValue("with_path"),
+      inputPlaceholder: "导出文件夹目录结构",
+    }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
     let html =
       (isGen
         ? (parseResult.failedCount === fileInfoList.length
@@ -172,31 +175,37 @@ export default class Swalbase {
     let swalArg = {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failedCount}个!`,
       confirmButtonText:
-        parseResult.failedCount !== fileInfoList.length &&
-        (isGen || this.rapiduploadTask.checkMode)
-          ? "复制秒传代码"
-          : "确认",
+        isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
       html: html + htmlFooter,
       ...((isGen || this.rapiduploadTask.checkMode) && checkboxArg),
       willOpen: () => {
         if (!isGen && !this.rapiduploadTask.checkMode) this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
+        if (isGen || this.rapiduploadTask.checkMode)
+          GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
+      },
+      preConfirm: () => {
+        if (isGen || this.rapiduploadTask.checkMode) {
+          // 生成/测试模式, "复制秒传代码"按钮
+          let with_path = $("#swal2-checkbox")[0].checked;
+          GM_setValue("with_path", with_path);
+          if (!with_path)
+            GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
+          // 去除秒传链接中的目录结构(仅保留文件名)
+          else GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
+          Swal.getConfirmButton().innerText = "复制成功,点击右上角关闭窗口";
+          return false;
+        } else {
+          // 转存模式, "确定" 按钮
+          refreshList(); // 调用刷新文件列表的方法
+          return undefined;
+        }
       },
     };
     Swal.fire(this.mergeArg(SwalConfig.finishView, swalArg)).then(
       (result: any) => {
-        if (result.isConfirmed) {
-          if (isGen || this.rapiduploadTask.checkMode) {
-            // 生成/测试模式, "复制秒传代码"按钮
-            GM_setValue("with_path", result.value);
-            if (!result.value)
-              GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
-            // 去除秒传链接中的目录结构(仅保留文件名)
-            else GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
-            GM_deleteValue("unfinish"); // 清除任务进度数据
-          } else {
-            // 转存模式, "确定" 按钮
-            refreshList(); // 调用刷新文件列表的方法
-          }
+        if (result.isDismissed || result.dismiss === Swal.DismissReason.close) {
+          GM_deleteValue("unfinish"); // 点击了右上角的关闭按钮, 清除任务进度数据
+          GM_setValue("unClose", false);
         }
       }
     );
@@ -269,8 +278,14 @@ export default class Swalbase {
   }
 
   // 生成秒传未完成任务提示
-  genUnfinishi(onConfirm: () => void, onCancel: () => void) {
-    Swal.fire(this.mergeArg(SwalConfig.genUnfinish)).then((result: any) => {
+  genUnfinish(onConfirm: () => void, onCancel: () => void) {
+    Swal.fire(
+      this.mergeArg(
+        GM_getValue("unClose")
+          ? SwalConfig.genUnfinish2
+          : SwalConfig.genUnfinish
+      )
+    ).then((result: any) => {
       if (result.isConfirmed) onConfirm();
       else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
     });
@@ -313,7 +328,7 @@ export default class Swalbase {
 
   genFileWork(isUnfinish: boolean, isGenView: boolean) {
     if (!isGenView) this.generatebdlinkTask.selectList = getSelectedFileList();
-    if (!this.generatebdlinkTask.selectList.length) {
+    if (!this.generatebdlinkTask.selectList.length && !isUnfinish) {
       this.selectNoFileWarning();
       return;
     }
@@ -345,7 +360,7 @@ export default class Swalbase {
 
   checkUnfinish() {
     if (GM_getValue("unfinish")) {
-      this.genUnfinishi(
+      this.genUnfinish(
         () => {
           this.processView(true);
           this.genFileWork(true, false);

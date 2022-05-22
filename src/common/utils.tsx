@@ -29,9 +29,13 @@ export function randomStringTransform(string: string): string {
 
 /**
  * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表
- * @param {Array} fileInfoList
+ * @param {Array} fileInfoList 文件信息数据列表
+ * @param {Boolean} checkMode 是否为测试模式, 若为是则忽略转存失败
  */
-export function parsefileInfo(fileInfoList: Array<FileInfo>) {
+export function parsefileInfo(
+  fileInfoList: Array<FileInfo>,
+  checkMode: Boolean = false
+) {
   let bdcode = "";
   let successInfo = "";
   let failedInfo = "";
@@ -43,6 +47,8 @@ export function parsefileInfo(fileInfoList: Array<FileInfo>) {
       failedInfo += `<p>文件：${item.path}</p><p>失败原因：${baiduErrno(
         item.errno
       )}(#${item.errno})</p>`;
+      if (checkMode)
+        bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`; // 测试模式下不再排除测试失败文件的秒传数据
     } else {
       successInfo += `<p>文件：${item.path}</p>`;
       bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`;

@@ -24,8 +24,17 @@ export const SwalConfig = {
   },
 
   genUnfinish: {
-    title: "检测到未完成的秒传任务",
-    text: "是否继续进行?",
+    title: "检测到上次未完成的秒传任务",
+    text: "是否继续该任务?",
+    showCancelButton: true,
+    allowOutsideClick: false,
+    confirmButtonText: "是",
+    cancelButtonText: "否",
+  },
+
+  genUnfinish2: {
+    title: "检测到上次未正常退出的秒传任务",
+    text: "是否恢复该任务?",
     showCancelButton: true,
     allowOutsideClick: false,
     confirmButtonText: "是",
