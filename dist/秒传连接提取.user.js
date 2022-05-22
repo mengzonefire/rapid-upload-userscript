@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.2.5
+// @version 2.2.6
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -148,7 +148,7 @@ var extCssUrl = {
     "Bootstrap 4": "https://unpkg.com/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 var appError = {
-    missDepend: "\u5916\u90E8\u8D44\u6E90\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
+    missDepend: "\u5916\u90E8\u8D44\u6E90\u52A0\u8F7D\u5931\u8D25, \u8BF7\u68C0\u67E5\u662F\u5426\u53EF\u4EE5\u8BBF\u95EE unpkg.com\n\u82E5\u4E0D\u80FD\u8BBF\u95EE\u8BF7\u5C1D\u8BD5\u4FEE\u6539dns\u4E3A223.5.5.5, \u82E5\u65E0\u6548\u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
     SwalCssInvalid: "\u6837\u5F0F\u5305\u6570\u636E\u9519\u8BEF, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
 }; // 主程序异常

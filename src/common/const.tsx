@@ -20,7 +20,7 @@ export const extCssUrl = {
     "https://unpkg.com/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 export const appError = {
-  missDepend: `外部资源加载失败, 请前往脚本页反馈:\n${homePage}`,
+  missDepend: `外部资源加载失败, 请检查是否可以访问 unpkg.com\n若不能访问请尝试修改dns为223.5.5.5, 若无效请前往脚本页反馈:\n${homePage}`,
   SwalCssInvalid: `样式包数据错误, 请前往脚本页反馈:\n${homePage}`,
   SwalCssErrReq: `样式包加载失败, 请前往脚本页反馈:\n${homePage}\n错误代码: `,
 }; // 主程序异常
