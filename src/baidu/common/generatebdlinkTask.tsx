@@ -1,13 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2021-11-12 11:23:42
+ * @LastEditTime: 2022-05-23 19:35:24
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo } from "@/common/const";
-import { list_url, meta_url, meta_url2, pcs_url, UA } from "./const";
+import { list_url, meta_url2, pcs_url, UA } from "./const";
 export default class GeneratebdlinkTask {
   recursive: boolean;
   dirList: Array<string>;
@@ -41,6 +41,7 @@ export default class GeneratebdlinkTask {
         this.fileInfoList.push({
           path: item.path,
           size: item.size,
+          fs_id: item.fs_id,
         });
       }
     });
@@ -69,11 +70,17 @@ export default class GeneratebdlinkTask {
         data = data.response;
         if (!data.errno) {
           data.list.forEach((item: any) => {
-            item.isdir || this.fileInfoList.push({ path: item.path }); // 筛选并添加文件 (isdir===0)
+            item.isdir ||
+              this.fileInfoList.push({
+                path: item.path,
+                size: item.size,
+                fs_id: item.fs_id,
+              }); // 筛选并添加文件(isdir===0)
           });
         } else
           this.fileInfoList.push({
             path: this.dirList[i],
+
             errno: data.errno,
           });
         this.scanFile(i + 1);
@@ -88,12 +95,6 @@ export default class GeneratebdlinkTask {
     );
   }
 
-  /**
-   * @description: 获取秒传链接需要的信息
-   * @param {number} i
-   * @param {number} tryFlag
-   * @return {*}
-   */
   generateBdlink(i: number): void {
     GM_setValue("unfinish", {
       file_info_list: this.fileInfoList,
@@ -113,62 +114,10 @@ export default class GeneratebdlinkTask {
   }
 
   /**
-   * @description: 获取文件信息: size, md5(可能错误), fs_id
+   * @description: 获取文件信息: size, dlink
    * @param {number} i
    */
   getFileInfo(i: number) {
-    let file = this.fileInfoList[i];
-    ajax(
-      {
-        url: meta_url + encodeURIComponent(file.path),
-        responseType: "json",
-        method: "GET",
-      },
-      (data) => {
-        data = data.response;
-        if (!data.errno) {
-          console.log(data.list[0]); // debug
-          if (data.list[0].isdir) {
-            file.errno = 900;
-            this.generateBdlink(i + 1);
-            return;
-          }
-          file.size = data.list[0].size;
-          file.fs_id = data.list[0].fs_id;
-          // meta接口获取的md5可能错误, 故不再使用
-          // let md5 = data.list[0].md5.match(/[\dA-Fa-f]{32}/);
-          // if (md5) file.md5 = md5[0].toLowerCase(); // 获取到正确的md5
-          if (data.list[0].block_list.length === 1)
-            // block_list内获取到正确的md5
-            file.md5 = data.list[0].block_list[0].toLowerCase();
-
-          // 测试旧下载接口_start
-          // file.retry_996 = true;
-          // this.downloadFileData(
-          //   i,
-          //   pcs_url + `&path=${encodeURIComponent(file.path)}`
-          // );
-          // return;
-          // 测试旧下载接口_end
-
-          this.getDlink(i);
-        } else {
-          file.errno = data.errno;
-          this.generateBdlink(i + 1);
-        }
-      },
-      (statusCode) => {
-        file.errno = statusCode === 404 ? 909 : statusCode;
-        this.generateBdlink(i + 1);
-      }
-    );
-  }
-
-  /**
-   * @description: 获取文件的下载链接
-   * @param {number} i
-   */
-  getDlink(i: number) {
     let file = this.fileInfoList[i];
     ajax(
       {
@@ -242,8 +191,8 @@ export default class GeneratebdlinkTask {
       let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
       if (fileMd5) file.md5 = fileMd5[1].toLowerCase();
       // 从下载接口拿到了md5, 会覆盖meta接口的md5
-      else if (!file.md5 && file.size <= 3900000000 && !file.retry_996) {
-        // 下载接口和meta接口均未拿到md5, 尝试使用旧下载接口
+      else if (file.size <= 3900000000 && !file.retry_996) {
+        // 下载接口未拿到md5, 尝试使用旧下载接口, 改接口请求文件大小大于3.9G会返回403
         file.retry_996 = true;
         this.downloadFileData(
           i,
