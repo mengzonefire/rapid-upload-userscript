@@ -69,7 +69,9 @@
 
 ## 待更新
 
-1. https://greasyfork.org/zh-CN/scripts/424574/discussions/127485
+1. 不少人反馈依赖加载失败, 找找更好的cdn替换unpkg
+
+2. https://greasyfork.org/zh-CN/scripts/424574/discussions/127485
 
 <details>
 <summary>已完成 [点击展开]</summary>
