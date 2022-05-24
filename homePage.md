@@ -30,7 +30,7 @@
 
 - [视频教程 Win](https://www.bilibili.com/video/BV1E5411H76K): Win端下的完整使用教程(包含安装、提取、生成)
 
-- [视频教程 安卓] (https://www.bilibili.com/video/BV1ty4y127kJ): 安卓端下的安装使用教程
+- [视频教程 安卓](https://www.bilibili.com/video/BV1ty4y127kJ): 安卓端下的安装使用教程
 
 ## 常见问题
 
@@ -38,7 +38,7 @@
 
 2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>过旧版本(低于4.9)的油猴, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
-3. 若使用脚本时 <span style="color: red;">页面卡死、无法操作</span>, 请尝试关闭广告拦截插件
+3. 若使用脚本时 <span style="color: red;">看不到秒传按钮、页面卡死无法操作</span>, 请尝试关闭广告拦截插件
 
 4. 下载转存的文件显示 "<span style="color: red;">下载失败1252017</span>" 就是文件已被和谐
 
@@ -52,7 +52,9 @@
 
 - 支持批量提取(换行分隔符), 支持 url 传参(一键秒传), 格式：`https://pan.baidu.com/#bdlink=[参数]`，[参数]为 base64 加密过的任意格式链接 (支持批量)
 
-- 支持生成秒传, 网盘内选中 文件/文件夹后 即可看到秒传生成按钮
+- 支持新版度盘页面, 支持生成秒传, 网盘内选中 文件/文件夹后 即可看到秒传生成按钮
+
+![](https://pic.rmb.bdstatic.com/bjh/f0cd38fd5bf474a1ca73afe5ac767ebf.png)
 
 ![](https://pic.rmb.bdstatic.com/bjh/1cb5384f4b7cd3fc5a07b42ef45bfe93.png)
 
