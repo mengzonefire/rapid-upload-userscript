@@ -33,5 +33,6 @@
 // @run-at document-start
 // @connect baidu.com
 // @connect baidupcs.com
+// @connect cdn.jsdelivr.net
 // @connect *
 // ==/UserScript==

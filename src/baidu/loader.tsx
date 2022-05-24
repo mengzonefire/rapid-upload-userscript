@@ -20,7 +20,7 @@ import {
 } from "@/common/utils";
 
 export function loaderBaidu(): void {
-  $(function () {
+  let load = () => {
     if (locUrl.indexOf(baiduNewPage) !== -1) {
       // 添加swal参数以防止新版界面下的body样式突变
       swalInstance.swalGlobalArgs = {
@@ -70,5 +70,7 @@ export function loaderBaidu(): void {
     $(document).on("click", "#check_md5_btn", () => {
       swalInstance.checkMd5();
     }); // 测试秒传按钮
-  });
+  };
+  if (["interactive", "complete"].indexOf(document.readyState) !== -1) load();
+  else window.addEventListener("DOMContentLoaded", load);
 } // 百度秒传脚本主函数入口

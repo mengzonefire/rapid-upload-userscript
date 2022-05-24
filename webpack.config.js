@@ -107,7 +107,7 @@ module.exports = {
           "unsafeWindow",
         ],
         "run-at": "document-start",
-        connect: ["baidu.com", "baidupcs.com", "*"],
+        connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
       },
       pretty: false,
     }),

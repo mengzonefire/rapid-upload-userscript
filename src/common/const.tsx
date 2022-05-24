@@ -1,7 +1,7 @@
-export const updateInfoVer = "2.2.7"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
-export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字串以刷新缓存
-export const donateVer = "2.1.0"; // 用于检测可关闭的赞助提示的版本号
-export const feedbackVer = "2.1.0"; // 用于检测可关闭的反馈提示的版本号
+export const updateInfoVer = "2.3.0"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
+export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
+export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
+export const feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
 export const locUrl: string = location.href;
 export const baiduNewPage = "baidu.com/disk/main"; // 匹配新版度盘界面
 export const TAG = "[秒传链接提取 by mengzonefire]";
@@ -9,18 +9,18 @@ export const homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 export const donatePage = "https://afdian.net/@mengzonefire";
 export const ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 export const extCssUrl = {
-  Default: "https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css",
-  Dark: "https://unpkg.com/@sweetalert2/theme-dark@5/dark.min.css",
+  Default: "",
+  Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
   "WordPress Admin":
-    "https://unpkg.com/@sweetalert2/theme-wordpress-admin@5/wordpress-admin.min.css",
+    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-wordpress-admin@5/wordpress-admin.min.css",
   "Material UI":
-    "https://unpkg.com/@sweetalert2/theme-material-ui@5/material-ui.min.css",
-  Bulma: "https://unpkg.com/@sweetalert2/theme-bulma@5/bulma.min.css",
+    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-material-ui@5/material-ui.min.css",
+  Bulma:
+    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma@5/bulma.min.css",
   "Bootstrap 4":
-    "https://unpkg.com/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
+    "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 export const appError = {
-  missDepend: `外部资源加载失败, 请检查是否可以访问 unpkg.com\n若不能访问请尝试修改dns为223.5.5.5, 若无效请前往脚本页反馈:\n${homePage}`,
   SwalCssInvalid: `样式包数据错误, 请前往脚本页反馈:\n${homePage}`,
   SwalCssErrReq: `样式包加载失败, 请前往脚本页反馈:\n${homePage}\n错误代码: `,
 }; // 主程序异常
