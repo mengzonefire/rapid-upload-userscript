@@ -18,10 +18,6 @@
 
 - [防和谐教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/file-protect/): 关于度盘 <span style="color: red;">文件和谐</span> 的详解
 
-- [视频教程 Win](https://www.bilibili.com/video/BV1E5411H76K): Win端下的完整使用教程(包含安装、提取、生成)
-
-- [视频教程 安卓](https://www.bilibili.com/video/BV1ty4y127kJ): 安卓端下的安装使用教程
-
 ## 常见问题
 
 1. 此脚本只在度盘主页运行: https://pan.baidu.com, 目前无法兼容safari, macOS用户请使用mac版chrome运行脚本
