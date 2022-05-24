@@ -2,6 +2,7 @@ import checkBoxCss from "@/components/checkBox.css";
 import appCss from "@/app.scss";
 import { showAlert } from "./utils";
 import { extCssUrl, appError, swalCssVer } from "./const";
+import { loaderBaidu } from "../baidu/loader";
 import ajax from "./ajax";
 
 /**
@@ -13,20 +14,19 @@ export function injectStyle(): void {
   let swalThemes: string = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
   let defaultThemesCss: string = GM_getResourceText("swalCssBak");
   if (swalThemes === "Default") {
-    if (defaultThemesCss) {
-      GM_addStyle(defaultThemesCss);
-    } else {
+    if (defaultThemesCss) GM_addStyle(defaultThemesCss);
+    else {
       getThemesCss(swalThemes); // 暴力猴直接粘贴脚本代码可能不会将resource中的数据下载缓存，fallback到下载css代码
+      return;
     }
-    return;
   }
   let ThemesCss: string = GM_getValue(`${swalCssVer}${swalThemes}`); // 下载非默认主题的css代码
-  if (ThemesCss) {
-    GM_addStyle(ThemesCss);
-  } else {
+  if (ThemesCss) GM_addStyle(ThemesCss);
+  else {
     getThemesCss(swalThemes); // 未找到缓存, fallback到下载css代码
+    return;
   }
-  return;
+  loaderBaidu();
 }
 
 /**
@@ -50,6 +50,7 @@ function getThemesCss(swalThemes: string): void {
       } // 返回data数据长度过小, 判定为无效样式代码
       GM_setValue(`${swalCssVer}${swalThemes}`, ThemesCss); // 缓存css代码
       GM_addStyle(ThemesCss); // 注入css
+      loaderBaidu();
     },
 
     (statusCode) => {

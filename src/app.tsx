@@ -1,4 +1,3 @@
-import { loaderBaidu } from "./baidu/loader";
 import { injectStyle } from "./common/injectStyle";
 import { showAlert } from "./common/utils";
 import { appError } from "./common/const";
@@ -18,7 +17,6 @@ function app(): void {
   else {
     Base64.extendString();
     injectStyle();
-    loaderBaidu();
   }
 }
 
