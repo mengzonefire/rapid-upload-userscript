@@ -8,6 +8,7 @@ export const TAG = "[秒传链接提取 by mengzonefire]";
 export const homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 export const donatePage = "https://afdian.net/@mengzonefire";
 export const ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
+export const bdlinkPrefix = "https://pan.baidu.com/#bdlink=";
 export const extCssUrl = {
   Default: "",
   Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
@@ -44,11 +45,12 @@ export interface FileInfo {
   fs_id?: string;
   retry_996?: boolean;
 } // 自定义文件信息数据结构
+const docPrefix =
+  "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc";
 export const doc = {
-  shareDoc:
-    "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/",
-  linkTypeDoc:
-    "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/format-support/",
+  shareDoc: `${docPrefix}/generate-bdcode/`,
+  linkTypeDoc: `${docPrefix}//format-support/`,
+  bdlinkDoc: `${docPrefix}//about-bdlink/`,
 }; // 各文档url
 export const linkStyle =
   'class="mzf_link" rel="noopener noreferrer" target="_blank"';
@@ -56,6 +58,7 @@ export const btnStyle =
   'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
 export const bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
 export const htmlCheckMd5 = `<p class="mzf_text">测试秒传 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>`;
-export const htmlDocument = `<p class="mzf_text">秒传无效/md5获取失败/防和谐等 可参考<a href="${doc.shareDoc}" ${btnStyle}><span class="text" style="width: auto;">分享教程</span></a></p>`;
+export const htmlDocument = `<p class="mzf_text">秒传无效/md5获取失败/防和谐 可参考<a href="${doc.shareDoc}" ${btnStyle}><span class="text" style="width: auto;">分享教程</span></a></p>`;
 export const htmlDonate = `<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="${donatePage}" ${linkStyle}>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;
 export const htmlFeedback = `<p id="mzf_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="${homePage}" ${linkStyle}>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;
+export const htmlAboutBdlink = `<a href="${doc.bdlinkDoc}" ${linkStyle}>什么是一键秒传?</a>`;

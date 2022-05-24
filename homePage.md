@@ -4,8 +4,6 @@
 
 - 22.5.23: (<span style="color: red">重要</span>) ~~百度废弃了一个旧接口导致 生成秒传 报错 <span style="color: red">未知错误(#401)</span>, 2.2.7版本已修复该问题, 有需要请务必更新~~ (再测试了一下发现接口又修好了:-(
 
-- 22.5.20: 原依赖cdn jsdelivr加载失败会导致脚本延迟运行或无法安装, 故放弃多cdn方案, 2.2.4版本已将cdn全部更换为unpkg
-
 - 21.11.9: 已将所有失效的文档转移到 Gitlab Page: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 
 - 21.10.16: 已将完整的秒传转存功能移植到 [秒传网页版工具](https://rapidacg.gmgard.moe/)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
@@ -59,7 +57,7 @@
 
 ## 待更新
 
-1. ~~不少人反馈依赖加载失败, 找找更好的cdn替换unpkg~~(打算放弃使用cdn并内置所有依赖)
+1. ~~不少人反馈依赖加载失败, 找找更好的cdn替换unpkg~~(打算放弃使用cdn并内置所有依赖)(已完成)
 
 2. https://greasyfork.org/zh-CN/scripts/424574/discussions/127485
 

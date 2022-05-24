@@ -2,6 +2,7 @@ export {};
 declare global {
   interface String {
     fromBase64: any;
+    toBase64: any;
   }
   interface Element {
     __vue__: any;

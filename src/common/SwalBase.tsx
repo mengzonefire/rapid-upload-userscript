@@ -1,12 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-05-25 04:13:45
+ * @LastEditTime: 2022-05-25 07:33:33
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
 
-import { doc, linkStyle } from "./const";
+import { bdlinkPrefix, doc, htmlAboutBdlink, linkStyle } from "./const";
 import {
   refreshList,
   getSelectedFileList,
@@ -175,14 +175,31 @@ export default class Swalbase {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failedCount}个!`,
       confirmButtonText:
         isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
-      showCancelButton: isGen || this.rapiduploadTask.checkMode,
-      cancelButtonText: "复制一键秒传",
+      showDenyButton: isGen || this.rapiduploadTask.checkMode,
+      denyButtonText: "复制一键秒传",
+      denyButtonColor: "#ecae3c",
+      reverseButtons: true,
       html: html + htmlFooter,
       ...((isGen || this.rapiduploadTask.checkMode) && checkboxArg),
       willOpen: () => {
         if (!isGen && !this.rapiduploadTask.checkMode) this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
         if (isGen || this.rapiduploadTask.checkMode)
           GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
+      },
+      preDeny: () => {
+        let with_path = $("#swal2-checkbox")[0].checked;
+        GM_setValue("with_path", with_path);
+        if (!with_path)
+          GM_setClipboard(
+            bdlinkPrefix + parseResult.bdcode.replace(/\/.+\//g, "").toBase64()
+          );
+        // 去除目录结构, 并转换为一键秒传
+        else GM_setClipboard(bdlinkPrefix + parseResult.bdcode.toBase64()); // 转换为一键秒传
+        Swal.getDenyButton().innerText = "复制成功,点击右上关闭";
+        let footer = Swal.getFooter();
+        footer.innerHTML = htmlAboutBdlink;
+        footer.style.display = "flex";
+        return false;
       },
       preConfirm: () => {
         if (isGen || this.rapiduploadTask.checkMode) {
