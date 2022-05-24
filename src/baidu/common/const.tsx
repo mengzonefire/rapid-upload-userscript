@@ -32,8 +32,7 @@ export const swalInstance = new Swalbase(
 );
 
 export const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
-export const htmlTaglegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
-export const htmlTag2legacy = "form.h5-uploader-form"; // 旧版界面秒传按钮的html同级对象
+export const htmlTagLegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
 export const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
   '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
 export const htmlBtnGenNew = // 新版界面秒传生成按钮的html元素

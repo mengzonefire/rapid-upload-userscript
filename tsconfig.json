@@ -14,7 +14,8 @@
     "typeRoots": ["./node_modules/@types"],
     "lib": ["dom", "es2015"],
     "jsx": "react",
-    "allowJs": false
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.tsx", "src/**/*.ts"], // 要打包的文件
   "exclude": ["node_modules", "*.test.ts"]

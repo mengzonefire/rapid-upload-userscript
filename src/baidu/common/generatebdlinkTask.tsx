@@ -1,13 +1,14 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-05-23 19:35:24
+ * @LastEditTime: 2022-05-25 02:34:37
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo } from "@/common/const";
 import { list_url, meta_url2, pcs_url, UA } from "./const";
+import SparkMD5 from "spark-md5";
 export default class GeneratebdlinkTask {
   recursive: boolean;
   dirList: Array<string>;
@@ -176,7 +177,7 @@ export default class GeneratebdlinkTask {
   /**
    * @description: 解析服务器返回的数据
    * @param {number} i
-   * @param {JQuery.jqXHR} xhr
+   * @param {XMLHttpRequest} data
    * @return {*}
    */
   parseDownloadData(i: number, data: any): void {

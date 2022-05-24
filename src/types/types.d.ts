@@ -14,8 +14,5 @@ declare global {
     require: any;
     locals: any;
   }
-  var Swal: any;
-  var Base64: any;
-  var SparkMD5: any;
   // var __non_webpack_require__: any;
 }

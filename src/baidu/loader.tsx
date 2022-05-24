@@ -20,7 +20,7 @@ import {
 } from "@/common/utils";
 
 export function loaderBaidu(): void {
-  jQuery(function () {
+  $(function () {
     if (locUrl.indexOf(baiduNewPage) !== -1) {
       // 添加swal参数以防止新版界面下的body样式突变
       swalInstance.swalGlobalArgs = {

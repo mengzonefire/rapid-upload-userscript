@@ -2,15 +2,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const WebpackUserscript = require("webpack-userscript");
 const TerserPlugin = require("terser-webpack-plugin");
 const path = require("path");
-const nodeExternals = require("webpack-node-externals");
+// const nodeExternals = require("webpack-node-externals");
 const requireFunc =
-  typeof __webpack_require__ === "function" ? __non_webpack_require__ : require;
-// 忽略源码中的require功能
+  typeof __webpack_require__ === "function" ? __non_webpack_require__ : require; // 忽略源码中的require功能
 module.exports = {
   mode: "production",
   entry: path.resolve(__dirname, "src", "app.tsx"),
   externalsPresets: { node: true },
-  externals: [nodeExternals()],
+  // externals: [nodeExternals()],
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".json"],
     alias: {
@@ -107,18 +106,8 @@ module.exports = {
           "GM_xmlhttpRequest",
           "unsafeWindow",
         ],
-        resource: [
-          "swalCssBak https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.css",
-        ],
-        require: [
-          "https://unpkg.com/jquery@3.6.0/dist/jquery.min.js",
-          "https://unpkg.com/spark-md5@3.0.2/spark-md5.min.js",
-          "https://unpkg.com/sweetalert2@11/dist/sweetalert2.min.js",
-          "https://unpkg.com/js-base64@3.7.2/base64.js",
-        ], // 不要问为啥有重复cdn, jsdelivr老是抽风
-        // 22.5.20: 由于jsdelivr卡加载会导致脚本延迟运行 (触发http timeout), 现移除该cdn
         "run-at": "document-start",
-        connect: ["baidu.com", "baidupcs.com", "unpkg.com", "*"],
+        connect: ["baidu.com", "baidupcs.com", "*"],
       },
       pretty: false,
     }),

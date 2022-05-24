@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-05-22 11:10:45
+ * @LastEditTime: 2022-05-25 04:13:45
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -25,6 +25,7 @@ import {
 import DuParser from "./duParser";
 import { SwalConfig } from "./SwalConfig";
 import { parsefileInfo, parseClipboard, showAlert } from "./utils";
+import Swal from "sweetalert2";
 
 export default class Swalbase {
   swalGlobalArgs: any; // 全局swal参数配置对象
@@ -161,9 +162,7 @@ export default class Swalbase {
     }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
     let html =
       (isGen
-        ? (parseResult.failedCount === fileInfoList.length
-            ? ""
-            : htmlCheckMd5) + // 添加测试秒传入口, 若全部失败则不添加
+        ? (parseResult.failedCount != fileInfoList.length ? htmlCheckMd5 : "") + // 添加测试秒传入口, 若全部失败则不添加
           htmlDocument // 添加文档入口
         : "") +
       (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
@@ -176,6 +175,8 @@ export default class Swalbase {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failedCount}个!`,
       confirmButtonText:
         isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
+      showCancelButton: isGen || this.rapiduploadTask.checkMode,
+      cancelButtonText: "复制一键秒传",
       html: html + htmlFooter,
       ...((isGen || this.rapiduploadTask.checkMode) && checkboxArg),
       willOpen: () => {
@@ -192,7 +193,7 @@ export default class Swalbase {
             GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
           // 去除秒传链接中的目录结构(仅保留文件名)
           else GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
-          Swal.getConfirmButton().innerText = "复制成功,点击右上角关闭窗口";
+          Swal.getConfirmButton().innerText = "复制成功,点击右上关闭";
           return false;
         } else {
           // 转存模式, "确定" 按钮
@@ -315,9 +316,7 @@ export default class Swalbase {
 
   // 以下的方法都是任务操作逻辑, 不是弹窗逻辑
   saveFileWork() {
-    this.rapiduploadTask.onFinish = () => {
-      this.finishView(false);
-    };
+    this.rapiduploadTask.onFinish = () => this.finishView(false);
     this.rapiduploadTask.onProcess = (i, fileInfoList) => {
       Swal.getHtmlContainer().querySelector("file_num").textContent = `${
         i + 1
@@ -349,12 +348,8 @@ export default class Swalbase {
       this.processView(true);
       this.generatebdlinkTask.generateBdlink(0);
     };
-    this.generatebdlinkTask.onHasDir = () => {
-      this.checkRecursive();
-    };
-    this.generatebdlinkTask.onFinish = () => {
-      this.finishView(true);
-    };
+    this.generatebdlinkTask.onHasDir = () => this.checkRecursive();
+    this.generatebdlinkTask.onFinish = () => this.finishView(true);
     if (!isUnfinish && !isGenView) this.generatebdlinkTask.start(); // 执行新任务初始化
   }
 
@@ -398,7 +393,7 @@ export default class Swalbase {
       let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
       if (_dir.charAt(0) !== "/") _dir = "/" + _dir; // 补齐路径开头的"/"
       let cBtn = Swal.getConfirmButton();
-      let btn = cBtn.cloneNode();
+      let btn: HTMLElement = cBtn.cloneNode() as HTMLElement;
       btn.textContent = "打开目录";
       btn.style.backgroundColor = "#ecae3c";
       btn.onclick = () => {

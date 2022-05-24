@@ -3,7 +3,7 @@ import { swalInstance } from "../common/const";
 import {
   htmlBtnRapidLegacy,
   htmlBtnGenLegacy,
-  htmlTaglegacy,
+  htmlTagLegacy,
 } from "@/baidu/common/const";
 
 function getSystemContext() {
@@ -19,7 +19,7 @@ function addGenBtn() {
 }
 
 function addBtn() {
-  if ($(htmlTaglegacy).length) $(htmlTaglegacy).append(htmlBtnRapidLegacy);
+  if ($(htmlTagLegacy).length) $(htmlTagLegacy).append(htmlBtnRapidLegacy);
   else setTimeout(addBtn, 100);
 }
 

@@ -1,5 +1,5 @@
-import checkBoxCss from "@/components/checkBox.css";
-import appCss from "@/app.scss";
+import appCss from "@/css/app.scss";
+import defaultThemesCss from "@/css/sweetalert2.min.css";
 import { showAlert } from "./utils";
 import { extCssUrl, appError, swalCssVer } from "./const";
 import { loaderBaidu } from "../baidu/loader";
@@ -10,21 +10,15 @@ import ajax from "./ajax";
  */
 export function injectStyle(): void {
   GM_addStyle(appCss); // 注入自定义样式
-  GM_addStyle(checkBoxCss); // 注入checkBox选框样式
   let swalThemes: string = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
-  let defaultThemesCss: string = GM_getResourceText("swalCssBak");
-  if (swalThemes === "Default") {
-    if (defaultThemesCss) GM_addStyle(defaultThemesCss);
+  if (swalThemes === "Default") GM_addStyle(defaultThemesCss);
+  else {
+    let ThemesCss: string = GM_getValue(`${swalCssVer}${swalThemes}`); // 从缓存获取非默认主题的css代码
+    if (ThemesCss) GM_addStyle(ThemesCss);
     else {
-      getThemesCss(swalThemes); // 暴力猴直接粘贴脚本代码可能不会将resource中的数据下载缓存，fallback到下载css代码
+      getThemesCss(swalThemes); // 未找到缓存, fallback到下载css代码
       return;
     }
-  }
-  let ThemesCss: string = GM_getValue(`${swalCssVer}${swalThemes}`); // 下载非默认主题的css代码
-  if (ThemesCss) GM_addStyle(ThemesCss);
-  else {
-    getThemesCss(swalThemes); // 未找到缓存, fallback到下载css代码
-    return;
   }
   loaderBaidu();
 }
