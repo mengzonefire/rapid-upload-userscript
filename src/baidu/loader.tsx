@@ -28,11 +28,15 @@ export function loaderBaidu(): void {
         scrollbarPadding: false,
       };
       setRefreshList(() => {
-        document.querySelector(".nd-main-list").__vue__.reloadList();
+        document
+          .querySelector(".nd-main-list, .nd-new-main-list")
+          .__vue__.reloadList();
       });
       setGetSelectedFileList(getSelectedFileListNew);
       setGetBdstoken(
-        () => document.querySelector(".nd-main-list").__vue__.yunData.bdstoken
+        () =>
+          document.querySelector(".nd-main-list, .nd-new-main-list").__vue__
+            .yunData.bdstoken
       );
       installNew();
     } // 新版界面loader入口

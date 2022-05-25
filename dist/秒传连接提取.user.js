@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.3.1
+// @version 2.3.2
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -6018,6 +6018,7 @@ function setGetSelectedFileList(func) {
 }
 var swalInstance = new swalBase(new common_RapiduploadTask(), new common_GeneratebdlinkTask());
 var htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
+var htmlTagNew2 = "div.wp-s-agile-tool-bar__header"; // 22.5.24: 新版界面新增的一个父对象
 var htmlTagLegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
 var htmlBtnRapidNew = // 新版界面秒传按钮的html元素
  '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
@@ -6186,7 +6187,8 @@ function getSelectedFileListLegacy() {
  * 我从这里抄的, 谢谢你: https://greasyfork.org/zh-CN/scripts/436446
  */
 function getSelectedFileListNew() {
-    return document.querySelector(".nd-main-list").__vue__.selectedList;
+    return document.querySelector(".nd-main-list, .nd-new-main-list").__vue__
+        .selectedList;
 }
 /**
  * @description: 将data键值对转换为query字符串
@@ -6238,7 +6240,6 @@ function initQueryLink() {
 
 function installNew() {
     console.info("%s DOM方式安装，若失效请报告。", TAG);
-    $(htmlTagNew).append(htmlBtnRapidNew, htmlBtnGenNew);
     $(document).on("click", "#bdlink_btn", function () {
         swalInstance.inputView();
     }); // 绑定转存秒传按钮事件
@@ -6246,6 +6247,16 @@ function installNew() {
         swalInstance.generatebdlinkTask.reset();
         swalInstance.checkUnfinish();
     }); // 绑定生成秒传按钮事件
+    addBtn();
+}
+function addBtn() {
+    // 轮询添加按钮, 防止新版页面重复init时, 将按钮覆盖
+    var target = $(htmlTagNew);
+    if (!target.length)
+        target = $(htmlTagNew2);
+    if (target.length && !$("#bdlink_btn").length)
+        target.append(htmlBtnRapidNew, htmlBtnGenNew);
+    setTimeout(addBtn, 500);
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/legacyPage/loader.tsx
@@ -6263,15 +6274,15 @@ function addGenBtn() {
     else
         setTimeout(addGenBtn, 300);
 }
-function addBtn() {
+function loader_addBtn() {
     if ($(htmlTagLegacy).length)
         $(htmlTagLegacy).append(htmlBtnRapidLegacy);
     else
-        setTimeout(addBtn, 100);
+        setTimeout(loader_addBtn, 100);
 }
 function installlegacy() {
     console.info("%s DOM方式安装，若失效请报告。", TAG);
-    addBtn(); // DOM添加秒传按钮
+    loader_addBtn(); // DOM添加秒传按钮
     addGenBtn(); // DOM添加生成按钮
     $(document).on("click", "#bdlink_btn", function () {
         swalInstance.inputView();
@@ -6298,10 +6309,15 @@ function loaderBaidu() {
                 scrollbarPadding: false,
             };
             setRefreshList(function () {
-                document.querySelector(".nd-main-list").__vue__.reloadList();
+                document
+                    .querySelector(".nd-main-list, .nd-new-main-list")
+                    .__vue__.reloadList();
             });
             setGetSelectedFileList(getSelectedFileListNew);
-            setGetBdstoken(function () { return document.querySelector(".nd-main-list").__vue__.yunData.bdstoken; });
+            setGetBdstoken(function () {
+                return document.querySelector(".nd-main-list, .nd-new-main-list").__vue__
+                    .yunData.bdstoken;
+            });
             installNew();
         } // 新版界面loader入口
         else {

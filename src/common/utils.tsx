@@ -85,7 +85,8 @@ export function getSelectedFileListLegacy() {
  * 我从这里抄的, 谢谢你: https://greasyfork.org/zh-CN/scripts/436446
  */
 export function getSelectedFileListNew() {
-  return document.querySelector(".nd-main-list").__vue__.selectedList;
+  return document.querySelector(".nd-main-list, .nd-new-main-list").__vue__
+    .selectedList;
 }
 
 /**
