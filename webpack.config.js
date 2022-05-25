@@ -106,7 +106,7 @@ module.exports = {
           "GM_xmlhttpRequest",
           "unsafeWindow",
         ],
-        "run-at": "document-start",
+        "run-at": "document-body",
         connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
       },
       pretty: false,
