@@ -22,9 +22,9 @@
 
 2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>版本低于4.9的油猴插件, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
-3. 若使用脚本时 <span style="color: red;">看不到秒传按钮、页面卡死无法操作</span>, 请尝试关闭广告拦截插件
+3. 若使用脚本时 <span style="color: red;">看不到秒传按钮、页面卡死无法操作</span>, 请关闭广告拦截插件和同时运行的其他插件或脚本(排查冲突), 若无效再根据 5. 反馈
 
-4. 下载转存的文件显示 "<span style="color: red;">下载失败1252017</span>" 就是文件已被和谐, 无法下载
+4. 下载转存的文件显示 "<span style="color: red;">下载失败1252017</span>" 等同**包含违规...**, 即文件已被和谐, 不允许下载
 
 5. 若遇到其他问题, 请按 F12 打开控制台(console)截图反馈, 并反馈浏览器、油猴插件及脚本版本
 
