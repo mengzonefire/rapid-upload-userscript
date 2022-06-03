@@ -87,6 +87,8 @@ module.exports = {
           "firefox Tampermonkey",
           "chrome Violentmonkey",
           "chrome Tampermonkey",
+          "edge Violentmonkey",
+          "edge Tampermonkey",
         ],
         match: [
           "*://pan.baidu.com/disk/home*",

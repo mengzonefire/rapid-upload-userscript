@@ -65,7 +65,7 @@ export function baiduErrno(errno: number) {
     case -10:
       return "网盘容量已满";
     case 514:
-      return "请求失败(若弹出跨域提示,请选择允许/尝试关闭网络代理/更换浏览器)";
+      return `请求失败(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 1919:
       return `文件已被和谐(请参考<a href="${doc.shareDoc}" ${linkStyle}>分享教程</a>)`;
     case 996:

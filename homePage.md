@@ -10,7 +10,7 @@
 
 ## 相关教程
 
-- [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓/IOS]
+- [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
 
 - [分享教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传无效 / md5 获取失败 / 文件和谐
 
@@ -59,7 +59,7 @@
 
 1. ~~不少人反馈依赖加载失败, 找找更好的cdn替换unpkg~~(打算放弃使用cdn并内置所有依赖)(已完成)
 
-2. https://greasyfork.org/zh-CN/scripts/424574/discussions/127485
+2. [给页面中的秒传添加一键秒传超链接](https://greasyfork.org/zh-CN/scripts/424574/discussions/127485) (作为独立脚本发布和维护)
 
 <details>
 <summary>已完成 [点击展开]</summary>

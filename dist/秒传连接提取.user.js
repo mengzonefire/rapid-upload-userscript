@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.3.2
+// @version 2.3.3
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -22,6 +22,8 @@
 // @compatible firefox Tampermonkey
 // @compatible chrome Violentmonkey
 // @compatible chrome Tampermonkey
+// @compatible edge Violentmonkey
+// @compatible edge Tampermonkey
 // @grant GM_setValue
 // @grant GM_getValue
 // @grant GM_deleteValue
@@ -6050,7 +6052,7 @@ function baiduErrno(errno) {
         case -10:
             return "网盘容量已满";
         case 514:
-            return "请求失败(若弹出跨域提示,请选择允许/尝试关闭网络代理/更换浏览器)";
+            return "\u8BF7\u6C42\u5931\u8D25(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
         case 1919:
             return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
         case 996:
