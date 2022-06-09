@@ -2,19 +2,18 @@
 
 ## 近期通知
 
+- 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: [秒传脚本文档v2](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/)
+
 - 22.5.23: (<span style="color: red">重要</span>) ~~百度废弃了一个旧接口导致 生成秒传 报错 <span style="color: red">未知错误(#401)</span>, 2.2.7版本已修复该问题, 有需要请务必更新~~ (再测试了一下发现接口又修好了:-(
 
-- 21.11.9: 已将所有失效的文档转移到 Gitlab Page: [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/)
 
 - 21.10.16: 已将完整的秒传转存功能移植到 [秒传网页版工具](https://rapidacg.gmgard.moe/)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
 
 ## 相关教程
 
-- [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
+- [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/Install/About.html): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
 
-- [分享教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传无效 / md5 获取失败 / 文件和谐
-
-- [防和谐教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/file-protect/): 关于度盘 <span style="color: red;">文件和谐</span> 的详解
+- [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/FAQ/%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81.html): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传无效 / md5 获取失败 / 文件和谐
 
 ## 常见问题
 

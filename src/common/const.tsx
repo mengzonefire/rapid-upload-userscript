@@ -1,4 +1,4 @@
-export const updateInfoVer = "2.3.0"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
+export const updateInfoVer = "2.3.4"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 export const feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -46,11 +46,11 @@ export interface FileInfo {
   retry_996?: boolean;
 } // 自定义文件信息数据结构
 const docPrefix =
-  "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc";
+  "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document";
 export const doc = {
-  shareDoc: `${docPrefix}/generate-bdcode/`,
-  linkTypeDoc: `${docPrefix}//format-support/`,
-  bdlinkDoc: `${docPrefix}//about-bdlink/`,
+  shareDoc: `${docPrefix}/FAQ/错误代码`,
+  linkTypeDoc: `${docPrefix}/Info/秒传格式`,
+  bdlinkDoc: `${docPrefix}/秒传链接生成/一键秒传`,
 }; // 各文档url
 export const linkStyle =
   'class="mzf_link" rel="noopener noreferrer" target="_blank"';
