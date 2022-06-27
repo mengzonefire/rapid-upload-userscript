@@ -17,11 +17,12 @@
 
 ## 常见问题
 
-1. 此脚本只在度盘主页运行: https://pan.baidu.com, 目前无法兼容safari, macOS用户请使用mac版chrome运行脚本
+1. 此脚本只在度盘主页运行: https://pan.baidu.com, 目前不兼容safari, macOS用户请使用mac版Chrome运行脚本
 
 2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>版本低于4.9的油猴插件, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
-3. 若使用脚本时 <span style="color: red;">看不到秒传按钮、页面卡死无法操作</span>, 请关闭广告拦截插件和同时运行的其他插件或脚本(排查冲突), 若无效再根据 5. 反馈
+3. 若使用脚本时 <span style="color: red;">秒传按钮 或 转存窗口 不显示、页面卡死无法操作</span> 等, 尝试关闭广告拦截插件和同时运行的其他插件脚本 
+* (**排查冲突**) 若无效再根据 **5.** 反馈
 
 4. 下载转存的文件显示 "<span style="color: red;">下载失败1252017</span>" 等同**包含违规...**, 即文件已被和谐, 不允许下载
 
