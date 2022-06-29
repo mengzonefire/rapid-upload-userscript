@@ -46,7 +46,7 @@ export const htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
 export function baiduErrno(errno: number) {
   switch (errno) {
     case -6:
-      return "认证失败(尝试刷新页面/重新登录度盘账号)";
+      return `认证失败(请参考<a href="${doc.shareDoc}#认证失败-6" ${linkStyle}>分享教程</a>)`;
     case -7:
       return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
     case -8:

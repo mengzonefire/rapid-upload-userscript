@@ -2,31 +2,31 @@
 
 ## 近期通知
 
-- 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: [秒传脚本文档v2](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/)
+- 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: **秒传脚本文档v2**: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc)
 
 - 22.5.23: (<span style="color: red">重要</span>) ~~百度废弃了一个旧接口导致 生成秒传 报错 <span style="color: red">未知错误(#401)</span>, 2.2.7版本已修复该问题, 有需要请务必更新~~ (再测试了一下发现接口又修好了:-(
 
 
-- 21.10.16: 已将完整的秒传转存功能移植到 [秒传网页版工具](https://rapidacg.gmgard.moe/)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
+- 21.10.16: 已将完整的秒传转存功能移植到 **秒传网页版工具**: [载点1](https://rapidacg.gmgard.moe/) [载点2](https://mengzonefire.github.io/baidupan-rapidupload)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
 
 ## 相关教程
 
-- [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/Install/About.html): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
+- 安装教程: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/Install/About) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/Install/About): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
 
-- [文档目录](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/FAQ/%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81.html): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传无效 / md5 获取失败 / 文件和谐
+- 错误码文档: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/FAQ/错误代码) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/FAQ/错误代码): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传未生效 / md5获取失败 / 文件和谐
 
 ## 常见问题
 
 1. 此脚本只在度盘主页运行: https://pan.baidu.com, 目前不兼容safari, macOS用户请使用mac版Chrome运行脚本
 
-2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>版本低于4.9的油猴插件, 尽量参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
+2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>版本低于4.9的油猴插件, 尽量参考上方提供的 **安装教程**
 
 3. 若使用脚本时 <span style="color: red;">秒传按钮 或 转存窗口 不显示、页面卡死无法操作</span> 等, 尝试关闭广告拦截插件和同时运行的其他插件脚本 
-* (**排查冲突**) 若无效再根据 **5.** 反馈
+   * (**排查冲突**) 若无效再根据 **5.** 反馈
 
 4. 下载转存的文件显示 "<span style="color: red;">下载失败1252017</span>" 等同**包含违规...**, 即文件已被和谐, 不允许下载
 
-5. 若遇到其他问题, 请按 F12 打开控制台(console)截图反馈, 并反馈浏览器、油猴插件及脚本版本
+5. 若遇到其他问题, 请前往 [反馈页](https://greasyfork.org/zh-CN/scripts/424574/feedback) 反馈: 1.浏览器版本 2.油猴插件版本 3.出现问题时按F12->打开控制台(console)->截图
 
 ## 脚本说明
 
@@ -51,7 +51,7 @@
 <details>
 <summary>点击展开</summary>
 
-<ul><li><p>梦姬标准/标准码: D5AABEFC3290F7A3C09912228B136D0C#821A9F0D27FCD19C80474D2140ED2D85#6467659#test.exe</p></li><li><p>PanDL格式: bdpan://dGVzdC5leGV8NjQ2NzY1OXxENUFBQkVGQzMyOTBGN0EzQzA5OTEyMjI4QjEzNkQwQ3w4MjFBOUYwRDI3RkNEMTlDODA0NzREMjE0MEVEMkQ4NQ==</p></li><li><p>PCS-GO格式: BaiduPCS-Go rapidupload -length=6467659 -md5=D5AABEFC3290F7A3C09912228B136D0C -slicemd5=821A9F0D27FCD19C80474D2140ED2D85 "/test.exe"</p></li><li><p>游侠格式: BDLINK......</p></li></ul>
+<ul><li><p>梦姬标准/标准码: D5AABEFC3290F7A3C09912228B136D0C#821A9F0D27FCD19C80474D2140ED2D85#6467659#test.exe</p></li><li><p>PanDL格式: bdpan://dGVzdC5leGV8NjQ2NzY1OXxENUFBQkVGQzMyOTBGN0EzQzA5OTEyMjI4QjEzNkQwQ3w4MjFBOUYwRDI3RkNEMTlDODA0NzREMjE0MEVEMkQ4NQ==</p></li><li><p>PCS-GO格式: BaiduPCS-Go rapidupload -length=6467659 -md5=D5AABEFC3290F7A3C09912228B136D0C -slicemd5=821A9F0D27FCD19C80474D2140ED2D85 "/test.exe"</p></li><li><p>游侠格式(BDLINK......): BDLINKQkRGUwAHAAAA0/AgXQEAAABvU6INa3SryWsF1pGpw7ALjjjB7lz4B3zYkhccg7C38ToAAABXAG8AcgBsAGQALgBXAGEAcgAuAFoALgAyADAAMQAzAC4AVQBuAHIAYQB0AGUAZAAuAEMAdQB0</p></li></ul>
 
 </details>
 

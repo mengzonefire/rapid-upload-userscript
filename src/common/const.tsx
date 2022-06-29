@@ -1,3 +1,5 @@
+export const version = "2.3.5"; // 当前版本号
+export const updateDate = "22.6.30"; // 当前版本的更新日期
 export const updateInfoVer = "2.3.4"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -47,11 +49,18 @@ export interface FileInfo {
 } // 自定义文件信息数据结构
 const docPrefix =
   "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document";
+const docPrefix2 =
+  "https://xtsat.github.io/rapid-upload-userscript-doc/document";
 export const doc = {
   shareDoc: `${docPrefix}/FAQ/错误代码`,
   linkTypeDoc: `${docPrefix}/Info/秒传格式`,
   bdlinkDoc: `${docPrefix}/秒传链接生成/一键秒传`,
-}; // 各文档url
+}; // 文档载点1
+export const doc2 = {
+  shareDoc: `${docPrefix2}/FAQ/错误代码`,
+  linkTypeDoc: `${docPrefix2}/Info/秒传格式`,
+  bdlinkDoc: `${docPrefix2}/秒传链接生成/一键秒传`,
+}; // 文档载点2
 export const linkStyle =
   'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 export const btnStyle =

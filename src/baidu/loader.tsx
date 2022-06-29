@@ -5,7 +5,7 @@ import {
   donateVer,
   feedbackVer,
 } from "@/common/const";
-import initQueryLink from "@/common/initQueryLink";
+import { parseQueryLink } from "@/common/duParser";
 import installNew from "./newPage/loader";
 import installLegacy from "./legacyPage/loader";
 import {
@@ -52,7 +52,7 @@ export function loaderBaidu(): void {
       installLegacy();
     } // 旧版界面loader入口
 
-    let bdlink = initQueryLink(); // 解析url中的秒传链接
+    let bdlink = parseQueryLink(locUrl); // 解析url中的秒传链接
     if (bdlink) {
       // 解析到秒传链接, 弹出转存窗口
       swalInstance.inputView(bdlink);

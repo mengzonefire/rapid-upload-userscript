@@ -22,7 +22,7 @@ import {
   htmlDonate,
   htmlFeedback,
 } from "./const";
-import DuParser from "./duParser";
+import { DuParser, parseQueryLink } from "./duParser";
 import { SwalConfig } from "./SwalConfig";
 import { parsefileInfo, parseClipboard, showAlert } from "./utils";
 import Swal from "sweetalert2";
@@ -47,28 +47,26 @@ export default class Swalbase {
   }
 
   // 点击 "秒传链接" 后显示的弹窗
-  async inputView(bdlink = "") {
-    let rapidValue: string = bdlink;
-    // 从GM存储读取之前输入的路径数据&从剪贴板读取有效的秒传数据
-    console.log(GM_getValue("listen-clipboard"));
-    if (GM_getValue("listen-clipboard") && !rapidValue)
-      rapidValue = await parseClipboard();
-    let pathValue: string = GM_getValue("last_dir") || "";
-    // 自行读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
+  async inputView(inputValue: string = "") {
+    if (GM_getValue("listen-clipboard") && !inputValue)
+      // 标志位true 且 inputValue为空(非一键秒传进入时) 从剪贴板读取有效的秒传链接
+      inputValue = await parseClipboard();
+    let pathValue: string = GM_getValue("last_dir") || ""; // 从GM存储读取上次输入的转存路径
     let preConfirm = () => {
-      rapidValue = $("#mzf-rapid-input")[0].value;
+      // 手动读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
+      inputValue = $("#mzf-rapid-input")[0].value;
       pathValue = $("#mzf-path-input")[0].value;
-      if (!rapidValue) {
+      if (!inputValue) {
         Swal.showValidationMessage("秒传不能为空");
         return false;
       }
-      if (rapidValue === "set") {
+      if (inputValue === "set") {
         return;
       }
-      if (rapidValue === "gen") {
+      if (inputValue === "gen") {
         return;
       }
-      if (!DuParser.parse(rapidValue).length) {
+      if (!DuParser.parse(inputValue).length) {
         Swal.showValidationMessage(
           `<p>未识别到正确的链接 <a href="${doc.linkTypeDoc}" ${linkStyle}>查看支持格式</a></p>`
         );
@@ -86,8 +84,12 @@ export default class Swalbase {
         .css("font-size", "1rem")
         .css("display", "grid")
         .css("margin", "0");
-      $("#mzf-rapid-input")[0].value = rapidValue;
+      $("#mzf-rapid-input")[0].value = inputValue;
       $("#mzf-path-input")[0].value = pathValue;
+      $("#mzf-rapid-input").on("input", function (event) {
+        let result = parseQueryLink(event.target.value);
+        if (DuParser.parse(result).length) event.target.value = result;
+      }); // 绑定输入框事件, 输入一键秒传后尝试转换为普通秒传
     };
     Swal.fire(
       this.mergeArg(SwalConfig.inputView, {
@@ -96,11 +98,11 @@ export default class Swalbase {
       })
     ).then((result: any) => {
       if (result.isConfirmed) {
-        if (rapidValue === "set") this.settingView();
-        else if (rapidValue === "gen") this.genView();
+        if (inputValue === "set") this.settingView();
+        else if (inputValue === "gen") this.genView();
         else {
           this.rapiduploadTask.reset();
-          this.rapiduploadTask.fileInfoList = DuParser.parse(rapidValue);
+          this.rapiduploadTask.fileInfoList = DuParser.parse(inputValue);
           GM_setValue("last_dir", pathValue);
           if (!pathValue) {
             // 路径留空

@@ -20,7 +20,7 @@ export default class RapiduploadTask {
 
   reset(): void {
     this.bdstoken = getBdstoken();
-    console.log("bdstoken: ", this.bdstoken); // debug
+    // console.log("bdstoken: ", this.bdstoken); // debug
     this.fileInfoList = [];
     this.savePath = "";
     this.checkMode = false;

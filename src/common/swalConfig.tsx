@@ -1,11 +1,12 @@
 import updateInfo from "@/components/updateInfo.html";
+import { updateDate, version } from "@/common/const";
 
 // 各Swal弹窗的固定参数配置:
 export const SwalConfig = {
   inputView: {
     title: "请输入秒传&保存路径",
     showCancelButton: true,
-    html: `<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="[支持批量(换行分隔)]\n[支持PanDL/游侠/标准码/GO格式]\n[可在设置页开启监听剪贴板,自动输入秒传]\n[输入set进入设置页][输入gen进入生成页]" style="display: flex;"></textarea>
+    html: `<textarea id="mzf-rapid-input" class="swal2-textarea" placeholder="· 支持批量转存多条秒传(换行分隔)\n· 支持PanDL/游侠/标准码/PCS-GO格式\n· 支持输入一键秒传(自动转换为普通秒传)\n· 可在设置页开启监听剪贴板,自动粘贴秒传\n· 输入set进入设置页, 输入gen进入生成页" style="display: flex;padding: 0.4em;"></textarea>
     <input id="mzf-path-input" class="swal2-input" placeholder="保存路径, 示例: /GTA5/, 留空保存在当前目录" style="display: flex;margin-top: 10px;">`,
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -57,7 +58,7 @@ export const SwalConfig = {
   },
 
   updateInfo: {
-    title: `秒传链接提取 更新内容`,
+    title: `秒传链接提取 v${version} (${updateDate})`,
     showCloseButton: true,
     allowOutsideClick: false,
     confirmButtonText: "知道了",

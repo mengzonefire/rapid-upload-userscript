@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.3.4
+// @version 2.3.5
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4740,7 +4740,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 250px; overflow-y: scroll\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <span>\r\n      <p>\r\n        若喜欢该脚本可前往\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        支持作者\r\n      </p>\r\n\r\n      <p>\r\n        若出现任何问题请前往\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">脚本主页</a>\r\n        反馈\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.3.4 更新内容(22.6.10):</p>\r\n\r\n      <p>\r\n        由XTsat完成了相关文档的重构和美化:\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本文档v2</a>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.3.0 更新内容(22.5.25):</p>\r\n\r\n      <p>1.内置必要依赖, 不再从cdn加载, 避免运行报错 \"<span style=\"color: red\">外部资源加载失败</span>\"</p>\r\n\r\n      <p>2.生成秒传新增 \"复制一键秒传\" 功能 (<a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/about-bdlink\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">什么是一键秒传?</a>)</p>\r\n\r\n      <img src=\"https://pic.rmb.bdstatic.com/bjh/6f2f81431a9b375cd7afc3b6a3c4bf34.png\" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.2.5 更新内容(22.5.22):</p>\r\n\r\n      <p>1.修复生成秒传完成后, 测试秒传时报错 \"转存失败(#2)\" 的问题</p>\r\n\r\n      <p>2.测试秒传后固定保留所有原本生成的秒传及复制按钮, 不再排除测试失败的秒传</p>\r\n\r\n      <p>3.点击秒传复制按钮不再关闭窗口, 且在关闭窗口前始终保留秒传记录(在下次点击生成秒传时弹出提示), 以防止误操作导致生成结果丢失</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.2.0 更新内容(22.3.24):</p>\r\n\r\n      <p>1.修复重复弹窗时出现的背景闪屏问题</p>\r\n\r\n      <p>2.将输入秒传和保存路径的窗口整合, 减少弹窗步骤</p>\r\n\r\n      <p>3.设置页新增 \"<span style=\"color: red\">监听剪贴板</span>\" 功能, 开启后可自动粘贴秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.5 更新内容(22.3.17):</p>\r\n\r\n      <p>转存完成后同时显示成功和失败列表折叠框</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.3 更新内容(22.2.24):</p>\r\n\r\n      <p>1. 修复新版度盘页面下的按钮样式</p>\r\n\r\n      <p>2. 修复新版度盘页面下的 \"打开目录\" 功能</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.1.0 更新内容(22.1.22):</p>\r\n\r\n      <p>支持 新版度盘页面 下的 \"生成秒传\" 功能</p>\r\n\r\n      <img src=\"https://pic.rmb.bdstatic.com/bjh/8c05bf7c7ba44cb6f7e0a68c3e17ab54.png\" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.20 更新内容(22.1.22):</p>\r\n\r\n      <p>\r\n        修复部分生成秒传时提示 \"请求失败...(#514)\" 的问题, 生成时若弹出跨域提示,\r\n        请选择允许\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.12 更新内容(21.11.9):</p>\r\n\r\n      <p>\r\n        修复所有失效的文档链接, 见\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">文档目录</a>\r\n      </p>\r\n\r\n      <p>修复在目标目录下点击\"打开目录\"按钮, 文件列表不刷新的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.11 更新内容(21.10.18):</p>\r\n\r\n      <p>移除一处可能导致生成错误秒传的代码</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.10 更新内容(21.10.1):</p>\r\n\r\n      <p>修复失效的教程文档地址</p>\r\n\r\n      <p>*部分地区打开显示石墨文档正在升级</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>2.0.5 更新内容(21.9.1):</p>\r\n\r\n      <p>\r\n        转存路径留空现改为默认转存到 <span style=\"color: red\">当前目录</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p><span style=\"color: red\">2.0.0</span> 更新内容(21.8.30):</p>\r\n\r\n      <p>1.移除游侠秒传格式的支持</p>\r\n\r\n      <p>2.重构代码, 全面优化, 提升使用体验</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.5 更新内容(21.7.30):</p>\r\n\r\n      <p>\r\n        修复了部分转存提示 \"<span style=\"color: red\">转存失败(尝试...)(#2)</span>\" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.4 更新内容(21.7.18):</p>\r\n\r\n      <p>\r\n        修复了部分生成提示 \"<span style=\"color: red\">md5获取失败</span>\" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.8.1 更新内容(21.7.6):</p>\r\n\r\n      <p>支持转存与生成 <span style=\"color: red\">20G以上</span> 文件的秒传</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.9 更新内容(21.6.28):</p>\r\n\r\n      <p>1.大幅提升非会员账号生成秒传的速度</p>\r\n\r\n      <p>\r\n        2.修复生成4G以上文件提示\"<span style=\"color: red\">服务器错误(#500)</span>\"的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.8 更新内容(21.6.25):</p>\r\n\r\n      <p>\r\n        修复了绝大部分转存提示 \"<span style=\"color: red\">文件不存在(秒传未生效)(#404)</span>\" 的问题\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.7.3 更新内容(21.6.23):</p>\r\n\r\n      <p>升级样式&主题, 提升观感, 修复了设置内的主题适配</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.8 更新内容(21.6.18)</p>\r\n\r\n      <p>\r\n        移除 <span style=\"color: red\">修复下载</span> 功能(已在21年4月上旬失效),\r\n        后续不会再考虑修复该功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.7 更新内容(21.3.30)</p>\r\n\r\n      <p>修复部分秒传转存时提示 \"文件不存在(秒传无效)\"</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.6.1 更新内容(21.3.29)</p>\r\n\r\n      <p>\r\n        新增 <span style=\"color: red\">直接修复下载</span> 的功能,\r\n        选中网盘内文件, 再点击上方\r\n        <span style=\"color: red\">修复下载</span> 按钮即可生成可正常下载的新文件\r\n      </p>\r\n\r\n      <img src=\"https://pic.rmb.bdstatic.com/bjh/5e05f7c1f772451b8efce938280bcaee.png\" />\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.7 更新内容(21.3.9)</p>\r\n\r\n      <p>\r\n        修复部分文件转存后 <span style=\"color: red\">无法下载</span> 的问题,\r\n        可尝试 <span style=\"color: red\">重新转存</span> 之前无法下载文件.\r\n        且转存新增了 <span style=\"color: red\">修复下载</span> 功能\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.4 更新内容(21.2.11)</p>\r\n\r\n      <p>\r\n        面向分享者的\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">分享教程</a>\r\n        的防和谐方法更新:\r\n      </p>\r\n\r\n      <p>\r\n        经测试, 原教程的 \"固实压缩+加密文件名\"\r\n        已无法再防和谐(在度盘移动端依旧可以在线解压),\r\n        目前有效的防和谐方法请参考教程内的\r\n        <span style=\"color: red\">\"双层压缩\"</span>\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.5.3 更新内容(21.2.6):</p>\r\n\r\n      <p>修复了生成秒传时, 秒传有效, 仍提示\"md5获取失败(#996)\"的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.9 更新内容(21.1.28):</p>\r\n\r\n      <p>1. 重新兼容了暴力猴插件, 感谢Trendymen提供的代码</p>\r\n\r\n      <p>\r\n        2. 新增更换主题的功能, 在秒传输入框中输入setting进入设置页,\r\n        更换为其他主题, 即可避免弹窗时的背景变暗\r\n      </p>\r\n\r\n      <p>3. 修改了部分代码逻辑, 秒传按钮不会再出现在最左边了</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.6 更新内容(21.1.14):</p>\r\n\r\n      <p>本次更新针对生成功能做了优化:</p>\r\n\r\n      <p>\r\n        1. 使用超会账号进行10个以上的批量秒传生成时, 会弹窗提示设置生成间隔,\r\n        防止生成过快导致接口被限制(#403)\r\n      </p>\r\n\r\n      <p>\r\n        2. 为秒传分享者提供了一份<a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/generate-bdcode/\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">分享教程</a>用于参考\r\n      </p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.4.5 更新内容(21.1.12):</p>\r\n\r\n      <p>修复了1.4.0后可能出现的秒传按钮无效、显示多个秒传按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.7 更新内容(21.1.3):</p>\r\n\r\n      <p>修复了会员账号生成50M以下文件时提示 \"md5获取失败\" 的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.3.3 更新内容(20.12.1):</p>\r\n\r\n      <p>\r\n        秒传生成完成后点击复制按钮之前都可以继续任务,防止误操作关闭页面导致生成结果丢失\r\n      </p>\r\n\r\n      <p>修改代码执行顺序防止秒传按钮出现在最左端</p>\r\n\r\n      <p>修复了跨域提示中失效的说明图片</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.9 更新内容(20.11.11):</p>\r\n\r\n      <p>生成秒传的弹窗添加了关闭按钮</p>\r\n\r\n      <p>删除了全部生成失败时的复制和测试按钮</p>\r\n\r\n      <p>秒传生成后加了一个导出文件路径的选项(默认不导出)</p>\r\n\r\n      <p>在输入保存路径的弹窗添加了校验, 防止输入错误路径</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.5 更新内容(20.11.4):</p>\r\n\r\n      <p>优化按钮样式, 添加了md5获取失败的报错</p>\r\n\r\n      <p>修复从pan.baidu.com进入后不显示生成按钮的问题</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>1.2.4 更新内容(20.11.2):</p>\r\n\r\n      <p>新增生成秒传:</p>\r\n\r\n      <p>选择文件或文件夹后点击 \"生成秒传\" 即可开始生成</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>继续未完成任务:</p>\r\n\r\n      <p>若生成秒传期间关闭了网页, 再次点击 \"生成秒传\" 即可继续任务</p>\r\n\r\n      <p><br /></p>\r\n\r\n      <p>测试秒传功能:</p>\r\n\r\n      <p>\r\n        生成完成后, 点击\"测试\"按钮, 会自动转存并覆盖文件(文件内容不变),\r\n        以检测秒传有效性, 以及修复md5错误防止秒传失效\r\n      </p>\r\n    </span>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div class=\"panel-body\" style=\"height: 250px; overflow-y: scroll\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>优化补充部分提示</li>\r\n      <li>转存窗口现支持手动输入一键秒传链接, 会自动转换为普通秒传并转存</li>\r\n    </ul>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: 载点1 载点2</li>\r\n      <li>脚本更新历史: 载点1 载点2</li>\r\n      <li>秒传网页版工具: 载点1 载点2</li>\r\n      <li>源码: 秒传脚本 秒传文档 秒传网页版工具</li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4820,6 +4820,8 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
+var version = "2.3.5"; // 当前版本号
+var updateDate = "22.6.30"; // 当前版本的更新日期
 var updateInfoVer = "2.3.4"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -4844,11 +4846,17 @@ var appError = {
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
 }; // 主程序异常
 var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document";
+var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/";
 var doc = {
     shareDoc: docPrefix + "/FAQ/\u9519\u8BEF\u4EE3\u7801",
     linkTypeDoc: docPrefix + "/Info/\u79D2\u4F20\u683C\u5F0F",
     bdlinkDoc: docPrefix + "/\u79D2\u4F20\u94FE\u63A5\u751F\u6210/\u4E00\u952E\u79D2\u4F20",
-}; // 各文档url
+}; // 文档载点1
+var doc2 = {
+    shareDoc: docPrefix2 + "/FAQ/\u9519\u8BEF\u4EE3\u7801",
+    linkTypeDoc: docPrefix2 + "/Info/\u79D2\u4F20\u683C\u5F0F",
+    bdlinkDoc: docPrefix2 + "/\u79D2\u4F20\u94FE\u63A5\u751F\u6210/\u4E00\u952E\u79D2\u4F20",
+}; // 文档载点2
 var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
 var bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
@@ -4864,7 +4872,18 @@ var htmlAboutBdlink = "<a href=\"" + doc.bdlinkDoc + "\" " + linkStyle + ">\u4EC
  * @Date: 2021-08-26 12:01:28
  * @LastEditTime: 2022-01-07 07:51:31
  * @LastEditors: mengzonefire
- * @Description: 秒传链接解析器
+ * @Description: 各种解析器
+ */
+
+/**
+ * @description: 从url中解析秒传链接
+ */
+function parseQueryLink(url) {
+    var bdlinkB64 = url.match(bdlinkPattern);
+    return bdlinkB64 ? bdlinkB64[1].fromBase64() : "";
+}
+/**
+ * @description: 秒传链接解析器
  */
 function DuParser() { }
 DuParser.parse = function generalDuCodeParse(szUrl) {
@@ -5037,12 +5056,13 @@ var updateInfo = __webpack_require__(184);
 var updateInfo_default = /*#__PURE__*/__webpack_require__.n(updateInfo);
 ;// CONCATENATED MODULE: ./src/common/SwalConfig.tsx
 
+
 // 各Swal弹窗的固定参数配置:
 var SwalConfig = {
     inputView: {
         title: "请输入秒传&保存路径",
         showCancelButton: true,
-        html: "<textarea id=\"mzf-rapid-input\" class=\"swal2-textarea\" placeholder=\"[\u652F\u6301\u6279\u91CF(\u6362\u884C\u5206\u9694)]\n[\u652F\u6301PanDL/\u6E38\u4FA0/\u6807\u51C6\u7801/GO\u683C\u5F0F]\n[\u53EF\u5728\u8BBE\u7F6E\u9875\u5F00\u542F\u76D1\u542C\u526A\u8D34\u677F,\u81EA\u52A8\u8F93\u5165\u79D2\u4F20]\n[\u8F93\u5165set\u8FDB\u5165\u8BBE\u7F6E\u9875][\u8F93\u5165gen\u8FDB\u5165\u751F\u6210\u9875]\" style=\"display: flex;\"></textarea>\n    <input id=\"mzf-path-input\" class=\"swal2-input\" placeholder=\"\u4FDD\u5B58\u8DEF\u5F84, \u793A\u4F8B: /GTA5/, \u7559\u7A7A\u4FDD\u5B58\u5728\u5F53\u524D\u76EE\u5F55\" style=\"display: flex;margin-top: 10px;\">",
+        html: "<textarea id=\"mzf-rapid-input\" class=\"swal2-textarea\" placeholder=\"\u00B7 \u652F\u6301\u6279\u91CF\u8F6C\u5B58\u591A\u6761\u79D2\u4F20(\u6362\u884C\u5206\u9694)\n\u00B7 \u652F\u6301PanDL/\u6E38\u4FA0/\u6807\u51C6\u7801/PCS-GO\u683C\u5F0F\n\u00B7 \u652F\u6301\u8F93\u5165\u4E00\u952E\u79D2\u4F20(\u81EA\u52A8\u8F6C\u6362\u4E3A\u666E\u901A\u79D2\u4F20)\n\u00B7 \u53EF\u5728\u8BBE\u7F6E\u9875\u5F00\u542F\u76D1\u542C\u526A\u8D34\u677F,\u81EA\u52A8\u7C98\u8D34\u79D2\u4F20\n\u00B7 \u8F93\u5165set\u8FDB\u5165\u8BBE\u7F6E\u9875, \u8F93\u5165gen\u8FDB\u5165\u751F\u6210\u9875\" style=\"display: flex;padding: 0.4em;\"></textarea>\n    <input id=\"mzf-path-input\" class=\"swal2-input\" placeholder=\"\u4FDD\u5B58\u8DEF\u5F84, \u793A\u4F8B: /GTA5/, \u7559\u7A7A\u4FDD\u5B58\u5728\u5F53\u524D\u76EE\u5F55\" style=\"display: flex;margin-top: 10px;\">",
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         customClass: { htmlContainer: "mzf_html_container" },
@@ -5087,7 +5107,7 @@ var SwalConfig = {
         },
     },
     updateInfo: {
-        title: "\u79D2\u4F20\u94FE\u63A5\u63D0\u53D6 \u66F4\u65B0\u5185\u5BB9",
+        title: "\u79D2\u4F20\u94FE\u63A5\u63D0\u53D6 v" + version + " (" + updateDate + ")",
         showCloseButton: true,
         allowOutsideClick: false,
         confirmButtonText: "知道了",
@@ -5229,38 +5249,37 @@ var Swalbase = /** @class */ (function () {
         return output;
     };
     // 点击 "秒传链接" 后显示的弹窗
-    Swalbase.prototype.inputView = function (bdlink) {
-        if (bdlink === void 0) { bdlink = ""; }
+    Swalbase.prototype.inputView = function (inputValue) {
+        if (inputValue === void 0) { inputValue = ""; }
         return __awaiter(this, void 0, void 0, function () {
-            var rapidValue, pathValue, preConfirm, willOpen;
+            var pathValue, preConfirm, willOpen;
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        rapidValue = bdlink;
-                        // 从GM存储读取之前输入的路径数据&从剪贴板读取有效的秒传数据
-                        console.log(GM_getValue("listen-clipboard"));
-                        if (!(GM_getValue("listen-clipboard") && !rapidValue)) return [3 /*break*/, 2];
+                        if (!(GM_getValue("listen-clipboard") && !inputValue)) return [3 /*break*/, 2];
                         return [4 /*yield*/, parseClipboard()];
                     case 1:
-                        rapidValue = _a.sent();
+                        // 标志位true 且 inputValue为空(非一键秒传进入时) 从剪贴板读取有效的秒传链接
+                        inputValue = _a.sent();
                         _a.label = 2;
                     case 2:
                         pathValue = GM_getValue("last_dir") || "";
                         preConfirm = function () {
-                            rapidValue = $("#mzf-rapid-input")[0].value;
+                            // 手动读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
+                            inputValue = $("#mzf-rapid-input")[0].value;
                             pathValue = $("#mzf-path-input")[0].value;
-                            if (!rapidValue) {
+                            if (!inputValue) {
                                 sweetalert2_all_default().showValidationMessage("秒传不能为空");
                                 return false;
                             }
-                            if (rapidValue === "set") {
+                            if (inputValue === "set") {
                                 return;
                             }
-                            if (rapidValue === "gen") {
+                            if (inputValue === "gen") {
                                 return;
                             }
-                            if (!DuParser.parse(rapidValue).length) {
+                            if (!DuParser.parse(inputValue).length) {
                                 sweetalert2_all_default().showValidationMessage("<p>\u672A\u8BC6\u522B\u5230\u6B63\u786E\u7684\u94FE\u63A5 <a href=\"" + doc.linkTypeDoc + "\" " + linkStyle + ">\u67E5\u770B\u652F\u6301\u683C\u5F0F</a></p>");
                                 return false;
                             }
@@ -5274,21 +5293,26 @@ var Swalbase = /** @class */ (function () {
                                 .css("font-size", "1rem")
                                 .css("display", "grid")
                                 .css("margin", "0");
-                            $("#mzf-rapid-input")[0].value = rapidValue;
+                            $("#mzf-rapid-input")[0].value = inputValue;
                             $("#mzf-path-input")[0].value = pathValue;
+                            $("#mzf-rapid-input").on("input", function (event) {
+                                var result = parseQueryLink(event.target.value);
+                                if (DuParser.parse(result).length)
+                                    event.target.value = result;
+                            }); // 绑定输入框事件, 输入一键秒传后尝试转换为普通秒传
                         };
                         sweetalert2_all_default().fire(this.mergeArg(SwalConfig.inputView, {
                             preConfirm: preConfirm,
                             willOpen: willOpen,
                         })).then(function (result) {
                             if (result.isConfirmed) {
-                                if (rapidValue === "set")
+                                if (inputValue === "set")
                                     _this.settingView();
-                                else if (rapidValue === "gen")
+                                else if (inputValue === "gen")
                                     _this.genView();
                                 else {
                                     _this.rapiduploadTask.reset();
-                                    _this.rapiduploadTask.fileInfoList = DuParser.parse(rapidValue);
+                                    _this.rapiduploadTask.fileInfoList = DuParser.parse(inputValue);
                                     GM_setValue("last_dir", pathValue);
                                     if (!pathValue) {
                                         // 路径留空
@@ -5877,7 +5901,7 @@ var RapiduploadTask = /** @class */ (function () {
     }
     RapiduploadTask.prototype.reset = function () {
         this.bdstoken = getBdstoken();
-        console.log("bdstoken: ", this.bdstoken); // debug
+        // console.log("bdstoken: ", this.bdstoken); // debug
         this.fileInfoList = [];
         this.savePath = "";
         this.checkMode = false;
@@ -6226,22 +6250,12 @@ function parseClipboard() {
     });
 }
 
-;// CONCATENATED MODULE: ./src/common/initQueryLink.tsx
-
-/**
- * @description: 从url中解析秒传链接
- */
-function initQueryLink() {
-    var bdlinkB64 = locUrl.match(bdlinkPattern);
-    return bdlinkB64 ? bdlinkB64[1].fromBase64() : "";
-}
-
 ;// CONCATENATED MODULE: ./src/baidu/newPage/loader.tsx
 
 
 
 function installNew() {
-    console.info("%s DOM方式安装，若失效请报告。", TAG);
+    console.info("%s version: %s DOM方式安装", TAG, version);
     $(document).on("click", "#bdlink_btn", function () {
         swalInstance.inputView();
     }); // 绑定转存秒传按钮事件
@@ -6333,7 +6347,7 @@ function loaderBaidu() {
             setGetBdstoken(function () { return unsafeWindow.locals.get("bdstoken"); });
             installlegacy();
         } // 旧版界面loader入口
-        var bdlink = initQueryLink(); // 解析url中的秒传链接
+        var bdlink = parseQueryLink(locUrl); // 解析url中的秒传链接
         if (bdlink) {
             // 解析到秒传链接, 弹出转存窗口
             swalInstance.inputView(bdlink);
@@ -6423,11 +6437,11 @@ function getThemesCss(swalThemes) {
  *
  * @author Dan Kogai (https://github.com/dankogai)
  */
-const version = '3.7.2';
+const base64_version = '3.7.2';
 /**
  * @deprecated use lowercase `version`.
  */
-const VERSION = version;
+const VERSION = base64_version;
 const _hasatob = typeof atob === 'function';
 const _hasbtoa = typeof btoa === 'function';
 const _hasBuffer = typeof Buffer === 'function';
@@ -6664,7 +6678,7 @@ const extendBuiltins = () => {
     extendUint8Array();
 };
 const gBase64 = {
-    version: version,
+    version: base64_version,
     VERSION: VERSION,
     atob: _atob,
     atobPolyfill: atobPolyfill,

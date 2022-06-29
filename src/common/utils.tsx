@@ -1,6 +1,6 @@
 import { baiduErrno } from "@/baidu/common/const";
 import { FileInfo, TAG } from "./const";
-import DuParser from "./duParser";
+import { DuParser } from "./duParser";
 
 /**
  * @description: 弹出一个文本提示框

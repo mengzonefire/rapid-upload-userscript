@@ -3,10 +3,23 @@
  * @Date: 2021-08-26 12:01:28
  * @LastEditTime: 2022-01-07 07:51:31
  * @LastEditors: mengzonefire
- * @Description: 秒传链接解析器
+ * @Description: 各种解析器
  */
 
-export default function DuParser() {}
+import { bdlinkPattern } from "@/common/const";
+
+/**
+ * @description: 从url中解析秒传链接
+ */
+export function parseQueryLink(url: string): string {
+  let bdlinkB64 = url.match(bdlinkPattern);
+  return bdlinkB64 ? bdlinkB64[1].fromBase64() : "";
+}
+
+/**
+ * @description: 秒传链接解析器
+ */
+export function DuParser() {}
 
 DuParser.parse = function generalDuCodeParse(szUrl: string) {
   let r: any;

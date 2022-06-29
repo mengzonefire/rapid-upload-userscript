@@ -1,9 +1,9 @@
-import { TAG } from "@/common/const";
+import { TAG, version } from "@/common/const";
 import { htmlBtnGenNew, htmlTagNew2, swalInstance } from "../common/const";
 import { htmlBtnRapidNew, htmlTagNew } from "@/baidu/common/const";
 
 export default function installNew() {
-  console.info("%s DOM方式安装，若失效请报告。", TAG);
+  console.info("%s version: %s DOM方式安装", TAG, version);
   $(document).on("click", "#bdlink_btn", () => {
     swalInstance.inputView();
   }); // 绑定转存秒传按钮事件
