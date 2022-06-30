@@ -1,6 +1,6 @@
 export const version = "2.3.5"; // 当前版本号
 export const updateDate = "22.6.30"; // 当前版本的更新日期
-export const updateInfoVer = "2.3.4"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
+export const updateInfoVer = "2.3.5"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 export const feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -67,7 +67,7 @@ export const btnStyle =
   'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
 export const bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
 export const htmlCheckMd5 = `<p class="mzf_text">测试秒传 可防止秒传失效<a id="check_md5_btn" class="mzf_btn"><span class="text" style="width: auto;">测试</span></a></p>`;
-export const htmlDocument = `<p class="mzf_text">秒传无效/md5获取失败/防和谐 可参考<a href="${doc.shareDoc}" ${btnStyle}><span class="text" style="width: auto;">分享教程</span></a></p>`;
+export const htmlDocument = `<p class="mzf_text">秒传无效,防和谐等 可参考秒传文档<a href="${doc.shareDoc}" ${btnStyle}><span class="text" style="width: auto;">载点1</span></a><a href="${doc2.shareDoc}" ${btnStyle}><span class="text" style="width: auto;">载点2</span></a></p>`;
 export const htmlDonate = `<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="${donatePage}" ${linkStyle}>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;
 export const htmlFeedback = `<p id="mzf_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="${homePage}" ${linkStyle}>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;
-export const htmlAboutBdlink = `<a href="${doc.bdlinkDoc}" ${linkStyle}>什么是一键秒传?</a>`;
+export const htmlAboutBdlink = `什么是一键秒传?: <a href="${doc.bdlinkDoc}" ${linkStyle}>文档载点1</a> <a href="${doc2.bdlinkDoc}" ${linkStyle}>文档载点2</a>`;

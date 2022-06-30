@@ -1,4 +1,4 @@
-import { doc, linkStyle } from "@/common/const";
+import { doc, doc2, linkStyle } from "@/common/const";
 import Swalbase from "@/common/swalBase";
 import GeneratebdlinkTask from "./GeneratebdlinkTask";
 import RapiduploadTask from "./RapiduploadTask";
@@ -46,7 +46,7 @@ export const htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
 export function baiduErrno(errno: number) {
   switch (errno) {
     case -6:
-      return `认证失败(请参考<a href="${doc.shareDoc}#认证失败-6" ${linkStyle}>分享教程</a>)`;
+      return `认证失败(参考文档:<a href="${doc.shareDoc}#认证失败-6" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#认证失败-6" ${linkStyle}>载点2</a>)`;
     case -7:
       return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
     case -8:
@@ -54,10 +54,10 @@ export function baiduErrno(errno: number) {
     case 400:
       return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
     case 403:
-      return `接口限制访问(请参考<a href="${doc.shareDoc}#接口限制访问-403" ${linkStyle}>分享教程</a>)`;
+      return `接口限制访问(参考文档:<a href="${doc.shareDoc}#接口限制访问-403" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#接口限制访问-403" ${linkStyle}>载点2</a>)`;
     case 31190:
     case 404:
-      return `秒传未生效(请参考<a href="${doc.shareDoc}#秒传未生效-404-31190" ${linkStyle}>分享教程</a>)`;
+      return `秒传未生效(参考文档:<a href="${doc.shareDoc}#秒传未生效-404-31190" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#秒传未生效-404-31190" ${linkStyle}>载点2</a>)`;
     case 2:
       return "转存失败(尝试重新登录度盘账号/更换或重装浏览器)";
     case 2333:
@@ -65,17 +65,17 @@ export function baiduErrno(errno: number) {
     case -10:
       return "网盘容量已满";
     case 514:
-      return `请求失败(请参考<a href="${doc.shareDoc}#请求失败-514" ${linkStyle}>分享教程</a>)`;
+      return `请求失败(参考文档:<a href="${doc.shareDoc}#请求失败-514" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求失败-514" ${linkStyle}>载点2</a>)`;
     case 1919:
-      return `文件已被和谐(请参考<a href="${doc.shareDoc}#文件已被和谐-1919" ${linkStyle}>分享教程</a>)`;
+      return `文件已被和谐(参考文档:<a href="${doc.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a>)`;
     case 996:
-      return `md5获取失败(请参考<a href="${doc.shareDoc}#md5-获取失败-996" ${linkStyle}>分享教程</a>)`;
+      return `md5获取失败(参考文档:<a href="${doc.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a>)`;
     case 500:
     case 502:
     case 503:
-      return `服务器错误(请参考<a href="${doc.shareDoc}#服务器错误-502-503" ${linkStyle}>分享教程</a>)`;
+      return `服务器错误(参考文档:<a href="${doc.shareDoc}#服务器错误-502-503" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-502-503" ${linkStyle}>载点1</a>)`;
     case 909:
-      return "路径不存在/文件已损坏";
+      return "路径不存在/云端文件已损坏";
     case 900:
       return "路径为文件夹, 不支持生成秒传";
     case 901:

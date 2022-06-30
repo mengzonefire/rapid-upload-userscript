@@ -4740,7 +4740,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 250px; overflow-y: scroll\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>优化补充部分提示</li>\r\n      <li>转存窗口现支持手动输入一键秒传链接, 会自动转换为普通秒传并转存</li>\r\n    </ul>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: 载点1 载点2</li>\r\n      <li>脚本更新历史: 载点1 载点2</li>\r\n      <li>秒传网页版工具: 载点1 载点2</li>\r\n      <li>源码: 秒传脚本 秒传文档 秒传网页版工具</li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 250px; overflow-y: scroll\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>优化补充部分提示</li>\r\n      <li>转存窗口支持输入一键秒传链接, 会自动转换为普通秒传</li>\r\n    </ul>\r\n    </br>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4822,7 +4822,7 @@ var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min
 ;// CONCATENATED MODULE: ./src/common/const.tsx
 var version = "2.3.5"; // 当前版本号
 var updateDate = "22.6.30"; // 当前版本的更新日期
-var updateInfoVer = "2.3.4"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
+var updateInfoVer = "2.3.5"; // 更新弹窗的版本, 有些没必要提示的小更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -4846,7 +4846,7 @@ var appError = {
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
 }; // 主程序异常
 var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document";
-var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/";
+var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/document";
 var doc = {
     shareDoc: docPrefix + "/FAQ/\u9519\u8BEF\u4EE3\u7801",
     linkTypeDoc: docPrefix + "/Info/\u79D2\u4F20\u683C\u5F0F",
@@ -4861,10 +4861,10 @@ var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
 var bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
 var htmlCheckMd5 = "<p class=\"mzf_text\">\u6D4B\u8BD5\u79D2\u4F20 \u53EF\u9632\u6B62\u79D2\u4F20\u5931\u6548<a id=\"check_md5_btn\" class=\"mzf_btn\"><span class=\"text\" style=\"width: auto;\">\u6D4B\u8BD5</span></a></p>";
-var htmlDocument = "<p class=\"mzf_text\">\u79D2\u4F20\u65E0\u6548/md5\u83B7\u53D6\u5931\u8D25/\u9632\u548C\u8C10 \u53EF\u53C2\u8003<a href=\"" + doc.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u5206\u4EAB\u6559\u7A0B</span></a></p>";
+var htmlDocument = "<p class=\"mzf_text\">\u79D2\u4F20\u65E0\u6548,\u9632\u548C\u8C10\u7B49 \u53EF\u53C2\u8003\u79D2\u4F20\u6587\u6863<a href=\"" + doc.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u8F7D\u70B91</span></a><a href=\"" + doc2.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u8F7D\u70B92</span></a></p>";
 var htmlDonate = "<p id=\"mzf_donate\" class=\"mzf_text\">\u82E5\u559C\u6B22\u8BE5\u811A\u672C, \u53EF\u524D\u5F80 <a href=\"" + donatePage + "\" " + linkStyle + ">\u8D5E\u52A9\u9875</a> \u652F\u6301\u4F5C\u8005<a id=\"kill_donate\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
 var htmlFeedback = "<p id=\"mzf_feedback\" class=\"mzf_text\">\u82E5\u6709\u4EFB\u4F55\u7591\u95EE, \u53EF\u524D\u5F80 <a href=\"" + homePage + "\" " + linkStyle + ">\u811A\u672C\u4E3B\u9875</a> \u53CD\u9988<a id=\"kill_feedback\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
-var htmlAboutBdlink = "<a href=\"" + doc.bdlinkDoc + "\" " + linkStyle + ">\u4EC0\u4E48\u662F\u4E00\u952E\u79D2\u4F20?</a>";
+var htmlAboutBdlink = "\u4EC0\u4E48\u662F\u4E00\u952E\u79D2\u4F20?: <a href=\"" + doc.bdlinkDoc + "\" " + linkStyle + ">\u6587\u6863\u8F7D\u70B91</a> <a href=\"" + doc2.bdlinkDoc + "\" " + linkStyle + ">\u6587\u6863\u8F7D\u70B92</a>";
 
 ;// CONCATENATED MODULE: ./src/common/duParser.tsx
 /*
@@ -6057,7 +6057,7 @@ var htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
 function baiduErrno(errno) {
     switch (errno) {
         case -6:
-            return "认证失败(尝试刷新页面/重新登录度盘账号)";
+            return "\u8BA4\u8BC1\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BA4\u8BC1\u5931\u8D25-6\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BA4\u8BC1\u5931\u8D25-6\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case -7:
             return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
         case -8:
@@ -6065,10 +6065,10 @@ function baiduErrno(errno) {
         case 400:
             return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
         case 403:
-            return "\u63A5\u53E3\u9650\u5236\u8BBF\u95EE(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
+            return "\u63A5\u53E3\u9650\u5236\u8BBF\u95EE(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 31190:
         case 404:
-            return "\u79D2\u4F20\u672A\u751F\u6548(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
+            return "\u79D2\u4F20\u672A\u751F\u6548(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 2:
             return "转存失败(尝试重新登录度盘账号/更换或重装浏览器)";
         case 2333:
@@ -6076,17 +6076,17 @@ function baiduErrno(errno) {
         case -10:
             return "网盘容量已满";
         case 514:
-            return "\u8BF7\u6C42\u5931\u8D25(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
+            return "\u8BF7\u6C42\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 1919:
-            return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
+            return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a>)";
         case 996:
-            return "md5\u83B7\u53D6\u5931\u8D25(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
+            return "md5\u83B7\u53D6\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a>)";
         case 500:
         case 502:
         case 503:
-            return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u53C2\u8003<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u5206\u4EAB\u6559\u7A0B</a>)";
+            return "\u670D\u52A1\u5668\u9519\u8BEF(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B91</a>)";
         case 909:
-            return "路径不存在/文件已损坏";
+            return "路径不存在/云端文件已损坏";
         case 900:
             return "路径为文件夹, 不支持生成秒传";
         case 901:
