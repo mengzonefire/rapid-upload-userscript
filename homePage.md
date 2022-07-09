@@ -6,7 +6,7 @@
 
 - 22.5.23: (<span style="color: red">重要</span>) ~~百度废弃了一个旧接口导致 生成秒传 报错 <span style="color: red">未知错误(#401)</span>, 2.2.7版本已修复该问题, 有需要请务必更新~~ (再测试了一下发现接口又修好了:-(
 
-- 21.10.16: 已将完整的秒传转存功能移植到 **秒传网页版工具**: [载点1](https://rapidacg.gmgard.moe/) [载点2](https://mengzonefire.github.io/baidupan-rapidupload)(可能不是最新版) [载点3](https://mengzonefire.code.misakanet.cn/baidupan-rapidupload)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
+- 21.10.16: 已将完整的秒传转存功能移植到 **秒传网页版工具**: [载点1](https://rapidacg.gmgard.moe/)(可能不是最新版) [载点2](https://mengzonefire.github.io/baidupan-rapidupload) [载点3](https://mengzonefire.code.misakanet.cn/baidupan-rapidupload)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
 
 ## 相关教程
 
