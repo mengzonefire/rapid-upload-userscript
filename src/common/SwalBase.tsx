@@ -1,12 +1,18 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-05-25 07:33:33
+ * @LastEditTime: 2022-07-19 18:16:25
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
 
-import { bdlinkPrefix, doc, htmlAboutBdlink, linkStyle } from "./const";
+import {
+  bdlinkPrefix,
+  commandList,
+  doc,
+  htmlAboutBdlink,
+  linkStyle,
+} from "./const";
 import {
   refreshList,
   getSelectedFileList,
@@ -60,10 +66,9 @@ export default class Swalbase {
         Swal.showValidationMessage("秒传不能为空");
         return false;
       }
-      if (inputValue === "set") {
-        return;
-      }
-      if (inputValue === "gen") {
+      if (commandList.includes(inputValue.trim())) {
+        // 输入支持的命令, 跳出检查
+        inputValue = inputValue.trim();
         return;
       }
       if (!DuParser.parse(inputValue).length) {
@@ -100,6 +105,7 @@ export default class Swalbase {
       if (result.isConfirmed) {
         if (inputValue === "set") this.settingView();
         else if (inputValue === "gen") this.genView();
+        else if (inputValue === "info") this.updateInfo(() => {});
         else {
           this.rapiduploadTask.reset();
           this.rapiduploadTask.fileInfoList = DuParser.parse(inputValue);
@@ -426,7 +432,7 @@ export default class Swalbase {
             );
           else refreshList(); // path参数相同, 已在目标目录下, 调用刷新函数
         } else {
-          let connectChar = location.href.indexOf("?") === -1 ? "?" : "&"; // 确定参数的连接符
+          let connectChar = location.href.includes("?") ? "?" : "&"; // 确定参数的连接符
           location.href += `${connectChar}path=${encodeURIComponent(_dir)}`;
         } // 没有找到path参数, 直接添加
         Swal.close();

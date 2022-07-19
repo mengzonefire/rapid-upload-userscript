@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-05-25 02:34:37
+ * @LastEditTime: 2022-07-19 17:44:43
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -183,7 +183,8 @@ export default class GeneratebdlinkTask {
   parseDownloadData(i: number, data: any): void {
     console.log(`dl_url: ${data.finalUrl}`); // debug
     let file = this.fileInfoList[i];
-    if (data.finalUrl.indexOf("issuecdn.baidupcs.com") !== -1) {
+    if (data.finalUrl.includes("issuecdn.baidupcs.com")) {
+      // 下载直链重定向到此域名, 判定为文件和谐
       file.errno = 1919;
       this.generateBdlink(i + 1);
       return;

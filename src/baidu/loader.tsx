@@ -21,7 +21,7 @@ import {
 
 export function loaderBaidu(): void {
   let load = () => {
-    if (locUrl.indexOf(baiduNewPage) !== -1) {
+    if (locUrl.includes(baiduNewPage)) {
       // 添加swal参数以防止新版界面下的body样式突变
       swalInstance.swalGlobalArgs = {
         heightAuto: false,
@@ -75,6 +75,6 @@ export function loaderBaidu(): void {
       swalInstance.checkMd5();
     }); // 测试秒传按钮
   };
-  if (["interactive", "complete"].indexOf(document.readyState) !== -1) load();
+  if (["interactive", "complete"].includes(document.readyState)) load();
   else window.addEventListener("DOMContentLoaded", load);
 } // 百度秒传脚本主函数入口
