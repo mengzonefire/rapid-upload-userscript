@@ -8,6 +8,8 @@
 
 安装脚本可参考 [安装教程](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/install-userscript/)
 
+注意此分支为dev分支, 安装脚本请不要使用此分支的dist
+
 ## Build Setup
 
 ``` bash
