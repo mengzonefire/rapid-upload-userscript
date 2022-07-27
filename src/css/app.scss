@@ -5,7 +5,7 @@
   color: #09aaff;
   border: 2px solid #c3eaff;
   border-radius: 4px;
-  margin: 0 5px;
+  margin-left: 5px;
   padding: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -36,6 +36,7 @@
   display: block;
   line-height: 34px;
   text-align: center;
+  white-space: nowrap;
 }
 
 /*新版度盘页面的按钮样式(直接拷贝)*/
