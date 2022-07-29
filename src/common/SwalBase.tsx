@@ -1,12 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-07-19 18:16:25
+ * @LastEditTime: 2022-07-29 21:21:29
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
 
 import {
+  appError,
   bdlinkPrefix,
   commandList,
   doc,
@@ -268,7 +269,7 @@ export default class Swalbase {
         try {
           await navigator.clipboard.readText();
         } catch (error) {
-          showAlert('开启 "监听剪贴板" 功能需要允许剪贴板权限!');
+          showAlert(appError.ClipboardPremissionErr);
           return;
         } // 验证剪贴板权限, 若报错则跳出不设置该项
       }

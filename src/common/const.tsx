@@ -27,6 +27,8 @@ export const extCssUrl = {
 export const appError = {
   SwalCssInvalid: `样式包数据错误, 请前往脚本页反馈:\n${homePage}`,
   SwalCssErrReq: `样式包加载失败, 请前往脚本页反馈:\n${homePage}\n错误代码: `,
+  ClipboardPremissionErr:
+    '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
 }; // 主程序异常
 export const enum rapidTryflag {
   useUpperCaseMd5 = 0,

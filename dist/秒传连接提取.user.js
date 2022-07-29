@@ -4845,6 +4845,7 @@ var extCssUrl = {
 var appError = {
     SwalCssInvalid: "\u6837\u5F0F\u5305\u6570\u636E\u9519\u8BEF, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
+    ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
 }; // 主程序异常
 var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
 var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/document";
@@ -5166,7 +5167,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-07-19 18:16:25
+ * @LastEditTime: 2022-07-29 21:21:29
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5475,7 +5476,7 @@ var Swalbase = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _a.sent();
-                        showAlert('开启 "监听剪贴板" 功能需要允许剪贴板权限!');
+                        showAlert(appError.ClipboardPremissionErr);
                         return [2 /*return*/];
                     case 4:
                         GM_setValue("listen-clipboard", $("#mzf-listen-clipboard")[0].checked);
@@ -6245,7 +6246,7 @@ function parseClipboard() {
                     return [2 /*return*/, bdlink];
                 case 2:
                     error_1 = _a.sent();
-                    showAlert('使用 "监听剪贴板" 功能需要允许剪贴板权限!');
+                    showAlert(appError.ClipboardPremissionErr);
                     return [2 /*return*/, ""];
                 case 3: return [2 /*return*/];
             }

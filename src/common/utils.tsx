@@ -1,5 +1,5 @@
 import { baiduErrno } from "@/baidu/common/const";
-import { FileInfo, TAG } from "./const";
+import { appError, FileInfo, TAG } from "./const";
 import { DuParser } from "./duParser";
 
 /**
@@ -106,7 +106,7 @@ export async function parseClipboard() {
     if (!DuParser.parse(bdlink).length) return "";
     return bdlink;
   } catch (error) {
-    showAlert('使用 "监听剪贴板" 功能需要允许剪贴板权限!');
+    showAlert(appError.ClipboardPremissionErr);
     return "";
   }
 }
