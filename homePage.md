@@ -2,7 +2,7 @@
 
 ## 近期通知
 
-- 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: **秒传脚本文档v2**: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc)
+- 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: **秒传脚本文档v2**: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc)
 
 - 22.5.23: (<span style="color: red">重要</span>) ~~百度废弃了一个旧接口导致 生成秒传 报错 <span style="color: red">未知错误(#401)</span>, 2.2.7版本已修复该问题, 有需要请务必更新~~ (再测试了一下发现接口又修好了:-(
 
@@ -10,9 +10,9 @@
 
 ## 相关教程
 
-- 安装教程: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/Install/About) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/Install/About): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
+- 安装教程: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/Install/About) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/Install/About): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
 
-- 错误码文档: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document/FAQ/错误代码) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/FAQ/错误代码): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传未生效 / md5获取失败 / 文件和谐
+- 错误码文档: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/FAQ/错误代码) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/FAQ/错误代码): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传未生效 / md5获取失败 / 文件和谐
 
 ## 常见问题
 
