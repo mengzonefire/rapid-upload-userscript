@@ -49,7 +49,7 @@ export interface FileInfo {
   retry_996?: boolean;
 } // 自定义文件信息数据结构
 const docPrefix =
-  "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document";
+  "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
 const docPrefix2 =
   "https://xtsat.github.io/rapid-upload-userscript-doc/document";
 export const doc = {

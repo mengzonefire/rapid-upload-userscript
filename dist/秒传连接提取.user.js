@@ -4846,7 +4846,7 @@ var appError = {
     SwalCssInvalid: "\u6837\u5F0F\u5305\u6570\u636E\u9519\u8BEF, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
 }; // 主程序异常
-var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc-v2/document";
+var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
 var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/document";
 var doc = {
     shareDoc: docPrefix + "/FAQ/\u9519\u8BEF\u4EE3\u7801",
