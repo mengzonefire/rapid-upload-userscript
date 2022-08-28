@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:01:28
- * @LastEditTime: 2022-01-07 07:51:31
+ * @LastEditTime: 2022-08-28 23:51:34
  * @LastEditors: mengzonefire
  * @Description: 各种解析器
  */
@@ -48,7 +48,7 @@ DuParser.parseDu_v1 = function parseDu_v1(szUrl: string) {
       return z
         .trim()
         .fromBase64()
-        .match(/([\s\S]+)\|([\d]{1,20})\|([\dA-Fa-f]{32})\|([\dA-Fa-f]{32})/);
+        .match(/([\s\S]+)\|([\d]{1,20})\|([\da-f]{32})\|([\da-f]{32})/i);
     })
     .filter(function (z) {
       return z;
@@ -71,7 +71,7 @@ DuParser.parseDu_v2 = function parseDu_v2(szUrl: string) {
       return z
         .trim()
         .match(
-          /-length=([\d]{1,20}) -md5=([\dA-Fa-f]{32}) -slicemd5=([\dA-Fa-f]{32})[\s\S]+"([\s\S]+)"/
+          /-length=([\d]{1,20}) -md5=([\da-f]{32}) -slicemd5=([\da-f]{32})[\s\S]+"([\s\S]+)"/i
         );
     })
     .filter(function (z) {
@@ -132,9 +132,7 @@ DuParser.parseDu_v4 = function parseDu_v3(szUrl: string) {
     .map(function (z) {
       return z
         .trim()
-        .match(
-          /^([\dA-Fa-f]{32})#(?:([\dA-Fa-f]{32})#)?([\d]{1,20})#([\s\S]+)/
-        );
+        .match(/^([\da-f]{32})#(?:([\da-f]{32})#)?([\d]{1,20})#([\s\S]+)/i);
     })
     .filter(function (z) {
       return z;

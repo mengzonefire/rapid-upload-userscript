@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.3.7
+// @version 2.3.8
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4740,7 +4740,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>转存输入框输入info,可重新打开版本信息弹窗(此界面)</li>\r\n    </ul>\r\n    </br>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>\r\n        <p>现支持 \"<span style=\"color: red;\">极速生成</span>\" 功能, 可在设置页开启</p>\r\n        <p>(秒传输入框输入set进入设置页)</p>\r\n        <ul>\r\n          </br>\r\n          <li>\"极速生成\" 优点:\r\n            <ul>\r\n              <li>可以秒速批量生成文件/文件夹秒传(单次最多1w个文件)</li>\r\n              <li>完全避免 \"md5获取失败(#996)\" \"接口限制访问(#403)\"</li>\r\n            </ul>\r\n          </li>\r\n          </br>\r\n          <li>\"极速生成\" 缺点:\r\n            <ul>\r\n              <li>生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存</li>\r\n              <li>有极小概率生成错误的秒传, 生成完成后注意测试秒传</li>\r\n            </ul>\r\n          </li>\r\n        </ul>\r\n      </li>\r\n    </ul>\r\n    </br>\r\n    <p>* 感谢某位热心网友的帮助</p>\r\n    </br>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4820,9 +4820,9 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.3.6"; // 当前版本号
-var updateDate = "22.7.19"; // 更新弹窗的日期
-var updateInfoVer = "2.3.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var version = "2.3.8"; // 当前版本号
+var updateDate = "22.8.29"; // 更新弹窗的日期
+var updateInfoVer = "2.3.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -4847,6 +4847,9 @@ var appError = {
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
     ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
 }; // 主程序异常
+var appWarning = {
+    fastGenerateWarn: '使用 "极速生成" 功能请注意:\n优点:\n1. 可以秒速批量生成文件/文件夹秒传(单次最多1w个文件)\n2. 完全避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n2. 有极小概率生成错误的秒传, 生成完成后注意测试秒传',
+}; // 主程序各功能警告/提醒
 var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
 var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/document";
 var doc = {
@@ -4872,7 +4875,7 @@ var htmlAboutBdlink = "\u4EC0\u4E48\u662F\u4E00\u952E\u79D2\u4F20?: <a href=\"" 
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:01:28
- * @LastEditTime: 2022-01-07 07:51:31
+ * @LastEditTime: 2022-08-28 23:51:34
  * @LastEditors: mengzonefire
  * @Description: 各种解析器
  */
@@ -4917,7 +4920,7 @@ DuParser.parseDu_v1 = function parseDu_v1(szUrl) {
         return z
             .trim()
             .fromBase64()
-            .match(/([\s\S]+)\|([\d]{1,20})\|([\dA-Fa-f]{32})\|([\dA-Fa-f]{32})/);
+            .match(/([\s\S]+)\|([\d]{1,20})\|([\da-f]{32})\|([\da-f]{32})/i);
     })
         .filter(function (z) {
         return z;
@@ -4938,7 +4941,7 @@ DuParser.parseDu_v2 = function parseDu_v2(szUrl) {
         // unsigned long long: 0~18446744073709551615
         return z
             .trim()
-            .match(/-length=([\d]{1,20}) -md5=([\dA-Fa-f]{32}) -slicemd5=([\dA-Fa-f]{32})[\s\S]+"([\s\S]+)"/);
+            .match(/-length=([\d]{1,20}) -md5=([\da-f]{32}) -slicemd5=([\da-f]{32})[\s\S]+"([\s\S]+)"/i);
     })
         .filter(function (z) {
         return z;
@@ -4987,7 +4990,7 @@ DuParser.parseDu_v4 = function parseDu_v3(szUrl) {
         .map(function (z) {
         return z
             .trim()
-            .match(/^([\dA-Fa-f]{32})#(?:([\dA-Fa-f]{32})#)?([\d]{1,20})#([\s\S]+)/);
+            .match(/^([\da-f]{32})#(?:([\da-f]{32})#)?([\d]{1,20})#([\s\S]+)/i);
     })
         .filter(function (z) {
         return z;
@@ -5144,7 +5147,7 @@ var SwalConfig = {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         allowOutsideClick: false,
-        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex;border-width: 1px;border-style: solid;\"><option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option><option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option><option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option><option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option><option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option><option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option></select>\n    <label for=\"swal2-checkbox\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span><input type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" style=\"margin-left: 20px;\"></label>",
+        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex;border-width: 1px;border-style: solid;\"> <option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option> <option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option> <option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option> <option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option> <option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option> <option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option> </select> <label for=\"mzf-fast-generate\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u6781\u901F\u751F\u6210</span><input type=\"checkbox\" value=\"1\" id=\"mzf-fast-generate\" style=\"margin-left: 20px;\"></label> <label for=\"mzf-listen-clipboard\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span><input type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" style=\"margin-left: 20px;\"></label>",
     },
     settingWarning: {
         title: "设置成功 刷新页面生效",
@@ -5167,7 +5170,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-07-29 21:21:29
+ * @LastEditTime: 2022-08-29 01:18:07
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5459,12 +5462,14 @@ var Swalbase = /** @class */ (function () {
                 .css("margin", "0");
             $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
             $("#mzf-listen-clipboard")[0].checked = Boolean(GM_getValue("listen-clipboard"));
+            $("#mzf-fast-generate")[0].checked = Boolean(GM_getValue("fast-generate"));
         };
         var preConfirm = function () { return __awaiter(_this, void 0, void 0, function () {
             var error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        // 设置主题
                         GM_setValue("swalThemes", $("#mzf-theme")[0].value);
                         if (!$("#mzf-listen-clipboard")[0].checked) return [3 /*break*/, 4];
                         _a.label = 1;
@@ -5473,13 +5478,17 @@ var Swalbase = /** @class */ (function () {
                         return [4 /*yield*/, navigator.clipboard.readText()];
                     case 2:
                         _a.sent();
+                        GM_setValue("listen-clipboard", $("#mzf-listen-clipboard")[0].checked);
                         return [3 /*break*/, 4];
                     case 3:
                         error_1 = _a.sent();
                         showAlert(appError.ClipboardPremissionErr);
                         return [2 /*return*/];
                     case 4:
-                        GM_setValue("listen-clipboard", $("#mzf-listen-clipboard")[0].checked);
+                        // 设置极速生成, 若开启则弹出文本提醒
+                        if ($("#mzf-fast-generate")[0].checked)
+                            showAlert(appWarning.fastGenerateWarn);
+                        GM_setValue("fast-generate", $("#mzf-fast-generate")[0].checked);
                         return [2 /*return*/];
                 }
             });
@@ -5687,10 +5696,11 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-07-19 17:44:43
+ * @LastEditTime: 2022-08-29 01:26:32
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
+
 
 
 
@@ -5698,6 +5708,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
     function GeneratebdlinkTask() {
     }
     GeneratebdlinkTask.prototype.reset = function () {
+        this.isFast = GM_getValue("fast-generate");
         this.recursive = false;
         this.dirList = [];
         this.selectList = [];
@@ -5721,6 +5732,8 @@ var GeneratebdlinkTask = /** @class */ (function () {
                     path: item.path,
                     size: item.size,
                     fs_id: item.fs_id,
+                    md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+                    md5s: "",
                 });
             }
         });
@@ -5752,6 +5765,8 @@ var GeneratebdlinkTask = /** @class */ (function () {
                             path: item.path,
                             size: item.size,
                             fs_id: item.fs_id,
+                            md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+                            md5s: "",
                         }); // 筛选并添加文件(isdir===0)
                 });
             }
@@ -5769,6 +5784,10 @@ var GeneratebdlinkTask = /** @class */ (function () {
             _this.scanFile(i + 1);
         });
     };
+    /**
+     * @description: 顺序执行生成任务
+     * @param {number} i
+     */
     GeneratebdlinkTask.prototype.generateBdlink = function (i) {
         GM_setValue("unfinish", {
             file_info_list: this.fileInfoList,
@@ -5784,10 +5803,13 @@ var GeneratebdlinkTask = /** @class */ (function () {
             this.generateBdlink(i + 1);
             return;
         } // 跳过扫描失败的文件夹
-        this.getFileInfo(i);
+        if (!this.isFast)
+            this.getFileInfo(i);
+        else
+            this.generateBdlink(i + 1); // 若开启 "极速生成", 则跳过后续所有过程
     };
     /**
-     * @description: 获取文件信息: size, dlink
+     * @description: 获取文件dlink(下载直链)
      * @param {number} i
      */
     GeneratebdlinkTask.prototype.getFileInfo = function (i) {
@@ -5862,15 +5884,15 @@ var GeneratebdlinkTask = /** @class */ (function () {
             var fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
             if (fileMd5)
                 file.md5 = fileMd5[1].toLowerCase();
-            // 从下载接口拿到了md5, 会覆盖meta接口的md5
+            // 从下载接口获取md5, 极速生成模式未开启时, 仅使用下载接口的md5(确保md5正确)
             else if (file.size <= 3900000000 && !file.retry_996) {
                 // 下载接口未拿到md5, 尝试使用旧下载接口, 改接口请求文件大小大于3.9G会返回403
                 file.retry_996 = true;
                 this.downloadFileData(i, pcs_url + ("&path=" + encodeURIComponent(file.path)));
                 return;
             }
-            else if (!file.md5) {
-                // 两个下载接口和meta接口均未拿到md5
+            else {
+                // 两个下载接口均未拿到md5
                 file.errno = 996;
                 this.generateBdlink(i + 1);
                 return;
@@ -6182,11 +6204,11 @@ function parsefileInfo(fileInfoList, checkMode) {
             failedCount++;
             failedInfo += "<p>\u6587\u4EF6\uFF1A" + item.path + "</p><p>\u5931\u8D25\u539F\u56E0\uFF1A" + baiduErrno(item.errno) + "(#" + item.errno + ")</p>";
             if (checkMode)
-                bdcode += item.md5 + "#" + item.md5s + "#" + item.size + "#" + item.path + "\n"; // 测试模式下不再排除测试失败文件的秒传数据
+                bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n"; // 测试模式下不再排除测试失败文件的秒传数据
         }
         else {
             successInfo += "<p>\u6587\u4EF6\uFF1A" + item.path + "</p>";
-            bdcode += item.md5 + "#" + item.md5s + "#" + item.size + "#" + item.path + "\n";
+            bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n";
             successList.push(item);
         }
     });
@@ -6223,7 +6245,7 @@ function getSelectedFileListNew() {
 /**
  * @description: 将data键值对转换为query字符串
  * @param {any} data
- * @return {string} query string
+ * @return {string} query
  */
 function convertData(data) {
     var query = "";
@@ -6231,6 +6253,10 @@ function convertData(data) {
         query += "&" + key + "=" + encodeURIComponent(data[key]);
     return query;
 }
+/**
+ * @description: 从剪贴板获取字符串数据
+ * @return {string} bdlink
+ */
 function parseClipboard() {
     return utils_awaiter(this, void 0, void 0, function () {
         var bdlink, error_1;
@@ -6252,6 +6278,30 @@ function parseClipboard() {
             }
         });
     });
+}
+/**
+ * @description: 解密已加密的md5
+ * @param {string} md5 (加密)
+ * @return {string} md5 (解密)
+ */
+function decryptMd5(md5) {
+    if (!((parseInt(md5[9]) >= 0 && parseInt(md5[9]) <= 9) ||
+        (md5[9] >= "a" && md5[9] <= "f")))
+        return decrypt(md5);
+    else
+        return md5;
+    function decrypt(encryptMd5) {
+        var key = (encryptMd5[9].charCodeAt(0) - "g".charCodeAt(0)).toString(16);
+        var key2 = encryptMd5.substr(0, 9) + key + encryptMd5.substr(10);
+        var key3 = "";
+        for (var a = 0; a < key2.length; a++)
+            key3 += (parseInt(key2[a], 16) ^ (15 & a)).toString(16);
+        var md5 = key3.substr(8, 8) +
+            key3.substr(0, 8) +
+            key3.substr(24, 8) +
+            key3.substr(16, 8);
+        return md5;
+    }
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/newPage/loader.tsx

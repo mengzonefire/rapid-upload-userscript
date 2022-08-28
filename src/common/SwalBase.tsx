@@ -1,13 +1,14 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-07-29 21:21:29
+ * @LastEditTime: 2022-08-29 01:18:07
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
 
 import {
   appError,
+  appWarning,
   bdlinkPrefix,
   commandList,
   doc,
@@ -262,18 +263,32 @@ export default class Swalbase {
       $("#mzf-listen-clipboard")[0].checked = Boolean(
         GM_getValue("listen-clipboard")
       );
+      $("#mzf-fast-generate")[0].checked = Boolean(
+        GM_getValue("fast-generate")
+      );
     };
     let preConfirm = async () => {
+      // 设置主题
       GM_setValue("swalThemes", $("#mzf-theme")[0].value);
+
+      // 设置监听剪贴板
       if ($("#mzf-listen-clipboard")[0].checked) {
         try {
           await navigator.clipboard.readText();
+          GM_setValue(
+            "listen-clipboard",
+            $("#mzf-listen-clipboard")[0].checked
+          );
         } catch (error) {
           showAlert(appError.ClipboardPremissionErr);
           return;
         } // 验证剪贴板权限, 若报错则跳出不设置该项
       }
-      GM_setValue("listen-clipboard", $("#mzf-listen-clipboard")[0].checked);
+
+      // 设置极速生成, 若开启则弹出文本提醒
+      if ($("#mzf-fast-generate")[0].checked)
+        showAlert(appWarning.fastGenerateWarn);
+      GM_setValue("fast-generate", $("#mzf-fast-generate")[0].checked);
     };
     Swal.fire(
       this.mergeArg(SwalConfig.settingView, {

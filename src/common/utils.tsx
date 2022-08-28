@@ -48,10 +48,14 @@ export function parsefileInfo(
         item.errno
       )}(#${item.errno})</p>`;
       if (checkMode)
-        bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`; // 测试模式下不再排除测试失败文件的秒传数据
+        bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
+          item.path
+        }\n`; // 测试模式下不再排除测试失败文件的秒传数据
     } else {
       successInfo += `<p>文件：${item.path}</p>`;
-      bdcode += `${item.md5}#${item.md5s}#${item.size}#${item.path}\n`;
+      bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
+        item.path
+      }\n`;
       successList.push(item);
     }
   });
@@ -92,7 +96,7 @@ export function getSelectedFileListNew() {
 /**
  * @description: 将data键值对转换为query字符串
  * @param {any} data
- * @return {string} query string
+ * @return {string} query
  */
 export function convertData(data: any): string {
   let query = "";
@@ -100,7 +104,11 @@ export function convertData(data: any): string {
   return query;
 }
 
-export async function parseClipboard() {
+/**
+ * @description: 从剪贴板获取字符串数据
+ * @return {string} bdlink
+ */
+export async function parseClipboard(): Promise<string> {
   try {
     let bdlink = await navigator.clipboard.readText();
     if (!DuParser.parse(bdlink).length) return "";
@@ -108,5 +116,35 @@ export async function parseClipboard() {
   } catch (error) {
     showAlert(appError.ClipboardPremissionErr);
     return "";
+  }
+}
+
+/**
+ * @description: 解密已加密的md5
+ * @param {string} md5 (加密)
+ * @return {string} md5 (解密)
+ */
+export function decryptMd5(md5: string): string {
+  if (
+    !(
+      (parseInt(md5[9]) >= 0 && parseInt(md5[9]) <= 9) ||
+      (md5[9] >= "a" && md5[9] <= "f")
+    )
+  )
+    return decrypt(md5);
+  else return md5;
+
+  function decrypt(encryptMd5: string) {
+    let key = (encryptMd5[9].charCodeAt(0) - "g".charCodeAt(0)).toString(16);
+    let key2 = encryptMd5.substr(0, 9) + key + encryptMd5.substr(10);
+    let key3 = "";
+    for (let a = 0; a < key2.length; a++)
+      key3 += (parseInt(key2[a], 16) ^ (15 & a)).toString(16);
+    let md5 =
+      key3.substr(8, 8) +
+      key3.substr(0, 8) +
+      key3.substr(24, 8) +
+      key3.substr(16, 8);
+    return md5;
   }
 }

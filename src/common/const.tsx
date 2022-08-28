@@ -1,6 +1,6 @@
-export const version = "2.3.6"; // 当前版本号
-export const updateDate = "22.7.19"; // 更新弹窗的日期
-export const updateInfoVer = "2.3.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+export const version = "2.3.8"; // 当前版本号
+export const updateDate = "22.8.29"; // 更新弹窗的日期
+export const updateInfoVer = "2.3.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 export const feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -30,6 +30,10 @@ export const appError = {
   ClipboardPremissionErr:
     '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
 }; // 主程序异常
+export const appWarning = {
+  fastGenerateWarn:
+    '使用 "极速生成" 功能请注意:\n优点:\n1. 可以秒速批量生成文件/文件夹秒传(单次最多1w个文件)\n2. 完全避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n2. 有极小概率生成错误的秒传, 生成完成后注意测试秒传',
+}; // 主程序各功能警告/提醒
 export const enum rapidTryflag {
   useUpperCaseMd5 = 0,
   useLowerCaseMd5 = 1,
