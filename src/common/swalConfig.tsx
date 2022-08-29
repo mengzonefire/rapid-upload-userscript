@@ -96,7 +96,8 @@ export const SwalConfig = {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
     allowOutsideClick: false,
-    html: `<select class="swal2-select" id="mzf-theme" style="display: flex;border-width: 1px;border-style: solid;"> <option value="Default">Default 白色主题(默认)</option> <option value="Bulma">Bulma 白色简约</option> <option value="Bootstrap 4">Bootstrap4 白色简约</option> <option value="Material UI">MaterialUI 白色主题</option> <option value="Dark">Dark 黑色主题</option> <option value="WordPress Admin">WordPressAdmin 灰色主题</option> </select> <label for="mzf-fast-generate" class="swal2-checkbox" style="display: flex;"><span class="swal2-label">极速生成</span><input type="checkbox" value="1" id="mzf-fast-generate" style="margin-left: 20px;"></label> <label for="mzf-listen-clipboard" class="swal2-checkbox" style="display: flex;"><span class="swal2-label">监听剪贴板 (需要允许剪贴板权限)</span><input type="checkbox" value="1" id="mzf-listen-clipboard" style="margin-left: 20px;"></label>`,
+    html: `<select class="swal2-select" id="mzf-theme" style="display: flex;border-width: 1px;border-style: solid;"><option value="Default">Default 白色主题(默认)</option><option value="Bulma">Bulma 白色简约</option><option value="Bootstrap 4">Bootstrap4 白色简约</option><option value="Material UI">MaterialUI 白色主题</option><option value="Dark">Dark 黑色主题</option><option value="WordPress Admin">WordPressAdmin 灰色主题</option></select>
+    <label for="swal2-checkbox" class="swal2-checkbox" style="display: flex;"><span class="swal2-label">监听剪贴板 (需要允许剪贴板权限)</span><input type="checkbox" value="1" id="mzf-listen-clipboard" style="margin-left: 20px;"></label>`,
   },
 
   settingWarning: {

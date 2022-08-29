@@ -1,18 +1,16 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-08-29 01:26:32
+ * @LastEditTime: 2022-08-29 14:43:15
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo } from "@/common/const";
-import { decryptMd5 } from "@/common/utils";
 import { list_url, meta_url2, pcs_url, UA } from "./const";
 import SparkMD5 from "spark-md5";
 
 export default class GeneratebdlinkTask {
-  isFast: boolean;
   recursive: boolean;
   dirList: Array<string>;
   selectList: Array<FileInfo>;
@@ -24,7 +22,6 @@ export default class GeneratebdlinkTask {
   onHasNoDir: () => void;
 
   reset(): void {
-    this.isFast = GM_getValue("fast-generate");
     this.recursive = false;
     this.dirList = [];
     this.selectList = [];
@@ -47,8 +44,6 @@ export default class GeneratebdlinkTask {
           path: item.path,
           size: item.size,
           fs_id: item.fs_id,
-          md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
-          md5s: "",
         });
       }
     });
@@ -82,8 +77,6 @@ export default class GeneratebdlinkTask {
                 path: item.path,
                 size: item.size,
                 fs_id: item.fs_id,
-                md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
-                md5s: "",
               }); // 筛选并添加文件(isdir===0)
           });
         } else
@@ -123,8 +116,7 @@ export default class GeneratebdlinkTask {
       this.generateBdlink(i + 1);
       return;
     } // 跳过扫描失败的文件夹
-    if (!this.isFast) this.getFileInfo(i);
-    else this.generateBdlink(i + 1); // 若开启 "极速生成", 则跳过后续所有过程
+    this.getFileInfo(i);
   }
 
   /**
@@ -205,7 +197,7 @@ export default class GeneratebdlinkTask {
       // console.log(data.responseHeaders); // debug
       let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
       if (fileMd5) file.md5 = fileMd5[1].toLowerCase();
-      // 从下载接口获取md5, 极速生成模式未开启时, 仅使用下载接口的md5(确保md5正确)
+      // 从下载接口获取md5
       else if (file.size <= 3900000000 && !file.retry_996) {
         // 下载接口未拿到md5, 尝试使用旧下载接口, 改接口请求文件大小大于3.9G会返回403
         file.retry_996 = true;
