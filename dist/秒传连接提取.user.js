@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.3.8
+// @version 2.3.9
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,7 +4820,7 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.3.8"; // 当前版本号
+var version = "2.3.9"; // 当前版本号
 var updateDate = "22.8.29"; // 更新弹窗的日期
 var updateInfoVer = "2.3.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -4875,10 +4875,11 @@ var htmlAboutBdlink = "\u4EC0\u4E48\u662F\u4E00\u952E\u79D2\u4F20?: <a href=\"" 
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:01:28
- * @LastEditTime: 2022-08-28 23:51:34
+ * @LastEditTime: 2022-08-29 10:21:05
  * @LastEditors: mengzonefire
  * @Description: 各种解析器
  */
+
 
 /**
  * @description: 从url中解析秒传链接
@@ -4990,7 +4991,7 @@ DuParser.parseDu_v4 = function parseDu_v3(szUrl) {
         .map(function (z) {
         return z
             .trim()
-            .match(/^([\da-f]{32})#(?:([\da-f]{32})#)?([\d]{1,20})#([\s\S]+)/i);
+            .match(/^([\da-f]{9}[\da-z][\da-f]{22})#(?:([\da-f]{32})#)?([\d]{1,20})#([\s\S]+)/i); // 22.8.29新增支持第10位为g-z的加密md5, 输入后自动解密转存
     })
         .filter(function (z) {
         return z;
@@ -4998,7 +4999,7 @@ DuParser.parseDu_v4 = function parseDu_v3(szUrl) {
         .map(function (info) {
         return {
             // 标准码 / 短版标准码(无md5s)
-            md5: info[1],
+            md5: decryptMd5(info[1].toLowerCase()),
             md5s: info[2] || "",
             size: info[3],
             path: info[4],
