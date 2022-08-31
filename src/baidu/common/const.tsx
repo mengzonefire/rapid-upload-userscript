@@ -6,6 +6,7 @@ import RapiduploadTask from "./RapiduploadTask";
 const host = location.host;
 export const rapid_url = `https://${host}/api/rapidupload`;
 export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
+export const precreate_url = `https://${host}/rest/2.0/xpan/file?method=precreate`;
 export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000`;
 // 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
 export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
@@ -58,18 +59,20 @@ export function baiduErrno(errno: number) {
     case 31190:
     case 404:
       return `秒传未生效(参考文档:<a href="${doc.shareDoc}#秒传未生效-404-31190" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#秒传未生效-404-31190" ${linkStyle}>载点2</a>)`;
-    case 2:
-      return "转存失败(尝试重新登录度盘账号/更换或重装浏览器)";
-    case 2333:
-      return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
-    case -10:
-      return "网盘容量已满";
+    case 114:
+      return "转存失败-v2接口(请重试/md5正确但size错误/接口异常)";
     case 514:
       return `请求失败(参考文档:<a href="${doc.shareDoc}#请求失败-514" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求失败-514" ${linkStyle}>载点2</a>)`;
     case 1919:
       return `文件已被和谐(参考文档:<a href="${doc.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a>)`;
+    case 810:
+      return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
     case 996:
       return `md5获取失败(参考文档:<a href="${doc.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a>)`;
+    case 2:
+      return "转存失败-v1接口(请重试/重新登录度盘账号/更换或重装浏览器/接口异常)";
+    case -10:
+      return "网盘容量已满";
     case 500:
     case 502:
     case 503:
@@ -84,3 +87,5 @@ export function baiduErrno(errno: number) {
       return "未知错误";
   }
 } // 自定义百度api返回errno的报错
+
+export const retryMax_apiV2 = 2; // v2转存接口的最大重试次数

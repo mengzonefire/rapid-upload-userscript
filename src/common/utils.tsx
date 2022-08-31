@@ -42,7 +42,14 @@ export function parsefileInfo(
   let failedCount = 0;
   let successList = [];
   fileInfoList.forEach((item) => {
-    if (item.errno) {
+    // 生成秒传时item.errno=undefined
+    if (0 === item.errno || undefined === item.errno) {
+      successInfo += `<p>文件：${item.path}</p>`;
+      bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
+        item.path
+      }\n`;
+      successList.push(item);
+    } else {
       failedCount++;
       failedInfo += `<p>文件：${item.path}</p><p>失败原因：${baiduErrno(
         item.errno
@@ -51,12 +58,6 @@ export function parsefileInfo(
         bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
           item.path
         }\n`; // 测试模式下不再排除测试失败文件的秒传数据
-    } else {
-      successInfo += `<p>文件：${item.path}</p>`;
-      bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
-        item.path
-      }\n`;
-      successList.push(item);
     }
   });
   if (failedInfo)

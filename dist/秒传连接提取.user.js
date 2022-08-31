@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.1
+// @version 2.4.2
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,9 +4820,9 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.4.1"; // 当前版本号
+var version = "2.4.2"; // 当前版本号
 var updateDate = "22.8.29"; // 更新弹窗的日期
-var updateInfoVer = "2.4.1"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -5898,7 +5898,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-05-22 09:46:49
+ * @LastEditTime: 2022-09-01 02:14:01
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5938,13 +5938,14 @@ var RapiduploadTask = /** @class */ (function () {
         var file = this.fileInfoList[i];
         // 文件名含有非法字符 / 文件名为空
         if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
-            file.errno = 2333;
+            file.errno = 810;
             this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
             return;
         }
         // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
         if (!file.md5s || file.size > 21474836480) {
             file.md5 = file.md5.toLowerCase();
+            console.log("use saveFile v2");
             this.saveFileV2(i);
             return;
         }
@@ -5998,9 +5999,41 @@ var RapiduploadTask = /** @class */ (function () {
      * @description: 转存秒传 接口2
      * @param {number} i
      */
-    RapiduploadTask.prototype.saveFileV2 = function (i) {
+    RapiduploadTask.prototype.saveFileV2 = function (i, _retry) {
         var _this = this;
+        if (_retry === void 0) { _retry = 0; }
         var file = this.fileInfoList[i];
+        var onFailed = function (statusCode) {
+            file.errno = statusCode;
+            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+        };
+        precreateFileV2.call(this, file, function (data) {
+            data = data.response;
+            console.log("block_list: " + data.block_list);
+            if (0 === data.errno) {
+                if (0 === data.block_list.length) {
+                    _this.createFileV2(file, function (data) {
+                        data = data.response;
+                        file.errno = 2 === data.errno ? 114 : data.errno;
+                        _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                    }, onFailed);
+                }
+                else {
+                    file.errno = 31190;
+                    _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                }
+            }
+            else {
+                file.errno = data.errno;
+                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            }
+        }, onFailed);
+    };
+    // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
+    // 此外, 即使md5和size均正确, 依旧有小概率返回"errno": 2, 故建议加入retry策略
+    RapiduploadTask.prototype.createFileV2 = function (file, onResponsed, onFailed, retry) {
+        var _this = this;
+        if (retry === void 0) { retry = 0; }
         ajax({
             url: "" + create_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
             method: "POST",
@@ -6010,20 +6043,33 @@ var RapiduploadTask = /** @class */ (function () {
                 path: this.savePath + file.path,
                 size: file.size,
                 isdir: 0,
-                rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为1(自动重命名)
+                rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
-            data = data.response;
-            file.errno = data.errno === 2 ? 404 : data.errno;
-            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-        }, function (statusCode) {
-            file.errno = statusCode;
-            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-        });
+            if (2 === data.response.errno && retry < retryMax_apiV2)
+                _this.createFileV2(file, onResponsed, onFailed, retry++);
+            else
+                onResponsed(data);
+        }, onFailed);
     };
     return RapiduploadTask;
 }());
 /* harmony default export */ const common_RapiduploadTask = (RapiduploadTask);
+// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
+function precreateFileV2(file, onResponsed, onFailed) {
+    ajax({
+        url: "" + precreate_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
+        method: "POST",
+        responseType: "json",
+        data: convertData({
+            block_list: JSON.stringify([file.md5]),
+            path: this.savePath + file.path,
+            size: file.size,
+            isdir: 0,
+            autoinit: 1,
+        }),
+    }, onResponsed, onFailed);
+}
 
 ;// CONCATENATED MODULE: ./src/baidu/common/const.tsx
 
@@ -6033,6 +6079,7 @@ var RapiduploadTask = /** @class */ (function () {
 var host = location.host;
 var rapid_url = "https://" + host + "/api/rapidupload";
 var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
+var precreate_url = "https://" + host + "/rest/2.0/xpan/file?method=precreate";
 var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
 // 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
 var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
@@ -6078,18 +6125,20 @@ function baiduErrno(errno) {
         case 31190:
         case 404:
             return "\u79D2\u4F20\u672A\u751F\u6548(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u8F7D\u70B92</a>)";
-        case 2:
-            return "转存失败(尝试重新登录度盘账号/更换或重装浏览器)";
-        case 2333:
-            return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
-        case -10:
-            return "网盘容量已满";
+        case 114:
+            return "转存失败-v2接口(请重试/md5正确但size错误/接口异常)";
         case 514:
             return "\u8BF7\u6C42\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 1919:
             return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a>)";
+        case 810:
+            return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
         case 996:
             return "md5\u83B7\u53D6\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a>)";
+        case 2:
+            return "转存失败-v1接口(请重试/重新登录度盘账号/更换或重装浏览器/接口异常)";
+        case -10:
+            return "网盘容量已满";
         case 500:
         case 502:
         case 503:
@@ -6104,6 +6153,7 @@ function baiduErrno(errno) {
             return "未知错误";
     }
 } // 自定义百度api返回errno的报错
+var retryMax_apiV2 = 2; // v2转存接口的最大重试次数
 
 ;// CONCATENATED MODULE: ./src/common/utils.tsx
 var utils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -6183,16 +6233,17 @@ function parsefileInfo(fileInfoList, checkMode) {
     var failedCount = 0;
     var successList = [];
     fileInfoList.forEach(function (item) {
-        if (item.errno) {
+        // 生成秒传时item.errno=undefined
+        if (0 === item.errno || undefined === item.errno) {
+            successInfo += "<p>\u6587\u4EF6\uFF1A" + item.path + "</p>";
+            bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n";
+            successList.push(item);
+        }
+        else {
             failedCount++;
             failedInfo += "<p>\u6587\u4EF6\uFF1A" + item.path + "</p><p>\u5931\u8D25\u539F\u56E0\uFF1A" + baiduErrno(item.errno) + "(#" + item.errno + ")</p>";
             if (checkMode)
                 bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n"; // 测试模式下不再排除测试失败文件的秒传数据
-        }
-        else {
-            successInfo += "<p>\u6587\u4EF6\uFF1A" + item.path + "</p>";
-            bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n";
-            successList.push(item);
         }
     });
     if (failedInfo)

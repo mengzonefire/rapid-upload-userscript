@@ -1,6 +1,6 @@
-export const version = "2.4.1"; // 当前版本号
+export const version = "2.4.2"; // 当前版本号
 export const updateDate = "22.8.29"; // 更新弹窗的日期
-export const updateInfoVer = "2.4.1"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+export const updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 export const feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -41,14 +41,14 @@ export const enum genTryflag {
   useDlink2 = 1,
 } // 秒传生成 标识参数
 export interface FileInfo {
-  path: string;
-  isdir?: number;
-  errno?: number;
-  size?: number;
-  md5?: string;
-  md5s?: string;
-  fs_id?: string;
-  retry_996?: boolean;
+  path: string; // 文件路径
+  isdir?: number; // 是否为目录
+  errno?: number; // =0成功, !=0为失败
+  size?: number; // 文件大小, 若为目录则=0
+  md5?: string; // md5
+  md5s?: string; // 前256KiB md5
+  fs_id?: string; // 云端文件id
+  retry_996?: boolean; // 用于判断是否使用备用生成接口
 } // 自定义文件信息数据结构
 const docPrefix =
   "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
