@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-08-29 14:33:14
+ * @LastEditTime: 2022-09-01 11:17:38
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -369,8 +369,13 @@ export default class Swalbase {
       } / ${fileInfoList.length}`;
       Swal.getHtmlContainer().querySelector("gen_prog").textContent = "0%";
     };
-    this.generatebdlinkTask.onProgress = (e: any) => {
-      if (typeof e.total !== "number") return; // 参数数据不正确 跳过
+    this.generatebdlinkTask.onProgress = (e: any, text: string = "") => {
+      if (text) {
+        // 显示自定义文本
+        Swal.getHtmlContainer().querySelector("gen_prog").textContent = text;
+        return;
+      }
+      if (!e || typeof e.total !== "number") return; // 参数数据不正确 跳过
       Swal.getHtmlContainer().querySelector("gen_prog").textContent = `${(
         (e.loaded / e.total) *
         100
@@ -393,7 +398,9 @@ export default class Swalbase {
           this.genFileWork(true, false);
           let unfinishInfo: any = GM_getValue("unfinish");
           this.generatebdlinkTask.fileInfoList = unfinishInfo.file_info_list;
-          this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
+          unfinishInfo.isCheckMd5
+            ? this.generatebdlinkTask.checkMd5(unfinishInfo.file_id)
+            : this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
         }, // 确认继续未完成任务
         () => {
           GM_deleteValue("unfinish");

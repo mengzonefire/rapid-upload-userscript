@@ -42,7 +42,6 @@ export function parsefileInfo(
   let failedCount = 0;
   let successList = [];
   fileInfoList.forEach((item) => {
-    // 生成秒传时item.errno=undefined
     if (0 === item.errno || undefined === item.errno) {
       successInfo += `<p>文件：${item.path}</p>`;
       bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${

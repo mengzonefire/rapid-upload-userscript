@@ -5168,7 +5168,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-08-29 14:33:14
+ * @LastEditTime: 2022-09-01 11:17:38
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5566,8 +5566,14 @@ var Swalbase = /** @class */ (function () {
             sweetalert2_all_default().getHtmlContainer().querySelector("file_num").textContent = i + 1 + " / " + fileInfoList.length;
             sweetalert2_all_default().getHtmlContainer().querySelector("gen_prog").textContent = "0%";
         };
-        this.generatebdlinkTask.onProgress = function (e) {
-            if (typeof e.total !== "number")
+        this.generatebdlinkTask.onProgress = function (e, text) {
+            if (text === void 0) { text = ""; }
+            if (text) {
+                // 显示自定义文本
+                sweetalert2_all_default().getHtmlContainer().querySelector("gen_prog").textContent = text;
+                return;
+            }
+            if (!e || typeof e.total !== "number")
                 return; // 参数数据不正确 跳过
             sweetalert2_all_default().getHtmlContainer().querySelector("gen_prog").textContent = ((e.loaded / e.total) *
                 100).toFixed() + "%";
@@ -5589,7 +5595,9 @@ var Swalbase = /** @class */ (function () {
                 _this.genFileWork(true, false);
                 var unfinishInfo = GM_getValue("unfinish");
                 _this.generatebdlinkTask.fileInfoList = unfinishInfo.file_info_list;
-                _this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
+                unfinishInfo.isCheckMd5
+                    ? _this.generatebdlinkTask.checkMd5(unfinishInfo.file_id)
+                    : _this.generatebdlinkTask.generateBdlink(unfinishInfo.file_id);
             }, // 确认继续未完成任务
             function () {
                 GM_deleteValue("unfinish");
@@ -5681,224 +5689,11 @@ function ajax(config, callback, failback) {
         } }));
 }
 
-// EXTERNAL MODULE: ./node_modules/spark-md5/spark-md5.js
-var spark_md5 = __webpack_require__(322);
-var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
-;// CONCATENATED MODULE: ./src/baidu/common/GeneratebdlinkTask.tsx
-/*
- * @Author: mengzonefire
- * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-08-29 14:43:15
- * @LastEditors: mengzonefire
- * @Description: 百度网盘 秒传生成任务实现
- */
-
-
-
-var GeneratebdlinkTask = /** @class */ (function () {
-    function GeneratebdlinkTask() {
-    }
-    GeneratebdlinkTask.prototype.reset = function () {
-        this.recursive = false;
-        this.dirList = [];
-        this.selectList = [];
-        this.fileInfoList = [];
-        this.onFinish = function () { };
-        this.onProcess = function () { };
-        this.onProgress = function () { };
-        this.onHasDir = function () { };
-        this.onHasNoDir = function () { };
-    };
-    /**
-     * @description: 执行新任务的初始化步骤 扫描选择的文件列表
-     */
-    GeneratebdlinkTask.prototype.start = function () {
-        var _this = this;
-        this.selectList.forEach(function (item) {
-            if (item.isdir)
-                _this.dirList.push(item.path);
-            else {
-                _this.fileInfoList.push({
-                    path: item.path,
-                    size: item.size,
-                    fs_id: item.fs_id,
-                });
-            }
-        });
-        if (this.dirList.length)
-            this.onHasDir();
-        else
-            this.onHasNoDir();
-    };
-    /**
-     * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
-     * @param {number} i
-     */
-    GeneratebdlinkTask.prototype.scanFile = function (i) {
-        var _this = this;
-        if (i >= this.dirList.length) {
-            this.generateBdlink(0);
-            return;
-        }
-        ajax({
-            url: list_url + "&path=" + encodeURIComponent(this.dirList[i]) + "&recursion=" + (this.recursive ? 1 : 0),
-            method: "GET",
-            responseType: "json",
-        }, function (data) {
-            data = data.response;
-            if (!data.errno) {
-                data.list.forEach(function (item) {
-                    item.isdir ||
-                        _this.fileInfoList.push({
-                            path: item.path,
-                            size: item.size,
-                            fs_id: item.fs_id,
-                        }); // 筛选并添加文件(isdir===0)
-                });
-            }
-            else
-                _this.fileInfoList.push({
-                    path: _this.dirList[i],
-                    errno: data.errno,
-                });
-            _this.scanFile(i + 1);
-        }, function (statusCode) {
-            _this.fileInfoList.push({
-                path: _this.dirList[i],
-                errno: statusCode === 500 ? 901 : statusCode,
-            });
-            _this.scanFile(i + 1);
-        });
-    };
-    /**
-     * @description: 顺序执行生成任务
-     * @param {number} i
-     */
-    GeneratebdlinkTask.prototype.generateBdlink = function (i) {
-        GM_setValue("unfinish", {
-            file_info_list: this.fileInfoList,
-            file_id: i,
-        }); // 保存任务进度数据
-        if (i >= this.fileInfoList.length) {
-            this.onFinish(this.fileInfoList);
-            return;
-        }
-        this.onProcess(i, this.fileInfoList);
-        var file = this.fileInfoList[i];
-        if (file.errno) {
-            this.generateBdlink(i + 1);
-            return;
-        } // 跳过扫描失败的文件夹
-        this.getFileInfo(i);
-    };
-    /**
-     * @description: 获取文件dlink(下载直链)
-     * @param {number} i
-     */
-    GeneratebdlinkTask.prototype.getFileInfo = function (i) {
-        var _this = this;
-        var file = this.fileInfoList[i];
-        ajax({
-            url: meta_url2 + JSON.stringify([file.fs_id]),
-            responseType: "json",
-            method: "GET",
-        }, function (data) {
-            data = data.response;
-            if (!data.errno) {
-                console.log(data.list[0]); // debug
-                _this.downloadFileData(i, data.list[0].dlink);
-            }
-            else {
-                file.errno = data.errno;
-                _this.generateBdlink(i + 1);
-            }
-        }, function (statusCode) {
-            file.errno = statusCode;
-            _this.generateBdlink(i + 1);
-        });
-    };
-    /**
-     * @description: 调用下载直链
-     * @param {number} i
-     * @param {string} dlink
-     */
-    GeneratebdlinkTask.prototype.downloadFileData = function (i, dlink) {
-        var _this = this;
-        var file = this.fileInfoList[i];
-        var dlSize = file.size < 262144 ? file.size - 1 : 262143; //slice-md5: 文件前256KiB的md5
-        ajax({
-            url: dlink,
-            method: "GET",
-            responseType: "arraybuffer",
-            headers: {
-                Range: "bytes=0-" + dlSize,
-                "User-Agent": UA,
-            },
-            onprogress: this.onProgress,
-        }, function (data) {
-            _this.onProgress({ loaded: 100, total: 100 }); // 100%
-            _this.parseDownloadData(i, data);
-        }, function (statusCode) {
-            if (statusCode === 404)
-                file.errno = 909;
-            else
-                file.errno = statusCode;
-            _this.generateBdlink(i + 1);
-        });
-    };
-    /**
-     * @description: 解析服务器返回的数据
-     * @param {number} i
-     * @param {XMLHttpRequest} data
-     * @return {*}
-     */
-    GeneratebdlinkTask.prototype.parseDownloadData = function (i, data) {
-        var _this = this;
-        console.log("dl_url: " + data.finalUrl); // debug
-        var file = this.fileInfoList[i];
-        if (data.finalUrl.includes("issuecdn.baidupcs.com")) {
-            // 下载直链重定向到此域名, 判定为文件和谐
-            file.errno = 1919;
-            this.generateBdlink(i + 1);
-            return;
-        }
-        else {
-            // console.log(data.responseHeaders); // debug
-            var fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
-            if (fileMd5)
-                file.md5 = fileMd5[1].toLowerCase();
-            // 从下载接口获取md5
-            else if (file.size <= 3900000000 && !file.retry_996) {
-                // 下载接口未拿到md5, 尝试使用旧下载接口, 改接口请求文件大小大于3.9G会返回403
-                file.retry_996 = true;
-                this.downloadFileData(i, pcs_url + ("&path=" + encodeURIComponent(file.path)));
-                return;
-            }
-            else {
-                // 两个下载接口均未拿到md5
-                file.errno = 996;
-                this.generateBdlink(i + 1);
-                return;
-            }
-            var spark = new (spark_md5_default()).ArrayBuffer();
-            spark.append(data.response);
-            var sliceMd5 = spark.end();
-            file.md5s = sliceMd5;
-            var interval = this.fileInfoList.length > 1 ? 2000 : 1000;
-            setTimeout(function () {
-                _this.generateBdlink(i + 1);
-            }, interval);
-        }
-    };
-    return GeneratebdlinkTask;
-}());
-/* harmony default export */ const common_GeneratebdlinkTask = (GeneratebdlinkTask);
-
-;// CONCATENATED MODULE: ./src/baidu/common/RapiduploadTask.tsx
+;// CONCATENATED MODULE: ./src/baidu/common/rapiduploadTask.tsx
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 02:14:01
+ * @LastEditTime: 2022-09-01 10:53:46
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5999,9 +5794,8 @@ var RapiduploadTask = /** @class */ (function () {
      * @description: 转存秒传 接口2
      * @param {number} i
      */
-    RapiduploadTask.prototype.saveFileV2 = function (i, _retry) {
+    RapiduploadTask.prototype.saveFileV2 = function (i) {
         var _this = this;
-        if (_retry === void 0) { _retry = 0; }
         var file = this.fileInfoList[i];
         var onFailed = function (statusCode) {
             file.errno = statusCode;
@@ -6009,7 +5803,6 @@ var RapiduploadTask = /** @class */ (function () {
         };
         precreateFileV2.call(this, file, function (data) {
             data = data.response;
-            console.log("block_list: " + data.block_list);
             if (0 === data.errno) {
                 if (0 === data.block_list.length) {
                     _this.createFileV2(file, function (data) {
@@ -6054,9 +5847,460 @@ var RapiduploadTask = /** @class */ (function () {
     };
     return RapiduploadTask;
 }());
-/* harmony default export */ const common_RapiduploadTask = (RapiduploadTask);
+/* harmony default export */ const rapiduploadTask = ((/* unused pure expression or super */ null && (RapiduploadTask)));
 // 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
 function precreateFileV2(file, onResponsed, onFailed) {
+    ajax({
+        url: "" + precreate_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
+        method: "POST",
+        responseType: "json",
+        data: convertData({
+            block_list: JSON.stringify([file.md5]),
+            path: this.savePath + file.path,
+            size: file.size,
+            isdir: 0,
+            autoinit: 1,
+        }),
+    }, onResponsed, onFailed);
+}
+
+// EXTERNAL MODULE: ./node_modules/spark-md5/spark-md5.js
+var spark_md5 = __webpack_require__(322);
+var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
+;// CONCATENATED MODULE: ./src/baidu/common/GeneratebdlinkTask.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-25 01:31:01
+ * @LastEditTime: 2022-09-01 11:36:04
+ * @LastEditors: mengzonefire
+ * @Description: 百度网盘 秒传生成任务实现
+ */
+
+
+
+
+
+// 普通生成:
+var GeneratebdlinkTask = /** @class */ (function () {
+    function GeneratebdlinkTask() {
+    }
+    GeneratebdlinkTask.prototype.reset = function () {
+        // this.isFast = GM_getValue("fast-generate");
+        this.isFast = true; // debug
+        this.savePath = "";
+        this.recursive = false;
+        this.bdstoken = getBdstoken();
+        this.dirList = [];
+        this.selectList = [];
+        this.fileInfoList = [];
+        this.onFinish = function () { };
+        this.onProcess = function () { };
+        this.onProgress = function () { };
+        this.onHasDir = function () { };
+        this.onHasNoDir = function () { };
+    };
+    /**
+     * @description: 执行新任务的初始化步骤 扫描选择的文件列表
+     */
+    GeneratebdlinkTask.prototype.start = function () {
+        var _this = this;
+        this.selectList.forEach(function (item) {
+            if (item.isdir)
+                _this.dirList.push(item.path);
+            else {
+                _this.fileInfoList.push({
+                    path: item.path,
+                    size: item.size,
+                    fs_id: item.fs_id,
+                    md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+                    md5s: "",
+                });
+            }
+        });
+        if (this.dirList.length)
+            this.onHasDir();
+        else
+            this.onHasNoDir();
+    };
+    /**
+     * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
+     * @param {number} i
+     */
+    GeneratebdlinkTask.prototype.scanFile = function (i) {
+        var _this = this;
+        if (i >= this.dirList.length) {
+            this.generateBdlink(0);
+            return;
+        }
+        ajax({
+            url: list_url + "&path=" + encodeURIComponent(this.dirList[i]) + "&recursion=" + (this.recursive ? 1 : 0),
+            method: "GET",
+            responseType: "json",
+        }, // list接口自带递归参数recursion
+        function (data) {
+            data = data.response;
+            if (!data.errno) {
+                data.list.forEach(function (item) {
+                    item.isdir ||
+                        _this.fileInfoList.push({
+                            path: item.path,
+                            size: item.size,
+                            fs_id: item.fs_id,
+                            md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+                            md5s: "",
+                        }); // 筛选文件(isdir=0)
+                });
+            }
+            else
+                _this.fileInfoList.push({
+                    path: _this.dirList[i],
+                    errno: data.errno,
+                }); // list接口访问失败, 添加失败信息
+            _this.scanFile(i + 1);
+        }, function (statusCode) {
+            _this.fileInfoList.push({
+                path: _this.dirList[i],
+                errno: statusCode === 500 ? 901 : statusCode,
+            });
+            _this.scanFile(i + 1);
+        });
+    };
+    /**
+     * @description: 顺序执行生成任务
+     * @param {number} i
+     */
+    GeneratebdlinkTask.prototype.generateBdlink = function (i) {
+        GM_setValue("unfinish", {
+            file_info_list: this.fileInfoList,
+            file_id: i,
+        }); // 保存任务进度数据
+        if (i >= this.fileInfoList.length) {
+            if (this.isFast)
+                this.checkMd5(0);
+            else
+                this.onFinish(this.fileInfoList);
+            return;
+        }
+        if (!this.isFast)
+            this.onProcess(i, this.fileInfoList);
+        var file = this.fileInfoList[i];
+        if (file.errno) {
+            this.generateBdlink(i + 1);
+            return;
+        } // 跳过扫描失败的目录
+        if (this.isFast)
+            this.generateBdlink(i + 1); // 已开启 "极速生成", 不执行普通生成步骤
+        else
+            this.getFileInfo(i); // 普通生成步骤
+    };
+    /**
+     * @description: 获取文件dlink(下载直链)
+     * @param {number} i
+     */
+    GeneratebdlinkTask.prototype.getFileInfo = function (i) {
+        var _this = this;
+        var file = this.fileInfoList[i];
+        ajax({
+            url: meta_url2 + JSON.stringify([file.fs_id]),
+            responseType: "json",
+            method: "GET",
+        }, function (data) {
+            data = data.response;
+            if (!data.errno) {
+                console.log(data.list[0]); // debug
+                _this.downloadFileData(i, data.list[0].dlink);
+            }
+            else {
+                file.errno = data.errno;
+                _this.isFast ? _this.checkMd5(i + 1) : _this.generateBdlink(i + 1);
+            }
+        }, function (statusCode) {
+            file.errno = statusCode;
+            _this.isFast ? _this.checkMd5(i + 1) : _this.generateBdlink(i + 1);
+        });
+    };
+    /**
+     * @description: 调用下载直链
+     * @param {number} i
+     * @param {string} dlink
+     */
+    GeneratebdlinkTask.prototype.downloadFileData = function (i, dlink) {
+        var _this = this;
+        var dlSize, file = this.fileInfoList[i];
+        if (this.isFast)
+            dlSize = 1; // "极速下载" 不需要生成slice-md5, 故无需下载文件数据
+        else
+            dlSize = file.size < 262144 ? file.size - 1 : 262143; //slice-md5: 文件前256KiB的md5
+        ajax({
+            url: dlink,
+            method: "GET",
+            responseType: "arraybuffer",
+            headers: {
+                Range: "bytes=0-" + dlSize,
+                "User-Agent": UA,
+            },
+            onprogress: this.isFast ? function () { } : this.onProgress,
+        }, function (data) {
+            if (!_this.isFast)
+                _this.onProgress({ loaded: 100, total: 100 }); // 100%
+            _this.parseDownloadData(i, data);
+        }, function (statusCode) {
+            if (statusCode === 404)
+                file.errno = 909;
+            else
+                file.errno = statusCode;
+            _this.isFast ? _this.checkMd5(i + 1) : _this.generateBdlink(i + 1);
+        });
+    };
+    /**
+     * @description: 解析直链请求返回的数据
+     * @param {number} i
+     * @param {any} data
+     */
+    GeneratebdlinkTask.prototype.parseDownloadData = function (i, data) {
+        var _this = this;
+        var file = this.fileInfoList[i];
+        console.log("dl_url: " + data.finalUrl); // debug
+        // 下载直链重定向到此域名, 判定为文件和谐
+        if (data.finalUrl.includes("issuecdn.baidupcs.com")) {
+            file.errno = 1919;
+            this.isFast ? this.checkMd5(i + 1) : this.generateBdlink(i + 1);
+            return;
+        }
+        // 从下载接口获取md5, 此步骤可确保获取到正确md5
+        // console.log(data.responseHeaders); // debug
+        var fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
+        if (fileMd5)
+            file.md5 = fileMd5[1].toLowerCase();
+        else if (file.size <= 3900000000 && !file.retry_996) {
+            // 默认下载接口未拿到md5, 尝试使用旧下载接口, 旧接口请求文件size大于3.9G会返回403
+            file.retry_996 = true;
+            this.downloadFileData(i, pcs_url + ("&path=" + encodeURIComponent(file.path)));
+            return;
+        }
+        else {
+            // 两个下载接口均未拿到md5, 失败跳出
+            file.errno = 996;
+            this.isFast ? this.checkMd5(i + 1) : this.generateBdlink(i + 1);
+            return;
+        }
+        // 获取md5s, "极速生成" 跳过此步
+        if (!this.isFast) {
+            var spark = new (spark_md5_default()).ArrayBuffer();
+            spark.append(data.response);
+            var sliceMd5 = spark.end();
+            file.md5s = sliceMd5;
+            var interval = this.fileInfoList.length > 1 ? 2000 : 1000;
+            setTimeout(function () {
+                _this.generateBdlink(i + 1);
+            }, interval);
+        }
+        else
+            this.checkMd5(i + 1);
+    };
+    /**
+     * @description: "极速生成" 可能得到错误md5, 故执行验证步骤, 若验证不通过则执行普通生成
+     * @param {number} i
+     */
+    GeneratebdlinkTask.prototype.checkMd5 = function (i) {
+        var _this = this;
+        if (i >= this.fileInfoList.length) {
+            this.onFinish(this.fileInfoList);
+            return;
+        }
+        this.onProcess(i, this.fileInfoList);
+        this.onProgress(false, "极速生成中...");
+        var file = this.fileInfoList[i];
+        precreateFileV2.call(this, file, function (data) {
+            data = data.response;
+            if (0 === data.errno) {
+                if (0 === data.block_list.length)
+                    _this.checkMd5(i + 1); // md5验证成功
+                else {
+                    // md5验证失败, 执行普通生成, 仅在此处保存任务进度
+                    GM_setValue("unfinish", {
+                        file_info_list: _this.fileInfoList,
+                        file_id: i,
+                        isCheckMd5: true,
+                    });
+                    _this.getFileInfo(i);
+                }
+            }
+            else {
+                // 接口访问失败
+                file.errno = data.errno;
+                _this.checkMd5(i + 1);
+            }
+        }, function (statusCode) {
+            file.errno = statusCode;
+            _this.checkMd5(i + 1);
+        });
+    };
+    return GeneratebdlinkTask;
+}());
+/* harmony default export */ const common_GeneratebdlinkTask = (GeneratebdlinkTask);
+
+;// CONCATENATED MODULE: ./src/baidu/common/RapiduploadTask.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-25 01:30:29
+ * @LastEditTime: 2022-09-01 10:53:46
+ * @LastEditors: mengzonefire
+ * @Description: 百度网盘 秒传转存任务实现
+ */
+
+
+
+var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
+    function RapiduploadTask() {
+    }
+    RapiduploadTask.prototype.reset = function () {
+        this.bdstoken = getBdstoken();
+        // console.log("bdstoken: ", this.bdstoken); // debug
+        this.fileInfoList = [];
+        this.savePath = "";
+        this.checkMode = false;
+        this.isDefaultPath = false;
+        this.onFinish = function () { };
+        this.onProcess = function () { };
+    };
+    RapiduploadTask.prototype.start = function () {
+        if (this.checkMode)
+            this.savePath = "";
+        this.saveFile(0, 0 /* useUpperCaseMd5 */);
+    };
+    /**
+     * @description: 转存秒传 接口1
+     * @param {number} i
+     * @param {number} tryFlag 标识参数
+     */
+    RapiduploadTask.prototype.saveFile = function (i, tryFlag) {
+        var _this = this;
+        if (i >= this.fileInfoList.length) {
+            this.onFinish(this.fileInfoList);
+            return;
+        }
+        this.onProcess(i, this.fileInfoList);
+        var file = this.fileInfoList[i];
+        // 文件名含有非法字符 / 文件名为空
+        if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
+            file.errno = 810;
+            this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            return;
+        }
+        // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
+        if (!file.md5s || file.size > 21474836480) {
+            file.md5 = file.md5.toLowerCase();
+            console.log("use saveFile v2");
+            this.saveFileV2(i);
+            return;
+        }
+        switch (tryFlag) {
+            case 0 /* useUpperCaseMd5 */:
+                console.log("use UpperCase md5");
+                file.md5 = file.md5.toUpperCase();
+                break;
+            case 1 /* useLowerCaseMd5 */:
+                console.log("use LowerCase md5");
+                file.md5 = file.md5.toLowerCase();
+                break;
+            case 2 /* useRandomCaseMd5 */:
+                console.log("use randomCase md5");
+                file.md5 = randomStringTransform(file.md5);
+                break;
+            case 3 /* useSaveFileV2 */:
+                console.log("use saveFile v2");
+                file.md5 = file.md5.toLowerCase();
+                this.saveFileV2(i);
+                return;
+            default:
+                this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                return;
+        }
+        ajax({
+            url: "" + rapid_url + (this.bdstoken && "?bdstoken=" + this.bdstoken),
+            method: "POST",
+            responseType: "json",
+            data: convertData({
+                rtype: this.checkMode ? 3 : 0,
+                path: this.savePath + file.path,
+                "content-md5": file.md5,
+                "slice-md5": file.md5s.toLowerCase(),
+                "content-length": file.size,
+            }),
+        }, function (data) {
+            data = data.response;
+            if (data.errno === 404)
+                _this.saveFile(i, tryFlag + 1);
+            else {
+                file.errno = data.errno;
+                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            }
+        }, function (statusCode) {
+            file.errno = statusCode;
+            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+        });
+    };
+    /**
+     * @description: 转存秒传 接口2
+     * @param {number} i
+     */
+    RapiduploadTask.prototype.saveFileV2 = function (i) {
+        var _this = this;
+        var file = this.fileInfoList[i];
+        var onFailed = function (statusCode) {
+            file.errno = statusCode;
+            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+        };
+        RapiduploadTask_precreateFileV2.call(this, file, function (data) {
+            data = data.response;
+            if (0 === data.errno) {
+                if (0 === data.block_list.length) {
+                    _this.createFileV2(file, function (data) {
+                        data = data.response;
+                        file.errno = 2 === data.errno ? 114 : data.errno;
+                        _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                    }, onFailed);
+                }
+                else {
+                    file.errno = 31190;
+                    _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                }
+            }
+            else {
+                file.errno = data.errno;
+                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            }
+        }, onFailed);
+    };
+    // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
+    // 此外, 即使md5和size均正确, 依旧有小概率返回"errno": 2, 故建议加入retry策略
+    RapiduploadTask.prototype.createFileV2 = function (file, onResponsed, onFailed, retry) {
+        var _this = this;
+        if (retry === void 0) { retry = 0; }
+        ajax({
+            url: "" + create_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
+            method: "POST",
+            responseType: "json",
+            data: convertData({
+                block_list: JSON.stringify([file.md5]),
+                path: this.savePath + file.path,
+                size: file.size,
+                isdir: 0,
+                rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
+            }),
+        }, function (data) {
+            if (2 === data.response.errno && retry < retryMax_apiV2)
+                _this.createFileV2(file, onResponsed, onFailed, retry++);
+            else
+                onResponsed(data);
+        }, onFailed);
+    };
+    return RapiduploadTask;
+}());
+/* harmony default export */ const common_RapiduploadTask = (RapiduploadTask_RapiduploadTask);
+// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
+function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
     ajax({
         url: "" + precreate_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
         method: "POST",
@@ -6233,7 +6477,6 @@ function parsefileInfo(fileInfoList, checkMode) {
     var failedCount = 0;
     var successList = [];
     fileInfoList.forEach(function (item) {
-        // 生成秒传时item.errno=undefined
         if (0 === item.errno || undefined === item.errno) {
             successInfo += "<p>\u6587\u4EF6\uFF1A" + item.path + "</p>";
             bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n";

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 02:15:30
+ * @LastEditTime: 2022-09-01 10:53:46
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -119,7 +119,7 @@ export default class RapiduploadTask {
    * @description: 转存秒传 接口2
    * @param {number} i
    */
-  saveFileV2(i: number, _retry: number = 0): void {
+  saveFileV2(i: number): void {
     let file = this.fileInfoList[i];
     let onFailed = (statusCode: number) => {
       file.errno = statusCode;
@@ -128,7 +128,7 @@ export default class RapiduploadTask {
     precreateFileV2.call(
       this,
       file,
-      (data) => {
+      (data: any) => {
         data = data.response;
         if (0 === data.errno) {
           if (0 === data.block_list.length) {
