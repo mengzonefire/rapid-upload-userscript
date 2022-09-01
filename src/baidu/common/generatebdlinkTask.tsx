@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-09-01 11:36:04
+ * @LastEditTime: 2022-09-01 20:45:38
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -28,8 +28,7 @@ export default class GeneratebdlinkTask {
   onHasNoDir: () => void;
 
   reset(): void {
-    // this.isFast = GM_getValue("fast-generate");
-    this.isFast = true; // debug
+    this.isFast = GM_getValue("fast-generate");
     this.savePath = "";
     this.recursive = false;
     this.bdstoken = getBdstoken();
@@ -130,7 +129,8 @@ export default class GeneratebdlinkTask {
       this.generateBdlink(i + 1);
       return;
     } // 跳过扫描失败的目录
-    if (this.isFast)
+    if (this.isFast && file.md5)
+      // 使用生成页输入路径生成时, 由于跳过了扫描步骤, 没有md5信息, 故只支持普通生成
       this.generateBdlink(i + 1); // 已开启 "极速生成", 不执行普通生成步骤
     else this.getFileInfo(i); // 普通生成步骤
   }
@@ -174,7 +174,7 @@ export default class GeneratebdlinkTask {
       file = this.fileInfoList[i];
     if (this.isFast)
       dlSize = 1; // "极速下载" 不需要生成slice-md5, 故无需下载文件数据
-    else dlSize = file.size < 262144 ? file.size - 1 : 262143; //slice-md5: 文件前256KiB的md5
+    else dlSize = file.size < 262144 ? 1 : 262143; //slice-md5: 文件前256KiB的md5, size<256KiB则直接取md5即可, 无需下载文件数据
     ajax(
       {
         url: dlink,
@@ -235,10 +235,14 @@ export default class GeneratebdlinkTask {
 
     // 获取md5s, "极速生成" 跳过此步
     if (!this.isFast) {
-      let spark = new SparkMD5.ArrayBuffer();
-      spark.append(data.response);
-      let sliceMd5 = spark.end();
-      file.md5s = sliceMd5;
+      if (file.size < 262144) file.md5s = file.md5; // 此时md5s=md5
+      else {
+        // 计算md5s
+        let spark = new SparkMD5.ArrayBuffer();
+        spark.append(data.response);
+        let sliceMd5 = spark.end();
+        file.md5s = sliceMd5;
+      }
       let interval = this.fileInfoList.length > 1 ? 2000 : 1000;
       setTimeout(() => {
         this.generateBdlink(i + 1);

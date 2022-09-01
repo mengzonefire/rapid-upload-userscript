@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 10:53:46
+ * @LastEditTime: 2022-09-01 22:47:35
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -137,12 +137,13 @@ export default class RapiduploadTask {
               (data) => {
                 data = data.response;
                 file.errno = 2 === data.errno ? 114 : data.errno;
+                file.errno = 31190 === file.errno ? 404 : file.errno;
                 this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
               },
               onFailed
             );
           } else {
-            file.errno = 31190;
+            file.errno = 404;
             this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
           }
         } else {
@@ -155,7 +156,7 @@ export default class RapiduploadTask {
   }
 
   // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
-  // 此外, 即使md5和size均正确, 依旧有小概率返回"errno": 2, 故建议加入retry策略
+  // 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
   createFileV2(
     file: FileInfo,
     onResponsed: (data: any) => void,
@@ -176,8 +177,9 @@ export default class RapiduploadTask {
         }),
       },
       (data) => {
+        console.log(data.response); // debug
         if (2 === data.response.errno && retry < retryMax_apiV2)
-          this.createFileV2(file, onResponsed, onFailed, retry++);
+          this.createFileV2(file, onResponsed, onFailed, ++retry);
         else onResponsed(data);
       },
       onFailed

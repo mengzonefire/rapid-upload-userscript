@@ -56,27 +56,26 @@ export function baiduErrno(errno: number) {
       return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
     case 403:
       return `接口限制访问(参考文档:<a href="${doc.shareDoc}#接口限制访问-403" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#接口限制访问-403" ${linkStyle}>载点2</a>)`;
-    case 31190:
     case 404:
-      return `秒传未生效(参考文档:<a href="${doc.shareDoc}#秒传未生效-404-31190" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#秒传未生效-404-31190" ${linkStyle}>载点2</a>)`;
+      return `秒传未生效(参考文档:<a href="${doc.shareDoc}#秒传未生效-404" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#秒传未生效-404" ${linkStyle}>载点2</a>)`;
     case 114:
-      return "转存失败-v2接口(请重试/md5正确但size错误/接口异常)";
+      return `转存失败-v2接口(参考文档:<a href="${doc.shareDoc}#转存失败-v2接口-114" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#转存失败-v2接口-114" ${linkStyle}>载点2</a>)`;
     case 514:
       return `请求失败(参考文档:<a href="${doc.shareDoc}#请求失败-514" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求失败-514" ${linkStyle}>载点2</a>)`;
     case 1919:
-      return `文件已被和谐(参考文档:<a href="${doc.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a>)`;
+      return `文件已被和谐(参考文档:<a href="${doc.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点2</a>)`;
     case 810:
       return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
     case 996:
-      return `md5获取失败(参考文档:<a href="${doc.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a>)`;
+      return `md5获取失败(参考文档:<a href="${doc.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#md5-获取失败-996" ${linkStyle}>载点2</a>)`;
     case 2:
-      return "转存失败-v1接口(请重试/重新登录度盘账号/更换或重装浏览器/接口异常)";
+      return `转存失败-v1接口(参考文档:<a href="${doc.shareDoc}#转存失败-v1接口-2" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#转存失败-v1接口-2" ${linkStyle}>载点2</a>)`;
     case -10:
       return "网盘容量已满";
     case 500:
     case 502:
     case 503:
-      return `服务器错误(参考文档:<a href="${doc.shareDoc}#服务器错误-502-503" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-502-503" ${linkStyle}>载点1</a>)`;
+      return `服务器错误(参考文档:<a href="${doc.shareDoc}#服务器错误-502-503" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-502-503" ${linkStyle}>载点2</a>)`;
     case 909:
       return "路径不存在/云端文件已损坏";
     case 900:

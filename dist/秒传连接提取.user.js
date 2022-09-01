@@ -4740,7 +4740,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>由于 \"<span style=\"color: red;\">极速生成</span>\" 功能在后续测试中出现大量问题且无法解决, 现移除该功能</li>\r\n    </ul>\r\n    </br>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>\r\n        <p>新增 \"<span style=\"color: red;\">极速生成</span>\"*beta 功能, 可在设置页开启</p>\r\n        <p>(秒传输入框输入set进入设置页)</p>\r\n        <ul>\r\n          </br>\r\n          <li>\"极速生成\" 优点:\r\n            <ul>\r\n              <li>极大幅度提高秒传生成速度</li>\r\n              <li>有效避免 \"md5获取失败(#996)\" \"接口限制访问(#403)\"</li>\r\n            </ul>\r\n          </li>\r\n          </br>\r\n          <li>\"极速生成\" 缺点:\r\n            <ul>\r\n              <li>生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存</li>\r\n              <li>生成和谐文件秒传时大概率正常生成 (非极速生成则会报错#1919)</li>\r\n            </ul>\r\n          </li>\r\n        </ul>\r\n      </li>\r\n    </ul>\r\n    </br>\r\n    <p>* 感谢某位热心网友的帮助</p>\r\n    </br>\r\n    <p>关联:</p>\r\n    <ul>\r\n      <li>\r\n        <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4821,7 +4821,7 @@ var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
 var version = "2.4.2"; // 当前版本号
-var updateDate = "22.8.29"; // 更新弹窗的日期
+var updateDate = "22.9.1"; // 更新弹窗的日期
 var updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -4847,17 +4847,22 @@ var appError = {
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
     ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
 }; // 主程序异常
+var appWarning = {
+    fastGenerateWarn: '使用 "极速生成" 功能请注意:\n优点:\n1. 极大幅度提高秒传生成速度\n2. 有效避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成和谐文件秒传时大概率正常生成 (非极速生成则会报错#1919)\n2. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n\n* 此功能为beta测试, 若出现问题请根据设置页内的 "说明文档" 进行反馈',
+}; // 主程序各功能警告/提醒
 var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
 var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/document";
 var doc = {
     shareDoc: docPrefix + "/FAQ/\u9519\u8BEF\u4EE3\u7801",
     linkTypeDoc: docPrefix + "/Info/\u79D2\u4F20\u683C\u5F0F",
     bdlinkDoc: docPrefix + "/\u79D2\u4F20\u94FE\u63A5\u751F\u6210/\u4E00\u952E\u79D2\u4F20",
+    fastGenDoc: docPrefix + "/\u79D2\u4F20\u94FE\u63A5\u751F\u6210/\u6781\u901F\u751F\u6210",
 }; // 文档载点1
 var doc2 = {
     shareDoc: docPrefix2 + "/FAQ/\u9519\u8BEF\u4EE3\u7801",
     linkTypeDoc: docPrefix2 + "/Info/\u79D2\u4F20\u683C\u5F0F",
     bdlinkDoc: docPrefix2 + "/\u79D2\u4F20\u94FE\u63A5\u751F\u6210/\u4E00\u952E\u79D2\u4F20",
+    fastGenDoc: docPrefix2 + "/\u79D2\u4F20\u94FE\u63A5\u751F\u6210/\u6781\u901F\u751F\u6210",
 }; // 文档载点2
 var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
@@ -5096,7 +5101,7 @@ var SwalConfig = {
         cancelButtonText: "否",
     },
     genView: {
-        title: "请输入需要生成的文件路径",
+        title: "请输入需要生成的文件路径(不支持极速生成)",
         input: "textarea",
         showCancelButton: true,
         showCloseButton: true,
@@ -5145,7 +5150,7 @@ var SwalConfig = {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         allowOutsideClick: false,
-        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex;border-width: 1px;border-style: solid;\"><option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option><option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option><option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option><option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option><option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option><option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option></select>\n    <label for=\"swal2-checkbox\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span><input type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" style=\"margin-left: 20px;\"></label>",
+        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex;border-width: 1px;border-style: solid;\"> <option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option> <option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option> <option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option> <option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option> <option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option> <option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option> </select> <label for=\"mzf-fast-generate\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u6781\u901F\u751F\u6210 \u8BF4\u660E\u6587\u6863: <a href=\"" + doc.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B92</a></span><input type=\"checkbox\" value=\"1\" id=\"mzf-fast-generate\" style=\"margin-left: 20px;\"></label> <label for=\"mzf-listen-clipboard\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span><input type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" style=\"margin-left: 20px;\"></label>",
     },
     settingWarning: {
         title: "设置成功 刷新页面生效",
@@ -5460,6 +5465,7 @@ var Swalbase = /** @class */ (function () {
                 .css("margin", "0");
             $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
             $("#mzf-listen-clipboard")[0].checked = Boolean(GM_getValue("listen-clipboard"));
+            $("#mzf-fast-generate")[0].checked = Boolean(GM_getValue("fast-generate"));
         };
         var preConfirm = function () { return __awaiter(_this, void 0, void 0, function () {
             var error_1;
@@ -5481,7 +5487,12 @@ var Swalbase = /** @class */ (function () {
                         error_1 = _a.sent();
                         showAlert(appError.ClipboardPremissionErr);
                         return [2 /*return*/];
-                    case 4: return [2 /*return*/];
+                    case 4:
+                        // 设置极速生成, 若开启则弹出文本提醒
+                        if ($("#mzf-fast-generate")[0].checked)
+                            showAlert(appWarning.fastGenerateWarn);
+                        GM_setValue("fast-generate", $("#mzf-fast-generate")[0].checked);
+                        return [2 /*return*/];
                 }
             });
         }); };
@@ -5693,7 +5704,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 10:53:46
+ * @LastEditTime: 2022-09-01 22:47:35
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5808,11 +5819,12 @@ var RapiduploadTask = /** @class */ (function () {
                     _this.createFileV2(file, function (data) {
                         data = data.response;
                         file.errno = 2 === data.errno ? 114 : data.errno;
+                        file.errno = 31190 === file.errno ? 404 : file.errno;
                         _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
                     }, onFailed);
                 }
                 else {
-                    file.errno = 31190;
+                    file.errno = 404;
                     _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
                 }
             }
@@ -5823,7 +5835,7 @@ var RapiduploadTask = /** @class */ (function () {
         }, onFailed);
     };
     // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
-    // 此外, 即使md5和size均正确, 依旧有小概率返回"errno": 2, 故建议加入retry策略
+    // 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
     RapiduploadTask.prototype.createFileV2 = function (file, onResponsed, onFailed, retry) {
         var _this = this;
         if (retry === void 0) { retry = 0; }
@@ -5839,8 +5851,9 @@ var RapiduploadTask = /** @class */ (function () {
                 rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
+            console.log(data.response); // debug
             if (2 === data.response.errno && retry < retryMax_apiV2)
-                _this.createFileV2(file, onResponsed, onFailed, retry++);
+                _this.createFileV2(file, onResponsed, onFailed, ++retry);
             else
                 onResponsed(data);
         }, onFailed);
@@ -5871,7 +5884,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-09-01 11:36:04
+ * @LastEditTime: 2022-09-01 20:45:38
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5885,8 +5898,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
     function GeneratebdlinkTask() {
     }
     GeneratebdlinkTask.prototype.reset = function () {
-        // this.isFast = GM_getValue("fast-generate");
-        this.isFast = true; // debug
+        this.isFast = GM_getValue("fast-generate");
         this.savePath = "";
         this.recursive = false;
         this.bdstoken = getBdstoken();
@@ -5988,7 +6000,8 @@ var GeneratebdlinkTask = /** @class */ (function () {
             this.generateBdlink(i + 1);
             return;
         } // 跳过扫描失败的目录
-        if (this.isFast)
+        if (this.isFast && file.md5)
+            // 使用生成页输入路径生成时, 由于跳过了扫描步骤, 没有md5信息, 故只支持普通生成
             this.generateBdlink(i + 1); // 已开启 "极速生成", 不执行普通生成步骤
         else
             this.getFileInfo(i); // 普通生成步骤
@@ -6030,7 +6043,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
         if (this.isFast)
             dlSize = 1; // "极速下载" 不需要生成slice-md5, 故无需下载文件数据
         else
-            dlSize = file.size < 262144 ? file.size - 1 : 262143; //slice-md5: 文件前256KiB的md5
+            dlSize = file.size < 262144 ? 1 : 262143; //slice-md5: 文件前256KiB的md5, size<256KiB则直接取md5即可, 无需下载文件数据
         ajax({
             url: dlink,
             method: "GET",
@@ -6086,10 +6099,15 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }
         // 获取md5s, "极速生成" 跳过此步
         if (!this.isFast) {
-            var spark = new (spark_md5_default()).ArrayBuffer();
-            spark.append(data.response);
-            var sliceMd5 = spark.end();
-            file.md5s = sliceMd5;
+            if (file.size < 262144)
+                file.md5s = file.md5; // 此时md5s=md5
+            else {
+                // 计算md5s
+                var spark = new (spark_md5_default()).ArrayBuffer();
+                spark.append(data.response);
+                var sliceMd5 = spark.end();
+                file.md5s = sliceMd5;
+            }
             var interval = this.fileInfoList.length > 1 ? 2000 : 1000;
             setTimeout(function () {
                 _this.generateBdlink(i + 1);
@@ -6144,7 +6162,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 10:53:46
+ * @LastEditTime: 2022-09-01 22:47:35
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6259,11 +6277,12 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                     _this.createFileV2(file, function (data) {
                         data = data.response;
                         file.errno = 2 === data.errno ? 114 : data.errno;
+                        file.errno = 31190 === file.errno ? 404 : file.errno;
                         _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
                     }, onFailed);
                 }
                 else {
-                    file.errno = 31190;
+                    file.errno = 404;
                     _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
                 }
             }
@@ -6274,7 +6293,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         }, onFailed);
     };
     // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
-    // 此外, 即使md5和size均正确, 依旧有小概率返回"errno": 2, 故建议加入retry策略
+    // 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
     RapiduploadTask.prototype.createFileV2 = function (file, onResponsed, onFailed, retry) {
         var _this = this;
         if (retry === void 0) { retry = 0; }
@@ -6290,8 +6309,9 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                 rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
+            console.log(data.response); // debug
             if (2 === data.response.errno && retry < retryMax_apiV2)
-                _this.createFileV2(file, onResponsed, onFailed, retry++);
+                _this.createFileV2(file, onResponsed, onFailed, ++retry);
             else
                 onResponsed(data);
         }, onFailed);
@@ -6366,27 +6386,26 @@ function baiduErrno(errno) {
             return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
         case 403:
             return "\u63A5\u53E3\u9650\u5236\u8BBF\u95EE(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u8F7D\u70B92</a>)";
-        case 31190:
         case 404:
-            return "\u79D2\u4F20\u672A\u751F\u6548(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404-31190\" " + linkStyle + ">\u8F7D\u70B92</a>)";
+            return "\u79D2\u4F20\u672A\u751F\u6548(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u79D2\u4F20\u672A\u751F\u6548-404\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 114:
-            return "转存失败-v2接口(请重试/md5正确但size错误/接口异常)";
+            return "\u8F6C\u5B58\u5931\u8D25-v2\u63A5\u53E3(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8F6C\u5B58\u5931\u8D25-v2\u63A5\u53E3-114\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8F6C\u5B58\u5931\u8D25-v2\u63A5\u53E3-114\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 514:
             return "\u8BF7\u6C42\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 1919:
-            return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a>)";
+            return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 810:
             return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
         case 996:
-            return "md5\u83B7\u53D6\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a>)";
+            return "md5\u83B7\u53D6\u5931\u8D25(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 2:
-            return "转存失败-v1接口(请重试/重新登录度盘账号/更换或重装浏览器/接口异常)";
+            return "\u8F6C\u5B58\u5931\u8D25-v1\u63A5\u53E3(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8F6C\u5B58\u5931\u8D25-v1\u63A5\u53E3-2\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8F6C\u5B58\u5931\u8D25-v1\u63A5\u53E3-2\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case -10:
             return "网盘容量已满";
         case 500:
         case 502:
         case 503:
-            return "\u670D\u52A1\u5668\u9519\u8BEF(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B91</a>)";
+            return "\u670D\u52A1\u5668\u9519\u8BEF(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 909:
             return "路径不存在/云端文件已损坏";
         case 900:

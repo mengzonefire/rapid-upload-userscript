@@ -8,6 +8,7 @@
 
 import {
   appError,
+  appWarning,
   bdlinkPrefix,
   commandList,
   doc,
@@ -262,6 +263,9 @@ export default class Swalbase {
       $("#mzf-listen-clipboard")[0].checked = Boolean(
         GM_getValue("listen-clipboard")
       );
+      $("#mzf-fast-generate")[0].checked = Boolean(
+        GM_getValue("fast-generate")
+      );
     };
     let preConfirm = async () => {
       // 设置主题
@@ -280,6 +284,11 @@ export default class Swalbase {
           return;
         } // 验证剪贴板权限, 若报错则跳出不设置该项
       }
+
+      // 设置极速生成, 若开启则弹出文本提醒
+      if ($("#mzf-fast-generate")[0].checked)
+        showAlert(appWarning.fastGenerateWarn);
+      GM_setValue("fast-generate", $("#mzf-fast-generate")[0].checked);
     };
     Swal.fire(
       this.mergeArg(SwalConfig.settingView, {
