@@ -10,7 +10,7 @@
 
 ## 相关教程
 
-- 安装教程: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/Install/About) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/Install/About): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓]
+- 安装教程: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/Install/About) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/Install/About): 适用于<span style="color: red;"> 不能正常使用 </span>或<span style="color: red;"> 不会安装 </span>此脚本的用户 [Win/安卓/IOS/MAC]
 
 - 错误码文档: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/FAQ/错误代码) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/FAQ/错误代码): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传未生效 / md5获取失败 / 文件和谐
 
