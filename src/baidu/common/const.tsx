@@ -53,7 +53,7 @@ export function baiduErrno(errno: number) {
     case -8:
       return "路径下存在同名文件";
     case 400:
-      return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
+      return `请求错误(参考文档:<a href="${doc.shareDoc}#请求错误-400" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求错误-400" ${linkStyle}>载点2</a>)`;
     case 403:
       return `接口限制访问(参考文档:<a href="${doc.shareDoc}#接口限制访问-403" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#接口限制访问-403" ${linkStyle}>载点2</a>)`;
     case 404:

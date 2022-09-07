@@ -6383,7 +6383,7 @@ function baiduErrno(errno) {
         case -8:
             return "路径下存在同名文件";
         case 400:
-            return "请求错误(尝试使用最新版Chrome浏览器/更新油猴插件)";
+            return "\u8BF7\u6C42\u9519\u8BEF(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u9519\u8BEF-400\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BF7\u6C42\u9519\u8BEF-400\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 403:
             return "\u63A5\u53E3\u9650\u5236\u8BBF\u95EE(\u53C2\u8003\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u63A5\u53E3\u9650\u5236\u8BBF\u95EE-403\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 404:
