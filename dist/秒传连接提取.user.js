@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.2
+// @version 2.4.3
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -5173,7 +5173,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-09-01 11:17:38
+ * @LastEditTime: 2022-09-15 20:14:12
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5656,7 +5656,7 @@ var Swalbase = /** @class */ (function () {
                         refreshList(); // path参数相同, 已在目标目录下, 调用刷新函数
                 }
                 else {
-                    var connectChar = location.href.includes("?") ? "?" : "&"; // 确定参数的连接符
+                    var connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
                     location.href += connectChar + "path=" + encodeURIComponent(_dir_1);
                 } // 没有找到path参数, 直接添加
                 sweetalert2_all_default().close();
