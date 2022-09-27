@@ -1,4 +1,4 @@
-export const version = "2.4.2"; // 当前版本号
+export const version = "2.4.4"; // 当前版本号
 export const updateDate = "22.9.1"; // 更新弹窗的日期
 export const updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -28,7 +28,7 @@ export const appError = {
   SwalCssInvalid: `样式包数据错误, 请前往脚本页反馈:\n${homePage}`,
   SwalCssErrReq: `样式包加载失败, 请前往脚本页反馈:\n${homePage}\n错误代码: `,
   ClipboardPremissionErr:
-    '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
+    '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox, 同时注意使用https访问页面 (http访问会导致浏览器直接禁止剪贴板权限)',
 }; // 主程序异常
 export const appWarning = {
   fastGenerateWarn:
