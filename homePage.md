@@ -74,7 +74,7 @@
 
 1. 使用秒传脚本自带的生成功能, 选中文件/文件夹, 再点击 "生成秒传"
 
-2. 网页版秒传生成工具: [网页工具](http://rapidacg.gmgard.moe/gen.html)
+2. 网页版秒传生成工具: [载点1](https://rapidacg.gmgard.moe/gen.html) [载点2](https://mengzonefire.github.io/baidupan-rapidupload/gen.html) [载点3](https://mengzonefire.code.misakanet.cn/baidupan-rapidupload/gen.html)
 
 3. 本地秒传生成工具: [蓝奏云](https://wwe.lanzoui.com/b01u0yqvi) 密码:2233
 
