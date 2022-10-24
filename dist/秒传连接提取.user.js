@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.3
+// @version 2.4.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,7 +4820,7 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.4.2"; // 当前版本号
+var version = "2.4.4"; // 当前版本号
 var updateDate = "22.9.1"; // 更新弹窗的日期
 var updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -4845,7 +4845,7 @@ var extCssUrl = {
 var appError = {
     SwalCssInvalid: "\u6837\u5F0F\u5305\u6570\u636E\u9519\u8BEF, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
     SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
-    ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox',
+    ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox, 同时注意使用https访问页面 (http访问会导致浏览器直接禁止剪贴板权限)',
 }; // 主程序异常
 var appWarning = {
     fastGenerateWarn: '使用 "极速生成" 功能请注意:\n优点:\n1. 极大幅度提高秒传生成速度\n2. 有效避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成和谐文件秒传时大概率正常生成 (非极速生成则会报错#1919)\n2. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n\n* 此功能为beta测试, 若出现问题请根据设置页内的 "说明文档" 进行反馈',
@@ -5704,7 +5704,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 22:47:35
+ * @LastEditTime: 2022-10-24 13:23:48
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5750,8 +5750,8 @@ var RapiduploadTask = /** @class */ (function () {
         }
         // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
         if (!file.md5s || file.size > 21474836480) {
-            file.md5 = file.md5.toLowerCase();
             console.log("use saveFile v2");
+            file.md5 = file.md5.toLowerCase();
             this.saveFileV2(i);
             return;
         }
@@ -5792,6 +5792,12 @@ var RapiduploadTask = /** @class */ (function () {
             data = data.response;
             if (data.errno === 404)
                 _this.saveFile(i, tryFlag + 1);
+            else if (data.errno === 2) {
+                console.log("use saveFile v2");
+                file.md5 = file.md5.toLowerCase();
+                _this.saveFileV2(i);
+                return;
+            }
             else {
                 file.errno = data.errno;
                 _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
@@ -6162,7 +6168,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 22:47:35
+ * @LastEditTime: 2022-10-24 13:23:48
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6208,8 +6214,8 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         }
         // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
         if (!file.md5s || file.size > 21474836480) {
-            file.md5 = file.md5.toLowerCase();
             console.log("use saveFile v2");
+            file.md5 = file.md5.toLowerCase();
             this.saveFileV2(i);
             return;
         }
@@ -6250,6 +6256,12 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
             data = data.response;
             if (data.errno === 404)
                 _this.saveFile(i, tryFlag + 1);
+            else if (data.errno === 2) {
+                console.log("use saveFile v2");
+                file.md5 = file.md5.toLowerCase();
+                _this.saveFileV2(i);
+                return;
+            }
             else {
                 file.errno = data.errno;
                 _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);

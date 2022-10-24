@@ -2,6 +2,8 @@
 
 ## 近期通知
 
+- 22.10.24: 转存若提示 "<span style="color: red">转存失败-v1接口(#2)</span>" 请更新脚本2.4.4版本
+
 - 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: **秒传脚本文档v2**: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc)
 
 - 22.5.23: (<span style="color: red">重要</span>) ~~百度废弃了一个旧接口导致 生成秒传 报错 <span style="color: red">未知错误(#401)</span>, 2.2.7版本已修复该问题, 有需要请务必更新~~ (再测试了一下发现接口又修好了:-(

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-09-01 22:47:35
+ * @LastEditTime: 2022-10-24 13:23:48
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -60,8 +60,8 @@ export default class RapiduploadTask {
     }
     // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
     if (!file.md5s || file.size > 21474836480) {
-      file.md5 = file.md5.toLowerCase();
       console.log("use saveFile v2");
+      file.md5 = file.md5.toLowerCase();
       this.saveFileV2(i);
       return;
     }
@@ -103,7 +103,12 @@ export default class RapiduploadTask {
       (data) => {
         data = data.response;
         if (data.errno === 404) this.saveFile(i, tryFlag + 1);
-        else {
+        else if (data.errno === 2) {
+          console.log("use saveFile v2");
+          file.md5 = file.md5.toLowerCase();
+          this.saveFileV2(i);
+          return;
+        } else {
           file.errno = data.errno;
           this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
         }
