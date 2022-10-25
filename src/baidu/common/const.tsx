@@ -12,8 +12,6 @@ export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall
 export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
-export const UA =
-  "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
 export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
 export var getBdstoken: () => string; // 获取bdstoken的实现
 export function setGetBdstoken(func: () => string) {

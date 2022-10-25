@@ -1,5 +1,5 @@
 import updateInfo from "@/components/updateInfo.html";
-import { doc, doc2, linkStyle, updateDate, version } from "@/common/const";
+import { doc, doc2, linkStyle, updateDate, updateInfoVer } from "@/common/const";
 
 // 各Swal弹窗的固定参数配置:
 export const SwalConfig = {
@@ -58,7 +58,7 @@ export const SwalConfig = {
   },
 
   updateInfo: {
-    title: `秒传链接提取 v${version} (${updateDate})`,
+    title: `秒传链接提取 v${updateInfoVer} (${updateDate})`,
     showCloseButton: true,
     allowOutsideClick: false,
     confirmButtonText: "知道了",

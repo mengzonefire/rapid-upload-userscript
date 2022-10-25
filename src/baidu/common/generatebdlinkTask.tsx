@@ -1,14 +1,15 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-09-01 20:45:38
+ * @LastEditTime: 2022-10-25 23:39:23
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo } from "@/common/const";
 import { decryptMd5 } from "@/common/utils";
-import { list_url, meta_url2, pcs_url, UA, getBdstoken } from "./const";
+import { UA } from "@/common/const";
+import { list_url, meta_url2, pcs_url, getBdstoken } from "./const";
 import { precreateFileV2 } from "./rapiduploadTask";
 import SparkMD5 from "spark-md5";
 

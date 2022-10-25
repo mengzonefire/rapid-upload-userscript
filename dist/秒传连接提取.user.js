@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.4
+// @version 2.4.5
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,8 +4820,8 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.4.4"; // 当前版本号
-var updateDate = "22.9.1"; // 更新弹窗的日期
+var version = "2.4.5"; // 当前版本号
+var updateDate = "22.10.25"; // 更新弹窗的日期
 var updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -4834,6 +4834,7 @@ var donatePage = "https://afdian.net/@mengzonefire";
 var ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 var bdlinkPrefix = "https://pan.baidu.com/#bdlink="; // 一键秒传链接的前缀
 var commandList = ["set", "gen", "info"]; // 转存输入框内支持输入的命令
+var UA = "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
 var extCssUrl = {
     Default: "",
     Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
@@ -5115,7 +5116,7 @@ var SwalConfig = {
         },
     },
     updateInfo: {
-        title: "\u79D2\u4F20\u94FE\u63A5\u63D0\u53D6 v" + version + " (" + updateDate + ")",
+        title: "\u79D2\u4F20\u94FE\u63A5\u63D0\u53D6 v" + updateInfoVer + " (" + updateDate + ")",
         showCloseButton: true,
         allowOutsideClick: false,
         confirmButtonText: "知道了",
@@ -5672,7 +5673,7 @@ var Swalbase = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-27 14:48:24
- * @LastEditTime: 2021-10-18 15:34:58
+ * @LastEditTime: 2022-10-25 23:41:41
  * @LastEditors: mengzonefire
  * @Description: 自封装JQ ajax方法
  */
@@ -5689,7 +5690,9 @@ var ajax_assign = (undefined && undefined.__assign) || function () {
 };
 
 function ajax(config, callback, failback) {
-    GM_xmlhttpRequest(ajax_assign(ajax_assign({}, config), { onload: function (r) {
+    GM_xmlhttpRequest(ajax_assign(ajax_assign({ headers: {
+            "User-Agent": UA,
+        } }, config), { onload: function (r) {
             // console.log(r); // debug
             if (Math.floor(r.status / 100) === 2)
                 callback(r);
@@ -5890,10 +5893,11 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-09-01 20:45:38
+ * @LastEditTime: 2022-10-25 23:39:23
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
+
 
 
 
@@ -6360,7 +6364,6 @@ var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&ord
 // 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
 var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
-var UA = "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
 var illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
 var getBdstoken; // 获取bdstoken的实现
 function setGetBdstoken(func) {

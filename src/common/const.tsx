@@ -1,5 +1,5 @@
-export const version = "2.4.4"; // 当前版本号
-export const updateDate = "22.9.1"; // 更新弹窗的日期
+export const version = "2.4.5"; // 当前版本号
+export const updateDate = "22.10.25"; // 更新弹窗的日期
 export const updateInfoVer = "2.4.2"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -12,6 +12,8 @@ export const donatePage = "https://afdian.net/@mengzonefire";
 export const ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 export const bdlinkPrefix = "https://pan.baidu.com/#bdlink="; // 一键秒传链接的前缀
 export const commandList = ["set", "gen", "info"]; // 转存输入框内支持输入的命令
+export const UA =
+  "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
 export const extCssUrl = {
   Default: "",
   Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
