@@ -5116,7 +5116,7 @@ var SwalConfig = {
         },
     },
     updateInfo: {
-        title: "\u79D2\u4F20\u94FE\u63A5\u63D0\u53D6 v" + updateInfoVer + " (" + updateDate + ")",
+        title: "\u79D2\u4F20\u94FE\u63A5\u63D0\u53D6 v" + version + " (" + updateDate + ")",
         showCloseButton: true,
         allowOutsideClick: false,
         confirmButtonText: "知道了",
