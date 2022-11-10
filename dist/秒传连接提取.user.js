@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.5
+// @version 2.4.6
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -5707,7 +5707,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-10-24 13:23:48
+ * @LastEditTime: 2022-11-08 19:48:19
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5719,7 +5719,7 @@ var RapiduploadTask = /** @class */ (function () {
     }
     RapiduploadTask.prototype.reset = function () {
         this.bdstoken = getBdstoken();
-        // console.log("bdstoken: ", this.bdstoken); // debug
+        console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
         this.fileInfoList = [];
         this.savePath = "";
         this.checkMode = false;
@@ -5860,7 +5860,7 @@ var RapiduploadTask = /** @class */ (function () {
                 rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
-            console.log(data.response); // debug
+            // console.log(data.response); // debug
             if (2 === data.response.errno && retry < retryMax_apiV2)
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
             else
@@ -5893,7 +5893,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-10-25 23:39:23
+ * @LastEditTime: 2022-11-08 21:24:27
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5946,39 +5946,47 @@ var GeneratebdlinkTask = /** @class */ (function () {
     };
     /**
      * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
-     * @param {number} i
+     * @param {number} i 条目index
+     * @param {number} start 列表接口检索起点
      */
-    GeneratebdlinkTask.prototype.scanFile = function (i) {
+    GeneratebdlinkTask.prototype.scanFile = function (i, start) {
         var _this = this;
+        if (start === void 0) { start = 0; }
         if (i >= this.dirList.length) {
             this.generateBdlink(0);
             return;
         }
         ajax({
-            url: list_url + "&path=" + encodeURIComponent(this.dirList[i]) + "&recursion=" + (this.recursive ? 1 : 0),
+            url: list_url + "&path=" + encodeURIComponent(this.dirList[i]) + "&recursion=" + (this.recursive ? 1 : 0) + "&start=" + start,
             method: "GET",
             responseType: "json",
         }, // list接口自带递归参数recursion
         function (data) {
             data = data.response;
             if (!data.errno) {
-                data.list.forEach(function (item) {
-                    item.isdir ||
-                        _this.fileInfoList.push({
-                            path: item.path,
-                            size: item.size,
-                            fs_id: item.fs_id,
-                            md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
-                            md5s: "",
-                        }); // 筛选文件(isdir=0)
-                });
+                if (!data.list.length)
+                    _this.scanFile(i + 1); // 返回列表为空, 即此文件夹文件全部扫描完成
+                else {
+                    data.list.forEach(function (item) {
+                        item.isdir ||
+                            _this.fileInfoList.push({
+                                path: item.path,
+                                size: item.size,
+                                fs_id: item.fs_id,
+                                md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+                                md5s: "",
+                            }); // 筛选文件(isdir=0)
+                    });
+                    _this.scanFile(i, start + listLimit); // 从下一个起点继续检索列表
+                }
             }
-            else
+            else {
                 _this.fileInfoList.push({
                     path: _this.dirList[i],
                     errno: data.errno,
                 }); // list接口访问失败, 添加失败信息
-            _this.scanFile(i + 1);
+                _this.scanFile(i + 1);
+            }
         }, function (statusCode) {
             _this.fileInfoList.push({
                 path: _this.dirList[i],
@@ -6172,7 +6180,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-10-24 13:23:48
+ * @LastEditTime: 2022-11-08 19:48:19
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6184,7 +6192,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
     }
     RapiduploadTask.prototype.reset = function () {
         this.bdstoken = getBdstoken();
-        // console.log("bdstoken: ", this.bdstoken); // debug
+        console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
         this.fileInfoList = [];
         this.savePath = "";
         this.checkMode = false;
@@ -6325,7 +6333,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                 rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
-            console.log(data.response); // debug
+            // console.log(data.response); // debug
             if (2 === data.response.errno && retry < retryMax_apiV2)
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
             else
@@ -6357,11 +6365,12 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 
 
 var host = location.host;
+var listLimit = 10000;
 var rapid_url = "https://" + host + "/api/rapidupload";
 var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
 var precreate_url = "https://" + host + "/rest/2.0/xpan/file?method=precreate";
-var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=10000";
-// 已知api有限制: limit字段(即获取的文件数)不能大于10000, 否则直接返回错误
+var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=" + listLimit;
+// 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start字段获取
 var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 var illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符

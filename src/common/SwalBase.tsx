@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-09-15 20:14:12
+ * @LastEditTime: 2022-11-10 16:22:08
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -368,7 +368,12 @@ export default class Swalbase {
 
   genFileWork(isUnfinish: boolean, isGenView: boolean) {
     if (!isGenView) this.generatebdlinkTask.selectList = getSelectedFileList();
-    if (!this.generatebdlinkTask.selectList.length && !isUnfinish) {
+    if (
+      // 未选择文件 + 无未完成的生成任务 + 不在生成页 -> 弹出未选择生成文件的警告弹出
+      !this.generatebdlinkTask.selectList.length &&
+      !isGenView &&
+      !isUnfinish
+    ) {
       this.selectNoFileWarning();
       return;
     }

@@ -43,7 +43,7 @@ export const SwalConfig = {
   },
 
   genView: {
-    title: "请输入需要生成的文件路径(不支持极速生成)",
+    title: "请输入需要生成的文件路径",
     input: "textarea",
     showCancelButton: true,
     showCloseButton: true,

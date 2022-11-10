@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-10-24 13:23:48
+ * @LastEditTime: 2022-11-08 19:48:19
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -26,7 +26,7 @@ export default class RapiduploadTask {
 
   reset(): void {
     this.bdstoken = getBdstoken();
-    // console.log("bdstoken: ", this.bdstoken); // debug
+    console.log(`bdstoken状态: ${this.bdstoken ? "获取成功" : "获取失败"}`); // debug
     this.fileInfoList = [];
     this.savePath = "";
     this.checkMode = false;
@@ -182,7 +182,7 @@ export default class RapiduploadTask {
         }),
       },
       (data) => {
-        console.log(data.response); // debug
+        // console.log(data.response); // debug
         if (2 === data.response.errno && retry < retryMax_apiV2)
           this.createFileV2(file, onResponsed, onFailed, ++retry);
         else onResponsed(data);
