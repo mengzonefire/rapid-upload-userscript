@@ -74,6 +74,23 @@ export function loaderBaidu(): void {
     $(document).on("click", "#check_md5_btn", () => {
       swalInstance.checkMd5();
     }); // 测试秒传按钮
+    $(document).on("click", "#copy_fail_list", (btn) => {
+      let listText = "";
+      for (let item of swalInstance.parseResult.failList)
+        listText += item.path + "\n";
+      GM_setClipboard(listText);
+      btn.target.innerText = "复制成功";
+    }); // 失败文件列表复制
+    $(document).on("click", "#copy_success_list", (btn) => {
+      let listText = "";
+      for (let item of swalInstance.parseResult.successList)
+        listText += item.path + "\n";
+      GM_setClipboard(listText);
+      btn.target.innerText = "复制成功";
+    }); // 成功文件列表复制
+    $(document).on("click", "#copy_fail_branch_list", (btn) => {
+      btn.target.innerText = "复制成功";
+    }); // 失败文件分支列表复制
   };
   if (["interactive", "complete"].includes(document.readyState)) load();
   else window.addEventListener("DOMContentLoaded", load);

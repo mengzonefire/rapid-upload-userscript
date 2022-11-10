@@ -82,3 +82,9 @@ export const htmlDocument = `<p class="mzf_text">秒传无效,防和谐等 可�
 export const htmlDonate = `<p id="mzf_donate" class="mzf_text">若喜欢该脚本, 可前往 <a href="${donatePage}" ${linkStyle}>赞助页</a> 支持作者<a id="kill_donate" class="mzf_btn">不再显示</a></p>`;
 export const htmlFeedback = `<p id="mzf_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="${homePage}" ${linkStyle}>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;
 export const htmlAboutBdlink = `什么是一键秒传?: <a href="${doc.bdlinkDoc}" ${linkStyle}>文档载点1</a> <a href="${doc2.bdlinkDoc}" ${linkStyle}>文档载点2</a>`;
+export const copyFailList =
+  '<a id="copy_fail_list" class="mzf_btn2">复制列表</a></p>';
+export const copyFailBranchList =
+  '<a id="copy_fail_branch_list" class="mzf_btn2">复制列表</a></p>';
+export const copySuccessList =
+  '<a id="copy_success_list" class="mzf_btn2">复制列表</a></p>';

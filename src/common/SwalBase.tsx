@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-11-10 16:22:08
+ * @LastEditTime: 2022-11-10 23:30:56
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -36,6 +36,7 @@ import { parsefileInfo, parseClipboard, showAlert } from "./utils";
 import Swal from "sweetalert2";
 
 export default class Swalbase {
+  parseResult: any; // 存储 转存/生成 任务的结果信息
   swalGlobalArgs: any; // 全局swal参数配置对象
   constructor(
     readonly rapiduploadTask: RapiduploadTask,
@@ -161,6 +162,7 @@ export default class Swalbase {
       fileInfoList,
       this.rapiduploadTask.checkMode
     );
+    this.parseResult = parseResult;
     if (isGen) {
       this.rapiduploadTask.reset();
       this.rapiduploadTask.fileInfoList = parseResult.successList;
@@ -172,7 +174,9 @@ export default class Swalbase {
     }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
     let html =
       (isGen
-        ? (parseResult.failedCount != fileInfoList.length ? htmlCheckMd5 : "") + // 添加测试秒传入口, 若全部失败则不添加
+        ? (parseResult.failList.length != fileInfoList.length
+            ? htmlCheckMd5
+            : "") + // 添加测试秒传入口, 若全部失败则不添加
           htmlDocument // 添加文档入口
         : "") +
       (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
@@ -182,7 +186,7 @@ export default class Swalbase {
     if (!GM_getValue(`${feedbackVer}_kill_donate`)) htmlFooter += htmlFeedback; // 添加反馈入口提示
     if (htmlFooter) htmlFooter = "<p><br></p>" + htmlFooter; // 添加底部空行分隔
     let swalArg = {
-      title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failedCount}个!`,
+      title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failList.length}个!`,
       confirmButtonText:
         isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
       showDenyButton: isGen || this.rapiduploadTask.checkMode,

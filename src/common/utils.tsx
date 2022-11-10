@@ -28,7 +28,7 @@ export function randomStringTransform(string: string): string {
 }
 
 /**
- * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表
+ * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表, 失败的文件信息列表
  * @param {Array} fileInfoList 文件信息数据列表
  * @param {Boolean} checkMode 是否为测试模式, 若为是则忽略转存失败
  */
@@ -39,8 +39,8 @@ export function parsefileInfo(
   let bdcode = "";
   let successInfo = "";
   let failedInfo = "";
-  let failedCount = 0;
   let successList = [];
+  let failList = [];
   fileInfoList.forEach((item) => {
     if (0 === item.errno || undefined === item.errno) {
       successInfo += `<p>文件：${item.path}</p>`;
@@ -49,7 +49,7 @@ export function parsefileInfo(
       }\n`;
       successList.push(item);
     } else {
-      failedCount++;
+      failList.push(item);
       failedInfo += `<p>文件：${item.path}</p><p>失败原因：${baiduErrno(
         item.errno
       )}(#${item.errno})</p>`;
@@ -69,9 +69,9 @@ export function parsefileInfo(
       successInfo && failedInfo
         ? successInfo + "<p><br /></p>" + failedInfo
         : successInfo + failedInfo,
-    failedCount: failedCount,
     bdcode: bdcode,
     successList: successList,
+    failList: failList,
   };
 }
 
