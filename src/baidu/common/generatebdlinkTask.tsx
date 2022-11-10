@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-11-10 16:43:09
+ * @LastEditTime: 2022-11-11 02:02:38
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -9,7 +9,14 @@ import ajax from "@/common/ajax";
 import { FileInfo } from "@/common/const";
 import { decryptMd5 } from "@/common/utils";
 import { UA } from "@/common/const";
-import { listLimit, list_url, meta_url2, pcs_url, getBdstoken } from "./const";
+import {
+  listLimit,
+  list_url,
+  meta_url,
+  meta_url2,
+  pcs_url,
+  getBdstoken,
+} from "./const";
 import { precreateFileV2 } from "./rapiduploadTask";
 import SparkMD5 from "spark-md5";
 
@@ -56,7 +63,8 @@ export default class GeneratebdlinkTask {
           path: item.path,
           size: item.size,
           fs_id: item.fs_id,
-          md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "", //
+          // 已开启极速生成, 直接取meta内的md5
+          md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
           md5s: "",
         });
       }
@@ -146,26 +154,59 @@ export default class GeneratebdlinkTask {
     // 已开启 "极速生成" 且已获取到md5, 跳过普通生成步骤
     if (this.isFast && file.md5) this.generateBdlink(i + 1);
     // 普通生成步骤
-    else this.getFileInfo(i);
+    else this.getDlink(i);
   }
 
   /**
-   * @description: 获取文件fs_id
+   * @description: 获取文件信息: size, md5(可能错误), fs_id
    * @param {number} i
    */
-  getFs_id(i: number): void {
-    this.getFileInfo(i);
+  getFileInfo(i: number): void {
+    let file = this.fileInfoList[i];
+    ajax(
+      {
+        url: meta_url + encodeURIComponent(file.path),
+        responseType: "json",
+        method: "GET",
+      },
+      (data) => {
+        data = data.response;
+        if (!data.errno) {
+          // console.log(data.list[0]); // debug
+          if (data.list[0].isdir) {
+            file.errno = 900;
+            this.generateBdlink(i + 1);
+            return;
+          }
+          file.size = data.list[0].size;
+          file.fs_id = data.list[0].fs_id;
+          // 已开启极速生成, 直接取meta内的md5
+          file.md5 = this.isFast
+            ? decryptMd5(data.list[0].md5.toLowerCase())
+            : "";
+          file.md5s = "";
+          this.getDlink(i);
+        } else {
+          file.errno = data.errno;
+          this.generateBdlink(i + 1);
+        }
+      },
+      (statusCode) => {
+        file.errno = statusCode === 404 ? 909 : statusCode;
+        this.generateBdlink(i + 1);
+      }
+    );
   }
 
   /**
    * @description: 获取文件dlink(下载直链)
    * @param {number} i
    */
-  getFileInfo(i: number): void {
+  getDlink(i: number): void {
     let file = this.fileInfoList[i];
     // 使用生成页时仅有path没有fs_id, 跳转到获取fs_id
     if (!file.fs_id) {
-      this.getFs_id(i);
+      this.getFileInfo(i);
       return;
     }
     ajax(
@@ -178,7 +219,7 @@ export default class GeneratebdlinkTask {
         data = data.response;
         // 请求正常
         if (!data.errno) {
-          console.log(data.list[0]); // debug
+          // console.log(data.list[0]); // debug
           this.downloadFileData(i, data.list[0].dlink);
           return;
         }
@@ -305,7 +346,7 @@ export default class GeneratebdlinkTask {
               file_id: i,
               isCheckMd5: true,
             });
-            this.getFileInfo(i);
+            this.getDlink(i);
           }
         } else {
           // 接口访问失败

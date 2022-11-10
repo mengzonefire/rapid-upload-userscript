@@ -1,5 +1,12 @@
 import { baiduErrno } from "@/baidu/common/const";
-import { appError, FileInfo, TAG } from "./const";
+import {
+  appError,
+  copyFailBranchList,
+  copyFailList,
+  copySuccessList,
+  FileInfo,
+  TAG,
+} from "./const";
 import { DuParser } from "./duParser";
 
 /**
@@ -41,28 +48,44 @@ export function parsefileInfo(
   let failedInfo = "";
   let successList = [];
   let failList = [];
+  let failCodeDic = {};
   fileInfoList.forEach((item) => {
+    // 成功文件
     if (0 === item.errno || undefined === item.errno) {
-      successInfo += `<p>文件：${item.path}</p>`;
+      successInfo += `<p>${item.path}</p>`;
       bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
         item.path
       }\n`;
       successList.push(item);
-    } else {
+    }
+    // 失败文件
+    else {
       failList.push(item);
-      failedInfo += `<p>文件：${item.path}</p><p>失败原因：${baiduErrno(
-        item.errno
-      )}(#${item.errno})</p>`;
+      if (String(item.errno) in failCodeDic)
+        failCodeDic[String(item.errno)].push(item);
+      else failCodeDic[String(item.errno)] = [item];
       if (checkMode)
         bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
           item.path
         }\n`; // 测试模式下不再排除测试失败文件的秒传数据
     }
   });
+  for (let failCode in failCodeDic) {
+    let failBranchInfo = "";
+    let failBranchList = failCodeDic[failCode];
+    failBranchList.forEach((item: any) => {
+      failBranchInfo += `<p>${item.path}</p>`;
+    });
+    failedInfo += `<details class="mzf_details mzf_details_branch"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>${baiduErrno(
+      Number(failCode)
+    )}(#${Number(
+      failCode
+    )}):</b>${copyFailBranchList}</summary></details><div class="mzf_content">${failBranchInfo}</div>`;
+  }
   if (failedInfo)
-    failedInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>失败文件列表(点击展开):</b></summary></details><div class="mzf_content">${failedInfo}</div>`;
+    failedInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>失败文件列表(点击展开):</b>${copyFailList}</summary></details><div class="mzf_content">${failedInfo}</div>`;
   if (successInfo)
-    successInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>成功文件列表(点击展开):</b></summary></details><div class="mzf_content">${successInfo}</div>`;
+    successInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>成功文件列表(点击展开):</b>${copySuccessList}</summary></details><div class="mzf_content">${successInfo}</div>`;
   bdcode = bdcode.trim();
   return {
     htmlInfo:

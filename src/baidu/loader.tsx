@@ -89,6 +89,13 @@ export function loaderBaidu(): void {
       btn.target.innerText = "复制成功";
     }); // 成功文件列表复制
     $(document).on("click", "#copy_fail_branch_list", (btn) => {
+      let ele = $(btn.target);
+      GM_setClipboard(
+        ele
+          .parents("details.mzf_details_branch")
+          .next()[0]
+          .innerText.replace(/\n\n/g, "\n")
+      );
       btn.target.innerText = "复制成功";
     }); // 失败文件分支列表复制
   };

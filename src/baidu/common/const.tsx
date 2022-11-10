@@ -10,6 +10,7 @@ export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
 export const precreate_url = `https://${host}/rest/2.0/xpan/file?method=precreate`;
 export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=${listLimit}`;
 // 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start字段获取
+export const meta_url = `https://${host}/rest/2.0/xpan/file?app_id=778750&method=meta&path=`;
 export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
