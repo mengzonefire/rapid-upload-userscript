@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.6
+// @version 2.4.7
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,8 +4820,8 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.4.6"; // 当前版本号
-var updateDate = "22.11.11"; // 更新弹窗的日期
+var version = "2.4.7"; // 当前版本号
+var updateDate = "22.11.14"; // 更新弹窗的日期
 var updateInfoVer = "2.4.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -5683,7 +5683,7 @@ var Swalbase = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-27 14:48:24
- * @LastEditTime: 2022-10-25 23:41:41
+ * @LastEditTime: 2022-11-14 05:50:35
  * @LastEditors: mengzonefire
  * @Description: 自封装JQ ajax方法
  */
@@ -5700,9 +5700,7 @@ var ajax_assign = (undefined && undefined.__assign) || function () {
 };
 
 function ajax(config, callback, failback) {
-    GM_xmlhttpRequest(ajax_assign(ajax_assign({ headers: {
-            "User-Agent": UA,
-        } }, config), { onload: function (r) {
+    GM_xmlhttpRequest(ajax_assign(ajax_assign({}, config), { onload: function (r) {
             // console.log(r); // debug
             if (Math.floor(r.status / 100) === 2)
                 callback(r);
@@ -5717,7 +5715,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-08 19:48:19
+ * @LastEditTime: 2022-11-14 06:03:20
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5740,14 +5738,13 @@ var RapiduploadTask = /** @class */ (function () {
     RapiduploadTask.prototype.start = function () {
         if (this.checkMode)
             this.savePath = "";
-        this.saveFile(0, 0 /* useUpperCaseMd5 */);
+        this.saveFileV2(0);
     };
     /**
-     * @description: 转存秒传 接口1
+     * @description: 转存秒传 接口2
      * @param {number} i
-     * @param {number} tryFlag 标识参数
      */
-    RapiduploadTask.prototype.saveFile = function (i, tryFlag) {
+    RapiduploadTask.prototype.saveFileV2 = function (i) {
         var _this = this;
         if (i >= this.fileInfoList.length) {
             this.onFinish(this.fileInfoList);
@@ -5758,78 +5755,12 @@ var RapiduploadTask = /** @class */ (function () {
         // 文件名含有非法字符 / 文件名为空
         if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
             file.errno = 810;
-            this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            this.saveFileV2(i + 1);
             return;
         }
-        // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
-        if (!file.md5s || file.size > 21474836480) {
-            console.log("use saveFile v2");
-            file.md5 = file.md5.toLowerCase();
-            this.saveFileV2(i);
-            return;
-        }
-        switch (tryFlag) {
-            case 0 /* useUpperCaseMd5 */:
-                console.log("use UpperCase md5");
-                file.md5 = file.md5.toUpperCase();
-                break;
-            case 1 /* useLowerCaseMd5 */:
-                console.log("use LowerCase md5");
-                file.md5 = file.md5.toLowerCase();
-                break;
-            case 2 /* useRandomCaseMd5 */:
-                console.log("use randomCase md5");
-                file.md5 = randomStringTransform(file.md5);
-                break;
-            case 3 /* useSaveFileV2 */:
-                console.log("use saveFile v2");
-                file.md5 = file.md5.toLowerCase();
-                this.saveFileV2(i);
-                return;
-            default:
-                this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-                return;
-        }
-        ajax({
-            url: "" + rapid_url + (this.bdstoken && "?bdstoken=" + this.bdstoken),
-            method: "POST",
-            responseType: "json",
-            data: convertData({
-                rtype: this.checkMode ? 3 : 0,
-                path: this.savePath + file.path,
-                "content-md5": file.md5,
-                "slice-md5": file.md5s.toLowerCase(),
-                "content-length": file.size,
-            }),
-        }, function (data) {
-            data = data.response;
-            if (data.errno === 404)
-                _this.saveFile(i, tryFlag + 1);
-            else if (data.errno === 2) {
-                console.log("use saveFile v2");
-                file.md5 = file.md5.toLowerCase();
-                _this.saveFileV2(i);
-                return;
-            }
-            else {
-                file.errno = data.errno;
-                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-            }
-        }, function (statusCode) {
-            file.errno = statusCode;
-            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-        });
-    };
-    /**
-     * @description: 转存秒传 接口2
-     * @param {number} i
-     */
-    RapiduploadTask.prototype.saveFileV2 = function (i) {
-        var _this = this;
-        var file = this.fileInfoList[i];
         var onFailed = function (statusCode) {
             file.errno = statusCode;
-            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            _this.saveFileV2(i + 1);
         };
         precreateFileV2.call(this, file, function (data) {
             data = data.response;
@@ -5839,17 +5770,17 @@ var RapiduploadTask = /** @class */ (function () {
                         data = data.response;
                         file.errno = 2 === data.errno ? 114 : data.errno;
                         file.errno = 31190 === file.errno ? 404 : file.errno;
-                        _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                        _this.saveFileV2(i + 1);
                     }, onFailed);
                 }
                 else {
                     file.errno = 404;
-                    _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                    _this.saveFileV2(i + 1);
                 }
             }
             else {
                 file.errno = data.errno;
-                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                _this.saveFileV2(i + 1);
             }
         }, onFailed);
     };
@@ -5863,7 +5794,7 @@ var RapiduploadTask = /** @class */ (function () {
             method: "POST",
             responseType: "json",
             data: convertData({
-                block_list: JSON.stringify([file.md5]),
+                block_list: JSON.stringify([file.md5.toLowerCase()]),
                 path: this.savePath + file.path,
                 size: file.size,
                 isdir: 0,
@@ -5887,7 +5818,7 @@ function precreateFileV2(file, onResponsed, onFailed) {
         method: "POST",
         responseType: "json",
         data: convertData({
-            block_list: JSON.stringify([file.md5]),
+            block_list: JSON.stringify([file.md5.toLowerCase()]),
             path: this.savePath + file.path,
             size: file.size,
             isdir: 0,
@@ -6241,7 +6172,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-08 19:48:19
+ * @LastEditTime: 2022-11-14 06:03:20
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6264,14 +6195,13 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
     RapiduploadTask.prototype.start = function () {
         if (this.checkMode)
             this.savePath = "";
-        this.saveFile(0, 0 /* useUpperCaseMd5 */);
+        this.saveFileV2(0);
     };
     /**
-     * @description: 转存秒传 接口1
+     * @description: 转存秒传 接口2
      * @param {number} i
-     * @param {number} tryFlag 标识参数
      */
-    RapiduploadTask.prototype.saveFile = function (i, tryFlag) {
+    RapiduploadTask.prototype.saveFileV2 = function (i) {
         var _this = this;
         if (i >= this.fileInfoList.length) {
             this.onFinish(this.fileInfoList);
@@ -6282,78 +6212,12 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         // 文件名含有非法字符 / 文件名为空
         if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
             file.errno = 810;
-            this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            this.saveFileV2(i + 1);
             return;
         }
-        // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
-        if (!file.md5s || file.size > 21474836480) {
-            console.log("use saveFile v2");
-            file.md5 = file.md5.toLowerCase();
-            this.saveFileV2(i);
-            return;
-        }
-        switch (tryFlag) {
-            case 0 /* useUpperCaseMd5 */:
-                console.log("use UpperCase md5");
-                file.md5 = file.md5.toUpperCase();
-                break;
-            case 1 /* useLowerCaseMd5 */:
-                console.log("use LowerCase md5");
-                file.md5 = file.md5.toLowerCase();
-                break;
-            case 2 /* useRandomCaseMd5 */:
-                console.log("use randomCase md5");
-                file.md5 = randomStringTransform(file.md5);
-                break;
-            case 3 /* useSaveFileV2 */:
-                console.log("use saveFile v2");
-                file.md5 = file.md5.toLowerCase();
-                this.saveFileV2(i);
-                return;
-            default:
-                this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-                return;
-        }
-        ajax({
-            url: "" + rapid_url + (this.bdstoken && "?bdstoken=" + this.bdstoken),
-            method: "POST",
-            responseType: "json",
-            data: convertData({
-                rtype: this.checkMode ? 3 : 0,
-                path: this.savePath + file.path,
-                "content-md5": file.md5,
-                "slice-md5": file.md5s.toLowerCase(),
-                "content-length": file.size,
-            }),
-        }, function (data) {
-            data = data.response;
-            if (data.errno === 404)
-                _this.saveFile(i, tryFlag + 1);
-            else if (data.errno === 2) {
-                console.log("use saveFile v2");
-                file.md5 = file.md5.toLowerCase();
-                _this.saveFileV2(i);
-                return;
-            }
-            else {
-                file.errno = data.errno;
-                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-            }
-        }, function (statusCode) {
-            file.errno = statusCode;
-            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
-        });
-    };
-    /**
-     * @description: 转存秒传 接口2
-     * @param {number} i
-     */
-    RapiduploadTask.prototype.saveFileV2 = function (i) {
-        var _this = this;
-        var file = this.fileInfoList[i];
         var onFailed = function (statusCode) {
             file.errno = statusCode;
-            _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+            _this.saveFileV2(i + 1);
         };
         RapiduploadTask_precreateFileV2.call(this, file, function (data) {
             data = data.response;
@@ -6363,17 +6227,17 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                         data = data.response;
                         file.errno = 2 === data.errno ? 114 : data.errno;
                         file.errno = 31190 === file.errno ? 404 : file.errno;
-                        _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                        _this.saveFileV2(i + 1);
                     }, onFailed);
                 }
                 else {
                     file.errno = 404;
-                    _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                    _this.saveFileV2(i + 1);
                 }
             }
             else {
                 file.errno = data.errno;
-                _this.saveFile(i + 1, 0 /* useUpperCaseMd5 */);
+                _this.saveFileV2(i + 1);
             }
         }, onFailed);
     };
@@ -6387,7 +6251,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
             method: "POST",
             responseType: "json",
             data: convertData({
-                block_list: JSON.stringify([file.md5]),
+                block_list: JSON.stringify([file.md5.toLowerCase()]),
                 path: this.savePath + file.path,
                 size: file.size,
                 isdir: 0,
@@ -6411,7 +6275,7 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
         method: "POST",
         responseType: "json",
         data: convertData({
-            block_list: JSON.stringify([file.md5]),
+            block_list: JSON.stringify([file.md5.toLowerCase()]),
             path: this.savePath + file.path,
             size: file.size,
             isdir: 0,
@@ -6427,7 +6291,6 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 
 var host = location.host;
 var listLimit = 10000;
-var rapid_url = "https://" + host + "/api/rapidupload";
 var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
 var precreate_url = "https://" + host + "/rest/2.0/xpan/file?method=precreate";
 var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=" + listLimit;
@@ -6550,24 +6413,6 @@ var utils_generator = (undefined && undefined.__generator) || function (thisArg,
  */
 function showAlert(text) {
     alert(TAG + ":\n" + text);
-}
-/**
- * @description: md5随机大小写
- * @param {string} string
- * @return {string}
- */
-function randomStringTransform(string) {
-    var tempString = [];
-    for (var _i = 0, string_1 = string; _i < string_1.length; _i++) {
-        var i = string_1[_i];
-        if (!Math.round(Math.random())) {
-            tempString.push(i.toLowerCase());
-        }
-        else {
-            tempString.push(i.toUpperCase());
-        }
-    }
-    return tempString.join("");
 }
 /**
  * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表, 失败的文件信息列表

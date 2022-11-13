@@ -5,7 +5,6 @@ import RapiduploadTask from "./RapiduploadTask";
 
 const host = location.host;
 export const listLimit = 10000;
-export const rapid_url = `https://${host}/api/rapidupload`;
 export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
 export const precreate_url = `https://${host}/rest/2.0/xpan/file?method=precreate`;
 export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=${listLimit}`;

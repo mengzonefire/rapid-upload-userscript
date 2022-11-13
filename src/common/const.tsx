@@ -1,5 +1,5 @@
-export const version = "2.4.6"; // 当前版本号
-export const updateDate = "22.11.11"; // 更新弹窗的日期
+export const version = "2.4.7"; // 当前版本号
+export const updateDate = "22.11.14"; // 更新弹窗的日期
 export const updateInfoVer = "2.4.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -36,12 +36,6 @@ export const appWarning = {
   fastGenerateWarn:
     '使用 "极速生成" 功能请注意:\n优点:\n1. 极大幅度提高秒传生成速度\n2. 有效避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成和谐文件秒传时大概率正常生成 (非极速生成则会报错#1919)\n2. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n\n* 此功能为beta测试, 若出现问题请根据设置页内的 "说明文档" 进行反馈',
 }; // 主程序各功能警告/提醒
-export const enum rapidTryflag {
-  useUpperCaseMd5 = 0,
-  useLowerCaseMd5 = 1,
-  useRandomCaseMd5 = 2,
-  useSaveFileV2 = 3,
-} // 秒传转存 标识参数
 export const enum genTryflag {
   useDlink1 = 0,
   useDlink2 = 1,

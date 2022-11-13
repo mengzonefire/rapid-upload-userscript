@@ -1,12 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-27 14:48:24
- * @LastEditTime: 2022-10-25 23:41:41
+ * @LastEditTime: 2022-11-14 05:50:35
  * @LastEditors: mengzonefire
  * @Description: 自封装JQ ajax方法
  */
 
-import { ajaxError, UA } from "./const";
+import { ajaxError } from "./const";
 
 export default function ajax(
   config: any,
@@ -14,9 +14,6 @@ export default function ajax(
   failback: (statusCode: number) => void
 ) {
   GM_xmlhttpRequest({
-    headers: {
-      "User-Agent": UA,
-    },
     ...config,
     onload: (r: any) => {
       // console.log(r); // debug

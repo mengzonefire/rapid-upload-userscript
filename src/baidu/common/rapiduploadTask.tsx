@@ -1,18 +1,17 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-08 19:48:19
+ * @LastEditTime: 2022-11-14 06:03:20
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
 import ajax from "@/common/ajax";
-import { FileInfo, rapidTryflag } from "@/common/const";
-import { convertData, randomStringTransform } from "@/common/utils";
+import { FileInfo } from "@/common/const";
+import { convertData } from "@/common/utils";
 import {
   retryMax_apiV2,
   precreate_url,
   create_url,
-  rapid_url,
   getBdstoken,
 } from "./const";
 export default class RapiduploadTask {
@@ -37,15 +36,14 @@ export default class RapiduploadTask {
 
   start(): void {
     if (this.checkMode) this.savePath = "";
-    this.saveFile(0, rapidTryflag.useUpperCaseMd5);
+    this.saveFileV2(0);
   }
 
   /**
-   * @description: 转存秒传 接口1
+   * @description: 转存秒传 接口2
    * @param {number} i
-   * @param {number} tryFlag 标识参数
    */
-  saveFile(i: number, tryFlag?: number): void {
+  saveFileV2(i: number): void {
     if (i >= this.fileInfoList.length) {
       this.onFinish(this.fileInfoList);
       return;
@@ -55,80 +53,12 @@ export default class RapiduploadTask {
     // 文件名含有非法字符 / 文件名为空
     if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
       file.errno = 810;
-      this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+      this.saveFileV2(i + 1);
       return;
     }
-    // 短版标准码(无slice-md5) 或 20GB以上的文件, 使用秒传v2接口转存
-    if (!file.md5s || file.size > 21474836480) {
-      console.log("use saveFile v2");
-      file.md5 = file.md5.toLowerCase();
-      this.saveFileV2(i);
-      return;
-    }
-    switch (tryFlag) {
-      case rapidTryflag.useUpperCaseMd5:
-        console.log("use UpperCase md5");
-        file.md5 = file.md5.toUpperCase();
-        break;
-      case rapidTryflag.useLowerCaseMd5:
-        console.log("use LowerCase md5");
-        file.md5 = file.md5.toLowerCase();
-        break;
-      case rapidTryflag.useRandomCaseMd5:
-        console.log("use randomCase md5");
-        file.md5 = randomStringTransform(file.md5);
-        break;
-      case rapidTryflag.useSaveFileV2:
-        console.log("use saveFile v2");
-        file.md5 = file.md5.toLowerCase();
-        this.saveFileV2(i);
-        return;
-      default:
-        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
-        return;
-    }
-    ajax(
-      {
-        url: `${rapid_url}${this.bdstoken && "?bdstoken=" + this.bdstoken}`,
-        method: "POST",
-        responseType: "json",
-        data: convertData({
-          rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为0
-          path: this.savePath + file.path,
-          "content-md5": file.md5,
-          "slice-md5": file.md5s.toLowerCase(),
-          "content-length": file.size,
-        }),
-      },
-      (data) => {
-        data = data.response;
-        if (data.errno === 404) this.saveFile(i, tryFlag + 1);
-        else if (data.errno === 2) {
-          console.log("use saveFile v2");
-          file.md5 = file.md5.toLowerCase();
-          this.saveFileV2(i);
-          return;
-        } else {
-          file.errno = data.errno;
-          this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
-        }
-      },
-      (statusCode) => {
-        file.errno = statusCode;
-        this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
-      }
-    );
-  }
-
-  /**
-   * @description: 转存秒传 接口2
-   * @param {number} i
-   */
-  saveFileV2(i: number): void {
-    let file = this.fileInfoList[i];
     let onFailed = (statusCode: number) => {
       file.errno = statusCode;
-      this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+      this.saveFileV2(i + 1);
     };
     precreateFileV2.call(
       this,
@@ -143,17 +73,17 @@ export default class RapiduploadTask {
                 data = data.response;
                 file.errno = 2 === data.errno ? 114 : data.errno;
                 file.errno = 31190 === file.errno ? 404 : file.errno;
-                this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+                this.saveFileV2(i + 1);
               },
               onFailed
             );
           } else {
             file.errno = 404;
-            this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+            this.saveFileV2(i + 1);
           }
         } else {
           file.errno = data.errno;
-          this.saveFile(i + 1, rapidTryflag.useUpperCaseMd5);
+          this.saveFileV2(i + 1);
         }
       },
       onFailed
@@ -174,7 +104,7 @@ export default class RapiduploadTask {
         method: "POST",
         responseType: "json",
         data: convertData({
-          block_list: JSON.stringify([file.md5]),
+          block_list: JSON.stringify([file.md5.toLowerCase()]),
           path: this.savePath + file.path,
           size: file.size,
           isdir: 0,
@@ -204,7 +134,7 @@ export function precreateFileV2(
       method: "POST",
       responseType: "json",
       data: convertData({
-        block_list: JSON.stringify([file.md5]),
+        block_list: JSON.stringify([file.md5.toLowerCase()]),
         path: this.savePath + file.path,
         size: file.size,
         isdir: 0,

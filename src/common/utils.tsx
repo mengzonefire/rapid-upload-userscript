@@ -18,23 +18,6 @@ export function showAlert(text: string): void {
 }
 
 /**
- * @description: md5随机大小写
- * @param {string} string
- * @return {string}
- */
-export function randomStringTransform(string: string): string {
-  const tempString = [];
-  for (let i of string) {
-    if (!Math.round(Math.random())) {
-      tempString.push(i.toLowerCase());
-    } else {
-      tempString.push(i.toUpperCase());
-    }
-  }
-  return tempString.join("");
-}
-
-/**
  * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表, 失败的文件信息列表
  * @param {Array} fileInfoList 文件信息数据列表
  * @param {Boolean} checkMode 是否为测试模式, 若为是则忽略转存失败
