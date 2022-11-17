@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.7
+// @version 2.4.9
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,8 +4820,8 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.4.7"; // 当前版本号
-var updateDate = "22.11.14"; // 更新弹窗的日期
+var version = "2.4.9"; // 当前版本号
+var updateDate = "22.11.17"; // 更新弹窗的日期
 var updateInfoVer = "2.4.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -6361,8 +6361,10 @@ function baiduErrno(errno) {
             return "路径为文件夹, 不支持生成秒传";
         case 901:
             return "包含的文件数量超出限制(1w个)";
+        case 31039:
+            return "\u8BF7\u5C1D\u8BD5\u4F7F\u7528\u56FD\u5185ip\u8BBF\u95EE\u5EA6\u76D8(\u8BE6\u89C1: <a href=\"https://greasyfork.org/zh-CN/scripts/424574/discussions/157981\" " + linkStyle + ">GF\u53CD\u9988\u533A</a>)";
         default:
-            return "未知错误";
+            return "\u672A\u77E5\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B92</a>)";
     }
 } // 自定义百度api返回errno的报错
 var retryMax_apiV2 = 2; // v2转存接口的最大重试次数

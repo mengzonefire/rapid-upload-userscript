@@ -1,5 +1,5 @@
-export const version = "2.4.7"; // 当前版本号
-export const updateDate = "22.11.14"; // 更新弹窗的日期
+export const version = "2.4.9"; // 当前版本号
+export const updateDate = "22.11.17"; // 更新弹窗的日期
 export const updateInfoVer = "2.4.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号

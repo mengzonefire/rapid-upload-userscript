@@ -81,8 +81,10 @@ export function baiduErrno(errno: number) {
       return "路径为文件夹, 不支持生成秒传";
     case 901:
       return "包含的文件数量超出限制(1w个)";
+    case 31039:
+      return `请尝试使用国内ip访问度盘(详见: <a href="https://greasyfork.org/zh-CN/scripts/424574/discussions/157981" ${linkStyle}>GF反馈区</a>)`;
     default:
-      return "未知错误";
+      return `未知错误(请看文档:<a href="${doc.shareDoc}#未知错误" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#未知错误" ${linkStyle}>载点2</a>)`;
   }
 } // 自定义百度api返回errno的报错
 
