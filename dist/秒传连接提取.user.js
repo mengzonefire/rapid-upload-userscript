@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.4.9
+// @version 2.5.0
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4740,7 +4740,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>修复了生成秒传无法生成1w个以上文件的问题</li>\r\n      <li>修复了生成页(秒传框输入gen)无法使用的问题</li>\r\n      <li>转存/生成结果弹窗添加复制文件列表的功能</li>\r\n      <li>生成失败的文件列表按失败原因分类折叠</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <p>修复使用国外ip转存文件时报错#31039的问题</p>\r\n    <p>(详见<a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">近期通知</a>)</p>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4820,9 +4820,9 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.4.9"; // 当前版本号
-var updateDate = "22.11.17"; // 更新弹窗的日期
-var updateInfoVer = "2.4.6"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var version = "2.5.0"; // 当前版本号
+var updateDate = "22.11.23"; // 更新弹窗的日期
+var updateInfoVer = "2.5.0"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
@@ -5715,7 +5715,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-14 06:03:20
+ * @LastEditTime: 2022-11-23 04:16:53
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5802,7 +5802,12 @@ var RapiduploadTask = /** @class */ (function () {
             }),
         }, function (data) {
             // console.log(data.response); // debug
-            if (2 === data.response.errno && retry < retryMax_apiV2)
+            if (31039 === data.response.errno && 31039 != file.errno) {
+                file.errno = 31039;
+                file.path = suffixChange(file.path);
+                _this.createFileV2(file, onResponsed, onFailed, retry);
+            }
+            else if (2 === data.response.errno && retry < retryMax_apiV2)
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
             else
                 onResponsed(data);
@@ -6172,7 +6177,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-14 06:03:20
+ * @LastEditTime: 2022-11-23 04:16:53
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6259,7 +6264,12 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
             }),
         }, function (data) {
             // console.log(data.response); // debug
-            if (2 === data.response.errno && retry < retryMax_apiV2)
+            if (31039 === data.response.errno && 31039 != file.errno) {
+                file.errno = 31039;
+                file.path = suffixChange(file.path);
+                _this.createFileV2(file, onResponsed, onFailed, retry);
+            }
+            else if (2 === data.response.errno && retry < retryMax_apiV2)
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
             else
                 onResponsed(data);
@@ -6354,7 +6364,7 @@ function baiduErrno(errno) {
         case 500:
         case 502:
         case 503:
-            return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-502-503\" " + linkStyle + ">\u8F7D\u70B92</a>)";
+            return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-50X\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-50X\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 909:
             return "路径不存在/云端文件已损坏";
         case 900:
@@ -6362,7 +6372,7 @@ function baiduErrno(errno) {
         case 901:
             return "包含的文件数量超出限制(1w个)";
         case 31039:
-            return "\u8BF7\u5C1D\u8BD5\u4F7F\u7528\u56FD\u5185ip\u8BBF\u95EE\u5EA6\u76D8(\u8BE6\u89C1: <a href=\"https://greasyfork.org/zh-CN/scripts/424574/discussions/157981\" " + linkStyle + ">GF\u53CD\u9988\u533A</a>)";
+            return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         default:
             return "\u672A\u77E5\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B92</a>)";
     }
@@ -6548,6 +6558,36 @@ function decryptMd5(md5) {
             key3.substr(16, 8);
         return md5;
     }
+}
+/**
+ * @description: 用于解决#31039报错
+ * @param {string} path 原文件路径
+ * @return {string} 修改文件后缀的路径
+ */
+function suffixChange(path) {
+    var suffix = path.substring(path.length - 4);
+    if (".zip" === suffix)
+        return path.substring(0, path.length - 4) + reverseStr(suffix);
+    return path;
+}
+/**
+ * @description: 逆转字符串大小写
+ * @param {string} str 输入字符串
+ * @return {string} 处理后的字符串
+ */
+function reverseStr(str) {
+    var newStr = "";
+    for (var i = 0; i < str.length; i++) {
+        var reverseChar = void 0;
+        if (str.charAt(i) >= "a")
+            reverseChar = str.charAt(i).toUpperCase();
+        else if (str.charAt(i) >= "A")
+            reverseChar = str.charAt(i).toLowerCase();
+        else
+            reverseChar = str.charAt(i);
+        newStr += reverseChar;
+    }
+    return newStr;
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/newPage/loader.tsx

@@ -1,13 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-14 06:03:20
+ * @LastEditTime: 2022-11-23 04:16:53
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
 import ajax from "@/common/ajax";
 import { FileInfo } from "@/common/const";
-import { convertData } from "@/common/utils";
+import { convertData, suffixChange } from "@/common/utils";
 import {
   retryMax_apiV2,
   precreate_url,
@@ -113,7 +113,11 @@ export default class RapiduploadTask {
       },
       (data) => {
         // console.log(data.response); // debug
-        if (2 === data.response.errno && retry < retryMax_apiV2)
+        if (31039 === data.response.errno && 31039 != file.errno) {
+          file.errno = 31039;
+          file.path = suffixChange(file.path);
+          this.createFileV2(file, onResponsed, onFailed, retry);
+        } else if (2 === data.response.errno && retry < retryMax_apiV2)
           this.createFileV2(file, onResponsed, onFailed, ++retry);
         else onResponsed(data);
       },

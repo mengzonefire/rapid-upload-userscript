@@ -154,3 +154,32 @@ export function decryptMd5(md5: string): string {
     return md5;
   }
 }
+
+/**
+ * @description: 用于解决#31039报错
+ * @param {string} path 原文件路径
+ * @return {string} 修改文件后缀的路径
+ */
+export function suffixChange(path: string): string {
+  let suffix = path.substring(path.length - 4);
+  if (".zip" === suffix)
+    return path.substring(0, path.length - 4) + reverseStr(suffix);
+  return path;
+}
+
+/**
+ * @description: 逆转字符串大小写
+ * @param {string} str 输入字符串
+ * @return {string} 处理后的字符串
+ */
+function reverseStr(str: string): string {
+  let newStr = "";
+  for (let i = 0; i < str.length; i++) {
+    let reverseChar: string;
+    if (str.charAt(i) >= "a") reverseChar = str.charAt(i).toUpperCase();
+    else if (str.charAt(i) >= "A") reverseChar = str.charAt(i).toLowerCase();
+    else reverseChar = str.charAt(i);
+    newStr += reverseChar;
+  }
+  return newStr;
+}

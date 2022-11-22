@@ -74,7 +74,7 @@ export function baiduErrno(errno: number) {
     case 500:
     case 502:
     case 503:
-      return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-502-503" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-502-503" ${linkStyle}>载点2</a>)`;
+      return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-50X" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-50X" ${linkStyle}>载点2</a>)`;
     case 909:
       return "路径不存在/云端文件已损坏";
     case 900:
@@ -82,7 +82,7 @@ export function baiduErrno(errno: number) {
     case 901:
       return "包含的文件数量超出限制(1w个)";
     case 31039:
-      return `请尝试使用国内ip访问度盘(详见: <a href="https://greasyfork.org/zh-CN/scripts/424574/discussions/157981" ${linkStyle}>GF反馈区</a>)`;
+      return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-31039" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-31039" ${linkStyle}>载点2</a>)`;
     default:
       return `未知错误(请看文档:<a href="${doc.shareDoc}#未知错误" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#未知错误" ${linkStyle}>载点2</a>)`;
   }
