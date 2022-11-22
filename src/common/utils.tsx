@@ -161,10 +161,8 @@ export function decryptMd5(md5: string): string {
  * @return {string} 修改文件后缀的路径
  */
 export function suffixChange(path: string): string {
-  let suffix = path.substring(path.length - 4);
-  if (".zip" === suffix)
-    return path.substring(0, path.length - 4) + reverseStr(suffix);
-  return path;
+  let suffix = path.substring(path.lastIndexOf(".") + 1); // 获取后缀
+  return path.substring(0, path.length - suffix.length) + reverseStr(suffix);
 }
 
 /**

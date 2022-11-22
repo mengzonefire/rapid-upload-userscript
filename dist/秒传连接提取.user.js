@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.0
+// @version 2.5.1
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,7 +4820,7 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.5.0"; // 当前版本号
+var version = "2.5.1"; // 当前版本号
 var updateDate = "22.11.23"; // 更新弹窗的日期
 var updateInfoVer = "2.5.0"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -6565,10 +6565,8 @@ function decryptMd5(md5) {
  * @return {string} 修改文件后缀的路径
  */
 function suffixChange(path) {
-    var suffix = path.substring(path.length - 4);
-    if (".zip" === suffix)
-        return path.substring(0, path.length - 4) + reverseStr(suffix);
-    return path;
+    var suffix = path.substring(path.lastIndexOf(".") + 1); // 获取后缀
+    return path.substring(0, path.length - suffix.length) + reverseStr(suffix);
 }
 /**
  * @description: 逆转字符串大小写
