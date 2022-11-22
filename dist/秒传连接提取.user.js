@@ -6364,7 +6364,7 @@ function baiduErrno(errno) {
         case 500:
         case 502:
         case 503:
-            return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-50X\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-50X\" " + linkStyle + ">\u8F7D\u70B92</a>)";
+            return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-50x\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-50x\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 909:
             return "路径不存在/云端文件已损坏";
         case 900:

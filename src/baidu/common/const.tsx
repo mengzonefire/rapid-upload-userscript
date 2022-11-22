@@ -74,7 +74,7 @@ export function baiduErrno(errno: number) {
     case 500:
     case 502:
     case 503:
-      return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-50X" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-50X" ${linkStyle}>载点2</a>)`;
+      return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-50x" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-50x" ${linkStyle}>载点2</a>)`;
     case 909:
       return "路径不存在/云端文件已损坏";
     case 900:
