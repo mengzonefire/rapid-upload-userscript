@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.1
+// @version 2.5.2
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4820,8 +4820,8 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.5.1"; // 当前版本号
-var updateDate = "22.11.23"; // 更新弹窗的日期
+var version = "2.5.2"; // 当前版本号
+var updateDate = "22.12.5"; // 更新弹窗的日期
 var updateInfoVer = "2.5.0"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
@@ -5715,7 +5715,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-23 04:16:53
+ * @LastEditTime: 2022-12-05 14:33:43
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5754,7 +5754,7 @@ var RapiduploadTask = /** @class */ (function () {
         var file = this.fileInfoList[i];
         // 文件名含有非法字符 / 文件名为空
         if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
-            file.errno = 810;
+            file.errno = -7;
             this.saveFileV2(i + 1);
             return;
         }
@@ -6177,7 +6177,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-23 04:16:53
+ * @LastEditTime: 2022-12-05 14:33:43
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6216,7 +6216,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         var file = this.fileInfoList[i];
         // 文件名含有非法字符 / 文件名为空
         if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
-            file.errno = 810;
+            file.errno = -7;
             this.saveFileV2(i + 1);
             return;
         }
@@ -6338,7 +6338,7 @@ function baiduErrno(errno) {
         case -6:
             return "\u8BA4\u8BC1\u5931\u8D25(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BA4\u8BC1\u5931\u8D25-6\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BA4\u8BC1\u5931\u8D25-6\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case -7:
-            return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
+            return "\u8F6C\u5B58\u8DEF\u5F84\u542B\u6709\u975E\u6CD5\u5B57\u7B26(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8F6C\u5B58\u8DEF\u5F84\u542B\u6709\u975E\u6CD5\u5B57\u7B26-7\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8F6C\u5B58\u8DEF\u5F84\u542B\u6709\u975E\u6CD5\u5B57\u7B26-7\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case -8:
             return "路径下存在同名文件";
         case 400:
@@ -6353,8 +6353,6 @@ function baiduErrno(errno) {
             return "\u8BF7\u6C42\u5931\u8D25(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BF7\u6C42\u5931\u8D25-514\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 1919:
             return "\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u6587\u4EF6\u5DF2\u88AB\u548C\u8C10-1919\" " + linkStyle + ">\u8F7D\u70B92</a>)";
-        case 810:
-            return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
         case 996:
             return "md5\u83B7\u53D6\u5931\u8D25(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#md5-\u83B7\u53D6\u5931\u8D25-996\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 2:

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-11-23 04:16:53
+ * @LastEditTime: 2022-12-05 14:33:43
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -52,7 +52,7 @@ export default class RapiduploadTask {
     let file = this.fileInfoList[i];
     // 文件名含有非法字符 / 文件名为空
     if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
-      file.errno = 810;
+      file.errno = -7;
       this.saveFileV2(i + 1);
       return;
     }

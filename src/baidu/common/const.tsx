@@ -48,7 +48,7 @@ export function baiduErrno(errno: number) {
     case -6:
       return `认证失败(请看文档:<a href="${doc.shareDoc}#认证失败-6" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#认证失败-6" ${linkStyle}>载点2</a>)`;
     case -7:
-      return "秒传链接内的文件名/转存路径 包含非法字符, 请尝试更改";
+      return `转存路径含有非法字符(请看文档:<a href="${doc.shareDoc}#转存路径含有非法字符-7" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#转存路径含有非法字符-7" ${linkStyle}>载点2</a>)`;
     case -8:
       return "路径下存在同名文件";
     case 400:
@@ -63,8 +63,6 @@ export function baiduErrno(errno: number) {
       return `请求失败(请看文档:<a href="${doc.shareDoc}#请求失败-514" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求失败-514" ${linkStyle}>载点2</a>)`;
     case 1919:
       return `文件已被和谐(请看文档:<a href="${doc.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#文件已被和谐-1919" ${linkStyle}>载点2</a>)`;
-    case 810:
-      return '秒传链接内的文件名错误, 不能含有字符\\":*?<>|, 且不能是"/"(空文件名)';
     case 996:
       return `md5获取失败(请看文档:<a href="${doc.shareDoc}#md5-获取失败-996" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#md5-获取失败-996" ${linkStyle}>载点2</a>)`;
     case 2:
