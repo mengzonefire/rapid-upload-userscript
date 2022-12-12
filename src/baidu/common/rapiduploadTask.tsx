@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-05 14:33:43
+ * @LastEditTime: 2022-12-13 03:12:46
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -100,7 +100,9 @@ export default class RapiduploadTask {
   ): void {
     ajax(
       {
-        url: `${create_url}${this.bdstoken && "&bdstoken=" + this.bdstoken}`, // bdstoken参数不能放在data里, 否则无效
+        url: `${create_url}${
+          this.bdstoken ? "&bdstoken=" + this.bdstoken : ""
+        }`, // bdstoken参数不能放在data里, 否则无效
         method: "POST",
         responseType: "json",
         data: convertData({

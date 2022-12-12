@@ -12,6 +12,9 @@ export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall
 // 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start参数获取
 export const meta_url = `https://${host}/rest/2.0/xpan/file?app_id=778750&method=meta&path=`;
 export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
+export const tpl_url = `https://${host}/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0`;
+export const sharedownload_url = `https://${host}/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528`;
+export const sharelist_url = `https://${host}/share/list?showempty=0&num=${listLimit}&channel=chunlei&web=1&app_id=250528&clienttype=0`;
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
@@ -66,8 +69,6 @@ export function baiduErrno(errno: number) {
       return "路径不存在/云端文件已损坏";
     case 900:
       return "路径为文件夹, 不支持生成秒传";
-    case 901:
-      return "包含的文件数量超出限制(1w个)";
     case 31039:
       return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-31039" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-31039" ${linkStyle}>载点2</a>)`;
     default:

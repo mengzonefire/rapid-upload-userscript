@@ -4823,7 +4823,7 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.5.2"; // 当前版本号
+var version = "2.5.3"; // 当前版本号
 var updateDate = "22.12.5"; // 更新弹窗的日期
 var updateInfoVer = "2.5.0"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -5182,7 +5182,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-12 17:53:41
+ * @LastEditTime: 2022-12-13 02:19:08
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5579,11 +5579,8 @@ var Swalbase = /** @class */ (function () {
     };
     Swalbase.prototype.genFileWork = function (isUnfinish, isGenView) {
         var _this = this;
-        if (this.generatebdlinkTask.isSharePage) {
+        if (this.generatebdlinkTask.isSharePage)
             this.generatebdlinkTask.selectList = getShareFileList();
-            console.log(this.generatebdlinkTask.selectList);
-            return;
-        }
         else if (!isGenView)
             this.generatebdlinkTask.selectList = getSelectedFileList();
         if (
@@ -5610,11 +5607,19 @@ var Swalbase = /** @class */ (function () {
             sweetalert2_all_default().getHtmlContainer().querySelector("gen_prog").textContent = ((e.loaded / e.total) *
                 100).toFixed() + "%";
         };
-        this.generatebdlinkTask.onHasNoDir = function () {
-            _this.processView(true);
-            _this.generatebdlinkTask.generateBdlink(0);
-        };
-        this.generatebdlinkTask.onHasDir = function () { return _this.checkRecursive(); };
+        if (this.generatebdlinkTask.isSharePage) {
+            this.generatebdlinkTask.onHasNoDir = function () {
+                _this.processView(true);
+                _this.generatebdlinkTask.scanShareFile(0);
+            };
+        }
+        else {
+            this.generatebdlinkTask.onHasNoDir = function () {
+                _this.processView(true);
+                _this.generatebdlinkTask.generateBdlink(0);
+            };
+            this.generatebdlinkTask.onHasDir = function () { return _this.checkRecursive(); };
+        }
         this.generatebdlinkTask.onFinish = function () { return _this.finishView(true); };
         if (!isUnfinish && !isGenView)
             this.generatebdlinkTask.start(); // 执行新任务初始化
@@ -5725,7 +5730,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-05 14:33:43
+ * @LastEditTime: 2022-12-13 03:12:46
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5800,7 +5805,7 @@ var RapiduploadTask = /** @class */ (function () {
         var _this = this;
         if (retry === void 0) { retry = 0; }
         ajax({
-            url: "" + create_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
+            url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
             method: "POST",
             responseType: "json",
             data: convertData({
@@ -5849,10 +5854,11 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-12 16:46:32
+ * @LastEditTime: 2022-12-13 03:14:50
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
+
 
 
 
@@ -5865,10 +5871,11 @@ var GeneratebdlinkTask = /** @class */ (function () {
     }
     GeneratebdlinkTask.prototype.reset = function () {
         this.isGenView = false;
+        this.isSharePage = false;
         this.isFast = GM_getValue("fast-generate");
         this.recursive = false;
         this.savePath = "";
-        this.bdstoken = getBdstoken();
+        this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方precreateFileV2方法调用
         this.dirList = [];
         this.selectList = [];
         this.fileInfoList = [];
@@ -5882,25 +5889,62 @@ var GeneratebdlinkTask = /** @class */ (function () {
      * @description: 执行新任务的初始化步骤 扫描选择的文件列表
      */
     GeneratebdlinkTask.prototype.start = function () {
+        if (this.isSharePage) {
+            this.logid = getLogid();
+            this.surl = getSurl();
+            if (!this.surl) {
+                showAlert("surl\u83B7\u53D6\u5931\u8D25: " + location.href + ", \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage);
+                return;
+            }
+            this.parseShareFileList();
+            this.onHasNoDir();
+        }
+        else {
+            this.parseMainFileList();
+            if (this.dirList.length)
+                this.onHasDir();
+            else
+                this.onHasNoDir();
+        }
+    };
+    GeneratebdlinkTask.prototype.scanShareFile = function (i, page) {
         var _this = this;
-        this.selectList.forEach(function (item) {
-            if (item.isdir)
-                _this.dirList.push(item.path);
+        if (page === void 0) { page = 1; }
+        if (i >= this.dirList.length) {
+            this.generateBdlink(0);
+            return;
+        }
+        this.onProgress(false, "\u6B63\u5728\u83B7\u53D6\u6587\u4EF6\u5217\u8868, \u7B2C" + (i + 1) + "\u4E2A");
+        ajax({
+            url: sharelist_url + "&dir=" + encodeURIComponent(this.dirList[i]) + "&logid=" + this.logid + "&shareid=" + unsafeWindow.yunData.shareid + "&uk=" + unsafeWindow.yunData.share_uk + "&page=" + page,
+            method: "GET",
+            responseType: "json",
+        }, // list接口自带递归参数recursion
+        function (data) {
+            data = data.response;
+            if (!data.errno) {
+                if (!data.list.length)
+                    _this.scanShareFile(i + 1);
+                // 返回列表为空, 即此文件夹文件全部扫描完成
+                else {
+                    _this.parseShareFileList(data.list);
+                    _this.scanShareFile(i, page + 1); // 下一页
+                }
+            }
             else {
                 _this.fileInfoList.push({
-                    path: item.path,
-                    size: item.size,
-                    fs_id: item.fs_id,
-                    // 已开启极速生成, 直接取meta内的md5
-                    md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
-                    md5s: "",
-                });
+                    path: _this.dirList[i],
+                    errno: data.errno,
+                }); // list接口访问失败, 添加失败信息
+                _this.scanShareFile(i + 1);
             }
+        }, function (statusCode) {
+            _this.fileInfoList.push({
+                path: _this.dirList[i],
+                errno: statusCode,
+            });
+            _this.scanShareFile(i + 1);
         });
-        if (this.dirList.length)
-            this.onHasDir();
-        else
-            this.onHasNoDir();
     };
     /**
      * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
@@ -5948,7 +5992,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }, function (statusCode) {
             _this.fileInfoList.push({
                 path: _this.dirList[i],
-                errno: statusCode === 500 ? 901 : statusCode,
+                errno: statusCode,
             });
             _this.scanFile(i + 1);
         });
@@ -5958,11 +6002,12 @@ var GeneratebdlinkTask = /** @class */ (function () {
      * @param {number} i
      */
     GeneratebdlinkTask.prototype.generateBdlink = function (i) {
-        // 保存任务进度数据
-        GM_setValue("unfinish", {
-            file_info_list: this.fileInfoList,
-            file_id: i,
-        });
+        // 保存任务进度数据, 分享页生成不保存
+        if (!this.isSharePage)
+            GM_setValue("unfinish", {
+                file_info_list: this.fileInfoList,
+                file_id: i,
+            });
         // 生成完成
         if (i >= this.fileInfoList.length) {
             if (this.isFast)
@@ -5971,9 +6016,9 @@ var GeneratebdlinkTask = /** @class */ (function () {
                 this.onFinish(this.fileInfoList);
             return;
         }
-        // 生成逻辑
+        // 未开启 "极速生成", 刷新弹窗内的任务进度
         if (!this.isFast)
-            this.onProcess(i, this.fileInfoList); // 未开启 "极速生成", 刷新弹窗内的任务进度
+            this.onProcess(i, this.fileInfoList);
         var file = this.fileInfoList[i];
         // 跳过扫描失败的目录路径
         if (file.errno) {
@@ -5985,7 +6030,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
             this.generateBdlink(i + 1);
         // 普通生成步骤
         else
-            this.getDlink(i);
+            this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
     };
     /**
      * @description: 获取文件信息: size, md5(可能错误), fs_id
@@ -6001,7 +6046,6 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }, function (data) {
             data = data.response;
             if (!data.errno) {
-                // console.log(data.list[0]); // debug
                 if (data.list[0].isdir) {
                     file.errno = 900;
                     _this.generateBdlink(i + 1);
@@ -6026,6 +6070,64 @@ var GeneratebdlinkTask = /** @class */ (function () {
         });
     };
     /**
+     * @description: 获取分享页的文件dlink(下载直链)
+     * @param {number} i
+     */
+    GeneratebdlinkTask.prototype.getShareDlink = function (i) {
+        var _this = this;
+        var sign, timestamp, file = this.fileInfoList[i], onFailed = function (errno) {
+            file.errno = errno;
+            _this.checkMd5(i + 1);
+            // md5为空只在分享单个文件时出现, 故无需考虑获取多文件md5(跳转generateBdlink), 直接跳转checkMd5即可
+        };
+        function getTplconfig(file) {
+            var _this = this;
+            ajax({
+                url: tpl_url + "&surl=" + this.surl + "&logid=" + this.logid,
+                responseType: "json",
+                method: "GET",
+            }, function (data) {
+                data = data.response;
+                // 请求正常
+                if (!data.errno) {
+                    sign = data.data.sign;
+                    timestamp = data.data.timestamp;
+                    getDlink.call(_this, file);
+                    return;
+                }
+                // 请求报错
+                onFailed(data.errno);
+            }, onFailed);
+        }
+        function getDlink(file) {
+            var _this = this;
+            ajax({
+                url: sharedownload_url + "&sign=" + sign + "&timestamp=" + timestamp,
+                responseType: "json",
+                method: "POST",
+                data: convertData({
+                    extra: getExtra(),
+                    logid: this.logid,
+                    fid_list: JSON.stringify([file.fs_id]),
+                    primaryid: unsafeWindow.yunData.shareid,
+                    uk: unsafeWindow.yunData.share_uk,
+                    product: "share",
+                    encrypt: 0,
+                }),
+            }, function (data) {
+                data = data.response;
+                // 请求正常
+                if (!data.errno) {
+                    _this.downloadFileData(i, data.list[0].dlink);
+                    return;
+                }
+                // 请求报错
+                onFailed(data.errno);
+            }, onFailed);
+        }
+        getTplconfig.call(this, file);
+    };
+    /**
      * @description: 获取文件dlink(下载直链)
      * @param {number} i
      */
@@ -6045,7 +6147,6 @@ var GeneratebdlinkTask = /** @class */ (function () {
             data = data.response;
             // 请求正常
             if (!data.errno) {
-                // console.log(data.list[0]); // debug
                 _this.downloadFileData(i, data.list[0].dlink);
                 return;
             }
@@ -6106,12 +6207,12 @@ var GeneratebdlinkTask = /** @class */ (function () {
             return;
         }
         // 从下载接口获取md5, 此步骤可确保获取到正确md5
-        // console.log(data.responseHeaders); // debug
         var fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
         if (fileMd5)
             file.md5 = fileMd5[1].toLowerCase();
-        else if (file.size <= 3900000000 && !file.retry_996) {
+        else if (file.size <= 3900000000 && !file.retry_996 && !this.isSharePage) {
             // 默认下载接口未拿到md5, 尝试使用旧下载接口, 旧接口请求文件size大于3.9G会返回403
+            // 分享页的生成任务不要调用旧接口
             file.retry_996 = true;
             this.downloadFileData(i, pcs_url + ("&path=" + encodeURIComponent(file.path)));
             return;
@@ -6160,13 +6261,14 @@ var GeneratebdlinkTask = /** @class */ (function () {
                 if (0 === data.block_list.length)
                     _this.checkMd5(i + 1); // md5验证成功
                 else {
-                    // md5验证失败, 执行普通生成, 仅在此处保存任务进度
-                    GM_setValue("unfinish", {
-                        file_info_list: _this.fileInfoList,
-                        file_id: i,
-                        isCheckMd5: true,
-                    });
-                    _this.getDlink(i);
+                    // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+                    if (!_this.isSharePage)
+                        GM_setValue("unfinish", {
+                            file_info_list: _this.fileInfoList,
+                            file_id: i,
+                            isCheckMd5: true,
+                        });
+                    _this.isSharePage ? _this.getShareDlink(i) : _this.getDlink(i);
                 }
             }
             else {
@@ -6179,6 +6281,49 @@ var GeneratebdlinkTask = /** @class */ (function () {
             _this.checkMd5(i + 1);
         });
     };
+    /**
+     * @description: 用于解析度盘主页的文件列表数据
+     */
+    GeneratebdlinkTask.prototype.parseMainFileList = function () {
+        for (var _i = 0, _a = this.selectList; _i < _a.length; _i++) {
+            var item = _a[_i];
+            if (item.isdir)
+                this.dirList.push(item.path);
+            else
+                this.fileInfoList.push({
+                    path: item.path,
+                    size: item.size,
+                    fs_id: item.fs_id,
+                    // 已开启极速生成, 直接取meta内的md5
+                    md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+                    md5s: "",
+                });
+        }
+    };
+    /**
+     * @description: 用于解析分享页的文件列表数据
+     */
+    GeneratebdlinkTask.prototype.parseShareFileList = function (list) {
+        if (list === void 0) { list = this.selectList; }
+        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+            var item = list_1[_i];
+            var path = void 0;
+            if ("app_id" in item)
+                path = "/" + item.server_filename;
+            else
+                path = item.path;
+            if (item.isdir)
+                this.dirList.push(path);
+            else
+                this.fileInfoList.push({
+                    path: path,
+                    size: item.size,
+                    fs_id: item.fs_id,
+                    md5: item.md5 && decryptMd5(item.md5.toLowerCase()),
+                    md5s: "",
+                });
+        }
+    };
     return GeneratebdlinkTask;
 }());
 /* harmony default export */ const common_GeneratebdlinkTask = (GeneratebdlinkTask);
@@ -6187,7 +6332,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-05 14:33:43
+ * @LastEditTime: 2022-12-13 03:12:46
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6262,7 +6407,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         var _this = this;
         if (retry === void 0) { retry = 0; }
         ajax({
-            url: "" + create_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
+            url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
             method: "POST",
             responseType: "json",
             data: convertData({
@@ -6318,6 +6463,9 @@ var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&ord
 // 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start参数获取
 var meta_url = "https://" + host + "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
 var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
+var tpl_url = "https://" + host + "/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0";
+var sharedownload_url = "https://" + host + "/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528";
+var sharelist_url = "https://" + host + "/share/list?showempty=0&num=" + listLimit + "&channel=chunlei&web=1&app_id=250528&clienttype=0";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 var illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
 var getBdstoken; // 获取bdstoken的实现
@@ -6367,8 +6515,6 @@ function baiduErrno(errno) {
             return "路径不存在/云端文件已损坏";
         case 900:
             return "路径为文件夹, 不支持生成秒传";
-        case 901:
-            return "包含的文件数量超出限制(1w个)";
         case 31039:
             return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         default:
@@ -6483,31 +6629,12 @@ function parsefileInfo(fileInfoList, checkMode) {
  * @description: 获取分享页的文件列表
  */
 function getShareFileList() {
-    var outputList = [];
     var bdListInstance = unsafeWindow.require("system-core:context/context.js")
         .instanceForSystem.list;
     var selectList = bdListInstance.getSelected();
     if (!selectList.length)
         selectList = bdListInstance.getCurrentList();
-    for (var _i = 0, selectList_1 = selectList; _i < selectList_1.length; _i++) {
-        var item = selectList_1[_i];
-        if ("app_id" in item)
-            outputList.push({
-                path: item.server_filename,
-                fs_id: item.fs_id,
-                size: item.size,
-                isdir: item.isdir,
-            });
-        else
-            outputList.push({
-                path: item.path,
-                fs_id: item.fs_id,
-                size: item.size,
-                md5: item.md5,
-                isdir: item.isdir,
-            });
-    }
-    return outputList;
+    return selectList;
 }
 /**
  * @description: 获取选择的文件列表(旧版界面)
@@ -6613,6 +6740,32 @@ function reverseStr(str) {
         newStr += reverseChar;
     }
     return newStr;
+}
+function getCookie(name) {
+    var arr = document.cookie.replace(/\s/g, "").split(";");
+    for (var i = 0, l = arr.length; i < l; i++) {
+        var tempArr = arr[i].split("=");
+        if (tempArr[0] === name) {
+            return decodeURIComponent(tempArr[1]);
+        }
+    }
+    return "";
+}
+function getLogid() {
+    var ut = unsafeWindow.require("system-core:context/context.js")
+        .instanceForSystem.tools.baseService;
+    return ut.base64Encode(getCookie("BAIDUID"));
+}
+function getSurl() {
+    var reg = /(?<=s\/|surl=)([a-zA-Z0-9_-]+)/g;
+    if (reg.test(location.href)) {
+        return location.href.match(reg)[0];
+    }
+    return "";
+}
+function getExtra() {
+    var seKey = decodeURIComponent(getCookie("BDCLND"));
+    return "{" + '"sekey":"' + seKey + '"' + "}";
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/newPage/loader.tsx
@@ -6723,6 +6876,7 @@ function installShare() {
     $(document).on("click", "#gen_bdlink_btn_sharePage", function () {
         swalInstance.generatebdlinkTask.reset();
         swalInstance.generatebdlinkTask.isSharePage = true;
+        swalInstance.generatebdlinkTask.isFast = true; // 强制使用极速生成
         swalInstance.genFileWork(false, false);
     }); // 绑定生成按钮事件
 }

@@ -14,6 +14,7 @@ declare global {
   interface Window {
     require: any;
     locals: any;
+    yunData: any;
   }
   // var __non_webpack_require__: any;
 }

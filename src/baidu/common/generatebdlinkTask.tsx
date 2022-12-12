@@ -1,13 +1,20 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-12 16:46:32
+ * @LastEditTime: 2022-12-13 03:14:50
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 import ajax from "@/common/ajax";
-import { FileInfo } from "@/common/const";
-import { decryptMd5 } from "@/common/utils";
+import { FileInfo, homePage } from "@/common/const";
+import {
+  convertData,
+  decryptMd5,
+  getExtra,
+  getLogid,
+  getSurl,
+  showAlert,
+} from "@/common/utils";
 import { UA } from "@/common/const";
 import {
   listLimit,
@@ -15,6 +22,9 @@ import {
   meta_url,
   meta_url2,
   pcs_url,
+  tpl_url,
+  sharedownload_url,
+  sharelist_url,
   getBdstoken,
 } from "./const";
 import { precreateFileV2 } from "./rapiduploadTask";
@@ -26,11 +36,13 @@ export default class GeneratebdlinkTask {
   isGenView: boolean; // 生成页(秒传框输入gen)标记
   isFast: boolean; // 极速生成功能开关标记
   recursive: boolean; // 递归生成标记
-  bdstoken: string;
   savePath: string;
   dirList: Array<string>;
-  selectList: Array<FileInfo>;
+  selectList: Array<any>;
   fileInfoList: Array<FileInfo>;
+  logid: string;
+  surl: string;
+  bdstoken: string;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
   onProcess: (i: number, fileInfoList: Array<FileInfo>) => void;
   onProgress: (e: any, text?: string) => void;
@@ -39,10 +51,11 @@ export default class GeneratebdlinkTask {
 
   reset(): void {
     this.isGenView = false;
+    this.isSharePage = false;
     this.isFast = GM_getValue("fast-generate");
     this.recursive = false;
     this.savePath = "";
-    this.bdstoken = getBdstoken();
+    this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方precreateFileV2方法调用
     this.dirList = [];
     this.selectList = [];
     this.fileInfoList = [];
@@ -57,21 +70,65 @@ export default class GeneratebdlinkTask {
    * @description: 执行新任务的初始化步骤 扫描选择的文件列表
    */
   start(): void {
-    this.selectList.forEach((item) => {
-      if (item.isdir) this.dirList.push(item.path);
-      else {
-        this.fileInfoList.push({
-          path: item.path,
-          size: item.size,
-          fs_id: item.fs_id,
-          // 已开启极速生成, 直接取meta内的md5
-          md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
-          md5s: "",
-        });
+    if (this.isSharePage) {
+      this.logid = getLogid();
+      this.surl = getSurl();
+      if (!this.surl) {
+        showAlert(
+          `surl获取失败: ${location.href}, 请前往脚本页反馈:\n${homePage}`
+        );
+        return;
       }
-    });
-    if (this.dirList.length) this.onHasDir();
-    else this.onHasNoDir();
+      this.parseShareFileList();
+      this.onHasNoDir();
+    } else {
+      this.parseMainFileList();
+      if (this.dirList.length) this.onHasDir();
+      else this.onHasNoDir();
+    }
+  }
+
+  scanShareFile(i: number, page: number = 1): void {
+    if (i >= this.dirList.length) {
+      this.generateBdlink(0);
+      return;
+    }
+    this.onProgress(false, `正在获取文件列表, 第${i + 1}个`);
+    ajax(
+      {
+        url: `${sharelist_url}&dir=${encodeURIComponent(
+          this.dirList[i]
+        )}&logid=${this.logid}&shareid=${unsafeWindow.yunData.shareid}&uk=${
+          unsafeWindow.yunData.share_uk
+        }&page=${page}`,
+        method: "GET",
+        responseType: "json",
+      }, // list接口自带递归参数recursion
+      (data) => {
+        data = data.response;
+        if (!data.errno) {
+          if (!data.list.length) this.scanShareFile(i + 1);
+          // 返回列表为空, 即此文件夹文件全部扫描完成
+          else {
+            this.parseShareFileList(data.list);
+            this.scanShareFile(i, page + 1); // 下一页
+          }
+        } else {
+          this.fileInfoList.push({
+            path: this.dirList[i],
+            errno: data.errno,
+          }); // list接口访问失败, 添加失败信息
+          this.scanShareFile(i + 1);
+        }
+      },
+      (statusCode) => {
+        this.fileInfoList.push({
+          path: this.dirList[i],
+          errno: statusCode,
+        });
+        this.scanShareFile(i + 1);
+      }
+    );
   }
 
   /**
@@ -121,7 +178,7 @@ export default class GeneratebdlinkTask {
       (statusCode) => {
         this.fileInfoList.push({
           path: this.dirList[i],
-          errno: statusCode === 500 ? 901 : statusCode,
+          errno: statusCode,
         });
         this.scanFile(i + 1);
       }
@@ -133,29 +190,34 @@ export default class GeneratebdlinkTask {
    * @param {number} i
    */
   generateBdlink(i: number): void {
-    // 保存任务进度数据
-    GM_setValue("unfinish", {
-      file_info_list: this.fileInfoList,
-      file_id: i,
-    });
+    // 保存任务进度数据, 分享页生成不保存
+    if (!this.isSharePage)
+      GM_setValue("unfinish", {
+        file_info_list: this.fileInfoList,
+        file_id: i,
+      });
+
     // 生成完成
     if (i >= this.fileInfoList.length) {
       if (this.isFast) this.checkMd5(0); // 已开启 "极速生成", 执行md5检查
       else this.onFinish(this.fileInfoList);
       return;
     }
-    // 生成逻辑
-    if (!this.isFast) this.onProcess(i, this.fileInfoList); // 未开启 "极速生成", 刷新弹窗内的任务进度
+
+    // 未开启 "极速生成", 刷新弹窗内的任务进度
+    if (!this.isFast) this.onProcess(i, this.fileInfoList);
+
     let file = this.fileInfoList[i];
     // 跳过扫描失败的目录路径
     if (file.errno) {
       this.generateBdlink(i + 1);
       return;
     }
+
     // 已开启 "极速生成" 且已获取到md5, 跳过普通生成步骤
     if (this.isFast && file.md5) this.generateBdlink(i + 1);
     // 普通生成步骤
-    else this.getDlink(i);
+    else this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
   }
 
   /**
@@ -173,7 +235,6 @@ export default class GeneratebdlinkTask {
       (data) => {
         data = data.response;
         if (!data.errno) {
-          // console.log(data.list[0]); // debug
           if (data.list[0].isdir) {
             file.errno = 900;
             this.generateBdlink(i + 1);
@@ -200,16 +261,88 @@ export default class GeneratebdlinkTask {
   }
 
   /**
+   * @description: 获取分享页的文件dlink(下载直链)
+   * @param {number} i
+   */
+  getShareDlink(i: number): void {
+    let sign: string,
+      timestamp: number,
+      file = this.fileInfoList[i],
+      onFailed = (errno: number) => {
+        file.errno = errno;
+        this.checkMd5(i + 1);
+        // md5为空只在分享单个文件时出现, 故无需考虑获取多文件md5(跳转generateBdlink), 直接跳转checkMd5即可
+      };
+
+    function getTplconfig(file: FileInfo): void {
+      ajax(
+        {
+          url: `${tpl_url}&surl=${this.surl}&logid=${this.logid}`,
+          responseType: "json",
+          method: "GET",
+        },
+        (data) => {
+          data = data.response;
+          // 请求正常
+          if (!data.errno) {
+            sign = data.data.sign;
+            timestamp = data.data.timestamp;
+            getDlink.call(this, file);
+            return;
+          }
+          // 请求报错
+          onFailed(data.errno);
+        },
+        onFailed
+      );
+    }
+
+    function getDlink(file: FileInfo): void {
+      ajax(
+        {
+          url: `${sharedownload_url}&sign=${sign}&timestamp=${timestamp}`,
+          responseType: "json",
+          method: "POST",
+          data: convertData({
+            extra: getExtra(),
+            logid: this.logid,
+            fid_list: JSON.stringify([file.fs_id]),
+            primaryid: unsafeWindow.yunData.shareid,
+            uk: unsafeWindow.yunData.share_uk,
+            product: "share",
+            encrypt: 0,
+          }),
+        },
+        (data) => {
+          data = data.response;
+          // 请求正常
+          if (!data.errno) {
+            this.downloadFileData(i, data.list[0].dlink);
+            return;
+          }
+          // 请求报错
+          onFailed(data.errno);
+        },
+        onFailed
+      );
+    }
+
+    getTplconfig.call(this, file);
+  }
+
+  /**
    * @description: 获取文件dlink(下载直链)
    * @param {number} i
    */
   getDlink(i: number): void {
     let file = this.fileInfoList[i];
+
     // 使用生成页时仅有path没有fs_id, 跳转到获取fs_id
     if (!file.fs_id) {
       this.getFileInfo(i);
       return;
     }
+
     ajax(
       {
         url: meta_url2 + JSON.stringify([file.fs_id]),
@@ -220,7 +353,6 @@ export default class GeneratebdlinkTask {
         data = data.response;
         // 请求正常
         if (!data.errno) {
-          // console.log(data.list[0]); // debug
           this.downloadFileData(i, data.list[0].dlink);
           return;
         }
@@ -286,11 +418,11 @@ export default class GeneratebdlinkTask {
     }
 
     // 从下载接口获取md5, 此步骤可确保获取到正确md5
-    // console.log(data.responseHeaders); // debug
     let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
     if (fileMd5) file.md5 = fileMd5[1].toLowerCase();
-    else if (file.size <= 3900000000 && !file.retry_996) {
+    else if (file.size <= 3900000000 && !file.retry_996 && !this.isSharePage) {
       // 默认下载接口未拿到md5, 尝试使用旧下载接口, 旧接口请求文件size大于3.9G会返回403
+      // 分享页的生成任务不要调用旧接口
       file.retry_996 = true;
       this.downloadFileData(
         i,
@@ -341,13 +473,14 @@ export default class GeneratebdlinkTask {
         if (0 === data.errno) {
           if (0 === data.block_list.length) this.checkMd5(i + 1); // md5验证成功
           else {
-            // md5验证失败, 执行普通生成, 仅在此处保存任务进度
-            GM_setValue("unfinish", {
-              file_info_list: this.fileInfoList,
-              file_id: i,
-              isCheckMd5: true,
-            });
-            this.getDlink(i);
+            // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+            if (!this.isSharePage)
+              GM_setValue("unfinish", {
+                file_info_list: this.fileInfoList,
+                file_id: i,
+                isCheckMd5: true,
+              });
+            this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
           }
         } else {
           // 接口访问失败
@@ -360,5 +493,43 @@ export default class GeneratebdlinkTask {
         this.checkMd5(i + 1);
       }
     );
+  }
+
+  /**
+   * @description: 用于解析度盘主页的文件列表数据
+   */
+  parseMainFileList() {
+    for (let item of this.selectList) {
+      if (item.isdir) this.dirList.push(item.path);
+      else
+        this.fileInfoList.push({
+          path: item.path,
+          size: item.size,
+          fs_id: item.fs_id,
+          // 已开启极速生成, 直接取meta内的md5
+          md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
+          md5s: "",
+        });
+    }
+  }
+
+  /**
+   * @description: 用于解析分享页的文件列表数据
+   */
+  parseShareFileList(list = this.selectList) {
+    for (let item of list) {
+      let path: string;
+      if ("app_id" in item) path = "/" + item.server_filename;
+      else path = item.path;
+      if (item.isdir) this.dirList.push(path);
+      else
+        this.fileInfoList.push({
+          path: path,
+          size: item.size,
+          fs_id: item.fs_id,
+          md5: item.md5 && decryptMd5(item.md5.toLowerCase()),
+          md5s: "",
+        });
+    }
   }
 }

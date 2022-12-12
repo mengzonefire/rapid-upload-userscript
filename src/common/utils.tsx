@@ -85,29 +85,11 @@ export function parsefileInfo(
  * @description: 获取分享页的文件列表
  */
 export function getShareFileList() {
-  let outputList = [];
   const bdListInstance = unsafeWindow.require("system-core:context/context.js")
     .instanceForSystem.list;
   let selectList = bdListInstance.getSelected();
   if (!selectList.length) selectList = bdListInstance.getCurrentList();
-  for (let item of selectList) {
-    if ("app_id" in item)
-      outputList.push({
-        path: item.server_filename,
-        fs_id: item.fs_id,
-        size: item.size,
-        isdir: item.isdir,
-      });
-    else
-      outputList.push({
-        path: item.path,
-        fs_id: item.fs_id,
-        size: item.size,
-        md5: item.md5,
-        isdir: item.isdir,
-      });
-  }
-  return outputList;
+  return selectList;
 }
 
 /**
@@ -209,4 +191,34 @@ function reverseStr(str: string): string {
     newStr += reverseChar;
   }
   return newStr;
+}
+
+function getCookie(name: string) {
+  let arr = document.cookie.replace(/\s/g, "").split(";");
+  for (let i = 0, l = arr.length; i < l; i++) {
+    let tempArr = arr[i].split("=");
+    if (tempArr[0] === name) {
+      return decodeURIComponent(tempArr[1]);
+    }
+  }
+  return "";
+}
+
+export function getLogid() {
+  let ut = unsafeWindow.require("system-core:context/context.js")
+    .instanceForSystem.tools.baseService;
+  return ut.base64Encode(getCookie("BAIDUID"));
+}
+
+export function getSurl() {
+  let reg = /(?<=s\/|surl=)([a-zA-Z0-9_-]+)/g;
+  if (reg.test(location.href)) {
+    return location.href.match(reg)[0];
+  }
+  return "";
+}
+
+export function getExtra() {
+  let seKey = decodeURIComponent(getCookie("BDCLND"));
+  return "{" + '"sekey":"' + seKey + '"' + "}";
 }

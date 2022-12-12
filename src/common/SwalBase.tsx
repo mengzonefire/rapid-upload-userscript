@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-12 17:53:41
+ * @LastEditTime: 2022-12-13 02:19:08
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -376,11 +376,9 @@ export default class Swalbase {
   }
 
   genFileWork(isUnfinish: boolean, isGenView: boolean) {
-    if (this.generatebdlinkTask.isSharePage) {
+    if (this.generatebdlinkTask.isSharePage)
       this.generatebdlinkTask.selectList = getShareFileList();
-      console.log(this.generatebdlinkTask.selectList);
-      return;
-    } else if (!isGenView)
+    else if (!isGenView)
       this.generatebdlinkTask.selectList = getSelectedFileList();
 
     if (
@@ -410,11 +408,19 @@ export default class Swalbase {
         100
       ).toFixed()}%`;
     };
-    this.generatebdlinkTask.onHasNoDir = () => {
-      this.processView(true);
-      this.generatebdlinkTask.generateBdlink(0);
-    };
-    this.generatebdlinkTask.onHasDir = () => this.checkRecursive();
+
+    if (this.generatebdlinkTask.isSharePage) {
+      this.generatebdlinkTask.onHasNoDir = () => {
+        this.processView(true);
+        this.generatebdlinkTask.scanShareFile(0);
+      };
+    } else {
+      this.generatebdlinkTask.onHasNoDir = () => {
+        this.processView(true);
+        this.generatebdlinkTask.generateBdlink(0);
+      };
+      this.generatebdlinkTask.onHasDir = () => this.checkRecursive();
+    }
     this.generatebdlinkTask.onFinish = () => this.finishView(true);
     if (!isUnfinish && !isGenView) this.generatebdlinkTask.start(); // 执行新任务初始化
   }
