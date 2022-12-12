@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-11-11 02:02:38
+ * @LastEditTime: 2022-12-12 16:46:32
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -22,11 +22,12 @@ import SparkMD5 from "spark-md5";
 
 // 普通生成:
 export default class GeneratebdlinkTask {
-  isGenView: boolean;
-  isFast: boolean;
+  isSharePage: boolean; // 分享页标记
+  isGenView: boolean; // 生成页(秒传框输入gen)标记
+  isFast: boolean; // 极速生成功能开关标记
+  recursive: boolean; // 递归生成标记
   bdstoken: string;
   savePath: string;
-  recursive: boolean;
   dirList: Array<string>;
   selectList: Array<FileInfo>;
   fileInfoList: Array<FileInfo>;
@@ -37,10 +38,10 @@ export default class GeneratebdlinkTask {
   onHasNoDir: () => void;
 
   reset(): void {
-    this.isGenView = false; // 标记是否使用生成页生成
+    this.isGenView = false;
     this.isFast = GM_getValue("fast-generate");
-    this.savePath = "";
     this.recursive = false;
+    this.savePath = "";
     this.bdstoken = getBdstoken();
     this.dirList = [];
     this.selectList = [];

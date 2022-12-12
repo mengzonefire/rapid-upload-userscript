@@ -1,9 +1,36 @@
 import { TAG, version } from "@/common/const";
-import { htmlBtnGenNew, htmlTagNew2, swalInstance } from "../common/const";
-import { htmlBtnRapidNew, htmlTagNew } from "@/baidu/common/const";
+import {
+  setGetBdstoken,
+  setGetSelectedFileList,
+  setRefreshList,
+  swalInstance,
+} from "../common/const";
+import { getSelectedFileListNew } from "@/common/utils";
+
+const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
+const htmlTagNew2 = "div.wp-s-agile-tool-bar__header"; // 22.5.24: 新版界面新增的一个父对象
+const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
+  '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
+const htmlBtnGenNew = // 新版界面秒传生成按钮的html元素
+  '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>生成秒传</span></button>';
 
 export default function installNew() {
   console.info("%s version: %s DOM方式安装", TAG, version);
+  swalInstance.swalGlobalArgs = {
+    heightAuto: false,
+    scrollbarPadding: false,
+  }; // 添加swal参数以防止新版界面下的body样式突变
+  setRefreshList(() => {
+    document
+      .querySelector(".nd-main-list, .nd-new-main-list")
+      .__vue__.reloadList();
+  });
+  setGetSelectedFileList(getSelectedFileListNew);
+  setGetBdstoken(
+    () =>
+      document.querySelector(".nd-main-list, .nd-new-main-list").__vue__.yunData
+        .bdstoken
+  );
   $(document).on("click", "#bdlink_btn", () => {
     swalInstance.inputView();
   }); // 绑定转存秒传按钮事件

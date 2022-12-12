@@ -5,10 +5,11 @@ import RapiduploadTask from "./RapiduploadTask";
 
 const host = location.host;
 export const listLimit = 10000;
+export const retryMax_apiV2 = 2; // v2转存接口的最大重试次数
 export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
 export const precreate_url = `https://${host}/rest/2.0/xpan/file?method=precreate`;
 export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=${listLimit}`;
-// 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start字段获取
+// 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start参数获取
 export const meta_url = `https://${host}/rest/2.0/xpan/file?app_id=778750&method=meta&path=`;
 export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
 export const pcs_url =
@@ -30,18 +31,6 @@ export const swalInstance = new Swalbase(
   new RapiduploadTask(),
   new GeneratebdlinkTask()
 );
-
-export const htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
-export const htmlTagNew2 = "div.wp-s-agile-tool-bar__header"; // 22.5.24: 新版界面新增的一个父对象
-export const htmlTagLegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
-export const htmlBtnRapidNew = // 新版界面秒传按钮的html元素
-  '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
-export const htmlBtnGenNew = // 新版界面秒传生成按钮的html元素
-  '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>生成秒传</span></button>';
-export const htmlBtnRapidLegacy = // 旧版界面秒传按钮的html元素
-  '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
-export const htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
-  '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
 
 export function baiduErrno(errno: number) {
   switch (errno) {
@@ -85,5 +74,3 @@ export function baiduErrno(errno: number) {
       return `未知错误(请看文档:<a href="${doc.shareDoc}#未知错误" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#未知错误" ${linkStyle}>载点2</a>)`;
   }
 } // 自定义百度api返回errno的报错
-
-export const retryMax_apiV2 = 2; // v2转存接口的最大重试次数

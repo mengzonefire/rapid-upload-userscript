@@ -82,6 +82,35 @@ export function parsefileInfo(
 }
 
 /**
+ * @description: 获取分享页的文件列表
+ */
+export function getShareFileList() {
+  let outputList = [];
+  const bdListInstance = unsafeWindow.require("system-core:context/context.js")
+    .instanceForSystem.list;
+  let selectList = bdListInstance.getSelected();
+  if (!selectList.length) selectList = bdListInstance.getCurrentList();
+  for (let item of selectList) {
+    if ("app_id" in item)
+      outputList.push({
+        path: item.server_filename,
+        fs_id: item.fs_id,
+        size: item.size,
+        isdir: item.isdir,
+      });
+    else
+      outputList.push({
+        path: item.path,
+        fs_id: item.fs_id,
+        size: item.size,
+        md5: item.md5,
+        isdir: item.isdir,
+      });
+  }
+  return outputList;
+}
+
+/**
  * @description: 获取选择的文件列表(旧版界面)
  */
 export function getSelectedFileListLegacy() {

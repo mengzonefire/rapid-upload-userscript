@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-11-10 23:30:56
+ * @LastEditTime: 2022-12-12 17:53:41
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -32,7 +32,12 @@ import {
 } from "./const";
 import { DuParser, parseQueryLink } from "./duParser";
 import { SwalConfig } from "./SwalConfig";
-import { parsefileInfo, parseClipboard, showAlert } from "./utils";
+import {
+  parsefileInfo,
+  parseClipboard,
+  showAlert,
+  getShareFileList,
+} from "./utils";
 import Swal from "sweetalert2";
 
 export default class Swalbase {
@@ -371,7 +376,13 @@ export default class Swalbase {
   }
 
   genFileWork(isUnfinish: boolean, isGenView: boolean) {
-    if (!isGenView) this.generatebdlinkTask.selectList = getSelectedFileList();
+    if (this.generatebdlinkTask.isSharePage) {
+      this.generatebdlinkTask.selectList = getShareFileList();
+      console.log(this.generatebdlinkTask.selectList);
+      return;
+    } else if (!isGenView)
+      this.generatebdlinkTask.selectList = getSelectedFileList();
+
     if (
       // 未选择文件 + 无未完成的生成任务 + 不在生成页 -> 弹出未选择生成文件的警告弹出
       !this.generatebdlinkTask.selectList.length &&

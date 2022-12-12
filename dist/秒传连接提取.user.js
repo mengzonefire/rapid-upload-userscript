@@ -1,16 +1,19 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.2
+// @version 2.5.3
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
 // @supportURL https://github.com/mengzonefire/rapid-upload-userscript/issues
 // @match *://pan.baidu.com/disk/home*
 // @match *://pan.baidu.com/disk/main*
+// @match *://pan.baidu.com/s/*
 // @match *://yun.baidu.com/disk/home*
 // @match *://yun.baidu.com/disk/main*
+// @match *://yun.baidu.com/s/*
 // @match *://wangpan.baidu.com/disk/home*
 // @match *://wangpan.baidu.com/disk/main*
+// @match *://wangpan.baidu.com/s/*
 // @name:en rapidupload-userscript
 // @license GPLv3
 // @icon data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4AZTTJRBUURTH4TtDwXuPdPrgbhHXiksf3CPucRNScHd3d3d3uO9bKeu7b79+fun8Q17CNHyMMUqaiPE4fEyYVjjGNKnNwQ4lpgV8lManEfwfosLHEGPU1N3ZnAv4qlT+NiQ56uPWSjKBrztUSnIaB66sY1vgxgxoMXB5NbsCB9rxcB5fN2M5/16nCFxeS6YTezpzsB1Pu/C2O7/78/99eYBYHXh+gqdHObGIK4GHgevjVIt1AgAnhvE4cGe8euoHbizgYuD2RGgx8O0RpwIPRmsmJDGqcrANd3pLo/qVr03hUlcpfSwf0/vD3JwkPdPK5/zhkOz+/f1FIDv/RcnOAEjywH/DhgADAAAAAElFTkSuQmCC
@@ -4828,6 +4831,8 @@ var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
 var locUrl = location.href;
 var baiduNewPage = "baidu.com/disk/main"; // 匹配新版度盘界面
+var baiduSyncPage = "baidu.com/disk/synchronization#/"; // 匹配同步空间
+var baiduSharePage = "baidu.com/s/"; // 匹配分享页
 var TAG = "[秒传链接提取 by mengzonefire]";
 var homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 var donatePage = "https://afdian.net/@mengzonefire";
@@ -5177,7 +5182,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-11-10 23:30:56
+ * @LastEditTime: 2022-12-12 17:53:41
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5574,7 +5579,12 @@ var Swalbase = /** @class */ (function () {
     };
     Swalbase.prototype.genFileWork = function (isUnfinish, isGenView) {
         var _this = this;
-        if (!isGenView)
+        if (this.generatebdlinkTask.isSharePage) {
+            this.generatebdlinkTask.selectList = getShareFileList();
+            console.log(this.generatebdlinkTask.selectList);
+            return;
+        }
+        else if (!isGenView)
             this.generatebdlinkTask.selectList = getSelectedFileList();
         if (
         // 未选择文件 + 无未完成的生成任务 + 不在生成页 -> 弹出未选择生成文件的警告弹出
@@ -5839,7 +5849,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-11-11 02:02:38
+ * @LastEditTime: 2022-12-12 16:46:32
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5854,10 +5864,10 @@ var GeneratebdlinkTask = /** @class */ (function () {
     function GeneratebdlinkTask() {
     }
     GeneratebdlinkTask.prototype.reset = function () {
-        this.isGenView = false; // 标记是否使用生成页生成
+        this.isGenView = false;
         this.isFast = GM_getValue("fast-generate");
-        this.savePath = "";
         this.recursive = false;
+        this.savePath = "";
         this.bdstoken = getBdstoken();
         this.dirList = [];
         this.selectList = [];
@@ -6301,10 +6311,11 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 
 var host = location.host;
 var listLimit = 10000;
+var retryMax_apiV2 = 2; // v2转存接口的最大重试次数
 var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
 var precreate_url = "https://" + host + "/rest/2.0/xpan/file?method=precreate";
 var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=" + listLimit;
-// 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start字段获取
+// 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start参数获取
 var meta_url = "https://" + host + "/rest/2.0/xpan/file?app_id=778750&method=meta&path=";
 var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
@@ -6322,17 +6333,6 @@ function setGetSelectedFileList(func) {
     getSelectedFileList = func;
 }
 var swalInstance = new swalBase(new common_RapiduploadTask(), new common_GeneratebdlinkTask());
-var htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
-var htmlTagNew2 = "div.wp-s-agile-tool-bar__header"; // 22.5.24: 新版界面新增的一个父对象
-var htmlTagLegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
-var htmlBtnRapidNew = // 新版界面秒传按钮的html元素
- '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
-var htmlBtnGenNew = // 新版界面秒传生成按钮的html元素
- '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>生成秒传</span></button>';
-var htmlBtnRapidLegacy = // 旧版界面秒传按钮的html元素
- '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
-var htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
- '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
 function baiduErrno(errno) {
     switch (errno) {
         case -6:
@@ -6375,7 +6375,6 @@ function baiduErrno(errno) {
             return "\u672A\u77E5\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B92</a>)";
     }
 } // 自定义百度api返回errno的报错
-var retryMax_apiV2 = 2; // v2转存接口的最大重试次数
 
 ;// CONCATENATED MODULE: ./src/common/utils.tsx
 var utils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -6479,6 +6478,36 @@ function parsefileInfo(fileInfoList, checkMode) {
         successList: successList,
         failList: failList,
     };
+}
+/**
+ * @description: 获取分享页的文件列表
+ */
+function getShareFileList() {
+    var outputList = [];
+    var bdListInstance = unsafeWindow.require("system-core:context/context.js")
+        .instanceForSystem.list;
+    var selectList = bdListInstance.getSelected();
+    if (!selectList.length)
+        selectList = bdListInstance.getCurrentList();
+    for (var _i = 0, selectList_1 = selectList; _i < selectList_1.length; _i++) {
+        var item = selectList_1[_i];
+        if ("app_id" in item)
+            outputList.push({
+                path: item.server_filename,
+                fs_id: item.fs_id,
+                size: item.size,
+                isdir: item.isdir,
+            });
+        else
+            outputList.push({
+                path: item.path,
+                fs_id: item.fs_id,
+                size: item.size,
+                md5: item.md5,
+                isdir: item.isdir,
+            });
+    }
+    return outputList;
 }
 /**
  * @description: 获取选择的文件列表(旧版界面)
@@ -6590,8 +6619,28 @@ function reverseStr(str) {
 
 
 
+var htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
+var htmlTagNew2 = "div.wp-s-agile-tool-bar__header"; // 22.5.24: 新版界面新增的一个父对象
+var htmlBtnRapidNew = // 新版界面秒传按钮的html元素
+ '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
+var htmlBtnGenNew = // 新版界面秒传生成按钮的html元素
+ '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>生成秒传</span></button>';
 function installNew() {
     console.info("%s version: %s DOM方式安装", TAG, version);
+    swalInstance.swalGlobalArgs = {
+        heightAuto: false,
+        scrollbarPadding: false,
+    }; // 添加swal参数以防止新版界面下的body样式突变
+    setRefreshList(function () {
+        document
+            .querySelector(".nd-main-list, .nd-new-main-list")
+            .__vue__.reloadList();
+    });
+    setGetSelectedFileList(getSelectedFileListNew);
+    setGetBdstoken(function () {
+        return document.querySelector(".nd-main-list, .nd-new-main-list").__vue__.yunData
+            .bdstoken;
+    });
     $(document).on("click", "#bdlink_btn", function () {
         swalInstance.inputView();
     }); // 绑定转存秒传按钮事件
@@ -6615,6 +6664,31 @@ function addBtn() {
 
 
 
+var htmlTagLegacy = "div.tcuLAu"; // 旧版界面秒传按钮的html父对象
+var htmlBtnRapidLegacy = // 旧版界面秒传按钮的html元素
+ '<a class="g-button g-button-blue" id="bdlink_btn" title="秒传链接" style="display: inline-block;""><span class="g-button-right"><em class="icon icon-disk" title="秒传链接提取"></em><span class="text" style="width: auto;">秒传链接</span></span></a>';
+var htmlBtnGenLegacy = // 旧版界面秒传生成按钮的html元素
+ '<a class="g-button" id="gen_bdlink_btn"><span class="g-button-right"><em class="icon icon-share"></em><span class="text" style="width: auto;">生成秒传</span></span></a>';
+function installLegacy() {
+    console.info("%s version: %s DOM方式安装", TAG, version);
+    setRefreshList(function () {
+        // 旧版界面, 调用原生方法刷新文件列表, 无需重新加载页面
+        unsafeWindow
+            .require("system-core:system/baseService/message/message.js")
+            .trigger("system-refresh");
+    });
+    setGetSelectedFileList(getSelectedFileListLegacy);
+    setGetBdstoken(function () { return unsafeWindow.locals.get("bdstoken"); });
+    loader_addBtn(); // DOM添加秒传按钮
+    addGenBtn(); // DOM添加生成按钮
+    $(document).on("click", "#bdlink_btn", function () {
+        swalInstance.inputView();
+    }); // 绑定秒传按钮事件
+    $(document).on("click", "#gen_bdlink_btn", function () {
+        swalInstance.generatebdlinkTask.reset();
+        swalInstance.checkUnfinish();
+    }); // 绑定生成按钮事件
+}
 function getSystemContext() {
     return unsafeWindow.require("system-core:context/context.js")
         .instanceForSystem;
@@ -6632,17 +6706,31 @@ function loader_addBtn() {
     else
         setTimeout(loader_addBtn, 100);
 }
-function installlegacy() {
-    console.info("%s DOM方式安装，若失效请报告。", TAG);
-    loader_addBtn(); // DOM添加秒传按钮
-    addGenBtn(); // DOM添加生成按钮
-    $(document).on("click", "#bdlink_btn", function () {
-        swalInstance.inputView();
-    }); // 绑定秒传按钮事件
-    $(document).on("click", "#gen_bdlink_btn", function () {
+
+;// CONCATENATED MODULE: ./src/baidu/syncPage/loader.tsx
+function installSync() { }
+
+;// CONCATENATED MODULE: ./src/baidu/sharePage/loader.tsx
+
+
+var htmlBtnGenShare = // 分享页的秒传生成按钮html元素
+ '<a id="gen_bdlink_btn_sharePage" title="生成秒传" class="g-button g-button-blue-large" style="margin-right: 5px;margin-left: 5px;"> <span class="g-button-right"> <em class="icon icon-share" style="color:#ffffff" title="生成秒传"></em> <span class="text" style="width: auto;">生成秒传</span> </span> </a>';
+var htmlTagSahre = "[node-type=qrCode]";
+function installShare() {
+    console.info("%s version: %s DOM方式安装", TAG, version);
+    setGetBdstoken(function () { return unsafeWindow.locals.get("bdstoken"); });
+    sharePage_loader_addBtn();
+    $(document).on("click", "#gen_bdlink_btn_sharePage", function () {
         swalInstance.generatebdlinkTask.reset();
-        swalInstance.checkUnfinish();
+        swalInstance.generatebdlinkTask.isSharePage = true;
+        swalInstance.genFileWork(false, false);
     }); // 绑定生成按钮事件
+}
+function sharePage_loader_addBtn() {
+    if ($(htmlTagSahre).length)
+        $(htmlTagSahre).before(htmlBtnGenShare);
+    else
+        setTimeout(sharePage_loader_addBtn, 100);
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/loader.tsx
@@ -6652,37 +6740,19 @@ function installlegacy() {
 
 
 
+
+// 主函数入口
 function loaderBaidu() {
     var load = function () {
-        if (locUrl.includes(baiduNewPage)) {
-            // 添加swal参数以防止新版界面下的body样式突变
-            swalInstance.swalGlobalArgs = {
-                heightAuto: false,
-                scrollbarPadding: false,
-            };
-            setRefreshList(function () {
-                document
-                    .querySelector(".nd-main-list, .nd-new-main-list")
-                    .__vue__.reloadList();
-            });
-            setGetSelectedFileList(getSelectedFileListNew);
-            setGetBdstoken(function () {
-                return document.querySelector(".nd-main-list, .nd-new-main-list").__vue__
-                    .yunData.bdstoken;
-            });
-            installNew();
-        } // 新版界面loader入口
-        else {
-            setRefreshList(function () {
-                // 旧版界面, 调用原生方法刷新文件列表, 无需重新加载页面
-                unsafeWindow
-                    .require("system-core:system/baseService/message/message.js")
-                    .trigger("system-refresh");
-            });
-            setGetSelectedFileList(getSelectedFileListLegacy);
-            setGetBdstoken(function () { return unsafeWindow.locals.get("bdstoken"); });
-            installlegacy();
-        } // 旧版界面loader入口
+        if (locUrl.includes(baiduNewPage))
+            installNew(); // 新版界面loader入口
+        else if (locUrl.includes(baiduSharePage))
+            installShare(); // 分享页loader入口
+        else if (locUrl.includes(baiduSyncPage))
+            installSync(); // 同步空间loader入口
+        else
+            installLegacy(); // 旧版界面loader入口
+        // 进入页面后的弹窗任务
         var bdlink = parseQueryLink(locUrl); // 解析url中的秒传链接
         if (bdlink) {
             // 解析到秒传链接, 弹出转存窗口
@@ -6732,11 +6802,12 @@ function loaderBaidu() {
             btn.target.innerText = "复制成功";
         }); // 失败文件分支列表复制
     };
+    // 绑定入口函数到dom事件
     if (["interactive", "complete"].includes(document.readyState))
         load();
     else
         window.addEventListener("DOMContentLoaded", load);
-} // 百度秒传脚本主函数入口
+}
 
 ;// CONCATENATED MODULE: ./src/common/injectStyle.tsx
 

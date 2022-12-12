@@ -1,6 +1,8 @@
 import {
   locUrl,
   baiduNewPage,
+  baiduSyncPage,
+  baiduSharePage,
   updateInfoVer,
   donateVer,
   feedbackVer,
@@ -8,50 +10,21 @@ import {
 import { parseQueryLink } from "@/common/duParser";
 import installNew from "./newPage/loader";
 import installLegacy from "./legacyPage/loader";
-import {
-  setRefreshList,
-  setGetSelectedFileList,
-  setGetBdstoken,
-  swalInstance,
-} from "./common/const";
-import {
-  getSelectedFileListLegacy,
-  getSelectedFileListNew,
-} from "@/common/utils";
+import { swalInstance } from "./common/const";
+import installSync from "./syncPage/loader";
+import installShare from "./sharePage/loader";
 
+// 主函数入口
 export function loaderBaidu(): void {
   let load = () => {
-    if (locUrl.includes(baiduNewPage)) {
-      // 添加swal参数以防止新版界面下的body样式突变
-      swalInstance.swalGlobalArgs = {
-        heightAuto: false,
-        scrollbarPadding: false,
-      };
-      setRefreshList(() => {
-        document
-          .querySelector(".nd-main-list, .nd-new-main-list")
-          .__vue__.reloadList();
-      });
-      setGetSelectedFileList(getSelectedFileListNew);
-      setGetBdstoken(
-        () =>
-          document.querySelector(".nd-main-list, .nd-new-main-list").__vue__
-            .yunData.bdstoken
-      );
-      installNew();
-    } // 新版界面loader入口
-    else {
-      setRefreshList(() => {
-        // 旧版界面, 调用原生方法刷新文件列表, 无需重新加载页面
-        unsafeWindow
-          .require("system-core:system/baseService/message/message.js")
-          .trigger("system-refresh");
-      });
-      setGetSelectedFileList(getSelectedFileListLegacy);
-      setGetBdstoken(() => unsafeWindow.locals.get("bdstoken"));
-      installLegacy();
-    } // 旧版界面loader入口
+    if (locUrl.includes(baiduNewPage)) installNew(); // 新版界面loader入口
+    else if (locUrl.includes(baiduSharePage))
+      installShare(); // 分享页loader入口
+    else if (locUrl.includes(baiduSyncPage))
+      installSync(); // 同步空间loader入口
+    else installLegacy(); // 旧版界面loader入口
 
+    // 进入页面后的弹窗任务
     let bdlink = parseQueryLink(locUrl); // 解析url中的秒传链接
     if (bdlink) {
       // 解析到秒传链接, 弹出转存窗口
@@ -99,6 +72,8 @@ export function loaderBaidu(): void {
       btn.target.innerText = "复制成功";
     }); // 失败文件分支列表复制
   };
+
+  // 绑定入口函数到dom事件
   if (["interactive", "complete"].includes(document.readyState)) load();
   else window.addEventListener("DOMContentLoaded", load);
-} // 百度秒传脚本主函数入口
+}
