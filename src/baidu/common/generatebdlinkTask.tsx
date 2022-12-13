@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-13 03:14:50
+ * @LastEditTime: 2022-12-13 20:36:11
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -116,6 +116,7 @@ export default class GeneratebdlinkTask {
         } else {
           this.fileInfoList.push({
             path: this.dirList[i],
+            isdir: 1,
             errno: data.errno,
           }); // list接口访问失败, 添加失败信息
           this.scanShareFile(i + 1);
@@ -170,6 +171,7 @@ export default class GeneratebdlinkTask {
         } else {
           this.fileInfoList.push({
             path: this.dirList[i],
+            isdir: 1,
             errno: data.errno,
           }); // list接口访问失败, 添加失败信息
           this.scanFile(i + 1);
@@ -196,24 +198,20 @@ export default class GeneratebdlinkTask {
         file_info_list: this.fileInfoList,
         file_id: i,
       });
-
     // 生成完成
     if (i >= this.fileInfoList.length) {
       if (this.isFast) this.checkMd5(0); // 已开启 "极速生成", 执行md5检查
       else this.onFinish(this.fileInfoList);
       return;
     }
-
     // 未开启 "极速生成", 刷新弹窗内的任务进度
     if (!this.isFast) this.onProcess(i, this.fileInfoList);
-
     let file = this.fileInfoList[i];
     // 跳过扫描失败的目录路径
-    if (file.errno) {
+    if (file.errno && file.isdir) {
       this.generateBdlink(i + 1);
       return;
     }
-
     // 已开启 "极速生成" 且已获取到md5, 跳过普通生成步骤
     if (this.isFast && file.md5) this.generateBdlink(i + 1);
     // 普通生成步骤
@@ -273,7 +271,6 @@ export default class GeneratebdlinkTask {
         this.checkMd5(i + 1);
         // md5为空只在分享单个文件时出现, 故无需考虑获取多文件md5(跳转generateBdlink), 直接跳转checkMd5即可
       };
-
     function getTplconfig(file: FileInfo): void {
       ajax(
         {
@@ -296,7 +293,6 @@ export default class GeneratebdlinkTask {
         onFailed
       );
     }
-
     function getDlink(file: FileInfo): void {
       ajax(
         {
@@ -326,7 +322,6 @@ export default class GeneratebdlinkTask {
         onFailed
       );
     }
-
     getTplconfig.call(this, file);
   }
 
@@ -342,7 +337,6 @@ export default class GeneratebdlinkTask {
       this.getFileInfo(i);
       return;
     }
-
     ajax(
       {
         url: meta_url2 + JSON.stringify([file.fs_id]),
@@ -409,14 +403,12 @@ export default class GeneratebdlinkTask {
   parseDownloadData(i: number, data: any): void {
     let file = this.fileInfoList[i];
     console.log(`dl_url: ${data.finalUrl}`); // debug
-
     // 下载直链重定向到此域名, 判定为文件和谐
     if (data.finalUrl.includes("issuecdn.baidupcs.com")) {
       file.errno = 1919;
       this.isFast ? this.checkMd5(i + 1) : this.generateBdlink(i + 1);
       return;
     }
-
     // 从下载接口获取md5, 此步骤可确保获取到正确md5
     let fileMd5 = data.responseHeaders.match(/content-md5: ([\da-f]{32})/i);
     if (fileMd5) file.md5 = fileMd5[1].toLowerCase();
@@ -435,7 +427,6 @@ export default class GeneratebdlinkTask {
       this.isFast ? this.checkMd5(i + 1) : this.generateBdlink(i + 1);
       return;
     }
-
     // 获取md5s, "极速生成" 跳过此步
     if (!this.isFast) {
       if (file.size < 262144) file.md5s = file.md5; // 此时md5s=md5
@@ -462,9 +453,14 @@ export default class GeneratebdlinkTask {
       this.onFinish(this.fileInfoList);
       return;
     }
+    let file = this.fileInfoList[i];
+    // 跳过扫描失败的目录路径
+    if (file.errno && file.isdir) {
+      this.checkMd5(i + 1);
+      return;
+    }
     this.onProcess(i, this.fileInfoList);
     this.onProgress(false, "极速生成中...");
-    let file = this.fileInfoList[i];
     precreateFileV2.call(
       this,
       file,
@@ -519,8 +515,10 @@ export default class GeneratebdlinkTask {
   parseShareFileList(list = this.selectList) {
     for (let item of list) {
       let path: string;
-      if ("app_id" in item) path = "/" + item.server_filename;
+      if ("app_id" in item)
+        path = item.isdir ? item.path : item.server_filename;
       else path = item.path;
+      if ("/" !== path.charAt(0)) path = "/" + path; // 补齐路径开头的斜杠
       if (item.isdir) this.dirList.push(path);
       else
         this.fileInfoList.push({

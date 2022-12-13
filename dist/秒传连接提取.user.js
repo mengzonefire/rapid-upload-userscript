@@ -5854,7 +5854,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-13 03:14:50
+ * @LastEditTime: 2022-12-13 20:36:11
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5934,6 +5934,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
             else {
                 _this.fileInfoList.push({
                     path: _this.dirList[i],
+                    isdir: 1,
                     errno: data.errno,
                 }); // list接口访问失败, 添加失败信息
                 _this.scanShareFile(i + 1);
@@ -5985,6 +5986,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
             else {
                 _this.fileInfoList.push({
                     path: _this.dirList[i],
+                    isdir: 1,
                     errno: data.errno,
                 }); // list接口访问失败, 添加失败信息
                 _this.scanFile(i + 1);
@@ -6021,7 +6023,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
             this.onProcess(i, this.fileInfoList);
         var file = this.fileInfoList[i];
         // 跳过扫描失败的目录路径
-        if (file.errno) {
+        if (file.errno && file.isdir) {
             this.generateBdlink(i + 1);
             return;
         }
@@ -6252,9 +6254,14 @@ var GeneratebdlinkTask = /** @class */ (function () {
             this.onFinish(this.fileInfoList);
             return;
         }
+        var file = this.fileInfoList[i];
+        // 跳过扫描失败的目录路径
+        if (file.errno && file.isdir) {
+            this.checkMd5(i + 1);
+            return;
+        }
         this.onProcess(i, this.fileInfoList);
         this.onProgress(false, "极速生成中...");
-        var file = this.fileInfoList[i];
         precreateFileV2.call(this, file, function (data) {
             data = data.response;
             if (0 === data.errno) {
@@ -6309,9 +6316,11 @@ var GeneratebdlinkTask = /** @class */ (function () {
             var item = list_1[_i];
             var path = void 0;
             if ("app_id" in item)
-                path = "/" + item.server_filename;
+                path = item.isdir ? item.path : item.server_filename;
             else
                 path = item.path;
+            if ("/" !== path.charAt(0))
+                path = "/" + path; // 补齐路径开头的斜杠
             if (item.isdir)
                 this.dirList.push(path);
             else
@@ -6489,6 +6498,8 @@ function baiduErrno(errno) {
             return "\u8F6C\u5B58\u8DEF\u5F84\u542B\u6709\u975E\u6CD5\u5B57\u7B26(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8F6C\u5B58\u8DEF\u5F84\u542B\u6709\u975E\u6CD5\u5B57\u7B26-7\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8F6C\u5B58\u8DEF\u5F84\u542B\u6709\u975E\u6CD5\u5B57\u7B26-7\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case -8:
             return "路径下存在同名文件";
+        case -9:
+            return "验证已过期, 请刷新页面";
         case 400:
             return "\u8BF7\u6C42\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u8BF7\u6C42\u9519\u8BEF-400\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u8BF7\u6C42\u9519\u8BEF-400\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 403:

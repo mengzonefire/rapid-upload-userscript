@@ -43,6 +43,8 @@ export function baiduErrno(errno: number) {
       return `转存路径含有非法字符(请看文档:<a href="${doc.shareDoc}#转存路径含有非法字符-7" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#转存路径含有非法字符-7" ${linkStyle}>载点2</a>)`;
     case -8:
       return "路径下存在同名文件";
+    case -9:
+      return "验证已过期, 请刷新页面";
     case 400:
       return `请求错误(请看文档:<a href="${doc.shareDoc}#请求错误-400" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求错误-400" ${linkStyle}>载点2</a>)`;
     case 403:
