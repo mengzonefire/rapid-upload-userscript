@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-13 20:36:11
+ * @LastEditTime: 2022-12-16 23:21:12
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -52,7 +52,10 @@ export default class GeneratebdlinkTask {
   reset(): void {
     this.isGenView = false;
     this.isSharePage = false;
-    this.isFast = GM_getValue("fast-generate");
+    this.isFast =
+      GM_getValue("fast-generate") === undefined
+        ? true
+        : GM_getValue("fast-generate");
     this.recursive = false;
     this.savePath = "";
     this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方precreateFileV2方法调用

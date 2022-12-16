@@ -20,12 +20,8 @@ export function showAlert(text: string): void {
 /**
  * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表, 失败的文件信息列表
  * @param {Array} fileInfoList 文件信息数据列表
- * @param {Boolean} checkMode 是否为测试模式, 若为是则忽略转存失败
  */
-export function parsefileInfo(
-  fileInfoList: Array<FileInfo>,
-  checkMode: Boolean = false
-) {
+export function parsefileInfo(fileInfoList: Array<FileInfo>) {
   let bdcode = "";
   let successInfo = "";
   let failedInfo = "";
@@ -47,10 +43,6 @@ export function parsefileInfo(
       if (String(item.errno) in failCodeDic)
         failCodeDic[String(item.errno)].push(item);
       else failCodeDic[String(item.errno)] = [item];
-      if (checkMode)
-        bdcode += `${item.md5}${item.md5s && "#" + item.md5s}#${item.size}#${
-          item.path
-        }\n`; // 测试模式下不再排除测试失败文件的秒传数据
     }
   });
   for (let failCode in failCodeDic) {

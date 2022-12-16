@@ -4854,7 +4854,7 @@ var appError = {
     ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox, 同时注意使用https访问页面 (http访问会导致浏览器直接禁止剪贴板权限)',
 }; // 主程序异常
 var appWarning = {
-    fastGenerateWarn: '使用 "极速生成" 功能请注意:\n优点:\n1. 极大幅度提高秒传生成速度\n2. 有效避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成和谐文件秒传时大概率正常生成 (非极速生成则会报错#1919)\n2. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n\n* 此功能为beta测试, 若出现问题请根据设置页内的 "说明文档" 进行反馈',
+    fastGenerateWarn: '使用 "极速生成" 功能请注意:\n优点:\n1. 极大幅度提高秒传生成速度\n2. 有效避免 "md5获取失败(#996)" "接口限制访问(#403)"\n缺点:\n1. 生成和谐文件秒传时大概率正常生成 (非极速生成则会报错#1919)\n2. 生成的秒传格式为简化版, 只保证最新版的 秒传脚本 和 秒传网页版 支持转存\n\n* 若开启后出现问题请根据设置页内的 "说明文档" 进行反馈',
 }; // 主程序各功能警告/提醒
 var docPrefix = "https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document";
 var docPrefix2 = "https://xtsat.github.io/rapid-upload-userscript-doc/document";
@@ -4873,7 +4873,6 @@ var doc2 = {
 var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
 var bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
-var htmlCheckMd5 = "<p class=\"mzf_text\">\u6D4B\u8BD5\u79D2\u4F20 \u53EF\u9632\u6B62\u79D2\u4F20\u5931\u6548<a id=\"check_md5_btn\" class=\"mzf_btn\"><span class=\"text\" style=\"width: auto;\">\u6D4B\u8BD5</span></a></p>";
 var htmlDocument = "<p class=\"mzf_text\">\u79D2\u4F20\u65E0\u6548,\u9632\u548C\u8C10\u7B49 \u53EF\u53C2\u8003\u79D2\u4F20\u6587\u6863<a href=\"" + doc.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u8F7D\u70B91</span></a><a href=\"" + doc2.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u8F7D\u70B92</span></a></p>";
 var htmlDonate = "<p id=\"mzf_donate\" class=\"mzf_text\">\u82E5\u559C\u6B22\u8BE5\u811A\u672C, \u53EF\u524D\u5F80 <a href=\"" + donatePage + "\" " + linkStyle + ">\u8D5E\u52A9\u9875</a> \u652F\u6301\u4F5C\u8005<a id=\"kill_donate\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
 var htmlFeedback = "<p id=\"mzf_feedback\" class=\"mzf_text\">\u82E5\u6709\u4EFB\u4F55\u7591\u95EE, \u53EF\u524D\u5F80 <a href=\"" + homePage + "\" " + linkStyle + ">\u811A\u672C\u4E3B\u9875</a> \u53CD\u9988<a id=\"kill_feedback\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
@@ -5142,16 +5141,6 @@ var SwalConfig = {
         confirmButtonText: "是",
         cancelButtonText: "否",
     },
-    checkMd5Warning: {
-        title: "使用前请注意",
-        text: "测试秒传会转存并覆盖文件,若在生成期间修改过同名文件,为避免修改的文件丢失,请不要使用此功能!",
-        input: "checkbox",
-        inputPlaceholder: "不再显示",
-        showCancelButton: true,
-        allowOutsideClick: false,
-        confirmButtonText: "确定",
-        cancelButtonText: "返回",
-    },
     settingView: {
         title: "秒传链接提取 设置页",
         showCloseButton: true,
@@ -5182,7 +5171,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-13 02:19:08
+ * @LastEditTime: 2022-12-16 23:56:25
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5358,12 +5347,10 @@ var Swalbase = /** @class */ (function () {
     Swalbase.prototype.processView = function (isGen) {
         var _this = this;
         var swalArg = {
-            title: isGen
-                ? "秒传生成中"
-                : "\u6587\u4EF6" + (this.rapiduploadTask.checkMode ? "测试" : "提取") + "\u4E2D",
+            title: isGen ? "秒传生成中" : "文件转存中",
             html: isGen
                 ? "<p>正在生成第 <file_num>0</file_num> 个</p><p><gen_prog>正在获取文件列表...</gen_prog></p>"
-                : "\u6B63\u5728" + (this.rapiduploadTask.checkMode ? "测试" : "转存") + "\u7B2C <file_num>0</file_num> \u4E2A",
+                : "正在转存第 <file_num>0</file_num> 个",
             willOpen: function () {
                 sweetalert2_all_default().showLoading();
                 isGen || _this.saveFileWork();
@@ -5371,18 +5358,14 @@ var Swalbase = /** @class */ (function () {
         };
         sweetalert2_all_default().fire(this.mergeArg(SwalConfig.processView, swalArg));
     };
-    // 转存/生成/测试秒传完成的弹窗
+    // 转存/生成秒传完成的弹窗
     Swalbase.prototype.finishView = function (isGen) {
         var _this = this;
-        var action = isGen
-            ? "生成"
-            : this.rapiduploadTask.checkMode
-                ? "测试"
-                : "转存";
+        var action = isGen ? "生成" : "转存";
         var fileInfoList = isGen
             ? this.generatebdlinkTask.fileInfoList
             : this.rapiduploadTask.fileInfoList;
-        var parseResult = parsefileInfo(fileInfoList, this.rapiduploadTask.checkMode);
+        var parseResult = parsefileInfo(fileInfoList);
         this.parseResult = parseResult;
         if (isGen) {
             this.rapiduploadTask.reset();
@@ -5393,12 +5376,7 @@ var Swalbase = /** @class */ (function () {
             inputValue: GM_getValue("with_path"),
             inputPlaceholder: "导出文件夹目录结构",
         }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
-        var html = (isGen
-            ? (parseResult.failList.length != fileInfoList.length
-                ? htmlCheckMd5
-                : "") + // 添加测试秒传入口, 若全部失败则不添加
-                htmlDocument // 添加文档入口
-            : "") +
+        var html = (isGen ? htmlDocument : "") + // 生成模式下添加文档入口
             (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
             parseResult.htmlInfo; // 添加失败列表, 生成模式下添加顶部空行分隔
         var htmlFooter = "";
@@ -5408,10 +5386,10 @@ var Swalbase = /** @class */ (function () {
             htmlFooter += htmlFeedback; // 添加反馈入口提示
         if (htmlFooter)
             htmlFooter = "<p><br></p>" + htmlFooter; // 添加底部空行分隔
-        var swalArg = __assign(__assign({ title: action + "\u5B8C\u6BD5 \u5171" + fileInfoList.length + "\u4E2A, \u5931\u8D25" + parseResult.failList.length + "\u4E2A!", confirmButtonText: isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认", showDenyButton: isGen || this.rapiduploadTask.checkMode, denyButtonText: "复制一键秒传", denyButtonColor: "#ecae3c", reverseButtons: true, html: html + htmlFooter }, ((isGen || this.rapiduploadTask.checkMode) && checkboxArg)), { willOpen: function () {
-                if (!isGen && !_this.rapiduploadTask.checkMode)
+        var swalArg = __assign(__assign({ title: action + "\u5B8C\u6BD5 \u5171" + fileInfoList.length + "\u4E2A, \u5931\u8D25" + parseResult.failList.length + "\u4E2A!", confirmButtonText: isGen ? "复制秒传代码" : "确认", showDenyButton: isGen, denyButtonText: "复制一键秒传", denyButtonColor: "#ecae3c", reverseButtons: true, html: html + htmlFooter }, (isGen && checkboxArg)), { willOpen: function () {
+                if (!isGen)
                     _this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
-                if (isGen || _this.rapiduploadTask.checkMode)
+                if (isGen)
                     GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
             }, preDeny: function () {
                 var with_path = $("#swal2-checkbox")[0].checked;
@@ -5427,8 +5405,8 @@ var Swalbase = /** @class */ (function () {
                 footer.style.display = "flex";
                 return false;
             }, preConfirm: function () {
-                if (isGen || _this.rapiduploadTask.checkMode) {
-                    // 生成/测试模式, "复制秒传代码"按钮
+                if (isGen) {
+                    // 生成模式, "复制秒传代码"按钮
                     var with_path = $("#swal2-checkbox")[0].checked;
                     GM_setValue("with_path", with_path);
                     if (!with_path)
@@ -5477,7 +5455,9 @@ var Swalbase = /** @class */ (function () {
                 .css("margin", "0");
             $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
             $("#mzf-listen-clipboard")[0].checked = Boolean(GM_getValue("listen-clipboard"));
-            $("#mzf-fast-generate")[0].checked = Boolean(GM_getValue("fast-generate"));
+            $("#mzf-fast-generate")[0].checked = Boolean(GM_getValue("fast-generate") === undefined
+                ? true
+                : GM_getValue("fast-generate"));
         };
         var preConfirm = function () { return __awaiter(_this, void 0, void 0, function () {
             var error_1;
@@ -5542,17 +5522,6 @@ var Swalbase = /** @class */ (function () {
             : SwalConfig.genUnfinish)).then(function (result) {
             if (result.isConfirmed)
                 onConfirm();
-            else if (result.dismiss === (sweetalert2_all_default()).DismissReason.cancel)
-                onCancel();
-        });
-    };
-    // 测试秒传覆盖文件提示
-    Swalbase.prototype.checkMd5Warning = function (onConfirm, onCancel) {
-        sweetalert2_all_default().fire(this.mergeArg(SwalConfig.checkMd5Warning)).then(function (result) {
-            if (result.isConfirmed) {
-                GM_setValue("check_md5_warning", result.value);
-                onConfirm();
-            }
             else if (result.dismiss === (sweetalert2_all_default()).DismissReason.cancel)
                 onCancel();
         });
@@ -5646,21 +5615,6 @@ var Swalbase = /** @class */ (function () {
             this.genFileWork(false, false);
         } // 没有未完成任务, 直接开启新任务
     };
-    Swalbase.prototype.checkMd5 = function () {
-        var _this = this;
-        this.rapiduploadTask.checkMode = true;
-        if (!GM_getValue("check_md5_warning")) {
-            this.checkMd5Warning(function () {
-                _this.processView(false);
-            }, // 点击确定按钮, 开始测试转存
-            function () {
-                _this.finishView(true);
-            } // 点击返回按钮, 回到生成完成的界面
-            );
-        }
-        else
-            this.processView(false); // 已勾选"不再提示", 直接开始测试转存
-    };
     // 添加 "打开目录" 按钮
     Swalbase.prototype.addOpenDirBtn = function () {
         if (!this.rapiduploadTask.isDefaultPath) {
@@ -5730,7 +5684,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-13 03:12:46
+ * @LastEditTime: 2022-12-16 23:51:03
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5745,14 +5699,11 @@ var RapiduploadTask = /** @class */ (function () {
         console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
         this.fileInfoList = [];
         this.savePath = "";
-        this.checkMode = false;
         this.isDefaultPath = false;
         this.onFinish = function () { };
         this.onProcess = function () { };
     };
     RapiduploadTask.prototype.start = function () {
-        if (this.checkMode)
-            this.savePath = "";
         this.saveFileV2(0);
     };
     /**
@@ -5813,7 +5764,7 @@ var RapiduploadTask = /** @class */ (function () {
                 path: this.savePath + file.path,
                 size: file.size,
                 isdir: 0,
-                rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
+                rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
             // console.log(data.response); // debug
@@ -5854,7 +5805,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-13 20:36:11
+ * @LastEditTime: 2022-12-16 23:21:12
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5872,7 +5823,10 @@ var GeneratebdlinkTask = /** @class */ (function () {
     GeneratebdlinkTask.prototype.reset = function () {
         this.isGenView = false;
         this.isSharePage = false;
-        this.isFast = GM_getValue("fast-generate");
+        this.isFast =
+            GM_getValue("fast-generate") === undefined
+                ? true
+                : GM_getValue("fast-generate");
         this.recursive = false;
         this.savePath = "";
         this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方precreateFileV2方法调用
@@ -6341,7 +6295,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-13 03:12:46
+ * @LastEditTime: 2022-12-16 23:51:03
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6356,14 +6310,11 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
         this.fileInfoList = [];
         this.savePath = "";
-        this.checkMode = false;
         this.isDefaultPath = false;
         this.onFinish = function () { };
         this.onProcess = function () { };
     };
     RapiduploadTask.prototype.start = function () {
-        if (this.checkMode)
-            this.savePath = "";
         this.saveFileV2(0);
     };
     /**
@@ -6424,7 +6375,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                 path: this.savePath + file.path,
                 size: file.size,
                 isdir: 0,
-                rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
+                rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
             }),
         }, function (data) {
             // console.log(data.response); // debug
@@ -6583,10 +6534,8 @@ function showAlert(text) {
 /**
  * @description: 解析文件信息, 返回转存结果列表html, 秒传链接, 失败文件个数, 成功的文件信息列表, 失败的文件信息列表
  * @param {Array} fileInfoList 文件信息数据列表
- * @param {Boolean} checkMode 是否为测试模式, 若为是则忽略转存失败
  */
-function parsefileInfo(fileInfoList, checkMode) {
-    if (checkMode === void 0) { checkMode = false; }
+function parsefileInfo(fileInfoList) {
     var bdcode = "";
     var successInfo = "";
     var failedInfo = "";
@@ -6607,8 +6556,6 @@ function parsefileInfo(fileInfoList, checkMode) {
                 failCodeDic[String(item.errno)].push(item);
             else
                 failCodeDic[String(item.errno)] = [item];
-            if (checkMode)
-                bdcode += "" + item.md5 + (item.md5s && "#" + item.md5s) + "#" + item.size + "#" + item.path + "\n"; // 测试模式下不再排除测试失败文件的秒传数据
         }
     });
     var _loop_1 = function (failCode) {
@@ -6937,9 +6884,6 @@ function loaderBaidu() {
             GM_setValue(donateVer + "_kill_feedback", true);
             $("#mzf_feedback").remove();
         }); // 反馈提示 "不再显示" 按钮
-        $(document).on("click", "#check_md5_btn", function () {
-            swalInstance.checkMd5();
-        }); // 测试秒传按钮
         $(document).on("click", "#copy_fail_list", function (btn) {
             var listText = "";
             for (var _i = 0, _a = swalInstance.parseResult.failList; _i < _a.length; _i++) {

@@ -44,9 +44,6 @@ export function loaderBaidu(): void {
       GM_setValue(`${donateVer}_kill_feedback`, true);
       $("#mzf_feedback").remove();
     }); // 反馈提示 "不再显示" 按钮
-    $(document).on("click", "#check_md5_btn", () => {
-      swalInstance.checkMd5();
-    }); // 测试秒传按钮
     $(document).on("click", "#copy_fail_list", (btn) => {
       let listText = "";
       for (let item of swalInstance.parseResult.failList)

@@ -78,17 +78,6 @@ export const SwalConfig = {
     cancelButtonText: "否",
   },
 
-  checkMd5Warning: {
-    title: "使用前请注意",
-    text: "测试秒传会转存并覆盖文件,若在生成期间修改过同名文件,为避免修改的文件丢失,请不要使用此功能!",
-    input: "checkbox",
-    inputPlaceholder: "不再显示",
-    showCancelButton: true,
-    allowOutsideClick: false,
-    confirmButtonText: "确定",
-    cancelButtonText: "返回",
-  },
-
   settingView: {
     title: "秒传链接提取 设置页",
     showCloseButton: true,

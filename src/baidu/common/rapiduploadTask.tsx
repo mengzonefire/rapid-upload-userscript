@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-13 03:12:46
+ * @LastEditTime: 2022-12-16 23:51:03
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -17,7 +17,6 @@ import {
 export default class RapiduploadTask {
   savePath: string;
   isDefaultPath: boolean;
-  checkMode: boolean;
   fileInfoList: Array<FileInfo>;
   bdstoken: string;
   onFinish: (fileInfoList: Array<FileInfo>) => void;
@@ -28,14 +27,12 @@ export default class RapiduploadTask {
     console.log(`bdstoken状态: ${this.bdstoken ? "获取成功" : "获取失败"}`); // debug
     this.fileInfoList = [];
     this.savePath = "";
-    this.checkMode = false;
     this.isDefaultPath = false;
     this.onFinish = () => {};
     this.onProcess = () => {};
   }
 
   start(): void {
-    if (this.checkMode) this.savePath = "";
     this.saveFileV2(0);
   }
 
@@ -110,7 +107,7 @@ export default class RapiduploadTask {
           path: this.savePath + file.path,
           size: file.size,
           isdir: 0,
-          rtype: this.checkMode ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
+          rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
         }),
       },
       (data) => {

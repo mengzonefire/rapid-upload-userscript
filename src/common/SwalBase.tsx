@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-13 02:19:08
+ * @LastEditTime: 2022-12-16 23:56:25
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -25,7 +25,6 @@ import RapiduploadTask from "@/baidu/common/RapiduploadTask";
 import {
   donateVer,
   feedbackVer,
-  htmlCheckMd5,
   htmlDocument,
   htmlDonate,
   htmlFeedback,
@@ -137,14 +136,10 @@ export default class Swalbase {
   // 转存/生成过程中的弹窗
   processView(isGen: boolean) {
     let swalArg = {
-      title: isGen
-        ? "秒传生成中"
-        : `文件${this.rapiduploadTask.checkMode ? "测试" : "提取"}中`,
+      title: isGen ? "秒传生成中" : "文件转存中",
       html: isGen
         ? "<p>正在生成第 <file_num>0</file_num> 个</p><p><gen_prog>正在获取文件列表...</gen_prog></p>"
-        : `正在${
-            this.rapiduploadTask.checkMode ? "测试" : "转存"
-          }第 <file_num>0</file_num> 个`,
+        : "正在转存第 <file_num>0</file_num> 个",
       willOpen: () => {
         Swal.showLoading();
         isGen || this.saveFileWork();
@@ -153,20 +148,13 @@ export default class Swalbase {
     Swal.fire(this.mergeArg(SwalConfig.processView, swalArg));
   }
 
-  // 转存/生成/测试秒传完成的弹窗
+  // 转存/生成秒传完成的弹窗
   finishView(isGen: boolean) {
-    let action = isGen
-      ? "生成"
-      : this.rapiduploadTask.checkMode
-      ? "测试"
-      : "转存";
+    let action = isGen ? "生成" : "转存";
     let fileInfoList = isGen
       ? this.generatebdlinkTask.fileInfoList
       : this.rapiduploadTask.fileInfoList;
-    let parseResult = parsefileInfo(
-      fileInfoList,
-      this.rapiduploadTask.checkMode
-    );
+    let parseResult = parsefileInfo(fileInfoList);
     this.parseResult = parseResult;
     if (isGen) {
       this.rapiduploadTask.reset();
@@ -178,12 +166,7 @@ export default class Swalbase {
       inputPlaceholder: "导出文件夹目录结构",
     }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
     let html =
-      (isGen
-        ? (parseResult.failList.length != fileInfoList.length
-            ? htmlCheckMd5
-            : "") + // 添加测试秒传入口, 若全部失败则不添加
-          htmlDocument // 添加文档入口
-        : "") +
+      (isGen ? htmlDocument : "") + // 生成模式下添加文档入口
       (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
       parseResult.htmlInfo; // 添加失败列表, 生成模式下添加顶部空行分隔
     let htmlFooter = "";
@@ -192,18 +175,16 @@ export default class Swalbase {
     if (htmlFooter) htmlFooter = "<p><br></p>" + htmlFooter; // 添加底部空行分隔
     let swalArg = {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failList.length}个!`,
-      confirmButtonText:
-        isGen || this.rapiduploadTask.checkMode ? "复制秒传代码" : "确认",
-      showDenyButton: isGen || this.rapiduploadTask.checkMode,
+      confirmButtonText: isGen ? "复制秒传代码" : "确认",
+      showDenyButton: isGen,
       denyButtonText: "复制一键秒传",
       denyButtonColor: "#ecae3c",
       reverseButtons: true,
       html: html + htmlFooter,
-      ...((isGen || this.rapiduploadTask.checkMode) && checkboxArg),
+      ...(isGen && checkboxArg),
       willOpen: () => {
-        if (!isGen && !this.rapiduploadTask.checkMode) this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
-        if (isGen || this.rapiduploadTask.checkMode)
-          GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
+        if (!isGen) this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
+        if (isGen) GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
       },
       preDeny: () => {
         let with_path = $("#swal2-checkbox")[0].checked;
@@ -221,8 +202,8 @@ export default class Swalbase {
         return false;
       },
       preConfirm: () => {
-        if (isGen || this.rapiduploadTask.checkMode) {
-          // 生成/测试模式, "复制秒传代码"按钮
+        if (isGen) {
+          // 生成模式, "复制秒传代码"按钮
           let with_path = $("#swal2-checkbox")[0].checked;
           GM_setValue("with_path", with_path);
           if (!with_path)
@@ -273,7 +254,9 @@ export default class Swalbase {
         GM_getValue("listen-clipboard")
       );
       $("#mzf-fast-generate")[0].checked = Boolean(
-        GM_getValue("fast-generate")
+        GM_getValue("fast-generate") === undefined
+          ? true
+          : GM_getValue("fast-generate")
       );
     };
     let preConfirm = async () => {
@@ -339,16 +322,6 @@ export default class Swalbase {
     ).then((result: any) => {
       if (result.isConfirmed) onConfirm();
       else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
-    });
-  }
-
-  // 测试秒传覆盖文件提示
-  checkMd5Warning(onConfirm: () => void, onCancel: () => void) {
-    Swal.fire(this.mergeArg(SwalConfig.checkMd5Warning)).then((result: any) => {
-      if (result.isConfirmed) {
-        GM_setValue("check_md5_warning", result.value);
-        onConfirm();
-      } else if (result.dismiss === Swal.DismissReason.cancel) onCancel();
     });
   }
 
@@ -445,20 +418,6 @@ export default class Swalbase {
     } else {
       this.genFileWork(false, false);
     } // 没有未完成任务, 直接开启新任务
-  }
-
-  checkMd5() {
-    this.rapiduploadTask.checkMode = true;
-    if (!GM_getValue("check_md5_warning")) {
-      this.checkMd5Warning(
-        () => {
-          this.processView(false);
-        }, // 点击确定按钮, 开始测试转存
-        () => {
-          this.finishView(true);
-        } // 点击返回按钮, 回到生成完成的界面
-      );
-    } else this.processView(false); // 已勾选"不再提示", 直接开始测试转存
   }
 
   // 添加 "打开目录" 按钮
