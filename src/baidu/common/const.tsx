@@ -1,3 +1,10 @@
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-10-20 10:36:43
+ * @LastEditTime: 2022-12-17 20:39:59
+ * @LastEditors: mengzonefire
+ * @Description: 存放各种全局常量对象
+ */
 import { doc, doc2, linkStyle } from "@/common/const";
 import Swalbase from "@/common/swalBase";
 import GeneratebdlinkTask from "./GeneratebdlinkTask";
@@ -5,7 +12,8 @@ import RapiduploadTask from "./RapiduploadTask";
 
 const host = location.host;
 export const listLimit = 10000;
-export const retryMax_apiV2 = 2; // v2转存接口的最大重试次数
+export const syncPathPrefix = "/_pcs_.workspace";
+export const retryMax_apiV2 = 4; // v2转存接口的最大重试次数
 export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
 export const precreate_url = `https://${host}/rest/2.0/xpan/file?method=precreate`;
 export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=${listLimit}`;
@@ -15,6 +23,7 @@ export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=fileme
 export const tpl_url = `https://${host}/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0`;
 export const sharedownload_url = `https://${host}/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528`;
 export const sharelist_url = `https://${host}/share/list?showempty=0&num=${listLimit}&channel=chunlei&web=1&app_id=250528&clienttype=0`;
+export const syncdownload_url = `https://${host}/api/download`;
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符

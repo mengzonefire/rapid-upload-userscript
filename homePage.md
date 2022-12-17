@@ -4,8 +4,6 @@
 
 - 22.11.23: 关于#31039报错: 已知从22.11.15开始, 使用**国外ip**访问度盘秒传接口, **部分秒传**使用文件名后缀.zip时会返回此错误(详见 [反馈区](https://greasyfork.org/zh-CN/scripts/424574/discussions/157981)), 具体原理未知, 脚本2.5.0版本已添加改后缀策略, 触发此报错时会改变后缀大小写重新转存, 若依旧出现此问题, 请在反馈区反馈输入的秒传
 
-- 22.11.11: 百度服务端好像有点问题, 会出现有效秒传转存一下就直接失效了(详见 [反馈区](https://greasyfork.org/zh-CN/scripts/424574/discussions/157394)), 若出现类似问题只能重新上传文件使秒传恢复了
-
 - 22.10.24: 转存若提示 "<span style="color: red">转存失败-v1接口(#2)</span>" 请更新脚本2.4.4版本
 
 - 22.6.10: 由[XTsat](https://github.com/XTsat)完成了文档页面重构和美化: **秒传脚本文档v2**: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc)
@@ -18,9 +16,17 @@
 
 - 错误码文档: [载点1](https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/FAQ/错误代码) [载点2](https://xtsat.github.io/rapid-upload-userscript-doc/document/FAQ/错误代码): 适用于解决秒传 生成&分享 过程中遇到问题, 例如 秒传未生效 / md5获取失败 / 文件和谐
 
+## 运行页面
+
+脚本在如下页面运行:
+- 度盘新版主页: https://pan.baidu.com/disk/main
+- 度盘旧版主页: https://pan.baidu.com/disk/home?stayAtHome=true
+- 度盘同步空间页: https://pan.baidu.com/disk/synchronization#
+- 度盘文件分享页: https://pan.baidu.com/s/...
+
 ## 常见问题
 
-1. 此脚本只在度盘主页运行: https://pan.baidu.com, 目前不兼容safari, macOS用户请使用mac版Chrome运行脚本
+1. 脚本目前不兼容safari, macOS用户请使用mac版Chrome运行脚本
 
 2. 安装时请使用最新版本的油猴插件, 脚本<span style="color: red;">不兼容</span>版本低于4.9的油猴插件, 尽量参考上方提供的 **安装教程**
 

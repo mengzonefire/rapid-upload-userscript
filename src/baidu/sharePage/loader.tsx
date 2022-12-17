@@ -1,3 +1,10 @@
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-12-12 10:57:58
+ * @LastEditTime: 2022-12-17 01:57:00
+ * @LastEditors: mengzonefire
+ * @Description: 文件分享页loader入口: https://pan.baidu.com/s/xxx
+ */
 import { TAG, version } from "@/common/const";
 import { setGetBdstoken, swalInstance } from "../common/const";
 

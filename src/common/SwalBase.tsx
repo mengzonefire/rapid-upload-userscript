@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-16 23:56:25
+ * @LastEditTime: 2022-12-17 19:48:11
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -9,16 +9,19 @@
 import {
   appError,
   appWarning,
+  baiduSyncPage,
   bdlinkPrefix,
   commandList,
   doc,
   htmlAboutBdlink,
   linkStyle,
+  locUrl,
 } from "./const";
 import {
   refreshList,
   getSelectedFileList,
   illegalPathPattern,
+  syncPathPrefix,
 } from "@/baidu/common/const";
 import GeneratebdlinkTask from "@/baidu/common/GeneratebdlinkTask";
 import RapiduploadTask from "@/baidu/common/RapiduploadTask";
@@ -124,7 +127,13 @@ export default class Swalbase {
             if (nowPath) pathValue = decodeURIComponent(nowPath[1]);
             else pathValue = "/";
           }
-          if (pathValue.charAt(pathValue.length - 1) !== "/") pathValue += "/"; // 补全路径结尾的 "/"
+          if (pathValue.charAt(0) !== "/") pathValue = "/" + pathValue; // 补齐路径前缀斜杠
+          if (pathValue.charAt(pathValue.length - 1) !== "/") pathValue += "/"; // 补全路径结尾的斜杠
+          if (
+            locUrl.includes(baiduSyncPage) &&
+            !pathValue.includes(syncPathPrefix)
+          )
+            pathValue = syncPathPrefix + pathValue; // 补全同步页路径前缀
           console.log(`秒传文件保存到: ${pathValue}`); // debug
           this.rapiduploadTask.savePath = pathValue;
           this.processView(false);
@@ -299,7 +308,9 @@ export default class Swalbase {
       if (result.isConfirmed) {
         this.generatebdlinkTask.reset();
         result.value.split("\n").forEach((item: string) => {
-          if (item.charAt(0) !== "/") item = "/" + item;
+          if (item.charAt(0) !== "/") item = "/" + item; // 补齐路径前缀斜杠
+          if (locUrl.includes(baiduSyncPage) && !item.includes(syncPathPrefix))
+            item = syncPathPrefix + item; // 补全同步页路径前缀
           this.generatebdlinkTask.fileInfoList.push({
             path: item,
           });

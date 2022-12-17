@@ -7,12 +7,15 @@
 // @supportURL https://github.com/mengzonefire/rapid-upload-userscript/issues
 // @match *://pan.baidu.com/disk/home*
 // @match *://pan.baidu.com/disk/main*
+// @match *://pan.baidu.com/disk/synchronization*
 // @match *://pan.baidu.com/s/*
 // @match *://yun.baidu.com/disk/home*
 // @match *://yun.baidu.com/disk/main*
+// @match *://pan.baidu.com/disk/synchronization*
 // @match *://yun.baidu.com/s/*
 // @match *://wangpan.baidu.com/disk/home*
 // @match *://wangpan.baidu.com/disk/main*
+// @match *://pan.baidu.com/disk/synchronization*
 // @match *://wangpan.baidu.com/s/*
 // @name:en rapidupload-userscript
 // @license GPLv3

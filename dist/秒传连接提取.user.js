@@ -7,12 +7,15 @@
 // @supportURL https://github.com/mengzonefire/rapid-upload-userscript/issues
 // @match *://pan.baidu.com/disk/home*
 // @match *://pan.baidu.com/disk/main*
+// @match *://pan.baidu.com/disk/synchronization*
 // @match *://pan.baidu.com/s/*
 // @match *://yun.baidu.com/disk/home*
 // @match *://yun.baidu.com/disk/main*
+// @match *://pan.baidu.com/disk/synchronization*
 // @match *://yun.baidu.com/s/*
 // @match *://wangpan.baidu.com/disk/home*
 // @match *://wangpan.baidu.com/disk/main*
+// @match *://pan.baidu.com/disk/synchronization*
 // @match *://wangpan.baidu.com/s/*
 // @name:en rapidupload-userscript
 // @license GPLv3
@@ -4743,7 +4746,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <p>修复使用国外ip转存文件时报错#31039的问题</p>\r\n    <p>(详见<a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">近期通知</a>)</p>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>默认开启 \"极速生成\" 功能, 参考文档:<a\r\n          href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/秒传链接生成/极速生成\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a> <a\r\n          href=\"https://xtsat.github.io/rapid-upload-userscript-doc/document/秒传链接生成/极速生成\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a></li>\r\n      <li>文件分享页(baidu.com/s/...)添加秒传生成按钮</li>\r\n      <li><a href=\"https://pan.baidu.com/disk/synchronization#\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">同步空间页面</a> 添加秒传转存按钮</li>\r\n      <li>移除 \"测试秒传\" 功能(已失效)</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4824,14 +4827,14 @@ var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
 var version = "2.5.3"; // 当前版本号
-var updateDate = "22.12.5"; // 更新弹窗的日期
-var updateInfoVer = "2.5.0"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var updateDate = "22.12.17"; // 更新弹窗的日期
+var updateInfoVer = "2.5.3"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
-var donateVer = "2.3.0"; // 用于检测可关闭的赞助提示的版本号
-var feedbackVer = "2.3.0"; // 用于检测可关闭的反馈提示的版本号
+var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
+var feedbackVer = "2.5.3"; // 用于检测可关闭的反馈提示的版本号
 var locUrl = location.href;
 var baiduNewPage = "baidu.com/disk/main"; // 匹配新版度盘界面
-var baiduSyncPage = "baidu.com/disk/synchronization#/"; // 匹配同步空间
+var baiduSyncPage = "baidu.com/disk/synchronization"; // 匹配同步空间
 var baiduSharePage = "baidu.com/s/"; // 匹配分享页
 var TAG = "[秒传链接提取 by mengzonefire]";
 var homePage = "https://greasyfork.org/zh-CN/scripts/424574";
@@ -5171,7 +5174,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-16 23:56:25
+ * @LastEditTime: 2022-12-17 19:48:11
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5330,8 +5333,13 @@ var Swalbase = /** @class */ (function () {
                                         else
                                             pathValue = "/";
                                     }
+                                    if (pathValue.charAt(0) !== "/")
+                                        pathValue = "/" + pathValue; // 补齐路径前缀斜杠
                                     if (pathValue.charAt(pathValue.length - 1) !== "/")
-                                        pathValue += "/"; // 补全路径结尾的 "/"
+                                        pathValue += "/"; // 补全路径结尾的斜杠
+                                    if (locUrl.includes(baiduSyncPage) &&
+                                        !pathValue.includes(syncPathPrefix))
+                                        pathValue = syncPathPrefix + pathValue; // 补全同步页路径前缀
                                     console.log("\u79D2\u4F20\u6587\u4EF6\u4FDD\u5B58\u5230: " + pathValue); // debug
                                     _this.rapiduploadTask.savePath = pathValue;
                                     _this.processView(false);
@@ -5504,7 +5512,9 @@ var Swalbase = /** @class */ (function () {
                 _this.generatebdlinkTask.reset();
                 result.value.split("\n").forEach(function (item) {
                     if (item.charAt(0) !== "/")
-                        item = "/" + item;
+                        item = "/" + item; // 补齐路径前缀斜杠
+                    if (locUrl.includes(baiduSyncPage) && !item.includes(syncPathPrefix))
+                        item = syncPathPrefix + item; // 补全同步页路径前缀
                     _this.generatebdlinkTask.fileInfoList.push({
                         path: item,
                     });
@@ -5684,7 +5694,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-16 23:51:03
+ * @LastEditTime: 2022-12-17 20:03:26
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5773,8 +5783,10 @@ var RapiduploadTask = /** @class */ (function () {
                 file.path = suffixChange(file.path);
                 _this.createFileV2(file, onResponsed, onFailed, retry);
             }
-            else if (2 === data.response.errno && retry < retryMax_apiV2)
+            else if (2 === data.response.errno && retry < retryMax_apiV2) {
+                console.log("\u8F6C\u5B58\u63A5\u53E3\u9519\u8BEF, \u91CD\u8BD5" + (retry + 1) + "\u6B21: " + file.path);
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
+            }
             else
                 onResponsed(data);
         }, onFailed);
@@ -5805,7 +5817,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-16 23:21:12
+ * @LastEditTime: 2022-12-17 19:15:24
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -6295,7 +6307,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-16 23:51:03
+ * @LastEditTime: 2022-12-17 20:03:26
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6384,8 +6396,10 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                 file.path = suffixChange(file.path);
                 _this.createFileV2(file, onResponsed, onFailed, retry);
             }
-            else if (2 === data.response.errno && retry < retryMax_apiV2)
+            else if (2 === data.response.errno && retry < retryMax_apiV2) {
+                console.log("\u8F6C\u5B58\u63A5\u53E3\u9519\u8BEF, \u91CD\u8BD5" + (retry + 1) + "\u6B21: " + file.path);
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
+            }
             else
                 onResponsed(data);
         }, onFailed);
@@ -6410,13 +6424,21 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/common/const.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-10-20 10:36:43
+ * @LastEditTime: 2022-12-17 20:39:59
+ * @LastEditors: mengzonefire
+ * @Description: 存放各种全局常量对象
+ */
 
 
 
 
 var host = location.host;
 var listLimit = 10000;
-var retryMax_apiV2 = 2; // v2转存接口的最大重试次数
+var syncPathPrefix = "/_pcs_.workspace";
+var retryMax_apiV2 = 4; // v2转存接口的最大重试次数
 var create_url = "https://" + host + "/rest/2.0/xpan/file?method=create";
 var precreate_url = "https://" + host + "/rest/2.0/xpan/file?method=precreate";
 var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=" + listLimit;
@@ -6426,6 +6448,7 @@ var meta_url2 = "https://" + host + "/rest/2.0/xpan/multimedia?method=filemetas&
 var tpl_url = "https://" + host + "/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0";
 var sharedownload_url = "https://" + host + "/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528";
 var sharelist_url = "https://" + host + "/share/list?showempty=0&num=" + listLimit + "&channel=chunlei&web=1&app_id=250528&clienttype=0";
+var syncdownload_url = "https://" + host + "/api/download";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 var illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
 var getBdstoken; // 获取bdstoken的实现
@@ -6543,6 +6566,7 @@ function parsefileInfo(fileInfoList) {
     var failList = [];
     var failCodeDic = {};
     fileInfoList.forEach(function (item) {
+        item.path = item.path.replace(syncPathPrefix, ""); // 移除同步页前缀
         // 成功文件
         if (0 === item.errno || undefined === item.errno) {
             successInfo += "<p>" + item.path + "</p>";
@@ -6727,6 +6751,13 @@ function getExtra() {
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/newPage/loader.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-10-20 10:36:43
+ * @LastEditTime: 2022-12-17 19:17:26
+ * @LastEditors: mengzonefire
+ * @Description: 新版度盘界面loader入口: https://pan.baidu.com/disk/main
+ */
 
 
 
@@ -6772,6 +6803,13 @@ function addBtn() {
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/legacyPage/loader.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-10-20 10:36:43
+ * @LastEditTime: 2022-12-17 01:55:47
+ * @LastEditors: mengzonefire
+ * @Description: 旧版度盘界面loader入口: https://pan.baidu.com/disk/home?stayAtHome=true
+ */
 
 
 
@@ -6819,9 +6857,63 @@ function loader_addBtn() {
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/syncPage/loader.tsx
-function installSync() { }
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-12-12 10:58:59
+ * @LastEditTime: 2022-12-17 20:42:04
+ * @LastEditors: mengzonefire
+ * @Description: 同步空间loader入口: https://pan.baidu.com/disk/synchronization#
+ */
+
+
+
+var loader_htmlTagNew = "div.nd-btn-group > span";
+var loader_htmlBtnRapidNew = '<button id="bdlink_btn" type="button" class="u-button is-round is-has-icon" style="background: #06a7ff;color: #fff;"><span><i class="iconfont icon-copy"></i><span class=" nd-file-list-toolbar-action-item-text">秒传</span></span></button>';
+// const htmlBtnGenNew =
+//   '<button id="gen_bdlink_btn" type="button" class="u-button is-round is-has-icon" style="margin-left: 8px;background: #06a7ff;color: #fff;"><span><i class="iconfont icon-copy"></i><span class=" nd-file-list-toolbar-action-item-text">生成秒传</span></span></button>';
+function installSync() {
+    console.info("%s version: %s DOM方式安装", TAG, version);
+    swalInstance.swalGlobalArgs = {
+        heightAuto: false,
+        scrollbarPadding: false,
+    };
+    setRefreshList(function () {
+        document
+            .querySelector(".nd-main-list, .nd-new-main-list")
+            .__vue__.reloadList();
+    });
+    setGetSelectedFileList(getSelectedFileListNew);
+    setGetBdstoken(function () {
+        return document.querySelector(".nd-main-list, .nd-new-main-list").__vue__.yunData
+            .bdstoken;
+    });
+    $(document).on("click", "#bdlink_btn", function () {
+        swalInstance.inputView();
+    }); // 绑定转存秒传按钮事件
+    $(document).on("click", "#gen_bdlink_btn", function () {
+        swalInstance.generatebdlinkTask.reset();
+        swalInstance.checkUnfinish();
+    }); // 绑定生成秒传按钮事件
+    syncPage_loader_addBtn();
+}
+function syncPage_loader_addBtn() {
+    // 轮询添加按钮, 防止新版页面重复init时, 将按钮覆盖
+    var target = $(loader_htmlTagNew);
+    if (target.length && !$("#bdlink_btn").length)
+        target.append(loader_htmlBtnRapidNew);
+    // target.append(htmlBtnRapidNew, htmlBtnGenNew);
+    // 同步页中的文件使用另一种的接口获取dlink, 故暂不添加生成功能
+    setTimeout(syncPage_loader_addBtn, 500);
+}
 
 ;// CONCATENATED MODULE: ./src/baidu/sharePage/loader.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-12-12 10:57:58
+ * @LastEditTime: 2022-12-17 01:57:00
+ * @LastEditors: mengzonefire
+ * @Description: 文件分享页loader入口: https://pan.baidu.com/s/xxx
+ */
 
 
 var htmlBtnGenShare = // 分享页的秒传生成按钮html元素
@@ -6846,6 +6938,13 @@ function sharePage_loader_addBtn() {
 }
 
 ;// CONCATENATED MODULE: ./src/baidu/loader.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-10-20 10:36:43
+ * @LastEditTime: 2022-12-17 18:18:33
+ * @LastEditors: mengzonefire
+ * @Description: 主函数入口
+ */
 
 
 
@@ -6853,17 +6952,16 @@ function sharePage_loader_addBtn() {
 
 
 
-// 主函数入口
 function loaderBaidu() {
     var load = function () {
         if (locUrl.includes(baiduNewPage))
-            installNew(); // 新版界面loader入口
+            installNew();
         else if (locUrl.includes(baiduSharePage))
-            installShare(); // 分享页loader入口
+            installShare();
         else if (locUrl.includes(baiduSyncPage))
-            installSync(); // 同步空间loader入口
+            installSync();
         else
-            installLegacy(); // 旧版界面loader入口
+            installLegacy();
         // 进入页面后的弹窗任务
         var bdlink = parseQueryLink(locUrl); // 解析url中的秒传链接
         if (bdlink) {

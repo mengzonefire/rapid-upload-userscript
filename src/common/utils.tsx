@@ -1,4 +1,4 @@
-import { baiduErrno } from "@/baidu/common/const";
+import { baiduErrno, syncPathPrefix } from "@/baidu/common/const";
 import {
   appError,
   copyFailBranchList,
@@ -29,6 +29,7 @@ export function parsefileInfo(fileInfoList: Array<FileInfo>) {
   let failList = [];
   let failCodeDic = {};
   fileInfoList.forEach((item) => {
+    item.path = item.path.replace(syncPathPrefix, ""); // 移除同步页前缀
     // 成功文件
     if (0 === item.errno || undefined === item.errno) {
       successInfo += `<p>${item.path}</p>`;

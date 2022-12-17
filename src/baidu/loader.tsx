@@ -1,3 +1,10 @@
+/*
+ * @Author: mengzonefire
+ * @Date: 2022-10-20 10:36:43
+ * @LastEditTime: 2022-12-17 18:18:33
+ * @LastEditors: mengzonefire
+ * @Description: 主函数入口
+ */
 import {
   locUrl,
   baiduNewPage,
@@ -14,15 +21,12 @@ import { swalInstance } from "./common/const";
 import installSync from "./syncPage/loader";
 import installShare from "./sharePage/loader";
 
-// 主函数入口
 export function loaderBaidu(): void {
   let load = () => {
-    if (locUrl.includes(baiduNewPage)) installNew(); // 新版界面loader入口
-    else if (locUrl.includes(baiduSharePage))
-      installShare(); // 分享页loader入口
-    else if (locUrl.includes(baiduSyncPage))
-      installSync(); // 同步空间loader入口
-    else installLegacy(); // 旧版界面loader入口
+    if (locUrl.includes(baiduNewPage)) installNew();
+    else if (locUrl.includes(baiduSharePage)) installShare();
+    else if (locUrl.includes(baiduSyncPage)) installSync();
+    else installLegacy();
 
     // 进入页面后的弹窗任务
     let bdlink = parseQueryLink(locUrl); // 解析url中的秒传链接
