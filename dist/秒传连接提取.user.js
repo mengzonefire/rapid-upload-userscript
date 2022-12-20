@@ -5694,7 +5694,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-17 20:03:26
+ * @LastEditTime: 2022-12-20 12:37:29
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5784,7 +5784,7 @@ var RapiduploadTask = /** @class */ (function () {
                 _this.createFileV2(file, onResponsed, onFailed, retry);
             }
             else if (2 === data.response.errno && retry < retryMax_apiV2) {
-                console.log("\u8F6C\u5B58\u63A5\u53E3\u9519\u8BEF, \u91CD\u8BD5" + (retry + 1) + "\u6B21: " + file.path);
+                // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
             }
             else
@@ -6307,7 +6307,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-17 20:03:26
+ * @LastEditTime: 2022-12-20 12:37:29
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6397,7 +6397,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
                 _this.createFileV2(file, onResponsed, onFailed, retry);
             }
             else if (2 === data.response.errno && retry < retryMax_apiV2) {
-                console.log("\u8F6C\u5B58\u63A5\u53E3\u9519\u8BEF, \u91CD\u8BD5" + (retry + 1) + "\u6B21: " + file.path);
+                // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
                 _this.createFileV2(file, onResponsed, onFailed, ++retry);
             }
             else

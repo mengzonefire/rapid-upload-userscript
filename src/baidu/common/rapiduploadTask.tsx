@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-17 20:03:26
+ * @LastEditTime: 2022-12-20 12:37:29
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -117,7 +117,7 @@ export default class RapiduploadTask {
           file.path = suffixChange(file.path);
           this.createFileV2(file, onResponsed, onFailed, retry);
         } else if (2 === data.response.errno && retry < retryMax_apiV2) {
-          console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`);
+          // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
           this.createFileV2(file, onResponsed, onFailed, ++retry);
         } else onResponsed(data);
       },
