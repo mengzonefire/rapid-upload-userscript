@@ -1,10 +1,11 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-17 19:17:26
+ * @LastEditTime: 2022-12-24 10:57:20
  * @LastEditors: mengzonefire
  * @Description: 新版度盘界面loader入口: https://pan.baidu.com/disk/main
  */
+
 import { TAG, version } from "@/common/const";
 import {
   setGetBdstoken,

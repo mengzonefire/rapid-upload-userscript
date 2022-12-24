@@ -1,10 +1,11 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-17 20:39:59
+ * @LastEditTime: 2022-12-24 10:56:00
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
+
 import { doc, doc2, linkStyle } from "@/common/const";
 import Swalbase from "@/common/swalBase";
 import GeneratebdlinkTask from "./GeneratebdlinkTask";

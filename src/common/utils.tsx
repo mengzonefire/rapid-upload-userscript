@@ -1,3 +1,11 @@
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-22 04:01:11
+ * @LastEditTime: 2022-12-24 11:07:12
+ * @LastEditors: mengzonefire
+ * @Description: 存放工具函数
+ */
+
 import { baiduErrno, syncPathPrefix } from "@/baidu/common/const";
 import {
   appError,
@@ -186,6 +194,8 @@ function reverseStr(str: string): string {
   return newStr;
 }
 
+// 下方四个function用于分享页生成秒传
+// 依旧是从这里抄的: https://greasyfork.org/zh-CN/scripts/436446
 function getCookie(name: string) {
   let arr = document.cookie.replace(/\s/g, "").split(";");
   for (let i = 0, l = arr.length; i < l; i++) {
@@ -204,9 +214,9 @@ export function getLogid() {
 }
 
 export function getSurl() {
-  let reg = /(?<=s\/|surl=)([a-zA-Z0-9_-]+)/g;
+  let reg = /(s\/|surl=)([a-zA-Z0-9_-]+)/;
   if (reg.test(location.href)) {
-    return location.href.match(reg)[0];
+    return location.href.match(reg)[2];
   }
   return "";
 }

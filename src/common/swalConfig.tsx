@@ -1,7 +1,14 @@
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-26 12:16:57
+ * @LastEditTime: 2022-12-24 10:55:17
+ * @LastEditors: mengzonefire
+ * @Description: 存放各Swal弹窗的固定参数配置
+ */
+
 import updateInfo from "@/components/updateInfo.html";
 import { doc, doc2, linkStyle, updateDate, version } from "@/common/const";
 
-// 各Swal弹窗的固定参数配置:
 export const SwalConfig = {
   inputView: {
     title: "请输入秒传&保存路径",

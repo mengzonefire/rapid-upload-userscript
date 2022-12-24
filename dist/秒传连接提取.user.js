@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.3
+// @version 2.5.4
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4826,7 +4826,14 @@ var app_default = /*#__PURE__*/__webpack_require__.n(app);
 var sweetalert2_min = __webpack_require__(173);
 var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
-var version = "2.5.3"; // 当前版本号
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-07-23 17:41:28
+ * @LastEditTime: 2022-12-24 10:59:30
+ * @LastEditors: mengzonefire
+ * @Description: 存放各种全局常量对象
+ */
+var version = "2.5.4"; // 当前版本号
 var updateDate = "22.12.17"; // 更新弹窗的日期
 var updateInfoVer = "2.5.3"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -5074,9 +5081,15 @@ SimpleBuffer.prototype.readHex = function readHex(index, size) {
 var updateInfo = __webpack_require__(184);
 var updateInfo_default = /*#__PURE__*/__webpack_require__.n(updateInfo);
 ;// CONCATENATED MODULE: ./src/common/SwalConfig.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-26 12:16:57
+ * @LastEditTime: 2022-12-24 10:55:17
+ * @LastEditors: mengzonefire
+ * @Description: 存放各Swal弹窗的固定参数配置
+ */
 
 
-// 各Swal弹窗的固定参数配置:
 var SwalConfig = {
     inputView: {
         title: "请输入秒传&保存路径",
@@ -5694,7 +5707,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-20 12:37:29
+ * @LastEditTime: 2022-12-24 10:57:31
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5817,7 +5830,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-17 19:15:24
+ * @LastEditTime: 2022-12-24 10:57:36
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -6307,7 +6320,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-20 12:37:29
+ * @LastEditTime: 2022-12-24 10:57:31
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6427,7 +6440,7 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-17 20:39:59
+ * @LastEditTime: 2022-12-24 10:56:00
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -6508,6 +6521,13 @@ function baiduErrno(errno) {
 } // 自定义百度api返回errno的报错
 
 ;// CONCATENATED MODULE: ./src/common/utils.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-22 04:01:11
+ * @LastEditTime: 2022-12-24 11:07:12
+ * @LastEditors: mengzonefire
+ * @Description: 存放工具函数
+ */
 var utils_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -6723,6 +6743,8 @@ function reverseStr(str) {
     }
     return newStr;
 }
+// 下方四个function用于分享页生成秒传
+// 依旧是从这里抄的: https://greasyfork.org/zh-CN/scripts/436446
 function getCookie(name) {
     var arr = document.cookie.replace(/\s/g, "").split(";");
     for (var i = 0, l = arr.length; i < l; i++) {
@@ -6739,9 +6761,9 @@ function getLogid() {
     return ut.base64Encode(getCookie("BAIDUID"));
 }
 function getSurl() {
-    var reg = /(?<=s\/|surl=)([a-zA-Z0-9_-]+)/g;
+    var reg = /(s\/|surl=)([a-zA-Z0-9_-]+)/;
     if (reg.test(location.href)) {
-        return location.href.match(reg)[0];
+        return location.href.match(reg)[2];
     }
     return "";
 }
@@ -6754,7 +6776,7 @@ function getExtra() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-17 19:17:26
+ * @LastEditTime: 2022-12-24 10:57:20
  * @LastEditors: mengzonefire
  * @Description: 新版度盘界面loader入口: https://pan.baidu.com/disk/main
  */
@@ -6806,7 +6828,7 @@ function addBtn() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-17 01:55:47
+ * @LastEditTime: 2022-12-24 10:57:23
  * @LastEditors: mengzonefire
  * @Description: 旧版度盘界面loader入口: https://pan.baidu.com/disk/home?stayAtHome=true
  */
@@ -6860,7 +6882,7 @@ function loader_addBtn() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-12-12 10:58:59
- * @LastEditTime: 2022-12-17 20:42:04
+ * @LastEditTime: 2022-12-24 10:57:12
  * @LastEditors: mengzonefire
  * @Description: 同步空间loader入口: https://pan.baidu.com/disk/synchronization#
  */
@@ -6910,7 +6932,7 @@ function syncPage_loader_addBtn() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-12-12 10:57:58
- * @LastEditTime: 2022-12-17 01:57:00
+ * @LastEditTime: 2022-12-24 10:57:15
  * @LastEditors: mengzonefire
  * @Description: 文件分享页loader入口: https://pan.baidu.com/s/xxx
  */
@@ -6941,7 +6963,7 @@ function sharePage_loader_addBtn() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-17 18:18:33
+ * @LastEditTime: 2022-12-24 10:55:34
  * @LastEditors: mengzonefire
  * @Description: 主函数入口
  */
@@ -7017,6 +7039,13 @@ function loaderBaidu() {
 }
 
 ;// CONCATENATED MODULE: ./src/common/injectStyle.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-07-23 17:32:18
+ * @LastEditTime: 2022-12-24 10:56:39
+ * @LastEditors: mengzonefire
+ * @Description: 样式注入模块
+ */
 
 
 
