@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-24 10:56:00
+ * @LastEditTime: 2022-12-28 12:50:20
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -27,7 +27,7 @@ export const sharelist_url = `https://${host}/share/list?showempty=0&num=${listL
 export const syncdownload_url = `https://${host}/api/download`;
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
-export const illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
+export const illegalPathPattern = /[\\":*?<>|]/g; // 匹配路径中的非法字符
 export var getBdstoken: () => string; // 获取bdstoken的实现
 export function setGetBdstoken(func: () => string) {
   getBdstoken = func;
@@ -83,6 +83,8 @@ export function baiduErrno(errno: number) {
       return "路径为文件夹, 不支持生成秒传";
     case 31039:
       return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-31039" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-31039" ${linkStyle}>载点2</a>)`;
+    case 110:
+      return "请先登录";
     default:
       return `未知错误(请看文档:<a href="${doc.shareDoc}#未知错误" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#未知错误" ${linkStyle}>载点2</a>)`;
   }

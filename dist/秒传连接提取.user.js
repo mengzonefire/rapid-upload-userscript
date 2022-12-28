@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.4
+// @version 2.5.5
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4829,12 +4829,12 @@ var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2022-12-24 10:59:30
+ * @LastEditTime: 2022-12-28 12:39:20
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.5.4"; // 当前版本号
-var updateDate = "22.12.17"; // 更新弹窗的日期
+var version = "2.5.5"; // 当前版本号
+var updateDate = "22.12.28"; // 更新弹窗的日期
 var updateInfoVer = "2.5.3"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
@@ -5707,7 +5707,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-24 10:57:31
+ * @LastEditTime: 2022-12-28 12:37:08
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5741,8 +5741,8 @@ var RapiduploadTask = /** @class */ (function () {
         }
         this.onProcess(i, this.fileInfoList);
         var file = this.fileInfoList[i];
-        // 文件名含有非法字符 / 文件名为空
-        if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
+        // 文件名为空
+        if (file.path === "/") {
             file.errno = -7;
             this.saveFileV2(i + 1);
             return;
@@ -5784,7 +5784,7 @@ var RapiduploadTask = /** @class */ (function () {
             responseType: "json",
             data: convertData({
                 block_list: JSON.stringify([file.md5.toLowerCase()]),
-                path: this.savePath + file.path,
+                path: this.savePath + file.path.replace(illegalPathPattern, "_"),
                 size: file.size,
                 isdir: 0,
                 rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
@@ -5815,7 +5815,7 @@ function precreateFileV2(file, onResponsed, onFailed) {
         responseType: "json",
         data: convertData({
             block_list: JSON.stringify([file.md5.toLowerCase()]),
-            path: this.savePath + file.path,
+            path: this.savePath + file.path.replace(illegalPathPattern, "_"),
             size: file.size,
             isdir: 0,
             autoinit: 1,
@@ -6320,7 +6320,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-24 10:57:31
+ * @LastEditTime: 2022-12-28 12:37:08
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6354,8 +6354,8 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
         }
         this.onProcess(i, this.fileInfoList);
         var file = this.fileInfoList[i];
-        // 文件名含有非法字符 / 文件名为空
-        if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
+        // 文件名为空
+        if (file.path === "/") {
             file.errno = -7;
             this.saveFileV2(i + 1);
             return;
@@ -6397,7 +6397,7 @@ var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
             responseType: "json",
             data: convertData({
                 block_list: JSON.stringify([file.md5.toLowerCase()]),
-                path: this.savePath + file.path,
+                path: this.savePath + file.path.replace(illegalPathPattern, "_"),
                 size: file.size,
                 isdir: 0,
                 rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
@@ -6428,7 +6428,7 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
         responseType: "json",
         data: convertData({
             block_list: JSON.stringify([file.md5.toLowerCase()]),
-            path: this.savePath + file.path,
+            path: this.savePath + file.path.replace(illegalPathPattern, "_"),
             size: file.size,
             isdir: 0,
             autoinit: 1,
@@ -6440,7 +6440,7 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-24 10:56:00
+ * @LastEditTime: 2022-12-28 12:50:20
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -6463,7 +6463,7 @@ var sharedownload_url = "https://" + host + "/api/sharedownload?channel=chunlei&
 var sharelist_url = "https://" + host + "/share/list?showempty=0&num=" + listLimit + "&channel=chunlei&web=1&app_id=250528&clienttype=0";
 var syncdownload_url = "https://" + host + "/api/download";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
-var illegalPathPattern = /[\\":*?<>|]/; // 匹配路径中的非法字符
+var illegalPathPattern = /[\\":*?<>|]/g; // 匹配路径中的非法字符
 var getBdstoken; // 获取bdstoken的实现
 function setGetBdstoken(func) {
     getBdstoken = func;
@@ -6515,6 +6515,8 @@ function baiduErrno(errno) {
             return "路径为文件夹, 不支持生成秒传";
         case 31039:
             return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B92</a>)";
+        case 110:
+            return "请先登录";
         default:
             return "\u672A\u77E5\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B92</a>)";
     }

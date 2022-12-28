@@ -12,6 +12,8 @@
 
 ## Build Setup
 
+node: 16.17.0
+
 ``` bash
 # install dependencies
 npm install

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-24 10:57:31
+ * @LastEditTime: 2022-12-28 12:37:08
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -14,6 +14,7 @@ import {
   precreate_url,
   create_url,
   getBdstoken,
+  illegalPathPattern,
 } from "./const";
 export default class RapiduploadTask {
   savePath: string;
@@ -48,8 +49,8 @@ export default class RapiduploadTask {
     }
     this.onProcess(i, this.fileInfoList);
     let file = this.fileInfoList[i];
-    // 文件名含有非法字符 / 文件名为空
-    if (file.path.match(/["\\\:*?<>|]/) || file.path === "/") {
+    // 文件名为空
+    if (file.path === "/") {
       file.errno = -7;
       this.saveFileV2(i + 1);
       return;
@@ -105,7 +106,7 @@ export default class RapiduploadTask {
         responseType: "json",
         data: convertData({
           block_list: JSON.stringify([file.md5.toLowerCase()]),
-          path: this.savePath + file.path,
+          path: this.savePath + file.path.replace(illegalPathPattern, "_"),
           size: file.size,
           isdir: 0,
           rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
@@ -140,7 +141,7 @@ export function precreateFileV2(
       responseType: "json",
       data: convertData({
         block_list: JSON.stringify([file.md5.toLowerCase()]),
-        path: this.savePath + file.path,
+        path: this.savePath + file.path.replace(illegalPathPattern, "_"),
         size: file.size,
         isdir: 0,
         autoinit: 1,
