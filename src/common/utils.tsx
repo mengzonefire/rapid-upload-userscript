@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-22 04:01:11
- * @LastEditTime: 2022-12-24 11:07:12
+ * @LastEditTime: 2023-01-07 19:51:37
  * @LastEditors: mengzonefire
  * @Description: 存放工具函数
  */
@@ -152,17 +152,17 @@ export function decryptMd5(md5: string): string {
     return decrypt(md5);
   else return md5;
 
-  function decrypt(encryptMd5: string) {
+  function decrypt(encryptMd5: string): string {
     let key = (encryptMd5[9].charCodeAt(0) - "g".charCodeAt(0)).toString(16);
-    let key2 = encryptMd5.substr(0, 9) + key + encryptMd5.substr(10);
+    let key2 = encryptMd5.slice(0, 9) + key + encryptMd5.slice(10);
     let key3 = "";
     for (let a = 0; a < key2.length; a++)
       key3 += (parseInt(key2[a], 16) ^ (15 & a)).toString(16);
     let md5 =
-      key3.substr(8, 8) +
-      key3.substr(0, 8) +
-      key3.substr(24, 8) +
-      key3.substr(16, 8);
+      key3.slice(8, 16) +
+      key3.slice(0, 8) +
+      key3.slice(24, 32) +
+      key3.slice(16, 24);
     return md5;
   }
 }

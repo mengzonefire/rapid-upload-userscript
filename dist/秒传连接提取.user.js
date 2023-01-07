@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.5
+// @version 2.5.6
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -4829,12 +4829,12 @@ var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2022-12-28 12:39:20
+ * @LastEditTime: 2023-01-07 19:52:49
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.5.5"; // 当前版本号
-var updateDate = "22.12.28"; // 更新弹窗的日期
+var version = "2.5.6"; // 当前版本号
+var updateDate = "23.1.7"; // 更新弹窗显示的日期
 var updateInfoVer = "2.5.3"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
@@ -6526,7 +6526,7 @@ function baiduErrno(errno) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-22 04:01:11
- * @LastEditTime: 2022-12-24 11:07:12
+ * @LastEditTime: 2023-01-07 19:51:37
  * @LastEditors: mengzonefire
  * @Description: 存放工具函数
  */
@@ -6706,14 +6706,14 @@ function decryptMd5(md5) {
         return md5;
     function decrypt(encryptMd5) {
         var key = (encryptMd5[9].charCodeAt(0) - "g".charCodeAt(0)).toString(16);
-        var key2 = encryptMd5.substr(0, 9) + key + encryptMd5.substr(10);
+        var key2 = encryptMd5.slice(0, 9) + key + encryptMd5.slice(10);
         var key3 = "";
         for (var a = 0; a < key2.length; a++)
             key3 += (parseInt(key2[a], 16) ^ (15 & a)).toString(16);
-        var md5 = key3.substr(8, 8) +
-            key3.substr(0, 8) +
-            key3.substr(24, 8) +
-            key3.substr(16, 8);
+        var md5 = key3.slice(8, 16) +
+            key3.slice(0, 8) +
+            key3.slice(24, 32) +
+            key3.slice(16, 24);
         return md5;
     }
 }
