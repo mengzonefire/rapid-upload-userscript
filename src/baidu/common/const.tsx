@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-28 12:50:20
+ * @LastEditTime: 2023-01-14 21:43:19
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -84,7 +84,9 @@ export function baiduErrno(errno: number) {
     case 31039:
       return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-31039" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-31039" ${linkStyle}>载点2</a>)`;
     case 110:
-      return "请先登录";
+      return "请先登录百度账号";
+    case 9013:
+      return "账号被限制, 尝试 更换账号 或 等待一段时间再重试";
     default:
       return `未知错误(请看文档:<a href="${doc.shareDoc}#未知错误" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#未知错误" ${linkStyle}>载点2</a>)`;
   }

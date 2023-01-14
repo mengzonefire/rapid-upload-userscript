@@ -4829,12 +4829,12 @@ var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-01-07 19:52:49
+ * @LastEditTime: 2023-01-14 21:43:38
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 var version = "2.5.6"; // 当前版本号
-var updateDate = "23.1.7"; // 更新弹窗显示的日期
+var updateDate = "23.1.14"; // 更新弹窗显示的日期
 var updateInfoVer = "2.5.3"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
@@ -6440,7 +6440,7 @@ function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-28 12:50:20
+ * @LastEditTime: 2023-01-14 21:43:19
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -6516,7 +6516,9 @@ function baiduErrno(errno) {
         case 31039:
             return "\u670D\u52A1\u5668\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u670D\u52A1\u5668\u9519\u8BEF-31039\" " + linkStyle + ">\u8F7D\u70B92</a>)";
         case 110:
-            return "请先登录";
+            return "请先登录百度账号";
+        case 9013:
+            return "账号被限制, 尝试 更换账号 或 等待一段时间再重试";
         default:
             return "\u672A\u77E5\u9519\u8BEF(\u8BF7\u770B\u6587\u6863:<a href=\"" + doc.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.shareDoc + "#\u672A\u77E5\u9519\u8BEF\" " + linkStyle + ">\u8F7D\u70B92</a>)";
     }
