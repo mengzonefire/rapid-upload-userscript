@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-24 10:55:34
+ * @LastEditTime: 2023-01-31 20:53:13
  * @LastEditors: mengzonefire
  * @Description: 主函数入口
  */
@@ -14,6 +14,8 @@ import {
   updateInfoVer,
   donateVer,
   feedbackVer,
+  TAG,
+  version,
 } from "@/common/const";
 import { parseQueryLink } from "@/common/duParser";
 import installNew from "./newPage/loader";
@@ -73,6 +75,25 @@ export function loaderBaidu(): void {
       );
       btn.target.innerText = "复制成功";
     }); // 失败文件分支列表复制
+
+    try {
+      // 添加油猴插件菜单按钮
+      GM_registerMenuCommand("🕮 版本信息", () => {
+        swalInstance.updateInfo(() => {});
+      });
+      GM_registerMenuCommand("⚙ 工具设置", () => {
+        swalInstance.settingView();
+      });
+      GM_registerMenuCommand("⚡生成秒传(输入文件路径)", () => {
+        swalInstance.genView();
+      });
+    } catch (_) {
+      console.info(
+        "%s version: %s 插件菜单添加失败, 使用的插件不支持GM_registerMenuCommand",
+        TAG,
+        version
+      );
+    }
   };
 
   // 绑定入口函数到dom事件

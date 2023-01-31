@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name 秒传链接提取
-// @version 2.5.6
+// @version 2.5.7
 // @author mengzonefire
 // @description 用于提取和生成百度网盘秒传链接
 // @homepage https://greasyfork.org/zh-CN/scripts/424574
@@ -37,6 +37,7 @@
 // @grant GM_getResourceText
 // @grant GM_addStyle
 // @grant GM_xmlhttpRequest
+// @grant GM_registerMenuCommand
 // @grant unsafeWindow
 // @run-at document-body
 // @connect baidu.com
@@ -4746,7 +4747,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>默认开启 \"极速生成\" 功能, 参考文档:<a\r\n          href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/document/秒传链接生成/极速生成\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a> <a\r\n          href=\"https://xtsat.github.io/rapid-upload-userscript-doc/document/秒传链接生成/极速生成\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a></li>\r\n      <li>文件分享页(baidu.com/s/...)添加秒传生成按钮</li>\r\n      <li><a href=\"https://pan.baidu.com/disk/synchronization#\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">同步空间页面</a> 添加秒传转存按钮</li>\r\n      <li>移除 \"测试秒传\" 功能(已失效)</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>在油猴插件菜单内添加 设置页, 生成页, 版本信息页 的入口: <a\r\n          href=\"https://snimg.jamyido.top/large/008leDczly1han4nesswfj30de080tat.jpg\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">图例</a></li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4829,13 +4830,13 @@ var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-01-14 21:43:38
+ * @LastEditTime: 2023-01-31 21:05:55
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.5.6"; // 当前版本号
-var updateDate = "23.1.14"; // 更新弹窗显示的日期
-var updateInfoVer = "2.5.3"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var version = "2.5.7"; // 当前版本号
+var updateDate = "23.1.31"; // 更新弹窗显示的日期
+var updateInfoVer = "2.5.7"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.5.3"; // 用于检测可关闭的反馈提示的版本号
@@ -6967,7 +6968,7 @@ function sharePage_loader_addBtn() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-24 10:55:34
+ * @LastEditTime: 2023-01-31 20:53:13
  * @LastEditors: mengzonefire
  * @Description: 主函数入口
  */
@@ -7034,6 +7035,21 @@ function loaderBaidu() {
                 .innerText.replace(/\n\n/g, "\n"));
             btn.target.innerText = "复制成功";
         }); // 失败文件分支列表复制
+        try {
+            // 添加油猴插件菜单按钮
+            GM_registerMenuCommand("🕮 版本信息", function () {
+                swalInstance.updateInfo(function () { });
+            });
+            GM_registerMenuCommand("⚙ 工具设置", function () {
+                swalInstance.settingView();
+            });
+            GM_registerMenuCommand("⚡生成秒传(输入文件路径)", function () {
+                swalInstance.genView();
+            });
+        }
+        catch (_) {
+            console.info("%s version: %s 插件菜单添加失败, 使用的插件不支持GM_registerMenuCommand", TAG, version);
+        }
     };
     // 绑定入口函数到dom事件
     if (["interactive", "complete"].includes(document.readyState))

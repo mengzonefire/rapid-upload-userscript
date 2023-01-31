@@ -112,6 +112,7 @@ module.exports = {
           "GM_getResourceText",
           "GM_addStyle",
           "GM_xmlhttpRequest",
+          "GM_registerMenuCommand",
           "unsafeWindow",
         ],
         "run-at": "document-body",
