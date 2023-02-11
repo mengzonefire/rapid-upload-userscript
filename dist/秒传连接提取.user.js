@@ -1,49 +1,48 @@
 // ==UserScript==
-// @name 秒传链接提取
-// @version 2.5.7
-// @author mengzonefire
-// @description 用于提取和生成百度网盘秒传链接
-// @homepage https://greasyfork.org/zh-CN/scripts/424574
-// @supportURL https://github.com/mengzonefire/rapid-upload-userscript/issues
-// @match *://pan.baidu.com/disk/home*
-// @match *://pan.baidu.com/disk/main*
-// @match *://pan.baidu.com/disk/synchronization*
-// @match *://pan.baidu.com/s/*
-// @match *://yun.baidu.com/disk/home*
-// @match *://yun.baidu.com/disk/main*
-// @match *://pan.baidu.com/disk/synchronization*
-// @match *://yun.baidu.com/s/*
-// @match *://wangpan.baidu.com/disk/home*
-// @match *://wangpan.baidu.com/disk/main*
-// @match *://pan.baidu.com/disk/synchronization*
-// @match *://wangpan.baidu.com/s/*
-// @name:en rapidupload-userscript
-// @license GPLv3
-// @icon data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4AZTTJRBUURTH4TtDwXuPdPrgbhHXiksf3CPucRNScHd3d3d3uO9bKeu7b79+fun8Q17CNHyMMUqaiPE4fEyYVjjGNKnNwQ4lpgV8lManEfwfosLHEGPU1N3ZnAv4qlT+NiQ56uPWSjKBrztUSnIaB66sY1vgxgxoMXB5NbsCB9rxcB5fN2M5/16nCFxeS6YTezpzsB1Pu/C2O7/78/99eYBYHXh+gqdHObGIK4GHgevjVIt1AgAnhvE4cGe8euoHbizgYuD2RGgx8O0RpwIPRmsmJDGqcrANd3pLo/qVr03hUlcpfSwf0/vD3JwkPdPK5/zhkOz+/f1FIDv/RcnOAEjywH/DhgADAAAAAElFTkSuQmCC
-// @namespace moe.cangku.mengzonefire
-// @homepageURL https://greasyfork.org/zh-CN/scripts/424574
+// @name            秒传链接提取
+// @version         2.5.8
+// @author          mengzonefire
+// @description     用于提取和生成百度网盘秒传链接
+// @homepage        https://greasyfork.org/zh-CN/scripts/424574
+// @supportURL      https://github.com/mengzonefire/rapid-upload-userscript/issues
+// @match           *://pan.baidu.com/disk/home*
+// @match           *://pan.baidu.com/disk/main*
+// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://pan.baidu.com/s/*
+// @match           *://yun.baidu.com/disk/home*
+// @match           *://yun.baidu.com/disk/main*
+// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://yun.baidu.com/s/*
+// @match           *://wangpan.baidu.com/disk/home*
+// @match           *://wangpan.baidu.com/disk/main*
+// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://wangpan.baidu.com/s/*
+// @name:en         rapidupload-userscript
+// @license         GPLv3
+// @icon            data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABBUlEQVR4AZTTJRBUURTH4TtDwXuPdPrgbhHXiksf3CPucRNScHd3d3d3uO9bKeu7b79+fun8Q17CNHyMMUqaiPE4fEyYVjjGNKnNwQ4lpgV8lManEfwfosLHEGPU1N3ZnAv4qlT+NiQ56uPWSjKBrztUSnIaB66sY1vgxgxoMXB5NbsCB9rxcB5fN2M5/16nCFxeS6YTezpzsB1Pu/C2O7/78/99eYBYHXh+gqdHObGIK4GHgevjVIt1AgAnhvE4cGe8euoHbizgYuD2RGgx8O0RpwIPRmsmJDGqcrANd3pLo/qVr03hUlcpfSwf0/vD3JwkPdPK5/zhkOz+/f1FIDv/RcnOAEjywH/DhgADAAAAAElFTkSuQmCC
+// @namespace       moe.cangku.mengzonefire
+// @homepageURL     https://greasyfork.org/zh-CN/scripts/424574
 // @contributionURL https://afdian.net/@mengzonefire
-// @description:en input bdlink to get files or get bdlink for Baidu™ WebDisk.
-// @compatible firefox Violentmonkey
-// @compatible firefox Tampermonkey
-// @compatible chrome Violentmonkey
-// @compatible chrome Tampermonkey
-// @compatible edge Violentmonkey
-// @compatible edge Tampermonkey
-// @grant GM_setValue
-// @grant GM_getValue
-// @grant GM_deleteValue
-// @grant GM_setClipboard
-// @grant GM_getResourceText
-// @grant GM_addStyle
-// @grant GM_xmlhttpRequest
-// @grant GM_registerMenuCommand
-// @grant unsafeWindow
-// @run-at document-body
-// @connect baidu.com
-// @connect baidupcs.com
-// @connect cdn.jsdelivr.net
-// @connect *
+// @description:en  input bdlink to get files or get bdlink for Baidu™ WebDisk.
+// @compatible      firefox Violentmonkey
+// @compatible      firefox Tampermonkey
+// @compatible      chrome Violentmonkey
+// @compatible      chrome Tampermonkey
+// @compatible      edge Violentmonkey
+// @compatible      edge Tampermonkey
+// @grant           GM_setValue
+// @grant           GM_getValue
+// @grant           GM_deleteValue
+// @grant           GM_setClipboard
+// @grant           GM_addStyle
+// @grant           GM_xmlhttpRequest
+// @grant           GM_registerMenuCommand
+// @grant           unsafeWindow
+// @run-at          document-body
+// @connect         baidu.com
+// @connect         baidupcs.com
+// @connect         cdn.jsdelivr.net
+// @connect         *
 // ==/UserScript==
 
 /******/ (() => { // webpackBootstrap
@@ -4740,21 +4739,14 @@ if (typeof this !== 'undefined' && this.Sweetalert2){  this.swal = this.sweetAle
 /***/ 65:
 /***/ ((module) => {
 
-module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin-left:5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_btn2{text-align:center;color:#09aaff;margin-left:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:\"lnum\";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center;white-space:nowrap}.mzf_new_btn{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;vertical-align:middle;font:inherit;overflow:visible;text-transform:none;font-family:SFUIText,PingFangSC-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;display:inline-block;line-height:1;white-space:nowrap;cursor:pointer;background:#fff;text-align:center;box-sizing:border-box;outline:0;margin:0;transition:.1s;color:#fff;background-color:#06a7ff;font-weight:700;padding:8px 24px;height:32px;font-size:14px;border-radius:16px;border:none}svg{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}"
+module.exports = "﻿.mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin-left:5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_btn2{text-align:center;color:#09aaff;margin-left:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:\"lnum\";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center;white-space:nowrap}.mzf_new_btn{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;vertical-align:middle;font:inherit;overflow:visible;text-transform:none;font-family:SFUIText,PingFangSC-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;display:inline-block;line-height:1;white-space:nowrap;cursor:pointer;background:#fff;text-align:center;box-sizing:border-box;outline:0;margin:0;transition:.1s;color:#fff;background-color:#06a7ff;font-weight:700;padding:8px 24px;height:32px;font-size:14px;border-radius:16px;border:none}.mzf_arrow{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}.mzf_check{display:inline-block;background-color:#fff;border-radius:5px;border:1px solid #d3d3d3;width:20px;height:20px;text-align:center;vertical-align:middle;line-height:20px;margin-left:10px}.mzf_check_ori:checked+.mzf_check{background-color:#eee}.mzf_check_ori:checked+.mzf_check::after{content:\"✓\"}.mzf_check_ori{display:none}"
 
 /***/ }),
 
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>油猴插件菜单内添加 设置页, 生成页, 版本信息页 入口: <a\r\n          href=\"https://snimg.jamyido.top/large/008leDczly1han4nesswfj30de080tat.jpg\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">图例</a></li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
-
-/***/ }),
-
-/***/ 173:
-/***/ ((module) => {
-
-module.exports = ".swal2-popup.swal2-toast{box-sizing:border-box;grid-column:1/4!important;grid-row:1/4!important;grid-template-columns:1fr 99fr 1fr;padding:1em;overflow-y:hidden;background:#fff;box-shadow:0 0 1px hsla(0deg,0%,0%,.075),0 1px 2px hsla(0deg,0%,0%,.075),1px 2px 4px hsla(0deg,0%,0%,.075),1px 3px 8px hsla(0deg,0%,0%,.075),2px 4px 16px hsla(0deg,0%,0%,.075);pointer-events:all}.swal2-popup.swal2-toast>*{grid-column:2}.swal2-popup.swal2-toast .swal2-title{margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-popup.swal2-toast .swal2-loading{justify-content:center}.swal2-popup.swal2-toast .swal2-input{height:2em;margin:.5em;font-size:1em}.swal2-popup.swal2-toast .swal2-validation-message{font-size:1em}.swal2-popup.swal2-toast .swal2-footer{margin:.5em 0 0;padding:.5em 0 0;font-size:.8em}.swal2-popup.swal2-toast .swal2-close{grid-column:3/3;grid-row:1/99;align-self:center;width:.8em;height:.8em;margin:0;font-size:2em}.swal2-popup.swal2-toast .swal2-html-container{margin:.5em 1em;padding:0;font-size:1em;text-align:initial}.swal2-popup.swal2-toast .swal2-html-container:empty{padding:0}.swal2-popup.swal2-toast .swal2-loader{grid-column:1;grid-row:1/99;align-self:center;width:2em;height:2em;margin:.25em}.swal2-popup.swal2-toast .swal2-icon{grid-column:1;grid-row:1/99;align-self:center;width:2em;min-width:2em;height:2em;margin:0 .5em 0 0}.swal2-popup.swal2-toast .swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:1.8em;font-weight:700}.swal2-popup.swal2-toast .swal2-icon.swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line]{top:.875em;width:1.375em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:.3125em}.swal2-popup.swal2-toast .swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:.3125em}.swal2-popup.swal2-toast .swal2-actions{justify-content:flex-start;height:auto;margin:0;margin-top:.5em;padding:0 .5em}.swal2-popup.swal2-toast .swal2-styled{margin:.25em .5em;padding:.4em .6em;font-size:1em}.swal2-popup.swal2-toast .swal2-success{border-color:#a5dc86}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line]{position:absolute;width:1.6em;height:3em;transform:rotate(45deg);border-radius:50%}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.8em;left:-.5em;transform:rotate(-45deg);transform-origin:2em 2em;border-radius:4em 0 0 4em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.25em;left:.9375em;transform-origin:0 1.5em;border-radius:0 4em 4em 0}.swal2-popup.swal2-toast .swal2-success .swal2-success-ring{width:2em;height:2em}.swal2-popup.swal2-toast .swal2-success .swal2-success-fix{top:0;left:.4375em;width:.4375em;height:2.6875em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line]{height:.3125em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=tip]{top:1.125em;left:.1875em;width:.75em}.swal2-popup.swal2-toast .swal2-success [class^=swal2-success-line][class$=long]{top:.9375em;right:.1875em;width:1.375em}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-toast-animate-success-line-tip .75s;animation:swal2-toast-animate-success-line-tip .75s}.swal2-popup.swal2-toast .swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-toast-animate-success-line-long .75s;animation:swal2-toast-animate-success-line-long .75s}.swal2-popup.swal2-toast.swal2-show{-webkit-animation:swal2-toast-show .5s;animation:swal2-toast-show .5s}.swal2-popup.swal2-toast.swal2-hide{-webkit-animation:swal2-toast-hide .1s forwards;animation:swal2-toast-hide .1s forwards}.swal2-container{display:grid;position:fixed;z-index:1060;top:0;right:0;bottom:0;left:0;box-sizing:border-box;grid-template-areas:\"top-start     top            top-end\" \"center-start  center         center-end\" \"bottom-start  bottom-center  bottom-end\";grid-template-rows:minmax(-webkit-min-content,auto) minmax(-webkit-min-content,auto) minmax(-webkit-min-content,auto);grid-template-rows:minmax(min-content,auto) minmax(min-content,auto) minmax(min-content,auto);height:100%;padding:.625em;overflow-x:hidden;transition:background-color .1s;-webkit-overflow-scrolling:touch}.swal2-container.swal2-backdrop-show,.swal2-container.swal2-noanimation{background:rgba(0,0,0,.4)}.swal2-container.swal2-backdrop-hide{background:0 0!important}.swal2-container.swal2-bottom-start,.swal2-container.swal2-center-start,.swal2-container.swal2-top-start{grid-template-columns:minmax(0,1fr) auto auto}.swal2-container.swal2-bottom,.swal2-container.swal2-center,.swal2-container.swal2-top{grid-template-columns:auto minmax(0,1fr) auto}.swal2-container.swal2-bottom-end,.swal2-container.swal2-center-end,.swal2-container.swal2-top-end{grid-template-columns:auto auto minmax(0,1fr)}.swal2-container.swal2-top-start>.swal2-popup{align-self:start}.swal2-container.swal2-top>.swal2-popup{grid-column:2;align-self:start;justify-self:center}.swal2-container.swal2-top-end>.swal2-popup,.swal2-container.swal2-top-right>.swal2-popup{grid-column:3;align-self:start;justify-self:end}.swal2-container.swal2-center-left>.swal2-popup,.swal2-container.swal2-center-start>.swal2-popup{grid-row:2;align-self:center}.swal2-container.swal2-center>.swal2-popup{grid-column:2;grid-row:2;align-self:center;justify-self:center}.swal2-container.swal2-center-end>.swal2-popup,.swal2-container.swal2-center-right>.swal2-popup{grid-column:3;grid-row:2;align-self:center;justify-self:end}.swal2-container.swal2-bottom-left>.swal2-popup,.swal2-container.swal2-bottom-start>.swal2-popup{grid-column:1;grid-row:3;align-self:end}.swal2-container.swal2-bottom>.swal2-popup{grid-column:2;grid-row:3;justify-self:center;align-self:end}.swal2-container.swal2-bottom-end>.swal2-popup,.swal2-container.swal2-bottom-right>.swal2-popup{grid-column:3;grid-row:3;align-self:end;justify-self:end}.swal2-container.swal2-grow-fullscreen>.swal2-popup,.swal2-container.swal2-grow-row>.swal2-popup{grid-column:1/4;width:100%}.swal2-container.swal2-grow-column>.swal2-popup,.swal2-container.swal2-grow-fullscreen>.swal2-popup{grid-row:1/4;align-self:stretch}.swal2-container.swal2-no-transition{transition:none!important}.swal2-popup{display:none;position:relative;box-sizing:border-box;grid-template-columns:minmax(0,100%);width:32em;max-width:100%;padding:0 0 1.25em;border:none;border-radius:5px;background:#fff;color:#545454;font-family:inherit;font-size:1rem}.swal2-popup:focus{outline:0}.swal2-popup.swal2-loading{overflow-y:hidden}.swal2-title{position:relative;max-width:100%;margin:0;padding:.8em 1em 0;color:inherit;font-size:1.875em;font-weight:600;text-align:center;text-transform:none;word-wrap:break-word}.swal2-actions{display:flex;z-index:1;box-sizing:border-box;flex-wrap:wrap;align-items:center;justify-content:center;width:auto;margin:1.25em auto 0;padding:0}.swal2-actions:not(.swal2-loading) .swal2-styled[disabled]{opacity:.4}.swal2-actions:not(.swal2-loading) .swal2-styled:hover{background-image:linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,.1))}.swal2-actions:not(.swal2-loading) .swal2-styled:active{background-image:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.2))}.swal2-loader{display:none;align-items:center;justify-content:center;width:2.2em;height:2.2em;margin:0 1.875em;-webkit-animation:swal2-rotate-loading 1.5s linear 0s infinite normal;animation:swal2-rotate-loading 1.5s linear 0s infinite normal;border-width:.25em;border-style:solid;border-radius:100%;border-color:#2778c4 transparent #2778c4 transparent}.swal2-styled{margin:.3125em;padding:.625em 1.1em;transition:box-shadow .1s;box-shadow:0 0 0 3px transparent;font-weight:500}.swal2-styled:not([disabled]){cursor:pointer}.swal2-styled.swal2-confirm{border:0;border-radius:.25em;background:initial;background-color:#7066e0;color:#fff;font-size:1em}.swal2-styled.swal2-confirm:focus{box-shadow:0 0 0 3px rgba(112,102,224,.5)}.swal2-styled.swal2-deny{border:0;border-radius:.25em;background:initial;background-color:#dc3741;color:#fff;font-size:1em}.swal2-styled.swal2-deny:focus{box-shadow:0 0 0 3px rgba(220,55,65,.5)}.swal2-styled.swal2-cancel{border:0;border-radius:.25em;background:initial;background-color:#6e7881;color:#fff;font-size:1em}.swal2-styled.swal2-cancel:focus{box-shadow:0 0 0 3px rgba(110,120,129,.5)}.swal2-styled.swal2-default-outline:focus{box-shadow:0 0 0 3px rgba(100,150,200,.5)}.swal2-styled:focus{outline:0}.swal2-styled::-moz-focus-inner{border:0}.swal2-footer{justify-content:center;margin:1em 0 0;padding:1em 1em 0;border-top:1px solid #eee;color:inherit;font-size:1em}.swal2-timer-progress-bar-container{position:absolute;right:0;bottom:0;left:0;grid-column:auto!important;overflow:hidden;border-bottom-right-radius:5px;border-bottom-left-radius:5px}.swal2-timer-progress-bar{width:100%;height:.25em;background:rgba(0,0,0,.2)}.swal2-image{max-width:100%;margin:2em auto 1em}.swal2-close{z-index:2;align-items:center;justify-content:center;width:1.2em;height:1.2em;margin-top:0;margin-right:0;margin-bottom:-1.2em;padding:0;overflow:hidden;transition:color .1s,box-shadow .1s;border:none;border-radius:5px;background:0 0;color:#ccc;font-family:serif;font-family:monospace;font-size:2.5em;cursor:pointer;justify-self:end}.swal2-close:hover{transform:none;background:0 0;color:#f27474}.swal2-close:focus{outline:0;box-shadow:inset 0 0 0 3px rgba(100,150,200,.5)}.swal2-close::-moz-focus-inner{border:0}.swal2-html-container{z-index:1;justify-content:center;margin:1em 1.6em .3em;padding:0;overflow:auto;color:inherit;font-size:1.125em;font-weight:400;line-height:normal;text-align:center;word-wrap:break-word;word-break:break-word}.swal2-checkbox,.swal2-file,.swal2-input,.swal2-radio,.swal2-select,.swal2-textarea{margin:1em 2em 3px}.swal2-file,.swal2-input,.swal2-textarea{box-sizing:border-box;width:auto;transition:border-color .1s,box-shadow .1s;border:1px solid #d9d9d9;border-radius:.1875em;background:0 0;box-shadow:inset 0 1px 1px rgba(0,0,0,.06),0 0 0 3px transparent;color:inherit;font-size:1.125em}.swal2-file.swal2-inputerror,.swal2-input.swal2-inputerror,.swal2-textarea.swal2-inputerror{border-color:#f27474!important;box-shadow:0 0 2px #f27474!important}.swal2-file:focus,.swal2-input:focus,.swal2-textarea:focus{border:1px solid #b4dbed;outline:0;box-shadow:inset 0 1px 1px rgba(0,0,0,.06),0 0 0 3px rgba(100,150,200,.5)}.swal2-file::-moz-placeholder,.swal2-input::-moz-placeholder,.swal2-textarea::-moz-placeholder{color:#ccc}.swal2-file:-ms-input-placeholder,.swal2-input:-ms-input-placeholder,.swal2-textarea:-ms-input-placeholder{color:#ccc}.swal2-file::placeholder,.swal2-input::placeholder,.swal2-textarea::placeholder{color:#ccc}.swal2-range{margin:1em 2em 3px;background:#fff}.swal2-range input{width:80%}.swal2-range output{width:20%;color:inherit;font-weight:600;text-align:center}.swal2-range input,.swal2-range output{height:2.625em;padding:0;font-size:1.125em;line-height:2.625em}.swal2-input{height:2.625em;padding:0 .75em}.swal2-file{width:75%;margin-right:auto;margin-left:auto;background:0 0;font-size:1.125em}.swal2-textarea{height:6.75em;padding:.75em}.swal2-select{min-width:50%;max-width:100%;padding:.375em .625em;background:0 0;color:inherit;font-size:1.125em}.swal2-checkbox,.swal2-radio{align-items:center;justify-content:center;background:#fff;color:inherit}.swal2-checkbox label,.swal2-radio label{margin:0 .6em;font-size:1.125em}.swal2-checkbox input,.swal2-radio input{flex-shrink:0;margin:0 .4em}.swal2-input-label{display:flex;justify-content:center;margin:1em auto 0}.swal2-validation-message{align-items:center;justify-content:center;margin:1em 0 0;padding:.625em;overflow:hidden;background:#f0f0f0;color:#666;font-size:1em;font-weight:300}.swal2-validation-message::before{content:\"!\";display:inline-block;width:1.5em;min-width:1.5em;height:1.5em;margin:0 .625em;border-radius:50%;background-color:#f27474;color:#fff;font-weight:600;line-height:1.5em;text-align:center}.swal2-icon{position:relative;box-sizing:content-box;justify-content:center;width:5em;height:5em;margin:2.5em auto .6em;border:.25em solid transparent;border-radius:50%;border-color:#000;font-family:inherit;line-height:5em;cursor:default;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.swal2-icon .swal2-icon-content{display:flex;align-items:center;font-size:3.75em}.swal2-icon.swal2-error{border-color:#f27474;color:#f27474}.swal2-icon.swal2-error .swal2-x-mark{position:relative;flex-grow:1}.swal2-icon.swal2-error [class^=swal2-x-mark-line]{display:block;position:absolute;top:2.3125em;width:2.9375em;height:.3125em;border-radius:.125em;background-color:#f27474}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=left]{left:1.0625em;transform:rotate(45deg)}.swal2-icon.swal2-error [class^=swal2-x-mark-line][class$=right]{right:1em;transform:rotate(-45deg)}.swal2-icon.swal2-error.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-error.swal2-icon-show .swal2-x-mark{-webkit-animation:swal2-animate-error-x-mark .5s;animation:swal2-animate-error-x-mark .5s}.swal2-icon.swal2-warning{border-color:#facea8;color:#f8bb86}.swal2-icon.swal2-warning.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-warning.swal2-icon-show .swal2-icon-content{-webkit-animation:swal2-animate-i-mark .5s;animation:swal2-animate-i-mark .5s}.swal2-icon.swal2-info{border-color:#9de0f6;color:#3fc3ee}.swal2-icon.swal2-info.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-info.swal2-icon-show .swal2-icon-content{-webkit-animation:swal2-animate-i-mark .8s;animation:swal2-animate-i-mark .8s}.swal2-icon.swal2-question{border-color:#c9dae1;color:#87adbd}.swal2-icon.swal2-question.swal2-icon-show{-webkit-animation:swal2-animate-error-icon .5s;animation:swal2-animate-error-icon .5s}.swal2-icon.swal2-question.swal2-icon-show .swal2-icon-content{-webkit-animation:swal2-animate-question-mark .8s;animation:swal2-animate-question-mark .8s}.swal2-icon.swal2-success{border-color:#a5dc86;color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-circular-line]{position:absolute;width:3.75em;height:7.5em;transform:rotate(45deg);border-radius:50%}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=left]{top:-.4375em;left:-2.0635em;transform:rotate(-45deg);transform-origin:3.75em 3.75em;border-radius:7.5em 0 0 7.5em}.swal2-icon.swal2-success [class^=swal2-success-circular-line][class$=right]{top:-.6875em;left:1.875em;transform:rotate(-45deg);transform-origin:0 3.75em;border-radius:0 7.5em 7.5em 0}.swal2-icon.swal2-success .swal2-success-ring{position:absolute;z-index:2;top:-.25em;left:-.25em;box-sizing:content-box;width:100%;height:100%;border:.25em solid rgba(165,220,134,.3);border-radius:50%}.swal2-icon.swal2-success .swal2-success-fix{position:absolute;z-index:1;top:.5em;left:1.625em;width:.4375em;height:5.625em;transform:rotate(-45deg)}.swal2-icon.swal2-success [class^=swal2-success-line]{display:block;position:absolute;z-index:2;height:.3125em;border-radius:.125em;background-color:#a5dc86}.swal2-icon.swal2-success [class^=swal2-success-line][class$=tip]{top:2.875em;left:.8125em;width:1.5625em;transform:rotate(45deg)}.swal2-icon.swal2-success [class^=swal2-success-line][class$=long]{top:2.375em;right:.5em;width:2.9375em;transform:rotate(-45deg)}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-tip{-webkit-animation:swal2-animate-success-line-tip .75s;animation:swal2-animate-success-line-tip .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-line-long{-webkit-animation:swal2-animate-success-line-long .75s;animation:swal2-animate-success-line-long .75s}.swal2-icon.swal2-success.swal2-icon-show .swal2-success-circular-line-right{-webkit-animation:swal2-rotate-success-circular-line 4.25s ease-in;animation:swal2-rotate-success-circular-line 4.25s ease-in}.swal2-progress-steps{flex-wrap:wrap;align-items:center;max-width:100%;margin:1.25em auto;padding:0;background:0 0;font-weight:600}.swal2-progress-steps li{display:inline-block;position:relative}.swal2-progress-steps .swal2-progress-step{z-index:20;flex-shrink:0;width:2em;height:2em;border-radius:2em;background:#2778c4;color:#fff;line-height:2em;text-align:center}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step{background:#2778c4}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step{background:#add8e6;color:#fff}.swal2-progress-steps .swal2-progress-step.swal2-active-progress-step~.swal2-progress-step-line{background:#add8e6}.swal2-progress-steps .swal2-progress-step-line{z-index:10;flex-shrink:0;width:2.5em;height:.4em;margin:0 -1px;background:#2778c4}[class^=swal2]{-webkit-tap-highlight-color:transparent}.swal2-show{-webkit-animation:swal2-show .3s;animation:swal2-show .3s}.swal2-hide{-webkit-animation:swal2-hide .15s forwards;animation:swal2-hide .15s forwards}.swal2-noanimation{transition:none}.swal2-scrollbar-measure{position:absolute;top:-9999px;width:50px;height:50px;overflow:scroll}.swal2-rtl .swal2-close{margin-right:initial;margin-left:0}.swal2-rtl .swal2-timer-progress-bar{right:0;left:auto}.swal2-no-war{display:flex;position:fixed;z-index:1061;top:0;left:0;align-items:center;justify-content:center;width:100%;height:3.375em;background:#20232a;color:#fff;text-align:center}.swal2-no-war a{color:#61dafb;text-decoration:none}.swal2-no-war a:hover{text-decoration:underline}@-webkit-keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@keyframes swal2-toast-show{0%{transform:translateY(-.625em) rotateZ(2deg)}33%{transform:translateY(0) rotateZ(-2deg)}66%{transform:translateY(.3125em) rotateZ(2deg)}100%{transform:translateY(0) rotateZ(0)}}@-webkit-keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@keyframes swal2-toast-hide{100%{transform:rotateZ(1deg);opacity:0}}@-webkit-keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@keyframes swal2-toast-animate-success-line-tip{0%{top:.5625em;left:.0625em;width:0}54%{top:.125em;left:.125em;width:0}70%{top:.625em;left:-.25em;width:1.625em}84%{top:1.0625em;left:.75em;width:.5em}100%{top:1.125em;left:.1875em;width:.75em}}@-webkit-keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@keyframes swal2-toast-animate-success-line-long{0%{top:1.625em;right:1.375em;width:0}65%{top:1.25em;right:.9375em;width:0}84%{top:.9375em;right:0;width:1.125em}100%{top:.9375em;right:.1875em;width:1.375em}}@-webkit-keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@keyframes swal2-show{0%{transform:scale(.7)}45%{transform:scale(1.05)}80%{transform:scale(.95)}100%{transform:scale(1)}}@-webkit-keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@keyframes swal2-hide{0%{transform:scale(1);opacity:1}100%{transform:scale(.5);opacity:0}}@-webkit-keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@keyframes swal2-animate-success-line-tip{0%{top:1.1875em;left:.0625em;width:0}54%{top:1.0625em;left:.125em;width:0}70%{top:2.1875em;left:-.375em;width:3.125em}84%{top:3em;left:1.3125em;width:1.0625em}100%{top:2.8125em;left:.8125em;width:1.5625em}}@-webkit-keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@keyframes swal2-animate-success-line-long{0%{top:3.375em;right:2.875em;width:0}65%{top:3.375em;right:2.875em;width:0}84%{top:2.1875em;right:0;width:3.4375em}100%{top:2.375em;right:.5em;width:2.9375em}}@-webkit-keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@keyframes swal2-rotate-success-circular-line{0%{transform:rotate(-45deg)}5%{transform:rotate(-45deg)}12%{transform:rotate(-405deg)}100%{transform:rotate(-405deg)}}@-webkit-keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@keyframes swal2-animate-error-x-mark{0%{margin-top:1.625em;transform:scale(.4);opacity:0}50%{margin-top:1.625em;transform:scale(.4);opacity:0}80%{margin-top:-.375em;transform:scale(1.15)}100%{margin-top:0;transform:scale(1);opacity:1}}@-webkit-keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-animate-error-icon{0%{transform:rotateX(100deg);opacity:0}100%{transform:rotateX(0);opacity:1}}@-webkit-keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes swal2-rotate-loading{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@-webkit-keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@keyframes swal2-animate-question-mark{0%{transform:rotateY(-360deg)}100%{transform:rotateY(0)}}@-webkit-keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}@keyframes swal2-animate-i-mark{0%{transform:rotateZ(45deg);opacity:0}25%{transform:rotateZ(-25deg);opacity:.4}50%{transform:rotateZ(15deg);opacity:.8}75%{transform:rotateZ(-5deg);opacity:1}100%{transform:rotateX(0);opacity:1}}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow:hidden}body.swal2-height-auto{height:auto!important}body.swal2-no-backdrop .swal2-container{background-color:transparent!important;pointer-events:none}body.swal2-no-backdrop .swal2-container .swal2-popup{pointer-events:all}body.swal2-no-backdrop .swal2-container .swal2-modal{box-shadow:0 0 10px rgba(0,0,0,.4)}@media print{body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown){overflow-y:scroll!important}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown)>[aria-hidden=true]{display:none}body.swal2-shown:not(.swal2-no-backdrop):not(.swal2-toast-shown) .swal2-container{position:static!important}}body.swal2-toast-shown .swal2-container{box-sizing:border-box;width:360px;max-width:100%;background-color:transparent;pointer-events:none}body.swal2-toast-shown .swal2-container.swal2-top{top:0;right:auto;bottom:auto;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-top-end,body.swal2-toast-shown .swal2-container.swal2-top-right{top:0;right:0;bottom:auto;left:auto}body.swal2-toast-shown .swal2-container.swal2-top-left,body.swal2-toast-shown .swal2-container.swal2-top-start{top:0;right:auto;bottom:auto;left:0}body.swal2-toast-shown .swal2-container.swal2-center-left,body.swal2-toast-shown .swal2-container.swal2-center-start{top:50%;right:auto;bottom:auto;left:0;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-center{top:50%;right:auto;bottom:auto;left:50%;transform:translate(-50%,-50%)}body.swal2-toast-shown .swal2-container.swal2-center-end,body.swal2-toast-shown .swal2-container.swal2-center-right{top:50%;right:0;bottom:auto;left:auto;transform:translateY(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-left,body.swal2-toast-shown .swal2-container.swal2-bottom-start{top:auto;right:auto;bottom:0;left:0}body.swal2-toast-shown .swal2-container.swal2-bottom{top:auto;right:auto;bottom:0;left:50%;transform:translateX(-50%)}body.swal2-toast-shown .swal2-container.swal2-bottom-end,body.swal2-toast-shown .swal2-container.swal2-bottom-right{top:auto;right:0;bottom:0;left:auto}"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>完成了新脚本: <a href=\"https://greasyfork.org/zh-CN/scripts/459862\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">秒传链接提取Ultra</a>, 安装后无需打开网盘主页即可直接转存页面上的秒传链接</li>\r\n      <li>生成秒传时, 导出路径改为相对路径, 防止路径过长</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ })
 
@@ -4823,20 +4815,17 @@ var __webpack_exports__ = {};
 // EXTERNAL MODULE: ./src/css/app.scss
 var app = __webpack_require__(65);
 var app_default = /*#__PURE__*/__webpack_require__.n(app);
-// EXTERNAL MODULE: ./src/css/sweetalert2.min.css
-var sweetalert2_min = __webpack_require__(173);
-var sweetalert2_min_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_min);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-01-31 21:05:55
+ * @LastEditTime: 2023-02-12 04:47:43
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.5.7"; // 当前版本号
-var updateDate = "23.1.31"; // 更新弹窗显示的日期
-var updateInfoVer = "2.5.7"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var version = "2.5.8"; // 当前版本号
+var updateDate = "23.2.12"; // 更新弹窗显示的日期
+var updateInfoVer = "2.5.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.5.3"; // 用于检测可关闭的反馈提示的版本号
@@ -5085,7 +5074,7 @@ var updateInfo_default = /*#__PURE__*/__webpack_require__.n(updateInfo);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:16:57
- * @LastEditTime: 2022-12-24 10:55:17
+ * @LastEditTime: 2023-02-12 03:09:34
  * @LastEditors: mengzonefire
  * @Description: 存放各Swal弹窗的固定参数配置
  */
@@ -5165,7 +5154,7 @@ var SwalConfig = {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         allowOutsideClick: false,
-        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex;border-width: 1px;border-style: solid;\"> <option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option> <option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option> <option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option> <option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option> <option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option> <option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option> </select> <label for=\"mzf-fast-generate\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u6781\u901F\u751F\u6210 \u8BF4\u660E\u6587\u6863: <a href=\"" + doc.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B92</a></span><input type=\"checkbox\" value=\"1\" id=\"mzf-fast-generate\" style=\"margin-left: 20px;\"></label> <label for=\"mzf-listen-clipboard\" class=\"swal2-checkbox\" style=\"display: flex;\"><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span><input type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" style=\"margin-left: 20px;\"></label>",
+        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex; border-width: 1px; border-style: solid\" > <option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option> <option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option> <option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option> <option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option> <option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option> <option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option> </select> <label for=\"mzf-fast-generate\" class=\"swal2-checkbox\" style=\"display: flex\" ><span class=\"swal2-label\" >\u6781\u901F\u751F\u6210 \u8BF4\u660E\u6587\u6863: <a href=\"" + doc.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B92</a></span ><input class=\"mzf_check_ori\" type=\"checkbox\" value=\"1\" id=\"mzf-fast-generate\" /><span class=\"mzf_check\"></span ></label> <label for=\"mzf-listen-clipboard\" class=\"swal2-checkbox\" style=\"display: flex\" ><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span ><input class=\"mzf_check_ori\" type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" /><span class=\"mzf_check\"></span ></label>",
     },
     settingWarning: {
         title: "设置成功 刷新页面生效",
@@ -5188,7 +5177,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-17 19:48:11
+ * @LastEditTime: 2023-02-12 02:24:32
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5389,17 +5378,13 @@ var Swalbase = /** @class */ (function () {
             : this.rapiduploadTask.fileInfoList;
         var parseResult = parsefileInfo(fileInfoList);
         this.parseResult = parseResult;
-        if (isGen) {
-            this.rapiduploadTask.reset();
-            this.rapiduploadTask.fileInfoList = parseResult.successList;
-        }
         var checkboxArg = {
             input: "checkbox",
             inputValue: GM_getValue("with_path"),
             inputPlaceholder: "导出文件夹目录结构",
         }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
         var html = (isGen ? htmlDocument : "") + // 生成模式下添加文档入口
-            (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
+            (parseResult.htmlInfo && isGen ? "<br>" : "") +
             parseResult.htmlInfo; // 添加失败列表, 生成模式下添加顶部空行分隔
         var htmlFooter = "";
         if (!GM_getValue(donateVer + "_kill_donate"))
@@ -5407,13 +5392,15 @@ var Swalbase = /** @class */ (function () {
         if (!GM_getValue(feedbackVer + "_kill_donate"))
             htmlFooter += htmlFeedback; // 添加反馈入口提示
         if (htmlFooter)
-            htmlFooter = "<p><br></p>" + htmlFooter; // 添加底部空行分隔
+            htmlFooter = "<br>" + htmlFooter; // 添加底部空行分隔
         var swalArg = __assign(__assign({ title: action + "\u5B8C\u6BD5 \u5171" + fileInfoList.length + "\u4E2A, \u5931\u8D25" + parseResult.failList.length + "\u4E2A!", confirmButtonText: isGen ? "复制秒传代码" : "确认", showDenyButton: isGen, denyButtonText: "复制一键秒传", denyButtonColor: "#ecae3c", reverseButtons: true, html: html + htmlFooter }, (isGen && checkboxArg)), { willOpen: function () {
-                if (!isGen)
-                    _this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
                 if (isGen)
                     GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
-            }, preDeny: function () {
+                else
+                    _this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
+            }, 
+            // 秒传生成的 "复制一键秒传" 按钮回调
+            preDeny: function () {
                 var with_path = $("#swal2-checkbox")[0].checked;
                 GM_setValue("with_path", with_path);
                 if (!with_path)
@@ -5432,10 +5419,15 @@ var Swalbase = /** @class */ (function () {
                     var with_path = $("#swal2-checkbox")[0].checked;
                     GM_setValue("with_path", with_path);
                     if (!with_path)
-                        GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
+                        GM_setClipboard(parseResult.bdcode.replace(/#\/.+\//g, "#"));
                     // 去除秒传链接中的目录结构(仅保留文件名)
-                    else
-                        GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
+                    else {
+                        var localPathPrefix = "";
+                        var nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+                        if (nowPath)
+                            localPathPrefix = decodeURIComponent(nowPath[1]);
+                        GM_setClipboard(parseResult.bdcode.replace(new RegExp("#" + localPathPrefix + "/", "g"), "#")); // 去除前置的路径以及路径开头的'/', 将绝对路径转换为相对路径
+                    }
                     sweetalert2_all_default().getConfirmButton().innerText = "复制成功,点击右上关闭";
                     return false;
                 }
@@ -5524,13 +5516,14 @@ var Swalbase = /** @class */ (function () {
         sweetalert2_all_default().fire(this.mergeArg(SwalConfig.genView)).then(function (result) {
             if (result.isConfirmed) {
                 _this.generatebdlinkTask.reset();
-                result.value.split("\n").forEach(function (item) {
-                    if (item.charAt(0) !== "/")
-                        item = "/" + item; // 补齐路径前缀斜杠
-                    if (locUrl.includes(baiduSyncPage) && !item.includes(syncPathPrefix))
-                        item = syncPathPrefix + item; // 补全同步页路径前缀
+                result.value.split("\n").forEach(function (filePath) {
+                    if (filePath.charAt(0) !== "/")
+                        filePath = "/" + filePath; // 补齐路径前缀斜杠
+                    if (locUrl.includes(baiduSyncPage) &&
+                        !filePath.includes(syncPathPrefix))
+                        filePath = syncPathPrefix + filePath; // 补全同步页路径前缀
                     _this.generatebdlinkTask.fileInfoList.push({
-                        path: item,
+                        path: filePath,
                     });
                 });
                 _this.processView(true); // 显示进度弹窗
@@ -5649,15 +5642,12 @@ var Swalbase = /** @class */ (function () {
             var btn = cBtn.cloneNode();
             btn.textContent = "打开目录";
             btn.style.backgroundColor = "#ecae3c";
+            var nowPath_1 = location.href.match(/(path=(.+?))(?:&|$)/);
             btn.onclick = function () {
-                var path = location.href.match(/(path=(.+?))(?:&|$)/);
-                if (path) {
-                    if (path[2] !== encodeURIComponent(_dir_1))
-                        location.href = location.href.replace(
-                        // 仅替换path参数, 不修改其他参数
-                        path[1], "path=" + encodeURIComponent(_dir_1));
-                    else
-                        refreshList(); // path参数相同, 已在目标目录下, 调用刷新函数
+                if (nowPath_1) {
+                    location.href = location.href.replace(
+                    // 仅替换path参数, 不修改其他参数
+                    nowPath_1[1], "path=" + encodeURIComponent(_dir_1));
                 }
                 else {
                     var connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
@@ -5665,7 +5655,9 @@ var Swalbase = /** @class */ (function () {
                 } // 没有找到path参数, 直接添加
                 sweetalert2_all_default().close();
             };
-            cBtn.before(btn);
+            if (nowPath_1 && nowPath_1[2] !== encodeURIComponent(_dir_1))
+                // 当前已在转存目录时不添加按钮
+                cBtn.before(btn);
         }
     };
     return Swalbase;
@@ -5708,7 +5700,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-28 12:37:08
+ * @LastEditTime: 2023-02-09 23:33:17
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5831,7 +5823,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-24 10:57:36
+ * @LastEditTime: 2023-02-09 23:33:26
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -6321,7 +6313,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-28 12:37:08
+ * @LastEditTime: 2023-02-09 23:33:17
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -6529,7 +6521,7 @@ function baiduErrno(errno) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-22 04:01:11
- * @LastEditTime: 2023-01-07 19:51:37
+ * @LastEditTime: 2023-02-11 00:47:29
  * @LastEditors: mengzonefire
  * @Description: 存放工具函数
  */
@@ -6613,15 +6605,15 @@ function parsefileInfo(fileInfoList) {
         failBranchList.forEach(function (item) {
             failBranchInfo += "<p>" + item.path + "</p>";
         });
-        failedInfo += "<details class=\"mzf_details mzf_details_branch\"><summary><svg width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>" + baiduErrno(Number(failCode)) + "(#" + Number(failCode) + "):</b>" + copyFailBranchList + "</summary></details><div class=\"mzf_content\">" + failBranchInfo + "</div>";
+        failedInfo += "<details class=\"mzf_details mzf_details_branch\"><summary><svg class=\"mzf_arrow\" width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>" + baiduErrno(Number(failCode)) + "(#" + Number(failCode) + "):</b>" + copyFailBranchList + "</summary></details><div class=\"mzf_content\">" + failBranchInfo + "</div>";
     };
     for (var failCode in failCodeDic) {
         _loop_1(failCode);
     }
     if (failedInfo)
-        failedInfo = "<details class=\"mzf_details\"><summary><svg width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u5931\u8D25\u6587\u4EF6\u5217\u8868(\u70B9\u51FB\u5C55\u5F00):</b>" + copyFailList + "</summary></details><div class=\"mzf_content\">" + failedInfo + "</div>";
+        failedInfo = "<details class=\"mzf_details\"><summary><svg class=\"mzf_arrow\" width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u5931\u8D25\u6587\u4EF6\u5217\u8868(\u70B9\u51FB\u5C55\u5F00):</b>" + copyFailList + "</summary></details><div class=\"mzf_content\">" + failedInfo + "</div>";
     if (successInfo)
-        successInfo = "<details class=\"mzf_details\"><summary><svg width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u6210\u529F\u6587\u4EF6\u5217\u8868(\u70B9\u51FB\u5C55\u5F00):</b>" + copySuccessList + "</summary></details><div class=\"mzf_content\">" + successInfo + "</div>";
+        successInfo = "<details class=\"mzf_details\"><summary><svg class=\"mzf_arrow\" width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u6210\u529F\u6587\u4EF6\u5217\u8868(\u70B9\u51FB\u5C55\u5F00):</b>" + copySuccessList + "</summary></details><div class=\"mzf_content\">" + successInfo + "</div>";
     bdcode = bdcode.trim();
     return {
         htmlInfo: successInfo && failedInfo
@@ -7062,11 +7054,10 @@ function loaderBaidu() {
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:32:18
- * @LastEditTime: 2022-12-24 10:56:39
+ * @LastEditTime: 2023-02-12 04:43:49
  * @LastEditors: mengzonefire
  * @Description: 样式注入模块
  */
-
 
 
 
@@ -7078,9 +7069,7 @@ function loaderBaidu() {
 function injectStyle() {
     GM_addStyle((app_default())); // 注入自定义样式
     var swalThemes = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
-    if (swalThemes === "Default")
-        GM_addStyle((sweetalert2_min_default()));
-    else {
+    if ("Default" != swalThemes) {
         var ThemesCss = GM_getValue("" + swalCssVer + swalThemes); // 从缓存获取非默认主题的css代码
         if (ThemesCss)
             GM_addStyle(ThemesCss);

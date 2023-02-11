@@ -78,7 +78,7 @@
 }
 
 /*折叠框箭头样式*/
-svg {
+.mzf_arrow {
   margin-right: 5px;
   transform: rotate(180deg);
   transition: transform 0.2s;
@@ -126,4 +126,27 @@ svg {
 
 .mzf_updateInfo span {
   vertical-align: baseline;
+}
+
+/*自定义单选框样式*/
+.mzf_check {
+  display: inline-block;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 20px;
+  margin-left: 10px;
+}
+.mzf_check_ori:checked + .mzf_check {
+  background-color: #eee;
+}
+.mzf_check_ori:checked + .mzf_check::after {
+  content: "✓";
+}
+.mzf_check_ori {
+  display: none;
 }

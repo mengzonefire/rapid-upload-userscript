@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2022-12-17 19:48:11
+ * @LastEditTime: 2023-02-12 02:24:32
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -165,10 +165,6 @@ export default class Swalbase {
       : this.rapiduploadTask.fileInfoList;
     let parseResult = parsefileInfo(fileInfoList);
     this.parseResult = parseResult;
-    if (isGen) {
-      this.rapiduploadTask.reset();
-      this.rapiduploadTask.fileInfoList = parseResult.successList;
-    }
     let checkboxArg = {
       input: "checkbox",
       inputValue: GM_getValue("with_path"),
@@ -176,12 +172,12 @@ export default class Swalbase {
     }; // 全部失败不显示此checkbox, 22.5.22: 全部失败也显示
     let html =
       (isGen ? htmlDocument : "") + // 生成模式下添加文档入口
-      (parseResult.htmlInfo && isGen ? "<p><br></p>" : "") +
+      (parseResult.htmlInfo && isGen ? "<br>" : "") +
       parseResult.htmlInfo; // 添加失败列表, 生成模式下添加顶部空行分隔
     let htmlFooter = "";
     if (!GM_getValue(`${donateVer}_kill_donate`)) htmlFooter += htmlDonate; // 添加赞助入口提示
     if (!GM_getValue(`${feedbackVer}_kill_donate`)) htmlFooter += htmlFeedback; // 添加反馈入口提示
-    if (htmlFooter) htmlFooter = "<p><br></p>" + htmlFooter; // 添加底部空行分隔
+    if (htmlFooter) htmlFooter = "<br>" + htmlFooter; // 添加底部空行分隔
     let swalArg = {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failList.length}个!`,
       confirmButtonText: isGen ? "复制秒传代码" : "确认",
@@ -192,9 +188,11 @@ export default class Swalbase {
       html: html + htmlFooter,
       ...(isGen && checkboxArg),
       willOpen: () => {
-        if (!isGen) this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
-        if (isGen) GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
+        if (isGen)
+          GM_setValue("unClose", true); // 生成模式设置结果窗口未关闭的标记
+        else this.addOpenDirBtn(); // 转存模式时添加 "打开目录" 按钮
       },
+      // 秒传生成的 "复制一键秒传" 按钮回调
       preDeny: () => {
         let with_path = $("#swal2-checkbox")[0].checked;
         GM_setValue("with_path", with_path);
@@ -216,9 +214,19 @@ export default class Swalbase {
           let with_path = $("#swal2-checkbox")[0].checked;
           GM_setValue("with_path", with_path);
           if (!with_path)
-            GM_setClipboard(parseResult.bdcode.replace(/\/.+\//g, ""));
+            GM_setClipboard(parseResult.bdcode.replace(/#\/.+\//g, "#"));
           // 去除秒传链接中的目录结构(仅保留文件名)
-          else GM_setClipboard(parseResult.bdcode); // 保留完整的文件路径
+          else {
+            let localPathPrefix = "";
+            let nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+            if (nowPath) localPathPrefix = decodeURIComponent(nowPath[1]);
+            GM_setClipboard(
+              parseResult.bdcode.replace(
+                new RegExp(`#${localPathPrefix}/`, "g"),
+                "#"
+              )
+            ); // 去除前置的路径以及路径开头的'/', 将绝对路径转换为相对路径
+          }
           Swal.getConfirmButton().innerText = "复制成功,点击右上关闭";
           return false;
         } else {
@@ -307,12 +315,15 @@ export default class Swalbase {
     Swal.fire(this.mergeArg(SwalConfig.genView)).then((result: any) => {
       if (result.isConfirmed) {
         this.generatebdlinkTask.reset();
-        result.value.split("\n").forEach((item: string) => {
-          if (item.charAt(0) !== "/") item = "/" + item; // 补齐路径前缀斜杠
-          if (locUrl.includes(baiduSyncPage) && !item.includes(syncPathPrefix))
-            item = syncPathPrefix + item; // 补全同步页路径前缀
+        result.value.split("\n").forEach((filePath: string) => {
+          if (filePath.charAt(0) !== "/") filePath = "/" + filePath; // 补齐路径前缀斜杠
+          if (
+            locUrl.includes(baiduSyncPage) &&
+            !filePath.includes(syncPathPrefix)
+          )
+            filePath = syncPathPrefix + filePath; // 补全同步页路径前缀
           this.generatebdlinkTask.fileInfoList.push({
-            path: item,
+            path: filePath,
           });
         });
         this.processView(true); // 显示进度弹窗
@@ -440,23 +451,23 @@ export default class Swalbase {
       let btn: HTMLElement = cBtn.cloneNode() as HTMLElement;
       btn.textContent = "打开目录";
       btn.style.backgroundColor = "#ecae3c";
+      let nowPath = location.href.match(/(path=(.+?))(?:&|$)/);
       btn.onclick = () => {
-        let path = location.href.match(/(path=(.+?))(?:&|$)/);
-        if (path) {
-          if (path[2] !== encodeURIComponent(_dir))
-            location.href = location.href.replace(
-              // 仅替换path参数, 不修改其他参数
-              path[1],
-              `path=${encodeURIComponent(_dir)}`
-            );
-          else refreshList(); // path参数相同, 已在目标目录下, 调用刷新函数
+        if (nowPath) {
+          location.href = location.href.replace(
+            // 仅替换path参数, 不修改其他参数
+            nowPath[1],
+            `path=${encodeURIComponent(_dir)}`
+          );
         } else {
           let connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
           location.href += `${connectChar}path=${encodeURIComponent(_dir)}`;
         } // 没有找到path参数, 直接添加
         Swal.close();
       };
-      cBtn.before(btn);
+      if (nowPath && nowPath[2] !== encodeURIComponent(_dir))
+        // 当前已在转存目录时不添加按钮
+        cBtn.before(btn);
     }
   }
 }

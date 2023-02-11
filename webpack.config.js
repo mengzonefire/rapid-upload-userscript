@@ -109,7 +109,6 @@ module.exports = {
           "GM_getValue",
           "GM_deleteValue",
           "GM_setClipboard",
-          "GM_getResourceText",
           "GM_addStyle",
           "GM_xmlhttpRequest",
           "GM_registerMenuCommand",
@@ -118,7 +117,7 @@ module.exports = {
         "run-at": "document-body",
         connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
       },
-      pretty: false,
+      pretty: true,
     }),
   ],
   optimization: {

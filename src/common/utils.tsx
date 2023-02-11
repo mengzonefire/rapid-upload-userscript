@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-22 04:01:11
- * @LastEditTime: 2023-01-07 19:51:37
+ * @LastEditTime: 2023-02-11 00:47:29
  * @LastEditors: mengzonefire
  * @Description: 存放工具函数
  */
@@ -12,7 +12,6 @@ import {
   copyFailBranchList,
   copyFailList,
   copySuccessList,
-  FileInfo,
   TAG,
 } from "./const";
 import { DuParser } from "./duParser";
@@ -60,16 +59,16 @@ export function parsefileInfo(fileInfoList: Array<FileInfo>) {
     failBranchList.forEach((item: any) => {
       failBranchInfo += `<p>${item.path}</p>`;
     });
-    failedInfo += `<details class="mzf_details mzf_details_branch"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>${baiduErrno(
+    failedInfo += `<details class="mzf_details mzf_details_branch"><summary><svg class="mzf_arrow" width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>${baiduErrno(
       Number(failCode)
     )}(#${Number(
       failCode
     )}):</b>${copyFailBranchList}</summary></details><div class="mzf_content">${failBranchInfo}</div>`;
   }
   if (failedInfo)
-    failedInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>失败文件列表(点击展开):</b>${copyFailList}</summary></details><div class="mzf_content">${failedInfo}</div>`;
+    failedInfo = `<details class="mzf_details"><summary><svg class="mzf_arrow" width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>失败文件列表(点击展开):</b>${copyFailList}</summary></details><div class="mzf_content">${failedInfo}</div>`;
   if (successInfo)
-    successInfo = `<details class="mzf_details"><summary><svg width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>成功文件列表(点击展开):</b>${copySuccessList}</summary></details><div class="mzf_content">${successInfo}</div>`;
+    successInfo = `<details class="mzf_details"><summary><svg class="mzf_arrow" width="16" height="7"><polyline points="0,0 8,7 16,0"/></svg><b>成功文件列表(点击展开):</b>${copySuccessList}</summary></details><div class="mzf_content">${successInfo}</div>`;
   bdcode = bdcode.trim();
   return {
     htmlInfo:

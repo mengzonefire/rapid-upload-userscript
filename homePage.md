@@ -2,6 +2,8 @@
 
 ## 近期通知
 
+- 23.2.12: 完成了新脚本 [秒传链接提取Ultra](https://greasyfork.org/zh-CN/scripts/459862): 无需访问度盘主页, 直接转存页面上的秒传链接
+
 - 22.12.24: 从10.24开始, 疑似度盘服务端更新后未同步数据, 导致 使用<span style="color: red">旧PCS接口</span>([PCS-GO](https://github.com/qjfoidnh/BaiduPCS-Go)等第三方客户端)上传的文件<span style="color: red">秒传全部失效</span>(新旧文件均失效), 至今仍未恢复, 使用 官方客户端 和 官方网页端 上传的文件则不受影响
   - 如何恢复失效的秒传: 使用 官方客户端 / 官方网页端 重传文件即可
 
@@ -70,18 +72,11 @@
 
 ## 待更新
 
-1. ~~不少人反馈依赖加载失败, 找找更好的cdn替换unpkg~~(打算放弃使用cdn并内置所有依赖)(已完成)
-
-2. [给页面中的秒传添加一键秒传超链接](https://greasyfork.org/zh-CN/scripts/424574/discussions/127485) (作为独立脚本发布和维护)
-
-3. ~~尝试通过混合模式生成解决 “极速生成” 功能 生成部分md5错误的秒传的问题~~ (已完成)
-
-4. ~~尝试解决秒传转存v2接口在批量连续转存文件时出现转存结果错误的问题 (秒传正确但转存显示秒传未生效, 单独转存该文件又能正常转存)~~ (已完成)
-   * PS: “极速生成” 得到的简化版秒传只能通过v2接口转存
+1. ~~[给页面中的秒传添加一键秒传超链接](https://greasyfork.org/zh-CN/scripts/424574/discussions/127485)~~ (已完成, 见 [秒传链接提取Ultra]())
 
 <details>
 <summary>已完成 [点击展开]</summary>
-<ol><li>支持 新版度盘页面 下的 "生成秒传" 功能 (完成)</li><li>支持 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 的秒传提取&生成 (废弃, 阿里官方限制了秒传接口)</li><li>支持 <a href="https://pan.baidu.com/disk/main?from=oldversion#/index">新版度盘页面</a> (完成)</li><li>修复设置为非默认主题时, 窗口内会出现警告标识的问题 (完成, 实际为主题包不适配旧版 sweetalert2)</li><li>cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn (完成)</li><li>转存完成后的提示框添加转存成功列表(使用折叠框隐藏)(完成)</li></ol>
+<ol><li><p>不少人反馈依赖加载失败, 找找更好的cdn替换unpkg(打算放弃使用cdn并内置所有依赖)(已完成)</p></li><li><p>尝试通过混合模式生成解决 “极速生成” 功能 生成部分md5错误的秒传的问题 (已完成)</p></li><li><p>尝试解决秒传转存v2接口在批量连续转存文件时出现转存结果错误的问题 (秒传正确但转存显示秒传未生效, 单独转存该文件又能正常转存) (已完成)</p><ul><li>PS: “极速生成” 得到的简化版秒传只能通过v2接口转存</li></ul></li><li>支持 新版度盘页面 下的 "生成秒传" 功能 (完成)</li><li>支持 <a href="https://www.aliyundrive.com/drive/">阿里云盘</a> 的秒传提取&生成 (废弃, 阿里官方限制了秒传接口)</li><li>支持 <a href="https://pan.baidu.com/disk/main?from=oldversion#/index">新版度盘页面</a> (完成)</li><li>修复设置为非默认主题时, 窗口内会出现警告标识的问题 (完成, 实际为主题包不适配旧版 sweetalert2)</li><li>cdn.jsdelivr.net抽风有点严重, 尝试添加替代cdn (完成)</li><li>转存完成后的提示框添加转存成功列表(使用折叠框隐藏)(完成)</li></ol>
 </details>
 
 ## 秒传链接的获取方式

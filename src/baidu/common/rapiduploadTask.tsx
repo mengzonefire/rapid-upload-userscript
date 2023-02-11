@@ -1,13 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2022-12-28 12:37:08
+ * @LastEditTime: 2023-02-09 23:33:17
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
 
 import ajax from "@/common/ajax";
-import { FileInfo } from "@/common/const";
 import { convertData, suffixChange } from "@/common/utils";
 import {
   retryMax_apiV2,

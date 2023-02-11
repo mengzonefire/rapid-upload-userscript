@@ -1,13 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2022-12-24 10:57:36
+ * @LastEditTime: 2023-02-09 23:33:26
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
 
 import ajax from "@/common/ajax";
-import { FileInfo, homePage } from "@/common/const";
+import { homePage } from "@/common/const";
 import {
   convertData,
   decryptMd5,
