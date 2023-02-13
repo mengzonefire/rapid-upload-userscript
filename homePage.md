@@ -72,7 +72,7 @@
 
 ## 待更新
 
-1. ~~[给页面中的秒传添加一键秒传超链接](https://greasyfork.org/zh-CN/scripts/424574/discussions/127485)~~ (已完成, 见 [秒传链接提取Ultra]())
+1. ~~[给页面中的秒传添加一键秒传超链接](https://greasyfork.org/zh-CN/scripts/424574/discussions/127485)~~ (已完成, 见 [秒传链接提取Ultra](https://greasyfork.org/zh-CN/scripts/459862))
 
 <details>
 <summary>已完成 [点击展开]</summary>
