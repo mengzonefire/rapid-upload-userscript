@@ -1,12 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:32:18
- * @LastEditTime: 2023-02-12 04:43:49
+ * @LastEditTime: 2023-02-14 03:25:02
  * @LastEditors: mengzonefire
  * @Description: 样式注入模块
  */
-
-import appCss from "@/css/app.scss";
+import appCss from "@/css/app.css";
+import appSCss from "@/css/app.scss";
 import { showAlert } from "./utils";
 import { extCssUrl, appError, swalCssVer } from "./const";
 import { loaderBaidu } from "../baidu/loader";
@@ -16,7 +16,9 @@ import ajax from "./ajax";
  * @description: 注入脚本样式
  */
 export function injectStyle(): void {
-  GM_addStyle(appCss); // 注入自定义样式
+  // 注入自定义样式
+  GM_addStyle(appCss);
+  GM_addStyle(appSCss);
   let swalThemes: string = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
   if ("Default" != swalThemes) {
     let ThemesCss: string = GM_getValue(`${swalCssVer}${swalThemes}`); // 从缓存获取非默认主题的css代码

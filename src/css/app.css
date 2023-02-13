@@ -1,0 +1,54 @@
+/*自定义单选框样式*/
+.mzf_check {
+  display: inline-block;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #d3d3d3;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 20px;
+  margin-left: 10px;
+}
+.mzf_check_ori:checked + .mzf_check {
+  background-color: #eee;
+}
+.mzf_check_ori:checked + .mzf_check::after {
+  content: "✓";
+}
+.mzf_check_ori {
+  display: none;
+}
+
+/*新版度盘页面的按钮样式(直接拷贝)*/
+.mzf_new_btn {
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  vertical-align: middle;
+  font: inherit;
+  overflow: visible;
+  text-transform: none;
+  font-family: SFUIText, PingFangSC-Regular, Helvetica Neue, Helvetica, Arial,
+    sans-serif;
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  background: #fff;
+  text-align: center;
+  box-sizing: border-box;
+  outline: 0;
+  margin: 0;
+  transition: 0.1s;
+  color: #fff;
+  background-color: #06a7ff;
+  font-weight: 700;
+  padding: 8px 24px;
+  height: 32px;
+  font-size: 14px;
+  border-radius: 16px;
+  border: none;
+  margin-left: 8px;
+}

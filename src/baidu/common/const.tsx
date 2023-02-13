@@ -1,15 +1,15 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-01-14 21:43:19
+ * @LastEditTime: 2023-02-14 03:05:09
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 
 import { doc, doc2, linkStyle } from "@/common/const";
 import Swalbase from "@/common/swalBase";
-import GeneratebdlinkTask from "./GeneratebdlinkTask";
-import RapiduploadTask from "./RapiduploadTask";
+import GeneratebdlinkTask from "./generatebdlinkTask";
+import RapiduploadTask from "./rapiduploadTask";
 
 const host = location.host;
 export const listLimit = 10000;

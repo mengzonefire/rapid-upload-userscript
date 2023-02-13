@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.5.9
+// @version         2.6.0
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4743,7 +4743,7 @@ if (typeof this !== 'undefined' && this.Sweetalert2){this.swal = this.sweetAlert
 /***/ 65:
 /***/ ((module) => {
 
-module.exports = "﻿.mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin-left:5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_btn2{text-align:center;color:#09aaff;margin-left:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:\"lnum\";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center;white-space:nowrap}.mzf_new_btn{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;vertical-align:middle;font:inherit;overflow:visible;text-transform:none;font-family:SFUIText,PingFangSC-Regular,Helvetica Neue,Helvetica,Arial,sans-serif;display:inline-block;line-height:1;white-space:nowrap;cursor:pointer;background:#fff;text-align:center;box-sizing:border-box;outline:0;margin:0;transition:.1s;color:#fff;background-color:#06a7ff;font-weight:700;padding:8px 24px;height:32px;font-size:14px;border-radius:16px;border:none}.mzf_arrow{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}.mzf_check{display:inline-block;background-color:#fff;border-radius:5px;border:1px solid #d3d3d3;width:20px;height:20px;text-align:center;vertical-align:middle;line-height:20px;margin-left:10px}.mzf_check_ori:checked+.mzf_check{background-color:#eee}.mzf_check_ori:checked+.mzf_check::after{content:\"✓\"}.mzf_check_ori{display:none}"
+module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin-left:5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_btn2{text-align:center;color:#09aaff;margin-left:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:\"lnum\";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center;white-space:nowrap}.mzf_arrow{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}"
 
 /***/ }),
 
@@ -4751,6 +4751,13 @@ module.exports = "﻿.mzf_btn{text-align:center;font-size:.85em;color:#09aaff;bo
 /***/ ((module) => {
 
 module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>完成了新脚本: <a href=\"https://greasyfork.org/zh-CN/scripts/459862\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">秒传链接提取Ultra</a>, 安装后无需打开网盘主页即可直接转存页面上的秒传链接</li>\r\n      <li>生成秒传时, 导出路径改为相对路径, 防止路径过长</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+
+/***/ }),
+
+/***/ 149:
+/***/ ((module) => {
+
+module.exports = "/*自定义单选框样式*/\n.mzf_check {\n  display: inline-block;\n  background-color: white;\n  border-radius: 5px;\n  border: 1px solid #d3d3d3;\n  width: 20px;\n  height: 20px;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 20px;\n  margin-left: 10px;\n}\n.mzf_check_ori:checked + .mzf_check {\n  background-color: #eee;\n}\n.mzf_check_ori:checked + .mzf_check::after {\n  content: \"✓\";\n}\n.mzf_check_ori {\n  display: none;\n}\n\n/*新版度盘页面的按钮样式(直接拷贝)*/\n.mzf_new_btn {\n  -webkit-text-size-adjust: 100%;\n  -webkit-font-smoothing: antialiased;\n  -webkit-tap-highlight-color: transparent;\n  vertical-align: middle;\n  font: inherit;\n  overflow: visible;\n  text-transform: none;\n  font-family: SFUIText, PingFangSC-Regular, Helvetica Neue, Helvetica, Arial,\n    sans-serif;\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  text-align: center;\n  box-sizing: border-box;\n  outline: 0;\n  margin: 0;\n  transition: 0.1s;\n  color: #fff;\n  background-color: #06a7ff;\n  font-weight: 700;\n  padding: 8px 24px;\n  height: 32px;\n  font-size: 14px;\n  border-radius: 16px;\n  border: none;\n  margin-left: 8px;\n}\n"
 
 /***/ })
 
@@ -4816,18 +4823,21 @@ var __webpack_exports__ = {};
 (() => {
 "use strict";
 
-// EXTERNAL MODULE: ./src/css/app.scss
-var app = __webpack_require__(65);
+// EXTERNAL MODULE: ./src/css/app.css
+var app = __webpack_require__(149);
 var app_default = /*#__PURE__*/__webpack_require__.n(app);
+// EXTERNAL MODULE: ./src/css/app.scss
+var css_app = __webpack_require__(65);
+var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 ;// CONCATENATED MODULE: ./src/common/const.tsx
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-02-14 00:47:46
+ * @LastEditTime: 2023-02-14 03:58:30
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.5.9"; // 当前版本号
+var version = "2.6.0"; // 当前版本号
 var updateDate = "23.2.14"; // 更新弹窗显示的日期
 var updateInfoVer = "2.5.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -5672,7 +5682,7 @@ var Swalbase = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-27 14:48:24
- * @LastEditTime: 2022-11-14 05:50:35
+ * @LastEditTime: 2023-02-14 04:10:09
  * @LastEditors: mengzonefire
  * @Description: 自封装JQ ajax方法
  */
@@ -5691,8 +5701,10 @@ var ajax_assign = (undefined && undefined.__assign) || function () {
 function ajax(config, callback, failback) {
     GM_xmlhttpRequest(ajax_assign(ajax_assign({}, config), { onload: function (r) {
             // console.log(r); // debug
-            if (Math.floor(r.status / 100) === 2)
+            if (Math.floor(r.status / 100) === 2) {
+                console.info("%s version: %s 接口返回: %s", TAG, version, JSON.stringify(r.response)); // user debug
                 callback(r);
+            }
             else
                 failback(r.status);
         }, onerror: function () {
@@ -5803,7 +5815,7 @@ var RapiduploadTask = /** @class */ (function () {
     };
     return RapiduploadTask;
 }());
-/* harmony default export */ const rapiduploadTask = ((/* unused pure expression or super */ null && (RapiduploadTask)));
+/* harmony default export */ const rapiduploadTask = (RapiduploadTask);
 // 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
 function precreateFileV2(file, onResponsed, onFailed) {
     ajax({
@@ -5823,7 +5835,7 @@ function precreateFileV2(file, onResponsed, onFailed) {
 // EXTERNAL MODULE: ./node_modules/spark-md5/spark-md5.js
 var spark_md5 = __webpack_require__(322);
 var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
-;// CONCATENATED MODULE: ./src/baidu/common/GeneratebdlinkTask.tsx
+;// CONCATENATED MODULE: ./src/baidu/common/generatebdlinkTask.tsx
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
@@ -6311,133 +6323,13 @@ var GeneratebdlinkTask = /** @class */ (function () {
     };
     return GeneratebdlinkTask;
 }());
-/* harmony default export */ const common_GeneratebdlinkTask = (GeneratebdlinkTask);
-
-;// CONCATENATED MODULE: ./src/baidu/common/RapiduploadTask.tsx
-/*
- * @Author: mengzonefire
- * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-02-09 23:33:17
- * @LastEditors: mengzonefire
- * @Description: 百度网盘 秒传转存任务实现
- */
-
-
-
-var RapiduploadTask_RapiduploadTask = /** @class */ (function () {
-    function RapiduploadTask() {
-    }
-    RapiduploadTask.prototype.reset = function () {
-        this.bdstoken = getBdstoken();
-        console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
-        this.fileInfoList = [];
-        this.savePath = "";
-        this.isDefaultPath = false;
-        this.onFinish = function () { };
-        this.onProcess = function () { };
-    };
-    RapiduploadTask.prototype.start = function () {
-        this.saveFileV2(0);
-    };
-    /**
-     * @description: 转存秒传 接口2
-     * @param {number} i
-     */
-    RapiduploadTask.prototype.saveFileV2 = function (i) {
-        var _this = this;
-        if (i >= this.fileInfoList.length) {
-            this.onFinish(this.fileInfoList);
-            return;
-        }
-        this.onProcess(i, this.fileInfoList);
-        var file = this.fileInfoList[i];
-        // 文件名为空
-        if (file.path === "/") {
-            file.errno = -7;
-            this.saveFileV2(i + 1);
-            return;
-        }
-        var onFailed = function (statusCode) {
-            file.errno = statusCode;
-            _this.saveFileV2(i + 1);
-        };
-        RapiduploadTask_precreateFileV2.call(this, file, function (data) {
-            data = data.response;
-            if (0 === data.errno) {
-                if (0 === data.block_list.length) {
-                    _this.createFileV2(file, function (data) {
-                        data = data.response;
-                        file.errno = 2 === data.errno ? 114 : data.errno;
-                        file.errno = 31190 === file.errno ? 404 : file.errno;
-                        _this.saveFileV2(i + 1);
-                    }, onFailed);
-                }
-                else {
-                    file.errno = 404;
-                    _this.saveFileV2(i + 1);
-                }
-            }
-            else {
-                file.errno = data.errno;
-                _this.saveFileV2(i + 1);
-            }
-        }, onFailed);
-    };
-    // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
-    // 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
-    RapiduploadTask.prototype.createFileV2 = function (file, onResponsed, onFailed, retry) {
-        var _this = this;
-        if (retry === void 0) { retry = 0; }
-        ajax({
-            url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
-            method: "POST",
-            responseType: "json",
-            data: convertData({
-                block_list: JSON.stringify([file.md5.toLowerCase()]),
-                path: this.savePath + file.path.replace(illegalPathPattern, "_"),
-                size: file.size,
-                isdir: 0,
-                rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
-            }),
-        }, function (data) {
-            // console.log(data.response); // debug
-            if (31039 === data.response.errno && 31039 != file.errno) {
-                file.errno = 31039;
-                file.path = suffixChange(file.path);
-                _this.createFileV2(file, onResponsed, onFailed, retry);
-            }
-            else if (2 === data.response.errno && retry < retryMax_apiV2) {
-                // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
-                _this.createFileV2(file, onResponsed, onFailed, ++retry);
-            }
-            else
-                onResponsed(data);
-        }, onFailed);
-    };
-    return RapiduploadTask;
-}());
-/* harmony default export */ const common_RapiduploadTask = (RapiduploadTask_RapiduploadTask);
-// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
-function RapiduploadTask_precreateFileV2(file, onResponsed, onFailed) {
-    ajax({
-        url: "" + precreate_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
-        method: "POST",
-        responseType: "json",
-        data: convertData({
-            block_list: JSON.stringify([file.md5.toLowerCase()]),
-            path: this.savePath + file.path.replace(illegalPathPattern, "_"),
-            size: file.size,
-            isdir: 0,
-            autoinit: 1,
-        }),
-    }, onResponsed, onFailed);
-}
+/* harmony default export */ const generatebdlinkTask = (GeneratebdlinkTask);
 
 ;// CONCATENATED MODULE: ./src/baidu/common/const.tsx
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-01-14 21:43:19
+ * @LastEditTime: 2023-02-14 03:05:09
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -6473,7 +6365,7 @@ var getSelectedFileList; // 获取选中的文件列表的实现
 function setGetSelectedFileList(func) {
     getSelectedFileList = func;
 }
-var swalInstance = new swalBase(new common_RapiduploadTask(), new common_GeneratebdlinkTask());
+var swalInstance = new swalBase(new rapiduploadTask(), new generatebdlinkTask());
 function baiduErrno(errno) {
     switch (errno) {
         case -6:
@@ -6777,7 +6669,7 @@ function getExtra() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2022-12-24 10:57:20
+ * @LastEditTime: 2023-02-14 03:53:02
  * @LastEditors: mengzonefire
  * @Description: 新版度盘界面loader入口: https://pan.baidu.com/disk/main
  */
@@ -6787,9 +6679,9 @@ function getExtra() {
 var htmlTagNew = "div.nd-file-list-toolbar__actions"; // 新版界面秒传按钮的html父对象
 var htmlTagNew2 = "div.wp-s-agile-tool-bar__header"; // 22.5.24: 新版界面新增的一个父对象
 var htmlBtnRapidNew = // 新版界面秒传按钮的html元素
- '<button id="bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>秒传</span></button>';
+ '<button id="bdlink_btn" class="mzf_new_btn"></i><span>秒传</span></button>';
 var htmlBtnGenNew = // 新版界面秒传生成按钮的html元素
- '<button id="gen_bdlink_btn" style="margin-left: 8px;" class="mzf_new_btn"></i><span>生成秒传</span></button>';
+ '<button id="gen_bdlink_btn" class="mzf_new_btn"></i><span>生成秒传</span></button>';
 function installNew() {
     console.info("%s version: %s DOM方式安装", TAG, version);
     swalInstance.swalGlobalArgs = {
@@ -7058,10 +6950,11 @@ function loaderBaidu() {
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:32:18
- * @LastEditTime: 2023-02-12 04:43:49
+ * @LastEditTime: 2023-02-14 03:25:02
  * @LastEditors: mengzonefire
  * @Description: 样式注入模块
  */
+
 
 
 
@@ -7071,7 +6964,9 @@ function loaderBaidu() {
  * @description: 注入脚本样式
  */
 function injectStyle() {
-    GM_addStyle((app_default())); // 注入自定义样式
+    // 注入自定义样式
+    GM_addStyle((app_default()));
+    GM_addStyle((css_app_default()));
     var swalThemes = GM_getValue("swalThemes") || "Default"; // sweetAlert的主题(css), 默认为Default
     if ("Default" != swalThemes) {
         var ThemesCss = GM_getValue("" + swalCssVer + swalThemes); // 从缓存获取非默认主题的css代码
