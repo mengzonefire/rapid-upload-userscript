@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.0
+// @version         2.6.1
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4750,7 +4750,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>完成了新脚本: <a href=\"https://greasyfork.org/zh-CN/scripts/459862\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">秒传链接提取Ultra</a>, 安装后无需打开网盘主页即可直接转存页面上的秒传链接</li>\r\n      <li>生成秒传时, 导出路径改为相对路径, 防止路径过长</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>完成了新脚本: <a href=\"https://greasyfork.org/zh-CN/scripts/459862\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">秒传链接提取Ultra</a>, 安装后无需打开网盘主页即可直接转存页面上的秒传链接</li>\r\n      <li>生成秒传时, 导出路径默认改为相对路径, 防止路径过长 (设置页提供绝对/相对路径切换选项)</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4833,12 +4833,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-02-14 03:58:30
+ * @LastEditTime: 2023-02-18 20:55:10
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.0"; // 当前版本号
-var updateDate = "23.2.14"; // 更新弹窗显示的日期
+var version = "2.6.1"; // 当前版本号
+var updateDate = "23.2.18"; // 更新弹窗显示的日期
 var updateInfoVer = "2.5.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
@@ -5088,7 +5088,7 @@ var updateInfo_default = /*#__PURE__*/__webpack_require__.n(updateInfo);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:16:57
- * @LastEditTime: 2023-02-12 03:09:34
+ * @LastEditTime: 2023-02-18 21:27:36
  * @LastEditors: mengzonefire
  * @Description: 存放各Swal弹窗的固定参数配置
  */
@@ -5168,7 +5168,7 @@ var SwalConfig = {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         allowOutsideClick: false,
-        html: "<select class=\"swal2-select\" id=\"mzf-theme\" style=\"display: flex; border-width: 1px; border-style: solid\" > <option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option> <option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option> <option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option> <option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option> <option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option> <option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option> </select> <label for=\"mzf-fast-generate\" class=\"swal2-checkbox\" style=\"display: flex\" ><span class=\"swal2-label\" >\u6781\u901F\u751F\u6210 \u8BF4\u660E\u6587\u6863: <a href=\"" + doc.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B92</a></span ><input class=\"mzf_check_ori\" type=\"checkbox\" value=\"1\" id=\"mzf-fast-generate\" /><span class=\"mzf_check\"></span ></label> <label for=\"mzf-listen-clipboard\" class=\"swal2-checkbox\" style=\"display: flex\" ><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span ><input class=\"mzf_check_ori\" type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" /><span class=\"mzf_check\"></span ></label>",
+        html: "<label for=\"mzf-theme\" class=\"swal2-input-label\" style=\"margin-top: 0px\" >\u4E3B\u9898\u8BBE\u7F6E</label > <select class=\"swal2-select\" id=\"mzf-theme\" style=\" display: flex; border-width: 1px; border-style: solid; text-align-last: center; \" > <option value=\"Default\">Default \u767D\u8272\u4E3B\u9898(\u9ED8\u8BA4)</option> <option value=\"Bulma\">Bulma \u767D\u8272\u7B80\u7EA6</option> <option value=\"Bootstrap 4\">Bootstrap4 \u767D\u8272\u7B80\u7EA6</option> <option value=\"Material UI\">MaterialUI \u767D\u8272\u4E3B\u9898</option> <option value=\"Dark\">Dark \u9ED1\u8272\u4E3B\u9898</option> <option value=\"WordPress Admin\">WordPressAdmin \u7070\u8272\u4E3B\u9898</option> </select> <label for=\"mzf-pathType\" class=\"swal2-input-label\" >\u751F\u6210\u79D2\u4F20\u5BFC\u51FA\u8DEF\u5F84\u8BBE\u7F6E</label > <select class=\"swal2-select\" id=\"mzf-pathType\" style=\" display: flex; border-width: 1px; border-style: solid; text-align-last: center; \" > <option value=\"relative\">\u5BFC\u51FA\u76F8\u5BF9\u8DEF\u5F84</option> <option value=\"absolute\">\u5BFC\u51FA\u7EDD\u5BF9\u8DEF\u5F84</option> </select> <label for=\"mzf-fast-generate\" class=\"swal2-checkbox\" style=\"display: flex\" ><span class=\"swal2-label\" >\u6781\u901F\u751F\u6210 \u8BF4\u660E\u6587\u6863: <a href=\"" + doc.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B91</a> <a href=\"" + doc2.fastGenDoc + "\" " + linkStyle + ">\u8F7D\u70B92</a></span ><input class=\"mzf_check_ori\" type=\"checkbox\" value=\"1\" id=\"mzf-fast-generate\" /><span class=\"mzf_check\"></span ></label> <label for=\"mzf-listen-clipboard\" class=\"swal2-checkbox\" style=\"display: flex\" ><span class=\"swal2-label\">\u76D1\u542C\u526A\u8D34\u677F (\u9700\u8981\u5141\u8BB8\u526A\u8D34\u677F\u6743\u9650)</span ><input class=\"mzf_check_ori\" type=\"checkbox\" value=\"1\" id=\"mzf-listen-clipboard\" /><span class=\"mzf_check\"></span ></label>",
     },
     settingWarning: {
         title: "设置成功 刷新页面生效",
@@ -5191,7 +5191,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-02-12 02:24:32
+ * @LastEditTime: 2023-02-18 21:32:58
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5436,11 +5436,20 @@ var Swalbase = /** @class */ (function () {
                         GM_setClipboard(parseResult.bdcode.replace(/#\/.+\//g, "#"));
                     // 去除秒传链接中的目录结构(仅保留文件名)
                     else {
-                        var localPathPrefix = "";
-                        var nowPath = location.href.match(/path=(.+?)(?:&|$)/);
-                        if (nowPath)
-                            localPathPrefix = decodeURIComponent(nowPath[1]);
-                        GM_setClipboard(parseResult.bdcode.replace(new RegExp("#" + localPathPrefix + "/", "g"), "#")); // 去除前置的路径以及路径开头的'/', 将绝对路径转换为相对路径
+                        var pathType = GM_getValue("pathType") === undefined
+                            ? "relative"
+                            : GM_getValue("pathType");
+                        if ("absolute" === pathType)
+                            GM_setClipboard(parseResult.bdcode);
+                        // 保留完整的文件路径(绝对路径)
+                        else if ("relative" === pathType) {
+                            // 去除前置的路径以及路径开头的'/', 将绝对路径转换为相对路径 (默认执行)
+                            var localPathPrefix = "";
+                            var nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+                            if (nowPath)
+                                localPathPrefix = decodeURIComponent(nowPath[1]);
+                            GM_setClipboard(parseResult.bdcode.replace(new RegExp("#" + localPathPrefix + "/", "g"), "#"));
+                        }
                     }
                     sweetalert2_all_default().getConfirmButton().innerText = "复制成功,点击右上关闭";
                     return false;
@@ -5482,6 +5491,7 @@ var Swalbase = /** @class */ (function () {
                 .css("display", "grid")
                 .css("margin", "0");
             $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
+            $("#mzf-pathType")[0].value = GM_getValue("pathType") || "relative";
             $("#mzf-listen-clipboard")[0].checked = Boolean(GM_getValue("listen-clipboard"));
             $("#mzf-fast-generate")[0].checked = Boolean(GM_getValue("fast-generate") === undefined
                 ? true
@@ -5494,6 +5504,8 @@ var Swalbase = /** @class */ (function () {
                     case 0:
                         // 设置主题
                         GM_setValue("swalThemes", $("#mzf-theme")[0].value);
+                        // 设置生成秒传导出路径(相对/绝对)
+                        GM_setValue("pathType", $("#mzf-pathType")[0].value);
                         if (!$("#mzf-listen-clipboard")[0].checked) return [3 /*break*/, 4];
                         _a.label = 1;
                     case 1:

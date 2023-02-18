@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-02-12 02:24:32
+ * @LastEditTime: 2023-02-18 21:32:58
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -217,15 +217,24 @@ export default class Swalbase {
             GM_setClipboard(parseResult.bdcode.replace(/#\/.+\//g, "#"));
           // 去除秒传链接中的目录结构(仅保留文件名)
           else {
-            let localPathPrefix = "";
-            let nowPath = location.href.match(/path=(.+?)(?:&|$)/);
-            if (nowPath) localPathPrefix = decodeURIComponent(nowPath[1]);
-            GM_setClipboard(
-              parseResult.bdcode.replace(
-                new RegExp(`#${localPathPrefix}/`, "g"),
-                "#"
-              )
-            ); // 去除前置的路径以及路径开头的'/', 将绝对路径转换为相对路径
+            let pathType =
+              GM_getValue("pathType") === undefined
+                ? "relative"
+                : GM_getValue("pathType");
+            if ("absolute" === pathType) GM_setClipboard(parseResult.bdcode);
+            // 保留完整的文件路径(绝对路径)
+            else if ("relative" === pathType) {
+              // 去除前置的路径以及路径开头的'/', 将绝对路径转换为相对路径 (默认执行)
+              let localPathPrefix = "";
+              let nowPath = location.href.match(/path=(.+?)(?:&|$)/);
+              if (nowPath) localPathPrefix = decodeURIComponent(nowPath[1]);
+              GM_setClipboard(
+                parseResult.bdcode.replace(
+                  new RegExp(`#${localPathPrefix}/`, "g"),
+                  "#"
+                )
+              );
+            }
           }
           Swal.getConfirmButton().innerText = "复制成功,点击右上关闭";
           return false;
@@ -267,6 +276,7 @@ export default class Swalbase {
         .css("display", "grid")
         .css("margin", "0");
       $("#mzf-theme")[0].value = GM_getValue("swalThemes") || "Default";
+      $("#mzf-pathType")[0].value = GM_getValue("pathType") || "relative";
       $("#mzf-listen-clipboard")[0].checked = Boolean(
         GM_getValue("listen-clipboard")
       );
@@ -279,6 +289,8 @@ export default class Swalbase {
     let preConfirm = async () => {
       // 设置主题
       GM_setValue("swalThemes", $("#mzf-theme")[0].value);
+      // 设置生成秒传导出路径(相对/绝对)
+      GM_setValue("pathType", $("#mzf-pathType")[0].value);
 
       // 设置监听剪贴板
       if ($("#mzf-listen-clipboard")[0].checked) {
