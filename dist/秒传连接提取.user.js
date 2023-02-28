@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.1
+// @version         2.6.2
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4833,12 +4833,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-02-18 20:55:10
+ * @LastEditTime: 2023-02-28 17:04:17
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.1"; // 当前版本号
-var updateDate = "23.2.18"; // 更新弹窗显示的日期
+var version = "2.6.2"; // 当前版本号
+var updateDate = "23.2.28"; // 更新弹窗显示的日期
 var updateInfoVer = "2.5.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
@@ -5191,7 +5191,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-02-18 21:32:58
+ * @LastEditTime: 2023-02-28 17:29:31
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5294,7 +5294,9 @@ var Swalbase = /** @class */ (function () {
                         preConfirm = function () {
                             // 手动读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
                             inputValue = $("#mzf-rapid-input")[0].value;
-                            pathValue = $("#mzf-path-input")[0].value;
+                            pathValue = $("#mzf-path-input")[0]
+                                .value.trim()
+                                .replace(/(\s+)?\/(\s+)?/g, "/"); // 修正不合规的路径(空白开头/结尾)
                             if (!inputValue) {
                                 sweetalert2_all_default().showValidationMessage("秒传不能为空");
                                 return false;
@@ -5660,31 +5662,31 @@ var Swalbase = /** @class */ (function () {
     };
     // 添加 "打开目录" 按钮
     Swalbase.prototype.addOpenDirBtn = function () {
-        if (!this.rapiduploadTask.isDefaultPath) {
-            var _dir_1 = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
-            if (_dir_1.charAt(0) !== "/")
-                _dir_1 = "/" + _dir_1; // 补齐路径开头的"/"
-            var cBtn = sweetalert2_all_default().getConfirmButton();
-            var btn = cBtn.cloneNode();
-            btn.textContent = "打开目录";
-            btn.style.backgroundColor = "#ecae3c";
-            var nowPath_1 = location.href.match(/(path=(.+?))(?:&|$)/);
-            btn.onclick = function () {
-                if (nowPath_1) {
-                    location.href = location.href.replace(
-                    // 仅替换path参数, 不修改其他参数
-                    nowPath_1[1], "path=" + encodeURIComponent(_dir_1));
-                }
-                else {
-                    var connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
-                    location.href += connectChar + "path=" + encodeURIComponent(_dir_1);
-                } // 没有找到path参数, 直接添加
-                sweetalert2_all_default().close();
-            };
-            if (nowPath_1 && nowPath_1[2] !== encodeURIComponent(_dir_1))
-                // 当前已在转存目录时不添加按钮
-                cBtn.before(btn);
-        }
+        if (this.rapiduploadTask.isDefaultPath)
+            return; // 转存路径留空, 跳出
+        var _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
+        if (_dir.charAt(0) !== "/")
+            _dir = "/" + _dir; // 补齐路径开头的"/"
+        var cBtn = sweetalert2_all_default().getConfirmButton();
+        var btn = cBtn.cloneNode();
+        btn.textContent = "打开目录";
+        btn.style.backgroundColor = "#ecae3c";
+        var nowPath = location.href.match(/(path=(.+?))(?:&|$)/);
+        btn.onclick = function () {
+            if (nowPath) {
+                location.href = location.href.replace(
+                // 仅替换path参数, 不修改其他参数
+                nowPath[1], "path=" + encodeURIComponent(_dir));
+            }
+            else {
+                var connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
+                location.href += connectChar + "path=" + encodeURIComponent(_dir);
+            } // 没有找到path参数, 直接添加
+            sweetalert2_all_default().close();
+        };
+        if ((nowPath ? nowPath[2] : "%2F") != encodeURIComponent(_dir))
+            // 当前已在转存目录时不添加按钮
+            cBtn.before(btn);
     };
     return Swalbase;
 }());

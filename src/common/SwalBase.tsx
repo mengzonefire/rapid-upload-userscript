@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-02-18 21:32:58
+ * @LastEditTime: 2023-02-28 17:29:31
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -71,7 +71,9 @@ export default class Swalbase {
     let preConfirm = () => {
       // 手动读取Multiple inputs内的数据, 由于未设置input参数, 原生Validator不生效, 自行添加Validator逻辑
       inputValue = $("#mzf-rapid-input")[0].value;
-      pathValue = $("#mzf-path-input")[0].value;
+      pathValue = $("#mzf-path-input")[0]
+        .value.trim()
+        .replace(/(\s+)?\/(\s+)?/g, "/"); // 修正不合规的路径(空白开头/结尾)
       if (!inputValue) {
         Swal.showValidationMessage("秒传不能为空");
         return false;
@@ -456,30 +458,29 @@ export default class Swalbase {
 
   // 添加 "打开目录" 按钮
   addOpenDirBtn() {
-    if (!this.rapiduploadTask.isDefaultPath) {
-      let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
-      if (_dir.charAt(0) !== "/") _dir = "/" + _dir; // 补齐路径开头的"/"
-      let cBtn = Swal.getConfirmButton();
-      let btn: HTMLElement = cBtn.cloneNode() as HTMLElement;
-      btn.textContent = "打开目录";
-      btn.style.backgroundColor = "#ecae3c";
-      let nowPath = location.href.match(/(path=(.+?))(?:&|$)/);
-      btn.onclick = () => {
-        if (nowPath) {
-          location.href = location.href.replace(
-            // 仅替换path参数, 不修改其他参数
-            nowPath[1],
-            `path=${encodeURIComponent(_dir)}`
-          );
-        } else {
-          let connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
-          location.href += `${connectChar}path=${encodeURIComponent(_dir)}`;
-        } // 没有找到path参数, 直接添加
-        Swal.close();
-      };
-      if (nowPath && nowPath[2] !== encodeURIComponent(_dir))
-        // 当前已在转存目录时不添加按钮
-        cBtn.before(btn);
-    }
+    if (this.rapiduploadTask.isDefaultPath) return; // 转存路径留空, 跳出
+    let _dir = (this.rapiduploadTask.savePath || "").replace(/\/$/, ""); // 去除路径结尾的"/"
+    if (_dir.charAt(0) !== "/") _dir = "/" + _dir; // 补齐路径开头的"/"
+    let cBtn = Swal.getConfirmButton();
+    let btn: HTMLElement = cBtn.cloneNode() as HTMLElement;
+    btn.textContent = "打开目录";
+    btn.style.backgroundColor = "#ecae3c";
+    let nowPath = location.href.match(/(path=(.+?))(?:&|$)/);
+    btn.onclick = () => {
+      if (nowPath) {
+        location.href = location.href.replace(
+          // 仅替换path参数, 不修改其他参数
+          nowPath[1],
+          `path=${encodeURIComponent(_dir)}`
+        );
+      } else {
+        let connectChar = location.href.includes("?") ? "&" : "?"; // 确定参数的连接符
+        location.href += `${connectChar}path=${encodeURIComponent(_dir)}`;
+      } // 没有找到path参数, 直接添加
+      Swal.close();
+    };
+    if ((nowPath ? nowPath[2] : "%2F") != encodeURIComponent(_dir))
+      // 当前已在转存目录时不添加按钮
+      cBtn.before(btn);
   }
 }
