@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.2
+// @version         2.6.3
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -43,6 +43,8 @@
 // @connect         baidupcs.com
 // @connect         cdn.jsdelivr.net
 // @connect         *
+// @downloadURL     https://greasyfork.org/scripts/424574/code/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96.user.js
+// @updateURL       https://greasyfork.org/scripts/424574/code/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96.user.js
 // ==/UserScript==
 
 /******/ (() => { // webpackBootstrap
@@ -4833,12 +4835,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-02-28 17:04:17
+ * @LastEditTime: 2023-03-10 19:42:37
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.2"; // 当前版本号
-var updateDate = "23.2.28"; // 更新弹窗显示的日期
+var version = "2.6.3"; // 当前版本号
+var updateDate = "23.3.10"; // 更新弹窗显示的日期
 var updateInfoVer = "2.5.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
@@ -6431,7 +6433,7 @@ function baiduErrno(errno) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-22 04:01:11
- * @LastEditTime: 2023-02-11 00:47:29
+ * @LastEditTime: 2023-03-10 19:47:20
  * @LastEditors: mengzonefire
  * @Description: 存放工具函数
  */
@@ -6521,7 +6523,7 @@ function parsefileInfo(fileInfoList) {
         _loop_1(failCode);
     }
     if (failedInfo)
-        failedInfo = "<details class=\"mzf_details\"><summary><svg class=\"mzf_arrow\" width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u5931\u8D25\u6587\u4EF6\u5217\u8868(\u70B9\u51FB\u5C55\u5F00):</b>" + copyFailList + "</summary></details><div class=\"mzf_content\">" + failedInfo + "</div>";
+        failedInfo = "<details class=\"mzf_details\"><summary><svg class=\"mzf_arrow\" width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u5931\u8D25\u6587\u4EF6\u5217\u8868(\u70B9\u8FD9\u91CC\u770B\u5931\u8D25\u539F\u56E0):</b>" + copyFailList + "</summary></details><div class=\"mzf_content\">" + failedInfo + "</div>";
     if (successInfo)
         successInfo = "<details class=\"mzf_details\"><summary><svg class=\"mzf_arrow\" width=\"16\" height=\"7\"><polyline points=\"0,0 8,7 16,0\"/></svg><b>\u6210\u529F\u6587\u4EF6\u5217\u8868(\u70B9\u51FB\u5C55\u5F00):</b>" + copySuccessList + "</summary></details><div class=\"mzf_content\">" + successInfo + "</div>";
     bdcode = bdcode.trim();

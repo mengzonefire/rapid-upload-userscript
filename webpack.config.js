@@ -116,6 +116,10 @@ module.exports = {
         ],
         "run-at": "document-body",
         connect: ["baidu.com", "baidupcs.com", "cdn.jsdelivr.net", "*"],
+        downloadURL:
+          "https://greasyfork.org/scripts/424574/code/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96.user.js",
+        updateURL:
+          "https://greasyfork.org/scripts/424574/code/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96.user.js",
       },
       pretty: true,
     }),
