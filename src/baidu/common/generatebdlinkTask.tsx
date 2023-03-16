@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-02-09 23:33:26
+ * @LastEditTime: 2023-03-16 13:54:55
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -148,9 +148,9 @@ export default class GeneratebdlinkTask {
     }
     ajax(
       {
-        url: `${list_url}&path=${encodeURIComponent(
-          this.dirList[i]
-        )}&recursion=${this.recursive ? 1 : 0}&start=${start}`,
+        url: `${list_url}${encodeURIComponent(this.dirList[i])}&recursion=${
+          this.recursive ? 1 : 0
+        }&start=${start}`,
         method: "GET",
         responseType: "json",
       }, // list接口自带递归参数recursion
@@ -236,8 +236,10 @@ export default class GeneratebdlinkTask {
       },
       (data) => {
         data = data.response;
-        if (!data.errno) {
+        if (!data.error_code) {
           if (data.list[0].isdir) {
+            console.log(1111);
+            file.isdir = 1;
             file.errno = 900;
             this.generateBdlink(i + 1);
             return;
@@ -251,7 +253,7 @@ export default class GeneratebdlinkTask {
           file.md5s = "";
           this.getDlink(i);
         } else {
-          file.errno = data.errno;
+          file.errno = data.error_code;
           this.generateBdlink(i + 1);
         }
       },
@@ -343,15 +345,16 @@ export default class GeneratebdlinkTask {
     }
     ajax(
       {
-        url: meta_url2 + JSON.stringify([file.fs_id]),
+        url: meta_url2 + JSON.stringify([String(file.fs_id)]),
         responseType: "json",
         method: "GET",
+        headers: { "User-Agent": UA },
       },
       (data) => {
         data = data.response;
         // 请求正常
         if (!data.errno) {
-          this.downloadFileData(i, data.list[0].dlink);
+          this.downloadFileData(i, data.info[0].dlink);
           return;
         }
         // 请求报错

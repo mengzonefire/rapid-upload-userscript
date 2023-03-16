@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-02-14 03:05:09
+ * @LastEditTime: 2023-03-16 13:23:07
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -15,12 +15,12 @@ const host = location.host;
 export const listLimit = 10000;
 export const syncPathPrefix = "/_pcs_.workspace";
 export const retryMax_apiV2 = 4; // v2转存接口的最大重试次数
-export const create_url = `https://${host}/rest/2.0/xpan/file?method=create`;
-export const precreate_url = `https://${host}/rest/2.0/xpan/file?method=precreate`;
-export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=${listLimit}`;
+export const create_url = `https://${host}/api/create`;
+export const precreate_url = `https://${host}/api/precreate`;
+export const list_url = `https://${host}/api/listall?order=name&limit=${listLimit}&dir=`;
 // 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start参数获取
-export const meta_url = `https://${host}/rest/2.0/xpan/file?app_id=778750&method=meta&path=`;
-export const meta_url2 = `https://${host}/rest/2.0/xpan/multimedia?method=filemetas&dlink=1&fsids=`;
+export const meta_url = `https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=meta&path=`;
+export const meta_url2 = `https://${host}/api/filemetas?dlink=1&fsids=`;
 export const tpl_url = `https://${host}/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0`;
 export const sharedownload_url = `https://${host}/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528`;
 export const sharelist_url = `https://${host}/share/list?showempty=0&num=${listLimit}&channel=chunlei&web=1&app_id=250528&clienttype=0`;
@@ -47,6 +47,7 @@ export const swalInstance = new Swalbase(
 
 export function baiduErrno(errno: number) {
   switch (errno) {
+    case 31045:
     case -6:
       return `认证失败(请看文档:<a href="${doc.shareDoc}#认证失败-6" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#认证失败-6" ${linkStyle}>载点2</a>)`;
     case -7:
@@ -77,6 +78,7 @@ export function baiduErrno(errno: number) {
     case 502:
     case 503:
       return `服务器错误(请看文档:<a href="${doc.shareDoc}#服务器错误-50x" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#服务器错误-50x" ${linkStyle}>载点2</a>)`;
+    case 31066:
     case 909:
       return "路径不存在/云端文件已损坏";
     case 900:

@@ -1,17 +1,17 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-03-10 19:42:37
+ * @LastEditTime: 2023-03-16 13:36:23
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 
-export const version = "2.6.3"; // 当前版本号
-export const updateDate = "23.3.10"; // 更新弹窗显示的日期
-export const updateInfoVer = "2.5.8"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+export const version = "2.6.4"; // 当前版本号
+export const updateDate = "23.3.16"; // 更新弹窗显示的日期
+export const updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
-export const donateVer = "2.5.3"; // 用于检测可关闭的赞助提示的版本号
-export const feedbackVer = "2.5.3"; // 用于检测可关闭的反馈提示的版本号
+export const donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
+export const feedbackVer = "2.6.4"; // 用于检测可关闭的反馈提示的版本号
 export const locUrl: string = location.href;
 export const baiduNewPage = "baidu.com/disk/main"; // 匹配新版度盘界面
 export const baiduSyncPage = "baidu.com/disk/synchronization"; // 匹配同步空间
@@ -22,8 +22,7 @@ export const donatePage = "https://afdian.net/@mengzonefire";
 export const ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 export const bdlinkPrefix = "https://pan.baidu.com/#bdlink="; // 一键秒传链接的前缀
 export const commandList = ["set", "gen", "info"]; // 转存输入框内支持输入的命令
-export const UA =
-  "netdisk;2.2.51.6;netdisk;10.0.63;PC;android-android;QTP/1.0.32.2"; // 自定义User-Agent
+export const UA = "netdisk;"; // 自定义User-Agent
 export const extCssUrl = {
   Default: "",
   Dark: "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.min.css",
