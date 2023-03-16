@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-03-16 13:23:07
+ * @LastEditTime: 2023-03-17 02:44:27
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -17,8 +17,7 @@ export const syncPathPrefix = "/_pcs_.workspace";
 export const retryMax_apiV2 = 4; // v2转存接口的最大重试次数
 export const create_url = `https://${host}/api/create`;
 export const precreate_url = `https://${host}/api/precreate`;
-export const list_url = `https://${host}/api/listall?order=name&limit=${listLimit}&dir=`;
-// 已知此接口有限制: limit字段(即单次获取的文件数)不能大于10000, 否则直接返回错误, 超过1w的文件通过start参数获取
+export const list_url = `https://${host}/api/list?order=name&num=${listLimit}&web=1&app_id=250528&clienttype=0`;
 export const meta_url = `https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=meta&path=`;
 export const meta_url2 = `https://${host}/api/filemetas?dlink=1&fsids=`;
 export const tpl_url = `https://${host}/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0`;

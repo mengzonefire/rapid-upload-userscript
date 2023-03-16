@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-03-16 13:54:55
+ * @LastEditTime: 2023-03-17 03:05:42
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -18,7 +18,6 @@ import {
 } from "@/common/utils";
 import { UA } from "@/common/const";
 import {
-  listLimit,
   list_url,
   meta_url,
   meta_url2,
@@ -107,7 +106,7 @@ export default class GeneratebdlinkTask {
         }&page=${page}`,
         method: "GET",
         responseType: "json",
-      }, // list接口自带递归参数recursion
+      },
       (data) => {
         data = data.response;
         if (!data.errno) {
@@ -139,38 +138,43 @@ export default class GeneratebdlinkTask {
   /**
    * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
    * @param {number} i 条目index
-   * @param {number} start 列表接口检索起点
+   * @param {number} page 翻页页码
    */
-  scanFile(i: number, start: number = 0): void {
+  scanFile(i: number, page: number = 1): void {
     if (i >= this.dirList.length) {
       this.generateBdlink(0);
       return;
     }
+    this.onProgress(false, `正在获取文件列表, 第${i + 1}个`);
     ajax(
       {
-        url: `${list_url}${encodeURIComponent(this.dirList[i])}&recursion=${
-          this.recursive ? 1 : 0
-        }&start=${start}`,
+        url: `${list_url}&dir=${encodeURIComponent(
+          this.dirList[i]
+        )}&page=${page}`,
         method: "GET",
         responseType: "json",
-      }, // list接口自带递归参数recursion
+      },
       (data) => {
         data = data.response;
         if (!data.errno) {
-          if (!data.list.length)
-            this.scanFile(i + 1); // 返回列表为空, 即此文件夹文件全部扫描完成
+          if (!data.list.length) this.scanFile(i + 1);
+          // 返回列表为空, 即此文件夹文件全部扫描完成
           else {
             data.list.forEach((item: any) => {
-              item.isdir ||
+              // 筛选文件(isdir=0)
+              if (!item.isdir)
                 this.fileInfoList.push({
                   path: item.path,
                   size: item.size,
                   fs_id: item.fs_id,
                   md5: this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
                   md5s: "",
-                }); // 筛选文件(isdir=0)
+                });
+              // 筛选目录(isdir=0), 空目录(dir_empty=1)
+              // 23.3.17: 测试发现dir_empty参数不可信, 不再排除
+              else if (this.recursive) this.dirList.push(item.path);
             });
-            this.scanFile(i, start + listLimit); // 从下一个起点继续检索列表
+            this.scanFile(i, page + 1); // 从下一页继续检索列表
           }
         } else {
           this.fileInfoList.push({
