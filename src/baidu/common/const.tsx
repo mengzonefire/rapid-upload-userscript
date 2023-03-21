@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-03-17 02:44:27
+ * @LastEditTime: 2023-03-21 22:47:29
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -17,7 +17,7 @@ export const syncPathPrefix = "/_pcs_.workspace";
 export const retryMax_apiV2 = 4; // v2转存接口的最大重试次数
 export const create_url = `https://${host}/api/create`;
 export const precreate_url = `https://${host}/api/precreate`;
-export const list_url = `https://${host}/api/list?order=name&num=${listLimit}&web=1&app_id=250528&clienttype=0`;
+export const list_url = `https://${host}/rest/2.0/xpan/multimedia?method=listall&order=name&limit=${listLimit}&path=`;
 export const meta_url = `https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=meta&path=`;
 export const meta_url2 = `https://${host}/api/filemetas?dlink=1&fsids=`;
 export const tpl_url = `https://${host}/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0`;

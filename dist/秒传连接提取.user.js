@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.5
+// @version         2.6.6
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4835,12 +4835,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-03-17 02:53:43
+ * @LastEditTime: 2023-03-21 22:50:07
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.5"; // 当前版本号
-var updateDate = "23.3.16"; // 更新弹窗显示的日期
+var version = "2.6.6"; // 当前版本号
+var updateDate = "23.3.21"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -5855,7 +5855,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-03-17 03:05:42
+ * @LastEditTime: 2023-03-21 22:46:40
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5953,43 +5953,37 @@ var GeneratebdlinkTask = /** @class */ (function () {
     /**
      * @description: 选择的列表包含文件夹, 获取文件夹下的子文件
      * @param {number} i 条目index
-     * @param {number} page 翻页页码
+     * @param {number} start 列表接口检索起点(即翻页参数)
      */
-    GeneratebdlinkTask.prototype.scanFile = function (i, page) {
+    GeneratebdlinkTask.prototype.scanFile = function (i, start) {
         var _this = this;
-        if (page === void 0) { page = 1; }
+        if (start === void 0) { start = 0; }
         if (i >= this.dirList.length) {
             this.generateBdlink(0);
             return;
         }
-        this.onProgress(false, "\u6B63\u5728\u83B7\u53D6\u6587\u4EF6\u5217\u8868, \u7B2C" + (i + 1) + "\u4E2A");
         ajax({
-            url: list_url + "&dir=" + encodeURIComponent(this.dirList[i]) + "&page=" + page,
+            url: "" + list_url + encodeURIComponent(this.dirList[i]) + "&recursion=" + (this.recursive ? 1 : 0) + "&start=" + start,
             method: "GET",
             responseType: "json",
-        }, function (data) {
+        }, // list接口自带递归参数recursion
+        function (data) {
             data = data.response;
             if (!data.errno) {
                 if (!data.list.length)
-                    _this.scanFile(i + 1);
-                // 返回列表为空, 即此文件夹文件全部扫描完成
+                    _this.scanFile(i + 1); // 返回列表为空, 即此文件夹文件全部扫描完成
                 else {
                     data.list.forEach(function (item) {
-                        // 筛选文件(isdir=0)
-                        if (!item.isdir)
+                        item.isdir ||
                             _this.fileInfoList.push({
                                 path: item.path,
                                 size: item.size,
                                 fs_id: item.fs_id,
                                 md5: _this.isFast ? decryptMd5(item.md5.toLowerCase()) : "",
                                 md5s: "",
-                            });
-                        // 筛选目录(isdir=0), 空目录(dir_empty=1)
-                        // 23.3.17: 测试发现dir_empty参数不可信, 不再排除
-                        else if (_this.recursive)
-                            _this.dirList.push(item.path);
+                            }); // 筛选文件(isdir=0)
                     });
-                    _this.scanFile(i, page + 1); // 从下一页继续检索列表
+                    _this.scanFile(i, start + listLimit); // 从下一个起点继续检索列表
                 }
             }
             else {
@@ -6353,7 +6347,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-03-17 02:44:27
+ * @LastEditTime: 2023-03-21 22:47:29
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -6367,7 +6361,7 @@ var syncPathPrefix = "/_pcs_.workspace";
 var retryMax_apiV2 = 4; // v2转存接口的最大重试次数
 var create_url = "https://" + host + "/api/create";
 var precreate_url = "https://" + host + "/api/precreate";
-var list_url = "https://" + host + "/api/list?order=name&num=" + listLimit + "&web=1&app_id=250528&clienttype=0";
+var list_url = "https://" + host + "/rest/2.0/xpan/multimedia?method=listall&order=name&limit=" + listLimit + "&path=";
 var meta_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=meta&path=";
 var meta_url2 = "https://" + host + "/api/filemetas?dlink=1&fsids=";
 var tpl_url = "https://" + host + "/share/tplconfig?fields=sign,timestamp&channel=chunlei&web=1&app_id=250528&clienttype=0";
