@@ -1,12 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-03-21 22:50:07
+ * @LastEditTime: 2023-04-04 17:05:48
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 
-export const version = "2.6.6"; // 当前版本号
+export const version = "2.6.7"; // 当前版本号
 export const updateDate = "23.3.21"; // 更新弹窗显示的日期
 export const updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -75,8 +75,8 @@ export const htmlDonate = `<p id="mzf_donate" class="mzf_text">若喜欢该脚�
 export const htmlFeedback = `<p id="mzf_feedback" class="mzf_text">若有任何疑问, 可前往 <a href="${homePage}" ${linkStyle}>脚本主页</a> 反馈<a id="kill_feedback" class="mzf_btn">不再显示</a></p>`;
 export const htmlAboutBdlink = `什么是一键秒传?: <a href="${doc.bdlinkDoc}" ${linkStyle}>文档载点1</a> <a href="${doc2.bdlinkDoc}" ${linkStyle}>文档载点2</a>`;
 export const copyFailList =
-  '<a id="copy_fail_list" class="mzf_btn2">复制列表</a></p>';
+  '<a id="copy_fail_list" class="mzf_btn2">复制列表</a>';
 export const copyFailBranchList =
-  '<a id="copy_fail_branch_list" class="mzf_btn2">复制列表</a></p>';
+  '<a id="copy_fail_branch_list" class="mzf_btn2">复制列表</a>';
 export const copySuccessList =
-  '<a id="copy_success_list" class="mzf_btn2">复制列表</a></p>';
+  '<a id="copy_success_list" class="mzf_btn2">复制列表</a>';

@@ -61,6 +61,10 @@
   cursor: pointer;
 }
 
+.mzf_details summary {
+  white-space: nowrap;
+}
+
 /*折叠框内容*/
 .mzf_content {
   max-height: 0;

@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.6
+// @version         2.6.7
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4745,7 +4745,7 @@ if (typeof this !== 'undefined' && this.Sweetalert2){this.swal = this.sweetAlert
 /***/ 65:
 /***/ ((module) => {
 
-module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin-left:5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_btn2{text-align:center;color:#09aaff;margin-left:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:\"lnum\";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center;white-space:nowrap}.mzf_arrow{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}"
+module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;border:2px solid #c3eaff;border-radius:4px;margin-left:5px;padding:10px;padding-top:5px;padding-bottom:5px;cursor:pointer}.mzf_btn2{text-align:center;color:#09aaff;margin-left:5px;cursor:pointer}.mzf_link{font-family:inherit;color:#09aaff;text-decoration:none;vertical-align:baseline}.mzf_text{font-feature-settings:\"lnum\";-webkit-font-smoothing:antialiased;font-family:inherit;color:#545454;font-weight:400;word-break:break-word;-webkit-tap-highlight-color:transparent;margin:0;padding:0;width:100%;height:34px;display:block;line-height:34px;text-align:center;white-space:nowrap}.mzf_arrow{margin-right:5px;transform:rotate(180deg);transition:transform .2s;fill:none;stroke:gray}.mzf_details{cursor:pointer}.mzf_details summary{white-space:nowrap}.mzf_content{max-height:0;margin:0;transition:max-height .5s;overflow:hidden}.mzf_details[open]>summary>svg{transform:rotate(0deg)}.mzf_details[open]+.mzf_content{max-height:100%}.mzf_html_container{grid-template-columns:minmax(0, 100%);align-self:center;justify-self:center;width:32em;max-width:100%}.mzf_updateInfo{border:1px #000;width:100%;margin:0 auto}.mzf_updateInfo span{vertical-align:baseline}"
 
 /***/ }),
 
@@ -4835,11 +4835,11 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-03-21 22:50:07
+ * @LastEditTime: 2023-04-04 17:05:48
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.6"; // 当前版本号
+var version = "2.6.7"; // 当前版本号
 var updateDate = "23.3.21"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -4893,9 +4893,9 @@ var htmlDocument = "<p class=\"mzf_text\">\u79D2\u4F20\u65E0\u6548,\u9632\u548C\
 var htmlDonate = "<p id=\"mzf_donate\" class=\"mzf_text\">\u82E5\u559C\u6B22\u8BE5\u811A\u672C, \u53EF\u524D\u5F80 <a href=\"" + donatePage + "\" " + linkStyle + ">\u8D5E\u52A9\u9875</a> \u652F\u6301\u4F5C\u8005<a id=\"kill_donate\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
 var htmlFeedback = "<p id=\"mzf_feedback\" class=\"mzf_text\">\u82E5\u6709\u4EFB\u4F55\u7591\u95EE, \u53EF\u524D\u5F80 <a href=\"" + homePage + "\" " + linkStyle + ">\u811A\u672C\u4E3B\u9875</a> \u53CD\u9988<a id=\"kill_feedback\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
 var htmlAboutBdlink = "\u4EC0\u4E48\u662F\u4E00\u952E\u79D2\u4F20?: <a href=\"" + doc.bdlinkDoc + "\" " + linkStyle + ">\u6587\u6863\u8F7D\u70B91</a> <a href=\"" + doc2.bdlinkDoc + "\" " + linkStyle + ">\u6587\u6863\u8F7D\u70B92</a>";
-var copyFailList = '<a id="copy_fail_list" class="mzf_btn2">复制列表</a></p>';
-var copyFailBranchList = '<a id="copy_fail_branch_list" class="mzf_btn2">复制列表</a></p>';
-var copySuccessList = '<a id="copy_success_list" class="mzf_btn2">复制列表</a></p>';
+var copyFailList = '<a id="copy_fail_list" class="mzf_btn2">复制列表</a>';
+var copyFailBranchList = '<a id="copy_fail_branch_list" class="mzf_btn2">复制列表</a>';
+var copySuccessList = '<a id="copy_success_list" class="mzf_btn2">复制列表</a>';
 
 ;// CONCATENATED MODULE: ./src/common/duParser.tsx
 /*
@@ -5086,7 +5086,7 @@ SimpleBuffer.prototype.readHex = function readHex(index, size) {
 // EXTERNAL MODULE: ./src/components/updateInfo.html
 var updateInfo = __webpack_require__(184);
 var updateInfo_default = /*#__PURE__*/__webpack_require__.n(updateInfo);
-;// CONCATENATED MODULE: ./src/common/SwalConfig.tsx
+;// CONCATENATED MODULE: ./src/common/swalConfig.tsx
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-26 12:16:57
@@ -5193,7 +5193,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-02-28 17:29:31
+ * @LastEditTime: 2023-04-04 17:04:51
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */

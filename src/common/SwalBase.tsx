@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-02-28 17:29:31
+ * @LastEditTime: 2023-04-04 17:04:51
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -23,8 +23,8 @@ import {
   illegalPathPattern,
   syncPathPrefix,
 } from "@/baidu/common/const";
-import GeneratebdlinkTask from "@/baidu/common/GeneratebdlinkTask";
-import RapiduploadTask from "@/baidu/common/RapiduploadTask";
+import GeneratebdlinkTask from "@/baidu/common/generatebdlinkTask";
+import RapiduploadTask from "@/baidu/common/rapiduploadTask";
 import {
   donateVer,
   feedbackVer,
@@ -33,7 +33,7 @@ import {
   htmlFeedback,
 } from "./const";
 import { DuParser, parseQueryLink } from "./duParser";
-import { SwalConfig } from "./SwalConfig";
+import { SwalConfig } from "./swalConfig";
 import {
   parsefileInfo,
   parseClipboard,
