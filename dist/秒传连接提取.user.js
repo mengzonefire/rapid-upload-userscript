@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.7
+// @version         2.6.8
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -45,6 +45,7 @@
 // @connect         *
 // @downloadURL     https://greasyfork.org/scripts/424574/code/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96.user.js
 // @updateURL       https://greasyfork.org/scripts/424574/code/%E7%A7%92%E4%BC%A0%E9%93%BE%E6%8E%A5%E6%8F%90%E5%8F%96.user.js
+// @antifeature     referral-link 23.4.5: 加了一个百度官方的网盘会员推广 (从那里开通可使作者获得佣金), 觉得碍眼可以点 "不再显示" 永久隐藏
 // ==/UserScript==
 
 /******/ (() => { // webpackBootstrap
@@ -4835,16 +4836,17 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-04 17:05:48
+ * @LastEditTime: 2023-04-05 07:38:11
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.7"; // 当前版本号
-var updateDate = "23.3.21"; // 更新弹窗显示的日期
+var version = "2.6.8"; // 当前版本号
+var updateDate = "23.4.5"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.6.4"; // 用于检测可关闭的反馈提示的版本号
+var referralVer = "2.6.4"; // 用于检测可关闭的推广提示的版本号
 var locUrl = location.href;
 var baiduNewPage = "baidu.com/disk/main"; // 匹配新版度盘界面
 var baiduSyncPage = "baidu.com/disk/synchronization"; // 匹配同步空间
@@ -4852,6 +4854,7 @@ var baiduSharePage = "baidu.com/s/"; // 匹配分享页
 var TAG = "[秒传链接提取 by mengzonefire]";
 var homePage = "https://greasyfork.org/zh-CN/scripts/424574";
 var donatePage = "https://afdian.net/@mengzonefire";
+var referralPage = "https://snsyun.baidu.com/sl/eQlxlz8";
 var ajaxError = 514; // 自定义ajax请求失败时的错误码(不能与http statusCode冲突)
 var bdlinkPrefix = "https://pan.baidu.com/#bdlink="; // 一键秒传链接的前缀
 var commandList = ["set", "gen", "info"]; // 转存输入框内支持输入的命令
@@ -4890,8 +4893,9 @@ var linkStyle = 'class="mzf_link" rel="noopener noreferrer" target="_blank"';
 var btnStyle = 'class="mzf_btn" rel="noopener noreferrer" target="_blank"';
 var bdlinkPattern = /#bdlink=([\da-zA-Z+/=]+)/; // b64可能出现的字符: 大小写字母a-zA-Z, 数字0-9, +, /, = (=用于末尾补位)
 var htmlDocument = "<p class=\"mzf_text\">\u79D2\u4F20\u65E0\u6548,\u9632\u548C\u8C10\u7B49 \u53EF\u53C2\u8003\u79D2\u4F20\u6587\u6863<a href=\"" + doc.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u8F7D\u70B91</span></a><a href=\"" + doc2.shareDoc + "\" " + btnStyle + "><span class=\"text\" style=\"width: auto;\">\u8F7D\u70B92</span></a></p>";
-var htmlDonate = "<p id=\"mzf_donate\" class=\"mzf_text\">\u82E5\u559C\u6B22\u8BE5\u811A\u672C, \u53EF\u524D\u5F80 <a href=\"" + donatePage + "\" " + linkStyle + ">\u8D5E\u52A9\u9875</a> \u652F\u6301\u4F5C\u8005<a id=\"kill_donate\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
-var htmlFeedback = "<p id=\"mzf_feedback\" class=\"mzf_text\">\u82E5\u6709\u4EFB\u4F55\u7591\u95EE, \u53EF\u524D\u5F80 <a href=\"" + homePage + "\" " + linkStyle + ">\u811A\u672C\u4E3B\u9875</a> \u53CD\u9988<a id=\"kill_feedback\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
+var htmlDonate = "<p id=\"mzf_donate\" class=\"mzf_text\">\u82E5\u559C\u6B22\u8BE5\u811A\u672C, \u53EF\u524D\u5F80 <a href=\"" + donatePage + "\" " + linkStyle + ">\u8D5E\u52A9\u9875</a> \u652F\u6301\u4F5C\u8005<a id=\"mzf_kill_donate\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
+var htmlFeedback = "<p id=\"mzf_feedback\" class=\"mzf_text\">\u82E5\u6709\u4EFB\u4F55\u7591\u95EE, \u53EF\u524D\u5F80 <a href=\"" + homePage + "\" " + linkStyle + ">\u811A\u672C\u4E3B\u9875</a> \u53CD\u9988<a id=\"mzf_kill_feedback\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
+var htmlReferral = "<p id=\"mzf_referral\" class=\"mzf_text\">(\u767E\u5EA6\u5B98\u65B9\u63A8\u5E7F) <a href=\"" + referralPage + "\" " + linkStyle + ">\u4F18\u60E0\u5F00\u901A\u7F51\u76D8\u4F1A\u5458</a><a id=\"mzf_kill_referral\" class=\"mzf_btn\">\u4E0D\u518D\u663E\u793A</a></p>";
 var htmlAboutBdlink = "\u4EC0\u4E48\u662F\u4E00\u952E\u79D2\u4F20?: <a href=\"" + doc.bdlinkDoc + "\" " + linkStyle + ">\u6587\u6863\u8F7D\u70B91</a> <a href=\"" + doc2.bdlinkDoc + "\" " + linkStyle + ">\u6587\u6863\u8F7D\u70B92</a>";
 var copyFailList = '<a id="copy_fail_list" class="mzf_btn2">复制列表</a>';
 var copyFailBranchList = '<a id="copy_fail_branch_list" class="mzf_btn2">复制列表</a>';
@@ -5193,7 +5197,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-04-04 17:04:51
+ * @LastEditTime: 2023-04-05 07:32:35
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5407,8 +5411,10 @@ var Swalbase = /** @class */ (function () {
         var htmlFooter = "";
         if (!GM_getValue(donateVer + "_kill_donate"))
             htmlFooter += htmlDonate; // 添加赞助入口提示
-        if (!GM_getValue(feedbackVer + "_kill_donate"))
+        if (!GM_getValue(feedbackVer + "_kill_feedback"))
             htmlFooter += htmlFeedback; // 添加反馈入口提示
+        if (!GM_getValue(referralVer + "_kill_referral"))
+            htmlFooter += htmlReferral; // 添加网盘推广入口提示
         if (htmlFooter)
             htmlFooter = "<br>" + htmlFooter; // 添加底部空行分隔
         var swalArg = __assign(__assign({ title: action + "\u5B8C\u6BD5 \u5171" + fileInfoList.length + "\u4E2A, \u5931\u8D25" + parseResult.failList.length + "\u4E2A!", confirmButtonText: isGen ? "复制秒传代码" : "确认", showDenyButton: isGen, denyButtonText: "复制一键秒传", denyButtonColor: "#ecae3c", reverseButtons: true, html: html + htmlFooter }, (isGen && checkboxArg)), { willOpen: function () {
@@ -6875,7 +6881,7 @@ function sharePage_loader_addBtn() {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-01-31 20:53:13
+ * @LastEditTime: 2023-04-05 07:30:42
  * @LastEditors: mengzonefire
  * @Description: 主函数入口
  */
@@ -6908,14 +6914,18 @@ function loaderBaidu() {
                 GM_setValue(updateInfoVer + "_no_first", true);
             });
         // 预先绑定好按钮事件
-        $(document).on("click", "#kill_donate", function () {
-            GM_setValue(feedbackVer + "_kill_donate", true);
+        $(document).on("click", "#mzf_kill_donate", function () {
+            GM_setValue(donateVer + "_kill_donate", true);
             $("#mzf_donate").remove();
         }); // 赞助提示 "不再显示" 按钮
-        $(document).on("click", "#kill_feedback", function () {
-            GM_setValue(donateVer + "_kill_feedback", true);
+        $(document).on("click", "#mzf_kill_feedback", function () {
+            GM_setValue(feedbackVer + "_kill_feedback", true);
             $("#mzf_feedback").remove();
         }); // 反馈提示 "不再显示" 按钮
+        $(document).on("click", "#mzf_kill_referral", function () {
+            GM_setValue(referralVer + "_kill_referral", true);
+            $("#mzf_referral").remove();
+        }); // 网盘会员推广 "不再显示" 按钮
         $(document).on("click", "#copy_fail_list", function (btn) {
             var listText = "";
             for (var _i = 0, _a = swalInstance.parseResult.failList; _i < _a.length; _i++) {

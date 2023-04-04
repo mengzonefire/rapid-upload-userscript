@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-01-31 20:53:13
+ * @LastEditTime: 2023-04-05 07:30:42
  * @LastEditors: mengzonefire
  * @Description: 主函数入口
  */
@@ -16,6 +16,7 @@ import {
   feedbackVer,
   TAG,
   version,
+  referralVer,
 } from "@/common/const";
 import { parseQueryLink } from "@/common/duParser";
 import installNew from "./newPage/loader";
@@ -43,14 +44,18 @@ export function loaderBaidu(): void {
       });
 
     // 预先绑定好按钮事件
-    $(document).on("click", "#kill_donate", function () {
-      GM_setValue(`${feedbackVer}_kill_donate`, true);
+    $(document).on("click", "#mzf_kill_donate", function () {
+      GM_setValue(`${donateVer}_kill_donate`, true);
       $("#mzf_donate").remove();
     }); // 赞助提示 "不再显示" 按钮
-    $(document).on("click", "#kill_feedback", function () {
-      GM_setValue(`${donateVer}_kill_feedback`, true);
+    $(document).on("click", "#mzf_kill_feedback", function () {
+      GM_setValue(`${feedbackVer}_kill_feedback`, true);
       $("#mzf_feedback").remove();
     }); // 反馈提示 "不再显示" 按钮
+    $(document).on("click", "#mzf_kill_referral", function () {
+      GM_setValue(`${referralVer}_kill_referral`, true);
+      $("#mzf_referral").remove();
+    }); // 网盘会员推广 "不再显示" 按钮
     $(document).on("click", "#copy_fail_list", (btn) => {
       let listText = "";
       for (let item of swalInstance.parseResult.failList)

@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-04-04 17:04:51
+ * @LastEditTime: 2023-04-05 07:32:35
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -14,8 +14,10 @@ import {
   commandList,
   doc,
   htmlAboutBdlink,
+  htmlReferral,
   linkStyle,
   locUrl,
+  referralVer,
 } from "./const";
 import {
   refreshList,
@@ -178,7 +180,10 @@ export default class Swalbase {
       parseResult.htmlInfo; // 添加失败列表, 生成模式下添加顶部空行分隔
     let htmlFooter = "";
     if (!GM_getValue(`${donateVer}_kill_donate`)) htmlFooter += htmlDonate; // 添加赞助入口提示
-    if (!GM_getValue(`${feedbackVer}_kill_donate`)) htmlFooter += htmlFeedback; // 添加反馈入口提示
+    if (!GM_getValue(`${feedbackVer}_kill_feedback`))
+      htmlFooter += htmlFeedback; // 添加反馈入口提示
+    if (!GM_getValue(`${referralVer}_kill_referral`))
+      htmlFooter += htmlReferral; // 添加网盘推广入口提示
     if (htmlFooter) htmlFooter = "<br>" + htmlFooter; // 添加底部空行分隔
     let swalArg = {
       title: `${action}完毕 共${fileInfoList.length}个, 失败${parseResult.failList.length}个!`,
