@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.8
+// @version         2.6.9
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4836,12 +4836,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-05 07:38:11
+ * @LastEditTime: 2023-04-11 14:05:10
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.8"; // 当前版本号
-var updateDate = "23.4.5"; // 更新弹窗显示的日期
+var version = "2.6.9"; // 当前版本号
+var updateDate = "23.4.11"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -5197,7 +5197,7 @@ var sweetalert2_all_default = /*#__PURE__*/__webpack_require__.n(sweetalert2_all
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-04-05 07:32:35
+ * @LastEditTime: 2023-04-11 14:10:57
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -5443,7 +5443,7 @@ var Swalbase = /** @class */ (function () {
                     var with_path = $("#swal2-checkbox")[0].checked;
                     GM_setValue("with_path", with_path);
                     if (!with_path)
-                        GM_setClipboard(parseResult.bdcode.replace(/#\/.+\//g, "#"));
+                        GM_setClipboard(parseResult.bdcode.replace(/(#\/.+\/)|(#\/)/g, "#"));
                     // 去除秒传链接中的目录结构(仅保留文件名)
                     else {
                         var pathType = GM_getValue("pathType") === undefined
@@ -5458,7 +5458,7 @@ var Swalbase = /** @class */ (function () {
                             var nowPath = location.href.match(/path=(.+?)(?:&|$)/);
                             if (nowPath)
                                 localPathPrefix = decodeURIComponent(nowPath[1]);
-                            GM_setClipboard(parseResult.bdcode.replace(new RegExp("#" + localPathPrefix + "/", "g"), "#"));
+                            GM_setClipboard(parseResult.bdcode.replace(new RegExp("(#" + localPathPrefix + "/)|(#/)", "g"), "#"));
                         }
                     }
                     sweetalert2_all_default().getConfirmButton().innerText = "复制成功,点击右上关闭";

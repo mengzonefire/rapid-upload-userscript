@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 08:34:46
- * @LastEditTime: 2023-04-05 07:32:35
+ * @LastEditTime: 2023-04-11 14:10:57
  * @LastEditors: mengzonefire
  * @Description: 定义全套的前台弹窗逻辑, 在Swal的回调函数内调用***Task类内定义的任务代码
  */
@@ -221,7 +221,9 @@ export default class Swalbase {
           let with_path = $("#swal2-checkbox")[0].checked;
           GM_setValue("with_path", with_path);
           if (!with_path)
-            GM_setClipboard(parseResult.bdcode.replace(/#\/.+\//g, "#"));
+            GM_setClipboard(
+              parseResult.bdcode.replace(/(#\/.+\/)|(#\/)/g, "#")
+            );
           // 去除秒传链接中的目录结构(仅保留文件名)
           else {
             let pathType =
@@ -237,7 +239,7 @@ export default class Swalbase {
               if (nowPath) localPathPrefix = decodeURIComponent(nowPath[1]);
               GM_setClipboard(
                 parseResult.bdcode.replace(
-                  new RegExp(`#${localPathPrefix}/`, "g"),
+                  new RegExp(`(#${localPathPrefix}/)|(#/)`, "g"),
                   "#"
                 )
               );
