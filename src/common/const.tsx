@@ -1,13 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-11 14:05:10
+ * @LastEditTime: 2023-04-19 21:58:13
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 
-export const version = "2.6.9"; // 当前版本号
-export const updateDate = "23.4.11"; // 更新弹窗显示的日期
+export const version = "2.7.0"; // 当前版本号
+export const updateDate = "23.4.19"; // 更新弹窗显示的日期
 export const updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -38,8 +38,8 @@ export const extCssUrl = {
     "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 export const appError = {
-  SwalCssInvalid: `样式包数据错误, 请前往脚本页反馈:\n${homePage}`,
-  SwalCssErrReq: `样式包加载失败, 请前往脚本页反馈:\n${homePage}\n错误代码: `,
+  SwalCssInvalid: `样式包数据错误, 自动使用内置样式 (请点确定)`,
+  SwalCssErrReq: `样式包加载失败, 自动使用内置样式 (请点确定), 错误代码: `,
   ClipboardPremissionErr:
     '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox, 同时注意使用https访问页面 (http访问会导致浏览器直接禁止剪贴板权限)',
 }; // 主程序异常

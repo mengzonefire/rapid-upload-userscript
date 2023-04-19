@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:32:18
- * @LastEditTime: 2023-02-14 03:25:02
+ * @LastEditTime: 2023-04-19 21:51:03
  * @LastEditors: mengzonefire
  * @Description: 样式注入模块
  */
@@ -48,6 +48,8 @@ function getThemesCss(swalThemes: string): void {
           appError.SwalCssInvalid +
             `\n错误数据:${swalThemes} InvalidCss:\n${ThemesCss}`
         );
+        GM_setValue("swalThemes", "Default");
+        loaderBaidu();
         return;
       } // 返回data数据长度过小, 判定为无效样式代码
       GM_setValue(`${swalCssVer}${swalThemes}`, ThemesCss); // 缓存css代码
@@ -57,6 +59,8 @@ function getThemesCss(swalThemes: string): void {
 
     (statusCode) => {
       showAlert(appError.SwalCssErrReq + `#${statusCode}`);
+      GM_setValue("swalThemes", "Default");
+      loaderBaidu();
     }
   );
 }

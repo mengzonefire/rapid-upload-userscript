@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.6.9
+// @version         2.7.0
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4760,7 +4760,7 @@ module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div 
 /***/ 149:
 /***/ ((module) => {
 
-module.exports = "/*自定义单选框样式*/\n.mzf_check {\n  display: inline-block;\n  background-color: white;\n  border-radius: 5px;\n  border: 1px solid #d3d3d3;\n  width: 20px;\n  height: 20px;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 20px;\n  margin-left: 10px;\n}\n.mzf_check_ori:checked + .mzf_check {\n  background-color: #eee;\n}\n.mzf_check_ori:checked + .mzf_check::after {\n  content: \"✓\";\n}\n.mzf_check_ori {\n  display: none;\n}\n\n/*新版度盘页面的按钮样式(直接拷贝)*/\n.mzf_new_btn {\n  -webkit-text-size-adjust: 100%;\n  -webkit-font-smoothing: antialiased;\n  -webkit-tap-highlight-color: transparent;\n  vertical-align: middle;\n  font: inherit;\n  overflow: visible;\n  text-transform: none;\n  font-family: SFUIText, PingFangSC-Regular, Helvetica Neue, Helvetica, Arial,\n    sans-serif;\n  display: inline-block;\n  line-height: 1;\n  white-space: nowrap;\n  cursor: pointer;\n  background: #fff;\n  text-align: center;\n  box-sizing: border-box;\n  outline: 0;\n  margin: 0;\n  transition: 0.1s;\n  color: #fff;\n  background-color: #06a7ff;\n  font-weight: 700;\n  padding: 8px 24px;\n  height: 32px;\n  font-size: 14px;\n  border-radius: 16px;\n  border: none;\n  margin-left: 8px;\n}\n"
+module.exports = "/*自定义单选框样式*/\r\n.mzf_check {\r\n  display: inline-block;\r\n  background-color: white;\r\n  border-radius: 5px;\r\n  border: 1px solid #d3d3d3;\r\n  width: 20px;\r\n  height: 20px;\r\n  text-align: center;\r\n  vertical-align: middle;\r\n  line-height: 20px;\r\n  margin-left: 10px;\r\n}\r\n.mzf_check_ori:checked + .mzf_check {\r\n  background-color: #eee;\r\n}\r\n.mzf_check_ori:checked + .mzf_check::after {\r\n  content: \"✓\";\r\n}\r\n.mzf_check_ori {\r\n  display: none;\r\n}\r\n\r\n/*新版度盘页面的按钮样式(直接拷贝)*/\r\n.mzf_new_btn {\r\n  -webkit-text-size-adjust: 100%;\r\n  -webkit-font-smoothing: antialiased;\r\n  -webkit-tap-highlight-color: transparent;\r\n  vertical-align: middle;\r\n  font: inherit;\r\n  overflow: visible;\r\n  text-transform: none;\r\n  font-family: SFUIText, PingFangSC-Regular, Helvetica Neue, Helvetica, Arial,\r\n    sans-serif;\r\n  display: inline-block;\r\n  line-height: 1;\r\n  white-space: nowrap;\r\n  cursor: pointer;\r\n  background: #fff;\r\n  text-align: center;\r\n  box-sizing: border-box;\r\n  outline: 0;\r\n  margin: 0;\r\n  transition: 0.1s;\r\n  color: #fff;\r\n  background-color: #06a7ff;\r\n  font-weight: 700;\r\n  padding: 8px 24px;\r\n  height: 32px;\r\n  font-size: 14px;\r\n  border-radius: 16px;\r\n  border: none;\r\n  margin-left: 8px;\r\n}\r\n"
 
 /***/ })
 
@@ -4836,12 +4836,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-11 14:05:10
+ * @LastEditTime: 2023-04-19 21:58:13
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.6.9"; // 当前版本号
-var updateDate = "23.4.11"; // 更新弹窗显示的日期
+var version = "2.7.0"; // 当前版本号
+var updateDate = "23.4.19"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -4868,8 +4868,8 @@ var extCssUrl = {
     "Bootstrap 4": "https://cdn.jsdelivr.net/npm/@sweetalert2/theme-bootstrap-4/bootstrap-4.min.css",
 }; // 各主题包对应的url
 var appError = {
-    SwalCssInvalid: "\u6837\u5F0F\u5305\u6570\u636E\u9519\u8BEF, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage,
-    SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u8BF7\u524D\u5F80\u811A\u672C\u9875\u53CD\u9988:\n" + homePage + "\n\u9519\u8BEF\u4EE3\u7801: ",
+    SwalCssInvalid: "\u6837\u5F0F\u5305\u6570\u636E\u9519\u8BEF, \u81EA\u52A8\u4F7F\u7528\u5185\u7F6E\u6837\u5F0F (\u8BF7\u70B9\u786E\u5B9A)",
+    SwalCssErrReq: "\u6837\u5F0F\u5305\u52A0\u8F7D\u5931\u8D25, \u81EA\u52A8\u4F7F\u7528\u5185\u7F6E\u6837\u5F0F (\u8BF7\u70B9\u786E\u5B9A), \u9519\u8BEF\u4EE3\u7801: ",
     ClipboardPremissionErr: '使用 "监听剪贴板" 功能需要允许剪贴板权限!\n该功能只支持Chrome系/Edge/Opera浏览器, 不支持Firefox, 同时注意使用https访问页面 (http访问会导致浏览器直接禁止剪贴板权限)',
 }; // 主程序异常
 var appWarning = {
@@ -6979,7 +6979,7 @@ function loaderBaidu() {
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:32:18
- * @LastEditTime: 2023-02-14 03:25:02
+ * @LastEditTime: 2023-04-19 21:51:03
  * @LastEditors: mengzonefire
  * @Description: 样式注入模块
  */
@@ -7021,6 +7021,8 @@ function getThemesCss(swalThemes) {
         if (ThemesCss.length < 100) {
             showAlert(appError.SwalCssInvalid +
                 ("\n\u9519\u8BEF\u6570\u636E:" + swalThemes + " InvalidCss:\n" + ThemesCss));
+            GM_setValue("swalThemes", "Default");
+            loaderBaidu();
             return;
         } // 返回data数据长度过小, 判定为无效样式代码
         GM_setValue("" + swalCssVer + swalThemes, ThemesCss); // 缓存css代码
@@ -7028,6 +7030,8 @@ function getThemesCss(swalThemes) {
         loaderBaidu();
     }, function (statusCode) {
         showAlert(appError.SwalCssErrReq + ("#" + statusCode));
+        GM_setValue("swalThemes", "Default");
+        loaderBaidu();
     });
 }
 
