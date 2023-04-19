@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.0
+// @version         2.7.1
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -11,11 +11,11 @@
 // @match           *://pan.baidu.com/s/*
 // @match           *://yun.baidu.com/disk/home*
 // @match           *://yun.baidu.com/disk/main*
-// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://yun.baidu.com/disk/synchronization*
 // @match           *://yun.baidu.com/s/*
 // @match           *://wangpan.baidu.com/disk/home*
 // @match           *://wangpan.baidu.com/disk/main*
-// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://wangpan.baidu.com/disk/synchronization*
 // @match           *://wangpan.baidu.com/s/*
 // @name:en         rapidupload-userscript
 // @license         GPLv3

@@ -97,11 +97,11 @@ module.exports = {
           "*://pan.baidu.com/s/*",
           "*://yun.baidu.com/disk/home*",
           "*://yun.baidu.com/disk/main*",
-          "*://pan.baidu.com/disk/synchronization*",
+          "*://yun.baidu.com/disk/synchronization*",
           "*://yun.baidu.com/s/*",
           "*://wangpan.baidu.com/disk/home*",
           "*://wangpan.baidu.com/disk/main*",
-          "*://pan.baidu.com/disk/synchronization*",
+          "*://wangpan.baidu.com/disk/synchronization*",
           "*://wangpan.baidu.com/s/*",
         ],
         grant: [

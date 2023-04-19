@@ -1,12 +1,12 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-19 21:58:13
+ * @LastEditTime: 2023-04-19 22:54:09
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 
-export const version = "2.7.0"; // 当前版本号
+export const version = "2.7.1"; // 当前版本号
 export const updateDate = "23.4.19"; // 更新弹窗显示的日期
 export const updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
