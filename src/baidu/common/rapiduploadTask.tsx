@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-02-09 23:33:17
+ * @LastEditTime: 2023-04-24 17:16:25
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -128,10 +128,12 @@ export default class RapiduploadTask {
 }
 
 // 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
+// 23.4.24测试发现此接口也不稳定, 有效md5也有20-30%概率返回block_list: [0], 建议加入retry策略
 export function precreateFileV2(
   file: FileInfo,
   onResponsed: (data: any) => void,
-  onFailed: (statusCode: number) => void
+  onFailed: (statusCode: number) => void,
+  retry: number = 0
 ): void {
   ajax(
     {
@@ -146,7 +148,14 @@ export function precreateFileV2(
         autoinit: 1,
       }),
     },
-    onResponsed,
+    (data) => {
+      let _data = data.response;
+      if (0 === _data.errno) {
+        if (0 != _data.block_list.length && retry < retryMax_apiV2)
+          precreateFileV2.call(this, file, onResponsed, onFailed, ++retry);
+        else onResponsed(data);
+      } else onResponsed(data);
+    },
     onFailed
   );
 }

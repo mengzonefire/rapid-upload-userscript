@@ -1,13 +1,13 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-19 22:54:09
+ * @LastEditTime: 2023-04-24 16:30:27
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
 
-export const version = "2.7.1"; // 当前版本号
-export const updateDate = "23.4.19"; // 更新弹窗显示的日期
+export const version = "2.7.2"; // 当前版本号
+export const updateDate = "23.4.24"; // 更新弹窗显示的日期
 export const updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 export const swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 export const donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号

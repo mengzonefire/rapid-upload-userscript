@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.1
+// @version         2.7.2
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4836,12 +4836,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-19 22:54:09
+ * @LastEditTime: 2023-04-24 16:30:27
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.1"; // 当前版本号
-var updateDate = "23.4.19"; // 更新弹窗显示的日期
+var version = "2.7.2"; // 当前版本号
+var updateDate = "23.4.24"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -5738,7 +5738,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-02-09 23:33:17
+ * @LastEditTime: 2023-04-24 17:16:25
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5839,7 +5839,10 @@ var RapiduploadTask = /** @class */ (function () {
 }());
 /* harmony default export */ const rapiduploadTask = (RapiduploadTask);
 // 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
-function precreateFileV2(file, onResponsed, onFailed) {
+// 23.4.24测试发现此接口也不稳定, 有效md5也有20-30%概率返回block_list: [0], 建议加入retry策略
+function precreateFileV2(file, onResponsed, onFailed, retry) {
+    var _this = this;
+    if (retry === void 0) { retry = 0; }
     ajax({
         url: "" + precreate_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
         method: "POST",
@@ -5851,7 +5854,17 @@ function precreateFileV2(file, onResponsed, onFailed) {
             isdir: 0,
             autoinit: 1,
         }),
-    }, onResponsed, onFailed);
+    }, function (data) {
+        var _data = data.response;
+        if (0 === _data.errno) {
+            if (0 != _data.block_list.length && retry < retryMax_apiV2)
+                precreateFileV2.call(_this, file, onResponsed, onFailed, ++retry);
+            else
+                onResponsed(data);
+        }
+        else
+            onResponsed(data);
+    }, onFailed);
 }
 
 // EXTERNAL MODULE: ./node_modules/spark-md5/spark-md5.js
