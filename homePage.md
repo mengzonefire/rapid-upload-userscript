@@ -3,7 +3,7 @@
 ## 近期通知
 
 - 23.4.24: 百度~~服务端不稳定~~ (在换服务器), 导致转存有效秒传有[20%概率](https://greasyfork.org/zh-CN/scripts/424574/discussions/180245)报错 <span style="color: red">#404</span> (手动重试可成功转存), <span style="color: red">更新2.7.2版本</span> 可解决此问题
-  - 部分用户则是转存什么都#404(重试也无效), ~~只能等官方修复服务端~~ 是浏览器dns缓存导致的, <span style="color: red">清除浏览器缓存</span> / 更换 / 重装浏览器 可解决
+  - 部分用户则是转存什么都#404(重试也无效), ~~等官方修复服务端~~ 或 尝试 <span style="color: red">清除浏览器缓存</span>
 
 - 23.3.24: 提供一个简易的分享链生成秒传的后端: <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/shareLink2bdLink)
 
