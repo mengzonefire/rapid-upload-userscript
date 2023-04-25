@@ -12,7 +12,8 @@
 - 22.12.24: 从10.24开始, 疑似度盘服务端更新后未同步数据, 导致 使用<span style="color: red">旧PCS接口</span>([PCS-GO](https://github.com/qjfoidnh/BaiduPCS-Go)等第三方客户端)上传的文件<span style="color: red">秒传全部失效</span>(新旧文件均失效), 至今仍未恢复, 使用 官方客户端 和 官方网页端 上传的文件则不受影响
   - 如何恢复失效的秒传: 使用 官方客户端 / 官方网页端 重传文件即可
 
-- 21.10.16: 已将完整的秒传转存功能移植到 **秒传网页版工具**: [载点1](https://rapidacg.gmgard.moe/)(可能不是最新版) [载点2](https://mengzonefire.github.io/baidupan-rapidupload) [载点3](https://mengzonefire.code.misakanet.cn/baidupan-rapidupload)</br>\* 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
+- 21.10.16: 已将完整的秒传转存功能移植到 **秒传网页版工具**: [载点1](https://rapidacg.gmgard.moe/)(可能不是最新版) [载点2](https://mengzonefire.github.io/baidupan-rapidupload) [载点3](https://mengzonefire.code.misakanet.cn/baidupan-rapidupload)
+  - 网页版无需安装插件, 点开即用, <span style="color: red;">支持所有平台</span>, 推荐无法安装插件的用户使用, 工具源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/baidupan-rapidupload), 欢迎搭建分流
 
 ## 相关教程
 
