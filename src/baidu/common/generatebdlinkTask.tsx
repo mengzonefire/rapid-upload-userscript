@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-03-21 22:46:40
+ * @LastEditTime: 2023-04-25 12:02:29
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -28,7 +28,7 @@ import {
   getBdstoken,
   listLimit,
 } from "./const";
-import { precreateFileV2 } from "./rapiduploadTask";
+import { createFileV2 } from "./rapiduploadTask";
 import SparkMD5 from "spark-md5";
 
 // 普通生成:
@@ -59,7 +59,7 @@ export default class GeneratebdlinkTask {
         : GM_getValue("fast-generate");
     this.recursive = false;
     this.savePath = "";
-    this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方precreateFileV2方法调用
+    this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方createFileV2方法调用
     this.dirList = [];
     this.selectList = [];
     this.fileInfoList = [];
@@ -468,23 +468,21 @@ export default class GeneratebdlinkTask {
     }
     this.onProcess(i, this.fileInfoList);
     this.onProgress(false, "极速生成中...");
-    precreateFileV2.call(
+    createFileV2.call(
       this,
       file,
       (data: any) => {
         data = data.response;
-        if (0 === data.errno) {
-          if (0 === data.block_list.length) this.checkMd5(i + 1); // md5验证成功
-          else {
-            // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
-            if (!this.isSharePage)
-              GM_setValue("unfinish", {
-                file_info_list: this.fileInfoList,
-                file_id: i,
-                isCheckMd5: true,
-              });
-            this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
-          }
+        if ([0, -8].includes(data.errno)) this.checkMd5(i + 1); // md5验证成功
+        else if (31190 === data.errno) {
+          // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+          if (!this.isSharePage)
+            GM_setValue("unfinish", {
+              file_info_list: this.fileInfoList,
+              file_id: i,
+              isCheckMd5: true,
+            });
+          this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
         } else {
           // 接口访问失败
           file.errno = data.errno;

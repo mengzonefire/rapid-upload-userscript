@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.2
+// @version         2.7.3
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4836,12 +4836,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-24 16:30:27
+ * @LastEditTime: 2023-04-25 11:34:06
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.2"; // 当前版本号
-var updateDate = "23.4.24"; // 更新弹窗显示的日期
+var version = "2.7.3"; // 当前版本号
+var updateDate = "23.4.25"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -5738,7 +5738,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-04-24 17:16:25
+ * @LastEditTime: 2023-04-25 12:04:33
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5782,69 +5782,51 @@ var RapiduploadTask = /** @class */ (function () {
             file.errno = statusCode;
             _this.saveFileV2(i + 1);
         };
-        precreateFileV2.call(this, file, function (data) {
+        createFileV2.call(this, file, function (data) {
             data = data.response;
-            if (0 === data.errno) {
-                if (0 === data.block_list.length) {
-                    _this.createFileV2(file, function (data) {
-                        data = data.response;
-                        file.errno = 2 === data.errno ? 114 : data.errno;
-                        file.errno = 31190 === file.errno ? 404 : file.errno;
-                        _this.saveFileV2(i + 1);
-                    }, onFailed);
-                }
-                else {
-                    file.errno = 404;
-                    _this.saveFileV2(i + 1);
-                }
-            }
-            else {
-                file.errno = data.errno;
-                _this.saveFileV2(i + 1);
-            }
+            file.errno = 2 === data.errno ? 114 : data.errno;
+            file.errno = 31190 === file.errno ? 404 : file.errno;
+            _this.saveFileV2(i + 1);
         }, onFailed);
-    };
-    // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
-    // 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
-    RapiduploadTask.prototype.createFileV2 = function (file, onResponsed, onFailed, retry) {
-        var _this = this;
-        if (retry === void 0) { retry = 0; }
-        ajax({
-            url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
-            method: "POST",
-            responseType: "json",
-            data: convertData({
-                block_list: JSON.stringify([file.md5.toLowerCase()]),
-                path: this.savePath + file.path.replace(illegalPathPattern, "_"),
-                size: file.size,
-                isdir: 0,
-                rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
-            }),
-        }, function (data) {
-            // console.log(data.response); // debug
-            if (31039 === data.response.errno && 31039 != file.errno) {
-                file.errno = 31039;
-                file.path = suffixChange(file.path);
-                _this.createFileV2(file, onResponsed, onFailed, retry);
-            }
-            else if (2 === data.response.errno && retry < retryMax_apiV2) {
-                // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
-                _this.createFileV2(file, onResponsed, onFailed, ++retry);
-            }
-            else
-                onResponsed(data);
-        }, onFailed);
+        // precreateFileV2.call(
+        //   this,
+        //   file,
+        //   (data: any) => {
+        //     data = data.response;
+        //     if (0 === data.errno) {
+        //       if (0 === data.block_list.length) {
+        //         this.createFileV2(
+        //           file,
+        //           (data) => {
+        //             data = data.response;
+        //             file.errno = 2 === data.errno ? 114 : data.errno;
+        //             file.errno = 31190 === file.errno ? 404 : file.errno;
+        //             this.saveFileV2(i + 1);
+        //           },
+        //           onFailed
+        //         );
+        //       } else {
+        //         file.errno = 404;
+        //         this.saveFileV2(i + 1);
+        //       }
+        //     } else {
+        //       file.errno = data.errno;
+        //       this.saveFileV2(i + 1);
+        //     }
+        //   },
+        //   onFailed
+        // );
     };
     return RapiduploadTask;
 }());
 /* harmony default export */ const rapiduploadTask = (RapiduploadTask);
-// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
-// 23.4.24测试发现此接口也不稳定, 有效md5也有20-30%概率返回block_list: [0], 建议加入retry策略
-function precreateFileV2(file, onResponsed, onFailed, retry) {
+// 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
+// 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
+function createFileV2(file, onResponsed, onFailed, retry) {
     var _this = this;
     if (retry === void 0) { retry = 0; }
     ajax({
-        url: "" + precreate_url + (this.bdstoken && "&bdstoken=" + this.bdstoken),
+        url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
         method: "POST",
         responseType: "json",
         data: convertData({
@@ -5852,20 +5834,56 @@ function precreateFileV2(file, onResponsed, onFailed, retry) {
             path: this.savePath + file.path.replace(illegalPathPattern, "_"),
             size: file.size,
             isdir: 0,
-            autoinit: 1,
+            rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
         }),
     }, function (data) {
-        var _data = data.response;
-        if (0 === _data.errno) {
-            if (0 != _data.block_list.length && retry < retryMax_apiV2)
-                precreateFileV2.call(_this, file, onResponsed, onFailed, ++retry);
-            else
-                onResponsed(data);
+        // console.log(data.response); // debug
+        if (31039 === data.response.errno && 31039 != file.errno) {
+            file.errno = 31039;
+            file.path = suffixChange(file.path);
+            createFileV2.call(_this, file, onResponsed, onFailed, retry);
+        }
+        else if (2 === data.response.errno && retry < retryMax_apiV2) {
+            // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
+            createFileV2.call(_this, file, onResponsed, onFailed, ++retry);
         }
         else
             onResponsed(data);
     }, onFailed);
 }
+// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
+// 23.4.24测试发现此接口也不稳定, 有效md5也有20-30%概率返回block_list: [0], 建议加入retry策略
+// 23.4.25测试发现此接口反复横跳, 今天又全部返回block_list: [0], 垃圾, 我直接弃用
+// export function precreateFileV2(
+//   file: FileInfo,
+//   onResponsed: (data: any) => void,
+//   onFailed: (statusCode: number) => void,
+//   retry: number = 0
+// ): void {
+//   ajax(
+//     {
+//       url: `${precreate_url}${this.bdstoken && "&bdstoken=" + this.bdstoken}`, // bdstoken参数不能放在data里, 否则无效
+//       method: "POST",
+//       responseType: "json",
+//       data: convertData({
+//         block_list: JSON.stringify([file.md5.toLowerCase()]),
+//         path: this.savePath + file.path.replace(illegalPathPattern, "_"),
+//         size: file.size,
+//         isdir: 0,
+//         autoinit: 1,
+//       }),
+//     },
+//     (data) => {
+//       let _data = data.response;
+//       if (0 === _data.errno) {
+//         if (0 != _data.block_list.length && retry < retryMax_apiV2)
+//           precreateFileV2.call(this, file, onResponsed, onFailed, ++retry);
+//         else onResponsed(data);
+//       } else onResponsed(data);
+//     },
+//     onFailed
+//   );
+// }
 
 // EXTERNAL MODULE: ./node_modules/spark-md5/spark-md5.js
 var spark_md5 = __webpack_require__(322);
@@ -5874,7 +5892,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-03-21 22:46:40
+ * @LastEditTime: 2023-04-25 12:02:29
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5898,7 +5916,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
                 : GM_getValue("fast-generate");
         this.recursive = false;
         this.savePath = "";
-        this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方precreateFileV2方法调用
+        this.bdstoken = getBdstoken(); // 此处bdstoken不可删除, 会在下方createFileV2方法调用
         this.dirList = [];
         this.selectList = [];
         this.fileInfoList = [];
@@ -6287,21 +6305,19 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }
         this.onProcess(i, this.fileInfoList);
         this.onProgress(false, "极速生成中...");
-        precreateFileV2.call(this, file, function (data) {
+        createFileV2.call(this, file, function (data) {
             data = data.response;
-            if (0 === data.errno) {
-                if (0 === data.block_list.length)
-                    _this.checkMd5(i + 1); // md5验证成功
-                else {
-                    // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
-                    if (!_this.isSharePage)
-                        GM_setValue("unfinish", {
-                            file_info_list: _this.fileInfoList,
-                            file_id: i,
-                            isCheckMd5: true,
-                        });
-                    _this.isSharePage ? _this.getShareDlink(i) : _this.getDlink(i);
-                }
+            if ([0, -8].includes(data.errno))
+                _this.checkMd5(i + 1); // md5验证成功
+            else if (31190 === data.errno) {
+                // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+                if (!_this.isSharePage)
+                    GM_setValue("unfinish", {
+                        file_info_list: _this.fileInfoList,
+                        file_id: i,
+                        isCheckMd5: true,
+                    });
+                _this.isSharePage ? _this.getShareDlink(i) : _this.getDlink(i);
             }
             else {
                 // 接口访问失败
