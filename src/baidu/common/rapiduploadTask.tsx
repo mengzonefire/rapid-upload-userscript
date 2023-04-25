@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-04-25 12:04:33
+ * @LastEditTime: 2023-04-25 19:34:37
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -13,6 +13,7 @@ import {
   create_url,
   getBdstoken,
   illegalPathPattern,
+  testPath,
 } from "./const";
 export default class RapiduploadTask {
   savePath: string;
@@ -105,7 +106,8 @@ export function createFileV2(
   file: FileInfo,
   onResponsed: (data: any) => void,
   onFailed: (statusCode: number) => void,
-  retry: number = 0
+  retry: number = 0,
+  isGen: boolean = false
 ): void {
   ajax(
     {
@@ -114,21 +116,24 @@ export function createFileV2(
       responseType: "json",
       data: convertData({
         block_list: JSON.stringify([file.md5.toLowerCase()]),
-        path: this.savePath + file.path.replace(illegalPathPattern, "_"),
+        path: isGen
+          ? testPath
+          : this.savePath + file.path.replace(illegalPathPattern, "_"),
         size: file.size,
         isdir: 0,
-        rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
+        rtype: isGen ? 3 : 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1 (自动重命名, 1和2是两种不同的重命名策略)
+        is_revision: isGen ? 1 : 0, // is_revision=0时, rtype=3会不生效 (会依旧返回重名报错), is_revision=1时则等同rtype=3效果
       }),
     },
     (data) => {
       // console.log(data.response); // debug
-      if (31039 === data.response.errno && 31039 != file.errno) {
+      if (31039 === data.response.errno && 31039 != file.errno && !isGen) {
         file.errno = 31039;
         file.path = suffixChange(file.path);
-        createFileV2.call(this, file, onResponsed, onFailed, retry);
+        createFileV2.call(this, file, onResponsed, onFailed, retry, isGen);
       } else if (2 === data.response.errno && retry < retryMax_apiV2) {
         // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
-        createFileV2.call(this, file, onResponsed, onFailed, ++retry);
+        createFileV2.call(this, file, onResponsed, onFailed, ++retry, isGen);
       } else onResponsed(data);
     },
     onFailed

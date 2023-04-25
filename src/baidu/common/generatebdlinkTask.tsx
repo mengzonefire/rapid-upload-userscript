@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-04-25 12:02:29
+ * @LastEditTime: 2023-04-25 19:08:28
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -473,7 +473,7 @@ export default class GeneratebdlinkTask {
       file,
       (data: any) => {
         data = data.response;
-        if ([0, -8].includes(data.errno)) this.checkMd5(i + 1); // md5验证成功
+        if (0 === data.errno) this.checkMd5(i + 1); // md5验证成功
         else if (31190 === data.errno) {
           // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
           if (!this.isSharePage)
@@ -492,7 +492,9 @@ export default class GeneratebdlinkTask {
       (statusCode: number) => {
         file.errno = statusCode;
         this.checkMd5(i + 1);
-      }
+      },
+      0,
+      true
     );
   }
 

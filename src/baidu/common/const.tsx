@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-03-21 22:47:29
+ * @LastEditTime: 2023-04-25 19:03:22
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -24,6 +24,7 @@ export const tpl_url = `https://${host}/share/tplconfig?fields=sign,timestamp&ch
 export const sharedownload_url = `https://${host}/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528`;
 export const sharelist_url = `https://${host}/share/list?showempty=0&num=${listLimit}&channel=chunlei&web=1&app_id=250528&clienttype=0`;
 export const syncdownload_url = `https://${host}/api/download`;
+export const testPath = "/apps/生成秒传测试文件.mengzonefire";
 export const pcs_url =
   "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 export const illegalPathPattern = /[\\":*?<>|]/g; // 匹配路径中的非法字符

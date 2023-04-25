@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.3
+// @version         2.7.4
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4836,11 +4836,11 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-25 11:34:06
+ * @LastEditTime: 2023-04-25 19:05:31
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.3"; // 当前版本号
+var version = "2.7.4"; // 当前版本号
 var updateDate = "23.4.25"; // 更新弹窗显示的日期
 var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -5738,7 +5738,7 @@ function ajax(config, callback, failback) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-04-25 12:04:33
+ * @LastEditTime: 2023-04-25 19:34:37
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -5822,30 +5822,34 @@ var RapiduploadTask = /** @class */ (function () {
 /* harmony default export */ const rapiduploadTask = (RapiduploadTask);
 // 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
 // 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
-function createFileV2(file, onResponsed, onFailed, retry) {
+function createFileV2(file, onResponsed, onFailed, retry, isGen) {
     var _this = this;
     if (retry === void 0) { retry = 0; }
+    if (isGen === void 0) { isGen = false; }
     ajax({
         url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
         method: "POST",
         responseType: "json",
         data: convertData({
             block_list: JSON.stringify([file.md5.toLowerCase()]),
-            path: this.savePath + file.path.replace(illegalPathPattern, "_"),
+            path: isGen
+                ? testPath
+                : this.savePath + file.path.replace(illegalPathPattern, "_"),
             size: file.size,
             isdir: 0,
-            rtype: 0, // rtype=3覆盖文件, rtype=0则返回报错, 不覆盖文件, 默认为rtype=1(自动重命名)
+            rtype: isGen ? 3 : 0,
+            is_revision: isGen ? 1 : 0, // is_revision=0时, rtype=3会不生效 (会依旧返回重名报错), is_revision=1时则等同rtype=3效果
         }),
     }, function (data) {
         // console.log(data.response); // debug
-        if (31039 === data.response.errno && 31039 != file.errno) {
+        if (31039 === data.response.errno && 31039 != file.errno && !isGen) {
             file.errno = 31039;
             file.path = suffixChange(file.path);
-            createFileV2.call(_this, file, onResponsed, onFailed, retry);
+            createFileV2.call(_this, file, onResponsed, onFailed, retry, isGen);
         }
         else if (2 === data.response.errno && retry < retryMax_apiV2) {
             // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
-            createFileV2.call(_this, file, onResponsed, onFailed, ++retry);
+            createFileV2.call(_this, file, onResponsed, onFailed, ++retry, isGen);
         }
         else
             onResponsed(data);
@@ -5892,7 +5896,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-04-25 12:02:29
+ * @LastEditTime: 2023-04-25 19:08:28
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -6307,7 +6311,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
         this.onProgress(false, "极速生成中...");
         createFileV2.call(this, file, function (data) {
             data = data.response;
-            if ([0, -8].includes(data.errno))
+            if (0 === data.errno)
                 _this.checkMd5(i + 1); // md5验证成功
             else if (31190 === data.errno) {
                 // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
@@ -6327,7 +6331,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }, function (statusCode) {
             file.errno = statusCode;
             _this.checkMd5(i + 1);
-        });
+        }, 0, true);
     };
     /**
      * @description: 用于解析度盘主页的文件列表数据
@@ -6382,7 +6386,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-03-21 22:47:29
+ * @LastEditTime: 2023-04-25 19:03:22
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -6403,6 +6407,7 @@ var tpl_url = "https://" + host + "/share/tplconfig?fields=sign,timestamp&channe
 var sharedownload_url = "https://" + host + "/api/sharedownload?channel=chunlei&clienttype=12&web=1&app_id=250528";
 var sharelist_url = "https://" + host + "/share/list?showempty=0&num=" + listLimit + "&channel=chunlei&web=1&app_id=250528&clienttype=0";
 var syncdownload_url = "https://" + host + "/api/download";
+var testPath = "/apps/生成秒传测试文件.mengzonefire";
 var pcs_url = "https://pcs.baidu.com/rest/2.0/pcs/file?app_id=778750&method=download";
 var illegalPathPattern = /[\\":*?<>|]/g; // 匹配路径中的非法字符
 var getBdstoken; // 获取bdstoken的实现
