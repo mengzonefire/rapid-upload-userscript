@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-04-25 19:08:28
+ * @LastEditTime: 2023-04-27 18:22:28
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -28,7 +28,7 @@ import {
   getBdstoken,
   listLimit,
 } from "./const";
-import { createFileV2 } from "./rapiduploadTask";
+// import { createFileV2 } from "./rapiduploadTask";
 import SparkMD5 from "spark-md5";
 
 // 普通生成:
@@ -468,34 +468,37 @@ export default class GeneratebdlinkTask {
     }
     this.onProcess(i, this.fileInfoList);
     this.onProgress(false, "极速生成中...");
-    createFileV2.call(
-      this,
-      file,
-      (data: any) => {
-        data = data.response;
-        if (0 === data.errno) this.checkMd5(i + 1); // md5验证成功
-        else if (31190 === data.errno) {
-          // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
-          if (!this.isSharePage)
-            GM_setValue("unfinish", {
-              file_info_list: this.fileInfoList,
-              file_id: i,
-              isCheckMd5: true,
-            });
-          this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
-        } else {
-          // 接口访问失败
-          file.errno = data.errno;
-          this.checkMd5(i + 1);
-        }
-      },
-      (statusCode: number) => {
-        file.errno = statusCode;
-        this.checkMd5(i + 1);
-      },
-      0,
-      true
-    );
+    this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
+    // 23.4.27, 错误md5在文件上传者账号使用此接口正常转存, 在其他账号则报错#404, 导致生成秒传完全无法验证, 故弃用meta内的md5
+    
+    // createFileV2.call(
+    //   this,
+    //   file,
+    //   (data: any) => {
+    //     data = data.response;
+    //     if (0 === data.errno) this.checkMd5(i + 1); // md5验证成功
+    //     else if (31190 === data.errno) {
+    //       // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+    //       if (!this.isSharePage)
+    //         GM_setValue("unfinish", {
+    //           file_info_list: this.fileInfoList,
+    //           file_id: i,
+    //           isCheckMd5: true,
+    //         });
+    //       this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
+    //     } else {
+    //       // 接口访问失败
+    //       file.errno = data.errno;
+    //       this.checkMd5(i + 1);
+    //     }
+    //   },
+    //   (statusCode: number) => {
+    //     file.errno = statusCode;
+    //     this.checkMd5(i + 1);
+    //   },
+    //   0,
+    //   true
+    // );
   }
 
   /**

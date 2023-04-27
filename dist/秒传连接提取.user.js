@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.4
+// @version         2.7.5
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4753,7 +4753,7 @@ module.exports = ".mzf_btn{text-align:center;font-size:.85em;color:#09aaff;borde
 /***/ 184:
 /***/ ((module) => {
 
-module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <ul>\r\n      <li>修复 未知错误(<span style=\"color: red;\">#9019</span>) 报错</li>\r\n      <li>完成了新脚本: <a href=\"https://greasyfork.org/zh-CN/scripts/459862\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">秒传链接提取Ultra</a>, 安装后无需打开网盘主页即可直接转存页面上的秒传链接</li>\r\n      <li>生成秒传时, 导出路径默认改为相对路径, 防止路径过长 (设置页提供绝对/相对路径切换选项)</li>\r\n    </ul>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"panel-body\" style=\"height: 220px;\">\r\n  <div class=\"mzf_updateInfo\">\r\n    <p>更新日志:</p>\r\n    <p>修复生成错误秒传的问题: 23.4.25发布的 <span style=\"color: red;\">2.7.3, 2.7.4</span> 这两个版本会生成错误的秒传, 错误秒传在<span style=\"color: red;\">文件上传者账号</span>正常转存, 但在其他的账号会报错 <span style=\"color: red;\">秒传未生效#404</span>, 出现此问题注意使用当前版本重新生成秒传</p>\r\n    </br>\r\n    <ul>\r\n      <li>关联: <a href=\"https://afdian.net/@mengzonefire\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">赞助页</a>\r\n        <a href=\"https://greasyfork.org/zh-CN/scripts/424574\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">反馈页</a>\r\n      </li>\r\n      <li><a href=\"https://greasyfork.org/zh-CN/scripts/459862\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n        target=\"_blank\">秒传链接提取Ultra</a>: 快速转存网页上的秒传链接</li>\r\n      <li>秒传文档: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>脚本更新历史: <a href=\"https://mengzonefire.code.misakanet.cn/rapid-upload-userscript-doc/development/脚本更新日志\"\r\n          class=\"mzf_link\" rel=\"noopener noreferrer\" target=\"_blank\">载点1</a>\r\n        <a href=\"https://xtsat.github.io/rapid-upload-userscript-doc/development/脚本更新日志\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">载点2</a>\r\n      </li>\r\n      <li>秒传网页版工具: <a href=\"https://rapidacg.gmgard.moe/\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点1</a>\r\n        <a href=\"https://mengzonefire.github.io/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点2</a>\r\n        <a href=\"https://mengzonefire.code.misakanet.cn/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">载点3</a>\r\n      </li>\r\n      <li>项目源码: <a href=\"https://github.com/mengzonefire/rapid-upload-userscript\" class=\"mzf_link\"\r\n          rel=\"noopener noreferrer\" target=\"_blank\">秒传脚本</a>\r\n        <a href=\"https://github.com/XTsat/rapid-upload-userscript-doc\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传文档</a>\r\n        <a href=\"https://github.com/mengzonefire/baidupan-rapidupload\" class=\"mzf_link\" rel=\"noopener noreferrer\"\r\n          target=\"_blank\">秒传网页版工具</a>\r\n      </li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -4836,13 +4836,13 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-04-25 19:05:31
+ * @LastEditTime: 2023-04-27 18:17:07
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.4"; // 当前版本号
-var updateDate = "23.4.25"; // 更新弹窗显示的日期
-var updateInfoVer = "2.6.4"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
+var version = "2.7.5"; // 当前版本号
+var updateDate = "23.4.27"; // 更新弹窗显示的日期
+var updateInfoVer = "2.7.5"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
 var feedbackVer = "2.6.4"; // 用于检测可关闭的反馈提示的版本号
@@ -5734,161 +5734,6 @@ function ajax(config, callback, failback) {
         } }));
 }
 
-;// CONCATENATED MODULE: ./src/baidu/common/rapiduploadTask.tsx
-/*
- * @Author: mengzonefire
- * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-04-25 19:34:37
- * @LastEditors: mengzonefire
- * @Description: 百度网盘 秒传转存任务实现
- */
-
-
-
-var RapiduploadTask = /** @class */ (function () {
-    function RapiduploadTask() {
-    }
-    RapiduploadTask.prototype.reset = function () {
-        this.bdstoken = getBdstoken();
-        console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
-        this.fileInfoList = [];
-        this.savePath = "";
-        this.isDefaultPath = false;
-        this.onFinish = function () { };
-        this.onProcess = function () { };
-    };
-    RapiduploadTask.prototype.start = function () {
-        this.saveFileV2(0);
-    };
-    /**
-     * @description: 转存秒传 接口2
-     * @param {number} i
-     */
-    RapiduploadTask.prototype.saveFileV2 = function (i) {
-        var _this = this;
-        if (i >= this.fileInfoList.length) {
-            this.onFinish(this.fileInfoList);
-            return;
-        }
-        this.onProcess(i, this.fileInfoList);
-        var file = this.fileInfoList[i];
-        // 文件名为空
-        if (file.path === "/") {
-            file.errno = -7;
-            this.saveFileV2(i + 1);
-            return;
-        }
-        var onFailed = function (statusCode) {
-            file.errno = statusCode;
-            _this.saveFileV2(i + 1);
-        };
-        createFileV2.call(this, file, function (data) {
-            data = data.response;
-            file.errno = 2 === data.errno ? 114 : data.errno;
-            file.errno = 31190 === file.errno ? 404 : file.errno;
-            _this.saveFileV2(i + 1);
-        }, onFailed);
-        // precreateFileV2.call(
-        //   this,
-        //   file,
-        //   (data: any) => {
-        //     data = data.response;
-        //     if (0 === data.errno) {
-        //       if (0 === data.block_list.length) {
-        //         this.createFileV2(
-        //           file,
-        //           (data) => {
-        //             data = data.response;
-        //             file.errno = 2 === data.errno ? 114 : data.errno;
-        //             file.errno = 31190 === file.errno ? 404 : file.errno;
-        //             this.saveFileV2(i + 1);
-        //           },
-        //           onFailed
-        //         );
-        //       } else {
-        //         file.errno = 404;
-        //         this.saveFileV2(i + 1);
-        //       }
-        //     } else {
-        //       file.errno = data.errno;
-        //       this.saveFileV2(i + 1);
-        //     }
-        //   },
-        //   onFailed
-        // );
-    };
-    return RapiduploadTask;
-}());
-/* harmony default export */ const rapiduploadTask = (RapiduploadTask);
-// 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
-// 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
-function createFileV2(file, onResponsed, onFailed, retry, isGen) {
-    var _this = this;
-    if (retry === void 0) { retry = 0; }
-    if (isGen === void 0) { isGen = false; }
-    ajax({
-        url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
-        method: "POST",
-        responseType: "json",
-        data: convertData({
-            block_list: JSON.stringify([file.md5.toLowerCase()]),
-            path: isGen
-                ? testPath
-                : this.savePath + file.path.replace(illegalPathPattern, "_"),
-            size: file.size,
-            isdir: 0,
-            rtype: isGen ? 3 : 0,
-            is_revision: isGen ? 1 : 0, // is_revision=0时, rtype=3会不生效 (会依旧返回重名报错), is_revision=1时则等同rtype=3效果
-        }),
-    }, function (data) {
-        // console.log(data.response); // debug
-        if (31039 === data.response.errno && 31039 != file.errno && !isGen) {
-            file.errno = 31039;
-            file.path = suffixChange(file.path);
-            createFileV2.call(_this, file, onResponsed, onFailed, retry, isGen);
-        }
-        else if (2 === data.response.errno && retry < retryMax_apiV2) {
-            // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
-            createFileV2.call(_this, file, onResponsed, onFailed, ++retry, isGen);
-        }
-        else
-            onResponsed(data);
-    }, onFailed);
-}
-// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
-// 23.4.24测试发现此接口也不稳定, 有效md5也有20-30%概率返回block_list: [0], 建议加入retry策略
-// 23.4.25测试发现此接口反复横跳, 今天又全部返回block_list: [0], 垃圾, 我直接弃用
-// export function precreateFileV2(
-//   file: FileInfo,
-//   onResponsed: (data: any) => void,
-//   onFailed: (statusCode: number) => void,
-//   retry: number = 0
-// ): void {
-//   ajax(
-//     {
-//       url: `${precreate_url}${this.bdstoken && "&bdstoken=" + this.bdstoken}`, // bdstoken参数不能放在data里, 否则无效
-//       method: "POST",
-//       responseType: "json",
-//       data: convertData({
-//         block_list: JSON.stringify([file.md5.toLowerCase()]),
-//         path: this.savePath + file.path.replace(illegalPathPattern, "_"),
-//         size: file.size,
-//         isdir: 0,
-//         autoinit: 1,
-//       }),
-//     },
-//     (data) => {
-//       let _data = data.response;
-//       if (0 === _data.errno) {
-//         if (0 != _data.block_list.length && retry < retryMax_apiV2)
-//           precreateFileV2.call(this, file, onResponsed, onFailed, ++retry);
-//         else onResponsed(data);
-//       } else onResponsed(data);
-//     },
-//     onFailed
-//   );
-// }
-
 // EXTERNAL MODULE: ./node_modules/spark-md5/spark-md5.js
 var spark_md5 = __webpack_require__(322);
 var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
@@ -5896,7 +5741,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-04-25 19:08:28
+ * @LastEditTime: 2023-04-27 18:22:28
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5905,7 +5750,7 @@ var spark_md5_default = /*#__PURE__*/__webpack_require__.n(spark_md5);
 
 
 
-
+// import { createFileV2 } from "./rapiduploadTask";
 
 // 普通生成:
 var GeneratebdlinkTask = /** @class */ (function () {
@@ -6296,7 +6141,6 @@ var GeneratebdlinkTask = /** @class */ (function () {
      * @param {number} i
      */
     GeneratebdlinkTask.prototype.checkMd5 = function (i) {
-        var _this = this;
         if (i >= this.fileInfoList.length) {
             this.onFinish(this.fileInfoList);
             return;
@@ -6309,29 +6153,36 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }
         this.onProcess(i, this.fileInfoList);
         this.onProgress(false, "极速生成中...");
-        createFileV2.call(this, file, function (data) {
-            data = data.response;
-            if (0 === data.errno)
-                _this.checkMd5(i + 1); // md5验证成功
-            else if (31190 === data.errno) {
-                // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
-                if (!_this.isSharePage)
-                    GM_setValue("unfinish", {
-                        file_info_list: _this.fileInfoList,
-                        file_id: i,
-                        isCheckMd5: true,
-                    });
-                _this.isSharePage ? _this.getShareDlink(i) : _this.getDlink(i);
-            }
-            else {
-                // 接口访问失败
-                file.errno = data.errno;
-                _this.checkMd5(i + 1);
-            }
-        }, function (statusCode) {
-            file.errno = statusCode;
-            _this.checkMd5(i + 1);
-        }, 0, true);
+        this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
+        // 23.4.27, 错误md5在文件上传者账号使用此接口正常转存, 在其他账号则报错#404, 导致生成秒传完全无法验证, 故弃用meta内的md5
+        // createFileV2.call(
+        //   this,
+        //   file,
+        //   (data: any) => {
+        //     data = data.response;
+        //     if (0 === data.errno) this.checkMd5(i + 1); // md5验证成功
+        //     else if (31190 === data.errno) {
+        //       // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+        //       if (!this.isSharePage)
+        //         GM_setValue("unfinish", {
+        //           file_info_list: this.fileInfoList,
+        //           file_id: i,
+        //           isCheckMd5: true,
+        //         });
+        //       this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
+        //     } else {
+        //       // 接口访问失败
+        //       file.errno = data.errno;
+        //       this.checkMd5(i + 1);
+        //     }
+        //   },
+        //   (statusCode: number) => {
+        //     file.errno = statusCode;
+        //     this.checkMd5(i + 1);
+        //   },
+        //   0,
+        //   true
+        // );
     };
     /**
      * @description: 用于解析度盘主页的文件列表数据
@@ -6381,6 +6232,161 @@ var GeneratebdlinkTask = /** @class */ (function () {
     return GeneratebdlinkTask;
 }());
 /* harmony default export */ const generatebdlinkTask = (GeneratebdlinkTask);
+
+;// CONCATENATED MODULE: ./src/baidu/common/rapiduploadTask.tsx
+/*
+ * @Author: mengzonefire
+ * @Date: 2021-08-25 01:30:29
+ * @LastEditTime: 2023-04-25 19:34:37
+ * @LastEditors: mengzonefire
+ * @Description: 百度网盘 秒传转存任务实现
+ */
+
+
+
+var RapiduploadTask = /** @class */ (function () {
+    function RapiduploadTask() {
+    }
+    RapiduploadTask.prototype.reset = function () {
+        this.bdstoken = getBdstoken();
+        console.log("bdstoken\u72B6\u6001: " + (this.bdstoken ? "获取成功" : "获取失败")); // debug
+        this.fileInfoList = [];
+        this.savePath = "";
+        this.isDefaultPath = false;
+        this.onFinish = function () { };
+        this.onProcess = function () { };
+    };
+    RapiduploadTask.prototype.start = function () {
+        this.saveFileV2(0);
+    };
+    /**
+     * @description: 转存秒传 接口2
+     * @param {number} i
+     */
+    RapiduploadTask.prototype.saveFileV2 = function (i) {
+        var _this = this;
+        if (i >= this.fileInfoList.length) {
+            this.onFinish(this.fileInfoList);
+            return;
+        }
+        this.onProcess(i, this.fileInfoList);
+        var file = this.fileInfoList[i];
+        // 文件名为空
+        if (file.path === "/") {
+            file.errno = -7;
+            this.saveFileV2(i + 1);
+            return;
+        }
+        var onFailed = function (statusCode) {
+            file.errno = statusCode;
+            _this.saveFileV2(i + 1);
+        };
+        createFileV2.call(this, file, function (data) {
+            data = data.response;
+            file.errno = 2 === data.errno ? 114 : data.errno;
+            file.errno = 31190 === file.errno ? 404 : file.errno;
+            _this.saveFileV2(i + 1);
+        }, onFailed);
+        // precreateFileV2.call(
+        //   this,
+        //   file,
+        //   (data: any) => {
+        //     data = data.response;
+        //     if (0 === data.errno) {
+        //       if (0 === data.block_list.length) {
+        //         this.createFileV2(
+        //           file,
+        //           (data) => {
+        //             data = data.response;
+        //             file.errno = 2 === data.errno ? 114 : data.errno;
+        //             file.errno = 31190 === file.errno ? 404 : file.errno;
+        //             this.saveFileV2(i + 1);
+        //           },
+        //           onFailed
+        //         );
+        //       } else {
+        //         file.errno = 404;
+        //         this.saveFileV2(i + 1);
+        //       }
+        //     } else {
+        //       file.errno = data.errno;
+        //       this.saveFileV2(i + 1);
+        //     }
+        //   },
+        //   onFailed
+        // );
+    };
+    return RapiduploadTask;
+}());
+/* harmony default export */ const rapiduploadTask = (RapiduploadTask);
+// 此接口测试结果如下: 错误md5->返回"errno": 31190, 正确md5+错误size->返回"errno": 2
+// 此外, 即使md5和size均正确, 连续请求时依旧有小概率返回"errno": 2, 故建议加入retry策略
+function createFileV2(file, onResponsed, onFailed, retry, isGen) {
+    var _this = this;
+    if (retry === void 0) { retry = 0; }
+    if (isGen === void 0) { isGen = false; }
+    ajax({
+        url: "" + create_url + (this.bdstoken ? "&bdstoken=" + this.bdstoken : ""),
+        method: "POST",
+        responseType: "json",
+        data: convertData({
+            block_list: JSON.stringify([file.md5.toLowerCase()]),
+            path: isGen
+                ? testPath
+                : this.savePath + file.path.replace(illegalPathPattern, "_"),
+            size: file.size,
+            isdir: 0,
+            rtype: isGen ? 3 : 0,
+            is_revision: isGen ? 1 : 0, // is_revision=0时, rtype=3会不生效 (会依旧返回重名报错), is_revision=1时则等同rtype=3效果
+        }),
+    }, function (data) {
+        // console.log(data.response); // debug
+        if (31039 === data.response.errno && 31039 != file.errno && !isGen) {
+            file.errno = 31039;
+            file.path = suffixChange(file.path);
+            createFileV2.call(_this, file, onResponsed, onFailed, retry, isGen);
+        }
+        else if (2 === data.response.errno && retry < retryMax_apiV2) {
+            // console.log(`转存接口错误, 重试${retry + 1}次: ${file.path}`); // debug
+            createFileV2.call(_this, file, onResponsed, onFailed, ++retry, isGen);
+        }
+        else
+            onResponsed(data);
+    }, onFailed);
+}
+// 此接口测试结果如下: 错误md5->返回block_list: [0], 正确md5+正确/错误size->返回block_list: []
+// 23.4.24测试发现此接口也不稳定, 有效md5也有20-30%概率返回block_list: [0], 建议加入retry策略
+// 23.4.25测试发现此接口反复横跳, 今天又全部返回block_list: [0], 垃圾, 我直接弃用
+// export function precreateFileV2(
+//   file: FileInfo,
+//   onResponsed: (data: any) => void,
+//   onFailed: (statusCode: number) => void,
+//   retry: number = 0
+// ): void {
+//   ajax(
+//     {
+//       url: `${precreate_url}${this.bdstoken && "&bdstoken=" + this.bdstoken}`, // bdstoken参数不能放在data里, 否则无效
+//       method: "POST",
+//       responseType: "json",
+//       data: convertData({
+//         block_list: JSON.stringify([file.md5.toLowerCase()]),
+//         path: this.savePath + file.path.replace(illegalPathPattern, "_"),
+//         size: file.size,
+//         isdir: 0,
+//         autoinit: 1,
+//       }),
+//     },
+//     (data) => {
+//       let _data = data.response;
+//       if (0 === _data.errno) {
+//         if (0 != _data.block_list.length && retry < retryMax_apiV2)
+//           precreateFileV2.call(this, file, onResponsed, onFailed, ++retry);
+//         else onResponsed(data);
+//       } else onResponsed(data);
+//     },
+//     onFailed
+//   );
+// }
 
 ;// CONCATENATED MODULE: ./src/baidu/common/const.tsx
 /*

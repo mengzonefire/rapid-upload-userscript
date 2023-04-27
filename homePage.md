@@ -2,8 +2,10 @@
 
 ## 近期通知
 
+- 23.4.27: 23.4.25发布的 <span style="color: red;">2.7.3, 2.7.4</span> 这两个版本会生成错误的秒传, 错误秒传在<span style="color: red;">文件上传者账号</span>正常转存, 但在其他的账号会报错 <span style="color: red;">秒传未生效#404</span>
+  - 出现此问题请更新 <span style="color: red;">2.7.5</span> 以上版本重新生成秒传
+
 - 23.4.25: 转存秒传提示 <span style="color: red">#404</span> 请 <span style="color: red">更新2.7.4版本</span> (更新完**刷新一下度盘页面生效**, 若无效请**删除脚本重新安装**)
-  - <span style="color: red">2.7.3版本</span>由于代码疏忽, 生成秒传功能会生成错误的秒传 (转存会报错#404), 使用该版本生成的用户请更新到2.7.4重新生成
 
 - 23.3.24: 提供一个简易的分享链生成秒传的后端: <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/shareLink2bdLink)
 
