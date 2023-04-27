@@ -4,6 +4,7 @@
 
 - 23.4.27: 23.4.25发布的 <span style="color: red;">2.7.3, 2.7.4</span> 这两个版本会生成错误的秒传, 错误秒传在<span style="color: red;">文件上传者账号</span>正常转存, 但在其他的账号会报错 <span style="color: red;">秒传未生效#404</span>
   - 出现此问题请更新 <span style="color: red;">2.7.5</span> 以上版本重新生成秒传
+  - 关闭极速生成生成的完整版秒传则不受上述影响, 例如: d5aabefc3290f7a3c09912228b136d0c#821a9f0d27fcd19c80474d2140ed2d85#6467659#test.exe
 
 - 23.4.25: 转存秒传提示 <span style="color: red">#404</span> 请 <span style="color: red">更新2.7.4版本</span> (更新完**刷新一下度盘页面生效**, 若无效请**删除脚本重新安装**)
 
@@ -47,7 +48,7 @@
 
 ## 脚本说明
 
-- 秒传链接是一种通过模拟网盘自带秒传功能实现的文件分享方式(**非官方**), 其优点是可以**永久**保证分享有效性(在官方不限制秒传功能前提下), 且链接内不包含账号信息, 注意, 使用秒传链接分享文件**并没有**任何加速下载的效果.
+- 秒传链接是一种通过模拟网盘自带秒传功能实现的文件分享方式(**非官方**), 其优点是可以**永久**保证分享有效性(在官方不限制秒传功能前提下), 且链接内不包含账号信息, 注意, 使用秒传链接分享文件**并没有**任何加速下载的效果, 且**无法取消分享**
 
 - 参考了初版秒传脚本 [仓库用度盘投稿助手](https://greasyfork.org/zh-CN/scripts/3285) 进行开发, 脚本源码托管在 <img src="https://github.githubassets.com/favicons/favicon.png" width='16'>[GitHub](https://github.com/mengzonefire/rapid-upload-userscript)
 
