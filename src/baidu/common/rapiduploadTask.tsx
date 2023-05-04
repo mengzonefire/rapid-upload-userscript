@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:30:29
- * @LastEditTime: 2023-04-25 19:34:37
+ * @LastEditTime: 2023-05-04 18:09:10
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传转存任务实现
  */
@@ -115,7 +115,9 @@ export function createFileV2(
       method: "POST",
       responseType: "json",
       data: convertData({
-        block_list: JSON.stringify([file.md5.toLowerCase()]),
+        block_list: JSON.stringify([
+          isGen ? file.md5.toUpperCase() : file.md5.toLowerCase(),
+        ]),
         path: isGen
           ? testPath
           : this.savePath + file.path.replace(illegalPathPattern, "_"),

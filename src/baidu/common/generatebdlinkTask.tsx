@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-04-27 18:22:28
+ * @LastEditTime: 2023-05-04 18:25:19
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -30,6 +30,7 @@ import {
 } from "./const";
 // import { createFileV2 } from "./rapiduploadTask";
 import SparkMD5 from "spark-md5";
+import { createFileV2 } from "./rapiduploadTask";
 
 // 普通生成:
 export default class GeneratebdlinkTask {
@@ -468,37 +469,40 @@ export default class GeneratebdlinkTask {
     }
     this.onProcess(i, this.fileInfoList);
     this.onProgress(false, "极速生成中...");
-    this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
-    // 23.4.27, 错误md5在文件上传者账号使用此接口正常转存, 在其他账号则报错#404, 导致生成秒传完全无法验证, 故弃用meta内的md5
-    
-    // createFileV2.call(
-    //   this,
-    //   file,
-    //   (data: any) => {
-    //     data = data.response;
-    //     if (0 === data.errno) this.checkMd5(i + 1); // md5验证成功
-    //     else if (31190 === data.errno) {
-    //       // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
-    //       if (!this.isSharePage)
-    //         GM_setValue("unfinish", {
-    //           file_info_list: this.fileInfoList,
-    //           file_id: i,
-    //           isCheckMd5: true,
-    //         });
-    //       this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
-    //     } else {
-    //       // 接口访问失败
-    //       file.errno = data.errno;
-    //       this.checkMd5(i + 1);
-    //     }
-    //   },
-    //   (statusCode: number) => {
-    //     file.errno = statusCode;
-    //     this.checkMd5(i + 1);
-    //   },
-    //   0,
-    //   true
-    // );
+    // this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
+    // 23.4.27: 错误md5在文件上传者账号使用此接口正常转存, 在其他账号则报错#404(#31190), 导致生成秒传完全无法验证, 故弃用meta内的md5
+    // 23.5.4: 发现错误md5只要改成大写, 在上传者账号就能正常返回#31190, 而正确md5则大小写都能正常转存, 故重新启用此验证过程
+    // 主要是因为频繁请求直链接口获取正确md5会导致#9019错误(即账号被限制), 对大批量生成秒传有很大影响, 极速生成功能使用此验证则可以节约请求以避免此问题
+    // 为避免百度后面又改接口导致生成错误秒传问题, 这个接口特性我会写个定时脚本每天测试一次, 出了问题就能即使更新
+    // 目前发现是通过秒传拿到的文件再生成秒传不会有这问题, 上传的文件或通过分享转存的别人上传的文件则会有
+    createFileV2.call(
+      this,
+      file,
+      (data: any) => {
+        data = data.response;
+        if (0 === data.errno) this.checkMd5(i + 1); // md5验证成功
+        else if (31190 === data.errno) {
+          // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
+          if (!this.isSharePage)
+            GM_setValue("unfinish", {
+              file_info_list: this.fileInfoList,
+              file_id: i,
+              isCheckMd5: true,
+            });
+          this.isSharePage ? this.getShareDlink(i) : this.getDlink(i);
+        } else {
+          // 接口访问失败
+          file.errno = data.errno;
+          this.checkMd5(i + 1);
+        }
+      },
+      (statusCode: number) => {
+        file.errno = statusCode;
+        this.checkMd5(i + 1);
+      },
+      0,
+      true
+    );
   }
 
   /**

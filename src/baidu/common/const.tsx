@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2022-10-20 10:36:43
- * @LastEditTime: 2023-04-25 19:03:22
+ * @LastEditTime: 2023-05-04 12:43:06
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
@@ -58,6 +58,7 @@ export function baiduErrno(errno: number) {
       return "验证已过期, 请刷新页面";
     case 400:
       return `请求错误(请看文档:<a href="${doc.shareDoc}#请求错误-400" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#请求错误-400" ${linkStyle}>载点2</a>)`;
+    case 9019:
     case 403:
       return `接口限制访问(请看文档:<a href="${doc.shareDoc}#接口限制访问-403" ${linkStyle}>载点1</a> <a href="${doc2.shareDoc}#接口限制访问-403" ${linkStyle}>载点2</a>)`;
     case 404:
