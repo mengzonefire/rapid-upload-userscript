@@ -1,7 +1,7 @@
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-05-15 11:27:51
+ * @LastEditTime: 2023-05-15 16:50:55
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -130,6 +130,7 @@ export default class GeneratebdlinkTask {
       (statusCode) => {
         this.fileInfoList.push({
           path: this.dirList[i],
+          isdir: 1,
           errno: statusCode,
         });
         this.scanShareFile(i + 1);
@@ -185,6 +186,7 @@ export default class GeneratebdlinkTask {
       (statusCode) => {
         this.fileInfoList.push({
           path: this.dirList[i],
+          isdir: 1,
           errno: statusCode,
         });
         this.scanFile(i + 1);

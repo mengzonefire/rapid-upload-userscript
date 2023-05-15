@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.7
+// @version         2.7.8
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4836,11 +4836,11 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-05-15 11:29:05
+ * @LastEditTime: 2023-05-15 16:53:31
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.7"; // 当前版本号
+var version = "2.7.8"; // 当前版本号
 var updateDate = "23.5.15"; // 更新弹窗显示的日期
 var updateInfoVer = "2.7.5"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
@@ -5898,7 +5898,7 @@ function createFileV2(file, onResponsed, onFailed, retry, isGen) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-05-15 11:27:51
+ * @LastEditTime: 2023-05-15 16:50:55
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -5989,6 +5989,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }, function (statusCode) {
             _this.fileInfoList.push({
                 path: _this.dirList[i],
+                isdir: 1,
                 errno: statusCode,
             });
             _this.scanShareFile(i + 1);
@@ -6041,6 +6042,7 @@ var GeneratebdlinkTask = /** @class */ (function () {
         }, function (statusCode) {
             _this.fileInfoList.push({
                 path: _this.dirList[i],
+                isdir: 1,
                 errno: statusCode,
             });
             _this.scanFile(i + 1);
