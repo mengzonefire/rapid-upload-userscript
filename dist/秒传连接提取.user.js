@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name            秒传链接提取
-// @version         2.7.6
+// @version         2.7.7
 // @author          mengzonefire
 // @description     用于提取和生成百度网盘秒传链接
 // @homepage        https://greasyfork.org/zh-CN/scripts/424574
@@ -4836,12 +4836,12 @@ var css_app_default = /*#__PURE__*/__webpack_require__.n(css_app);
 /*
  * @Author: mengzonefire
  * @Date: 2021-07-23 17:41:28
- * @LastEditTime: 2023-05-04 18:10:24
+ * @LastEditTime: 2023-05-15 11:29:05
  * @LastEditors: mengzonefire
  * @Description: 存放各种全局常量对象
  */
-var version = "2.7.6"; // 当前版本号
-var updateDate = "23.5.4"; // 更新弹窗显示的日期
+var version = "2.7.7"; // 当前版本号
+var updateDate = "23.5.15"; // 更新弹窗显示的日期
 var updateInfoVer = "2.7.5"; // 更新弹窗的版本, 没必要提示的非功能性更新就不弹窗了
 var swalCssVer = "1.7.4"; // 由于其他主题的Css代码会缓存到本地, 故更新主题包版本(url)时, 需要同时更新该字段以刷新缓存
 var donateVer = "2.6.4"; // 用于检测可关闭的赞助提示的版本号
@@ -5898,7 +5898,7 @@ function createFileV2(file, onResponsed, onFailed, retry, isGen) {
 /*
  * @Author: mengzonefire
  * @Date: 2021-08-25 01:31:01
- * @LastEditTime: 2023-05-04 18:25:19
+ * @LastEditTime: 2023-05-15 11:27:51
  * @LastEditors: mengzonefire
  * @Description: 百度网盘 秒传生成任务实现
  */
@@ -6316,11 +6316,12 @@ var GeneratebdlinkTask = /** @class */ (function () {
         // 23.4.27: 错误md5在文件上传者账号使用此接口正常转存, 在其他账号则报错#404(#31190), 导致生成秒传完全无法验证, 故弃用meta内的md5
         // 23.5.4: 发现错误md5只要改成大写, 在上传者账号就能正常返回#31190, 而正确md5则大小写都能正常转存, 故重新启用此验证过程
         // 主要是因为频繁请求直链接口获取正确md5会导致#9019错误(即账号被限制), 对大批量生成秒传有很大影响, 极速生成功能使用此验证则可以节约请求以避免此问题
-        // 为避免百度后面又改接口导致生成错误秒传问题, 这个接口特性我会写个定时脚本每天测试一次, 出了问题就能即使更新
-        // 目前发现是通过秒传拿到的文件再生成秒传不会有这问题, 上传的文件或通过分享转存的别人上传的文件则会有
+        // 23.5.15: 错误md5问题的原理: 通过网页端上传大文件(分片上传)发现, list接口的错误md5仅在上传完成后24h内有效, 且多次上传相同的文件时, 得到的错误md5也相同
+        // 故猜测此错误md5实际对应block_list(分片md5列表), 用于在服务端计算出文件完整md5前临时代替使用
         createFileV2.call(this, file, function (data) {
             data = data.response;
-            if (0 === data.errno)
+            // errno=-10即网盘容量已满, 由于31190(秒传无效)的优先级高于-10, 所以验证md5时此错误可视为验证成功
+            if ([0, -10].includes(data.errno))
                 _this.checkMd5(i + 1); // md5验证成功
             else if (31190 === data.errno) {
                 // md5验证失败, 执行普通生成, 仅在此处保存任务进度, 生成页不保存进度
